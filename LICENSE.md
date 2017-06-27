@@ -1,4 +1,4 @@
-Eclipse Distribution License - v 1.0
+# Eclipse Distribution License - v 1.0
 
 Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.
 
