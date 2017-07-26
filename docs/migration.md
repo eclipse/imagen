@@ -60,56 +60,107 @@ Here is the sample approach used with raster processing engine library:
       */
      FileSeekableStream fileSeekableStream = new FileSeekableStream(args[0]);
      
-     /* Create an operator to decode the image file. */
+     /* Create an operation to decode the image file. */
      Operation image1 = ImageRead.stream(fileSeekableStream);
 
-     /*
-      * Create a scale, with parameters defined using literate api
-      */
+     /* Create operation to scale image1, with interpolation hint. */
      Operation image2 = Affine.source(image1)
                               .scale(2.0F,2.0F)
                               .interpolation(Interpolation.BILINEAR).create();
      
-     /*
-      * Get the width and height of image2.
-      * (properties follow java bean naming conventions).
-      */
+     /* Get the width and height of image2. */
      int width = image2.getWidth();
      int height = image2.getHeight();
       
-     /*
-      * Attach image2 to a scrolling panel to be displayed.
-      */
+     /* Attach image2 to a scrolling panel to be displayed. */
      ScrollingImagePanel panel = new ScrollingImagePanel(image2, width, height);
                                      
-     /*
-      * Create a frame to contain the panel.
-      */
+     /* Create a frame to contain the panel. */
      Frame window = new Frame(“RPE Sample Program”);
      window.add(panel);
      window.pack();
      window.show();
      
-Notes:
+Usage Notes:
 
+- parameter are required to be matched during operation lookup, hints are not required
 - interpolation is always a hint and never a parameter
 - example: scale, warp and a translate.
 
-Options:
+## Design Background
 
+Three reference designs were considered:
 
+* Option 1 "Parameter Blocks": Use of a late binding approach, as favoured by JAI Parameter Blocks. This solution could be improved on by using explicit Parameter Block subclasses providing methods, keys and java docs for programmer ease of use.
 
-     image2 = REP.scale(2.0F,2.0F)..interpolation(Interpolation.BILINEAR);      
-     image2 = RPE.scale(2.0F,2.0F,0.0F,0.0F).interpolate(Interpolation.BILINEAR).hint("layout", param );
-     image4 = RPE.scale(2.0F,2.0F);
-     image2 = RPE.image2.translate(0.0F,0.0F).interpolation(Interpolation.BILINEAR);
+* Option 2 "Descriptors": Use of early binding approach, defining a descriptor with a create method (responsible for assembling a parameter block and performing implementation lookup).
+  
+  We have run into the limitations of this approach during the JAI-EXT project where adding an optional parameter for "region of interest" could not be supported.
+  
+* Option 3 "SLD Builder Approach": The GeoTools SLD Builder provides a self documenting literate api by returning a data structure specific builder at each level of the tree.
+  
+  This approach, while promising, could not easily account for multiple source operations and multiple output operations in an operation chain. Attempts to address this by providing "pop" methods to adjust the builder stack looked too complicated as code examples.
 
-     image4 = RPE.scale( Interpolation.BILINEAR).scale(2.0F,2.0F).hint("layout",param);
-     image4 = RPE.scale( "interpolate",Interpolation.BILINEAR, "layout",param).scale(2.0F,2.0F);
-     // option 1 - param blocks - late binding approach
-     // option 2 - descriptor with create method - early blinding approach parameters and then hint at the end. Unable to add extra parameters to them.
-     // descriptor like but have building approach for each one, with open ended hint method
-     // hint( Enum ) --> hint ("interpolation", Interpolation.BILENEAR);
+Design notes:
+
+- Affine.source is a static method, returning an Affine OperationBuilder which uses a literate API to assemble parameters and hints in a programmer friendly fashion with methods and javadocs. Affine.create() looks up the appropriate implementation.
+
+        Operation image2 = Affine.source(image1).scale(2.0F,2.0F).create();
+
+- The design of GeoTools ImageWorker was referenced, which offers a method with documented parameters for each operation lookup. The literate API provides greater flexibility and extendible if additional parameters are required at a future date and skip parameters that were unused.
+
+        image2 = imageWorker.scale(2.0F,2.0F,0.0F,0.0F,Interpolation.BILINEAR).create();
+  
+- The set of parameters is open ended and additional parameter are expected to be added over time - similar to how a "region of interest" parameter was added for the JAI-EXT project to denote no-data areas.
+
+  Operation image2 = Affine.source(image1).scale(2.0F,2.0F).roi( roi ).create();
+
+- The set of hints is open ended and additional hints are expected to be added over time.     
+  
+        image2 = Affine.scale(2.0F,2.0F).hint("layout", param ).create();
+  
+- As a consequence the Affine class is "syntactic sugar" for its parent "OperationBuilder" class which provides parameter and hint methods.
+  
+  An identical operation lookup can be performed using:
+       
+         AffineTransform affine = new AffineTransform();
+         affine.setToScale(2.0F,2.0F);
+         Operation image2 = new OperationBuilder().source(image1).
+                                                  .parameter( "affine", affine )
+                                                  .hint(Interpolation.KEY,Interpolation.BILINEAR)
+                                                  .create();
+
+- We are using distinct OperationBuilder subclasses, such as Affine, rather than a single facade class to improve readability.
+  
+  Incorrect:
+
+         image2 = REP.scale(2.0F,2.0F).interpolation(Interpolation.BILINEAR).create();
      
-     // option 3 - sld build approach 
+  Correct:
+  
+         image2 = Affine.scale(2.0F,2.0F).interpolation(Interpolation.BILINEAR).create();
+
+- We considered using lazy lookup of a delegate operation, allowing an operation to collect parameters and look up the implementation to use on first use. The result had too many possibility for concurrency issues to justify.
+
+  Incorrect:
+  
+         image2 = REP.scale(2.0F,2.0F).interpolation(Interpolation.BILINEAR).create();
+
+Open design questions:
+
+- The use of strongly typed keys for hints and parameters is useful as an additional safety, providing opportunities dynamically document available settings and validate hint and parameter settings.
+  
+  The impact on ease of use in comparison to Strings and the use of String constants is still under consideration.
+
+- It is tempting to make the API easier to use for enumerated values as Interpolation by assuming the hint key.
+  
+  Example:
+  
+         image2 = Affine.scale(2.0F,2.0F).hint(Interpolation.BILINEAR).create();
+  
+  Assumes the hint Enumeration.KEY (determined using reflection) as shown below:
      
+         Operation image2 = new OperationBuilder().source(image1).
+                                                  .parameter( "affine", affine )
+                                                  .hint(Interpolation.KEY,Interpolation.BILINEAR)
+                                                  .create();
