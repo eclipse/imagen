@@ -113,11 +113,11 @@ Design notes:
   
 - The set of parameters is open ended and additional parameter are expected to be added over time - similar to how a "region of interest" parameter was added for the JAI-EXT project to denote no-data areas.
 
-  Operation image2 = Affine.source(image1).scale(2.0F,2.0F).roi( roi ).create();
+        Operation image2 = Affine.source(image1).scale(2.0F,2.0F).roi( roi ).create();
 
 - The set of hints is open ended and additional hints are expected to be added over time.     
   
-        image2 = Affine.scale(2.0F,2.0F).hint("layout", param ).create();
+        image2 = Affine.source(image1).scale(2.0F,2.0F).hint("layout", param ).create();
   
 - As a consequence the Affine class is "syntactic sugar" for its parent "OperationBuilder" class which provides parameter and hint methods.
   
