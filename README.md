@@ -1,5 +1,7 @@
 # Raster Processing Engine
 
+Jan 23/2018: This project has been ARCHIVED, and is no longer active.
+
 Welcome, this is a new project creating:
 
 * New modern Java API
