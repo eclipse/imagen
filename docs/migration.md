@@ -93,6 +93,28 @@ Three reference designs were considered:
 
 * Option 1 "Parameter Blocks": Use of a late binding approach, as favoured by JAI Parameter Blocks. This solution could be improved on by using explicit Parameter Block subclasses providing methods, keys and java docs for programmer ease of use.
 
+         ParameterBlock paramBlock = new ParameterBlock();
+         paramBlock.setSource(image1, 0);
+         paramBlock.add(2.0F);
+         paramBlock.add(2.0F);
+         paramBlock.add(0.0F);
+         paramBlock.add(0.0F);
+         paramBlock.add(interpolation)         
+         image2 = JAI.create("Scale", paramBlock);
+  
+  While some facade methods have been added for ease of use the result is not extendable:
+
+         AffineTransform transform = AffineTransform.getScaleInstance(2.0F,2.0F);
+         Interpolation interpolation = new InterpolationNearest();
+         image2 = JAI.create("affine", image1, transform, interpolation);
+
+  The design of GeoTools ImageWorker was referenced, which offers a methods with documented parameters for the construction of a parameter block and subsequent operation lookup. This approach helped, but was not extendible if additional parameters are required at a future date and had no ability to skip unused parameters (such as the rotate 0.0F and 0.0F arguments shown below).
+
+        ImageWorker imageWorker = new ImageWorker(image1);
+        imageWorker.setRenderingHints(hints);
+        imageWorker.scale(2.0F,2.0F,0.0F,0.0F,Interpolation.BILINEAR);
+        RenderedImage image3 = imageWorker.getRenderedImage();
+
 * Option 2 "Descriptors": Use of early binding approach, defining a descriptor with a create method (responsible for assembling a parameter block and performing implementation lookup).
   
   We have run into the limitations of this approach during the JAI-EXT project where adding an optional parameter for "region of interest" could not be supported.
@@ -106,10 +128,6 @@ Design notes:
 - Affine.source is a static method, returning an Affine OperationBuilder which uses a literate API to assemble parameters and hints in a programmer friendly fashion with methods and javadocs. Affine.create() looks up the appropriate implementation.
 
         Operation image2 = Affine.source(image1).scale(2.0F,2.0F).create();
-
-- The design of GeoTools ImageWorker was referenced, which offers a method with documented parameters for each operation lookup. The literate API provides greater flexibility and extendible if additional parameters are required at a future date and skip parameters that were unused.
-
-        image2 = imageWorker.scale(2.0F,2.0F,0.0F,0.0F,Interpolation.BILINEAR).create();
   
 - The set of parameters is open ended and additional parameter are expected to be added over time - similar to how a "region of interest" parameter was added for the JAI-EXT project to denote no-data areas.
 
