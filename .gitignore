@@ -1,0 +1,14 @@
+.idea
+*.iml
+target
+.classpath
+.project
+.settings
+.externalToolBuilders
+build
+*.class
+*.log
+*.jar
+*.zip
+hs_err_pid*
+workspace
