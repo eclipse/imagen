@@ -3,6 +3,8 @@ package org.locationtech.rpe;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 
+import it.geosolutions.jaiext.affine.AffineDescriptor;
+
 // I need core parameter blocks
 public class Affine extends OperationBuilder {
     private AffineTransform transformation = new AffineTransform();
@@ -32,6 +34,9 @@ public class Affine extends OperationBuilder {
     }
 
     RenderedImage build() {
+    		AffineDescriptor descriptor = new AffineDescriptor();
+        descriptor.isRenderableSupported();
+        
         return null;
     }
 }

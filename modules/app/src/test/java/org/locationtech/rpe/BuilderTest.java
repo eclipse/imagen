@@ -23,11 +23,12 @@ class BuilderTest {
 
     @Test
     void testBuilder() {
-        new Affine()
+    	   RenderedImage affine = new Affine()
             .scale(3,9)
             .rotate(1,2)
             .rotate(2,4)
             .build();
+    	   
     }
 
     @Test
