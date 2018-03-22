@@ -2,7 +2,7 @@
  * Raster Processing Engine (RPE) is an open source Java library for working
  * with raster and image data. Raster processing engine is designed to stage
  * tiles of raster data into memory for use by a processing chain.
- * </p>
+ * <p>
  * Responsibilities include:
  * </p>
  * <ul>

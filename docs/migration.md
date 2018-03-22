@@ -6,86 +6,89 @@ Raster Processing Engine offers a migration path for developers using the Java A
 
 Here is "A Simple JAI Program" from Programming in Java Advanced Imaging (1999 Sun Microsystems, Inc.):
 
-     /*
-      * Create an input stream from the specified file name
-      * to be used with the file decoding operator.
-      */
-     FileSeekableStream stream = null;
-     stream = new FileSeekableStream(args[0]);
-     
-     /* Create an operator to decode the image file. */
-     RenderedOp image1 = JAI.create(“stream”, stream);
-     
-     /*
-      * Create a standard bilinear interpolation object to be * used with the “scale” operator.
-      */
-     Interpolation interp = Interpolation.getInstance( Interpolation.INTERP_BILINEAR);
+```java
+/*
+* Create an input stream from the specified file name
+* to be used with the file decoding operator.
+*/
+FileSeekableStream stream = null;
+stream = new FileSeekableStream(args[0]);
 
-     /**
-      * Stores the required input source and parameters in a
-      * ParameterBlock to be sent to the operation registry,
-      * and eventually to the “scale” operator.
-      */
-     ParameterBlock params = new ParameterBlock();
-     params.addSource(image1);
-     params.add(2.0F); // x scale factor
-     params.add(2.0F); // y scale factor
-     params.add(0.0F); // x translate
-     params.add(0.0F); // y translate
-     params.add(interp); // interpolation method
-     
-     /* Create an operator to scale image1. */
-     RenderedOp image2 = JAI.create(“scale”, params);
-     
-     /* Get the width and height of image2. */
-     int width = image2.getWidth();
-     int height = image2.getHeight();
-      
-     /* Attach image2 to a scrolling panel to be displayed. */
-     ScrollingImagePanel panel = new ScrollingImagePanel(image2, width, height);
-                                     
-     /* Create a frame to contain the panel. */
-     Frame window = new Frame(“JAI Sample Program”);
-     window.add(panel);
-     window.pack();
-     window.show();
-     
+/* Create an operator to decode the image file. */
+RenderedOp image1 = JAI.create(“stream”, stream);
+
+/*
+* Create a standard bilinear interpolation object to be * used with the “scale” operator.
+*/
+Interpolation interp = Interpolation.getInstance( Interpolation.INTERP_BILINEAR);
+
+/**
+* Stores the required input source and parameters in a
+* ParameterBlock to be sent to the operation registry,
+* and eventually to the “scale” operator.
+*/
+ParameterBlock params = new ParameterBlock();
+params.addSource(image1);
+params.add(2.0F); // x scale factor
+params.add(2.0F); // y scale factor
+params.add(0.0F); // x translate
+params.add(0.0F); // y translate
+params.add(interp); // interpolation method
+
+/* Create an operator to scale image1. */
+RenderedOp image2 = JAI.create(“scale”, params);
+
+/* Get the width and height of image2. */
+int width = image2.getWidth();
+int height = image2.getHeight();
+
+/* Attach image2 to a scrolling panel to be displayed. */
+ScrollingImagePanel panel = new ScrollingImagePanel(image2, width, height);
+                                
+/* Create a frame to contain the panel. */
+Frame window = new Frame(“JAI Sample Program”);
+window.add(panel);
+window.pack();
+window.show();
+```
+
 Raster Processing Engine also offers a facade class providing high level access to library functionality. Use of literate programming reduces the need for untyped API contracts (such as parameter blocks).
 
 Here is the sample approach used with raster processing engine library:
 
-     /*
-      * Create an input stream from the specified file name
-      * to be used with the file decoding operator.
-      */
-     FileSeekableStream fileSeekableStream = new FileSeekableStream(args[0]);
-     
-     /* Create an operation to decode the image file. */
-     Operation image1 = ImageRead.stream(fileSeekableStream);
+```java
+/*
+* Create an input stream from the specified file name
+* to be used with the file decoding operator.
+*/
+FileSeekableStream fileSeekableStream = new FileSeekableStream(args[0]);
 
-     /* Create operation to scale image1, with interpolation hint. */
-     Operation image2 = Affine.source(image1)
-                              .scale(2.0F,2.0F)
-                              .interpolation(Interpolation.BILINEAR).create();
-     
-     /* Get the width and height of image2. */
-     int width = image2.getWidth();
-     int height = image2.getHeight();
-      
-     /* Attach image2 to a scrolling panel to be displayed. */
-     ScrollingImagePanel panel = new ScrollingImagePanel(image2, width, height);
-                                     
-     /* Create a frame to contain the panel. */
-     Frame window = new Frame(“RPE Sample Program”);
-     window.add(panel);
-     window.pack();
-     window.show();
-     
+/* Create an operation to decode the image file. */
+Operation image1 = ImageRead.stream(fileSeekableStream);
+
+/* Create operation to scale image1, with interpolation hint. */
+Operation image2 = Affine.source(image1)
+                        .scale(2.0F,2.0F)
+                        .interpolation(Interpolation.BILINEAR).create();
+
+/* Get the width and height of image2. */
+int width = image2.getWidth();
+int height = image2.getHeight();
+
+/* Attach image2 to a scrolling panel to be displayed. */
+ScrollingImagePanel panel = new ScrollingImagePanel(image2, width, height);
+                                
+/* Create a frame to contain the panel. */
+Frame window = new Frame(“RPE Sample Program”);
+window.add(panel);
+window.pack();
+window.show();
+```
 Usage Notes:
 
 - parameter are required to be matched during operation lookup, hints are not required
 - interpolation is always a hint and never a parameter
-- example: scale, warp and a translate.
+- example: scale, warp and a tr****anslate.
 
 ## Design Background
 
@@ -93,27 +96,33 @@ Three reference designs were considered:
 
 * Option 1 "Parameter Blocks": Use of a late binding approach, as favoured by JAI Parameter Blocks. This solution could be improved on by using explicit Parameter Block subclasses providing methods, keys and java docs for programmer ease of use.
 
-         ParameterBlock paramBlock = new ParameterBlock();
-         paramBlock.setSource(image1, 0);
-         paramBlock.add(2.0F);
-         paramBlock.add(2.0F);
-         paramBlock.add(0.0F);
-         paramBlock.add(0.0F);
-         paramBlock.add(interpolation)         
-         image2 = JAI.create("Scale", paramBlock);
-  
+```java
+ParameterBlock paramBlock = new ParameterBlock();
+paramBlock.setSource(image1, 0);
+paramBlock.add(2.0F);
+paramBlock.add(2.0F);
+paramBlock.add(0.0F);
+paramBlock.add(0.0F);
+paramBlock.add(interpolation)         
+image2 = JAI.create("Scale", paramBlock);
+```
+
   While some facade methods have been added for ease of use the result is not extendable:
 
-         AffineTransform transform = AffineTransform.getScaleInstance(2.0F,2.0F);
-         Interpolation interpolation = new InterpolationNearest();
-         image2 = JAI.create("affine", image1, transform, interpolation);
+```java
+AffineTransform transform = AffineTransform.getScaleInstance(2.0F,2.0F);
+Interpolation interpolation = new InterpolationNearest();
+image2 = JAI.create("affine", image1, transform, interpolation);
+```
 
   The design of GeoTools ImageWorker was referenced, which offers a methods with documented parameters for the construction of a parameter block and subsequent operation lookup. This approach helped, but was not extendible if additional parameters are required at a future date and had no ability to skip unused parameters (such as the rotate 0.0F and 0.0F arguments shown below).
 
-        ImageWorker imageWorker = new ImageWorker(image1);
-        imageWorker.setRenderingHints(hints);
-        imageWorker.scale(2.0F,2.0F,0.0F,0.0F,Interpolation.BILINEAR);
-        RenderedImage image3 = imageWorker.getRenderedImage();
+```java
+ImageWorker imageWorker = new ImageWorker(image1);
+imageWorker.setRenderingHints(hints);
+imageWorker.scale(2.0F,2.0F,0.0F,0.0F,Interpolation.BILINEAR);
+RenderedImage image3 = imageWorker.getRenderedImage();
+```
 
 * Option 2 "Descriptors": Use of early binding approach, defining a descriptor with a create method (responsible for assembling a parameter block and performing implementation lookup).
   
@@ -141,28 +150,34 @@ Design notes:
   
   An identical operation lookup can be performed using:
        
-         AffineTransform affine = new AffineTransform();
-         affine.setToScale(2.0F,2.0F);
-         Operation image2 = new OperationBuilder().source(image1).
-                                                  .parameter( "affine", affine )
-                                                  .hint(Interpolation.KEY,Interpolation.BILINEAR)
-                                                  .create();
+```java       
+AffineTransform affine = new AffineTransform();
+affine.setToScale(2.0F,2.0F);
+Operation image2 = new OperationBuilder().source(image1).
+                                        .parameter( "affine", affine )
+                                        .hint(Interpolation.KEY,Interpolation.BILINEAR)
+                                        .create();
+```
 
 - We are using distinct OperationBuilder subclasses, such as Affine, rather than a single facade class to improve readability.
   
   Incorrect:
+```java
+image2 = REP.scale(2.0F,2.0F).interpolation(Interpolation.BILINEAR).create();
+```
 
-         image2 = REP.scale(2.0F,2.0F).interpolation(Interpolation.BILINEAR).create();
-     
   Correct:
-  
-         image2 = Affine.scale(2.0F,2.0F).interpolation(Interpolation.BILINEAR).create();
+```java
+image2 = Affine.scale(2.0F,2.0F).interpolation(Interpolation.BILINEAR).create();
+```
 
 - We considered using lazy lookup of a delegate operation, allowing an operation to collect parameters and look up the implementation to use on first use. The result had too many possibility for concurrency issues to justify.
 
   Incorrect:
   
-         image2 = REP.scale(2.0F,2.0F).interpolation(Interpolation.BILINEAR).create();
+```java
+image2 = REP.scale(2.0F,2.0F).interpolation(Interpolation.BILINEAR).create();
+```
 
 Open design questions:
 
@@ -174,11 +189,14 @@ Open design questions:
   
   Example:
   
-         image2 = Affine.scale(2.0F,2.0F).hint(Interpolation.BILINEAR).create();
+```java
+image2 = Affine.scale(2.0F,2.0F).hint(Interpolation.BILINEAR).create();
+```
   
   Assumes the hint Enumeration.KEY (determined using reflection) as shown below:
-     
-         Operation image2 = new OperationBuilder().source(image1).
-                                                  .parameter( "affine", affine )
-                                                  .hint(Interpolation.KEY,Interpolation.BILINEAR)
-                                                  .create();
+```java  
+Operation image2 = new OperationBuilder().source(image1).
+                                        .parameter( "affine", affine )
+                                        .hint(Interpolation.KEY,Interpolation.BILINEAR)
+                                        .create();
+```
