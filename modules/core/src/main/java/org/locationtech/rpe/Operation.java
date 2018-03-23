@@ -3,12 +3,20 @@ package org.locationtech.rpe;
 import java.awt.image.RenderedImage;
 
 public abstract class Operation {
+	final private String name;
+
+	protected Operation(String name) {
+		this.name = name;
+	}
+
 	/**
 	 * Name of operation implemented by factory.
 	 * 
 	 * @return name of operation
 	 */
-	abstract public String getName();
+	public String getName() {
+		return name;
+	}
 
 	/**
 	 * Create RenderedImage using named operation
@@ -17,6 +25,6 @@ public abstract class Operation {
 	 *            OperationBuilder, must match factory name
 	 * @return RenderedImage
 	 */
-	abstract RenderedImage create(OperationBuilder builder);
+	public abstract RenderedImage create(OperationBuilder builder);
 
 }

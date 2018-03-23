@@ -12,6 +12,7 @@ import java.awt.RenderingHints;
  * 
  */
 import java.awt.image.RenderedImage;
+import java.util.Collections;
 import java.util.Map;
 
 public class OperationBuilder {
@@ -101,5 +102,9 @@ public class OperationBuilder {
 
 	public String getName() {
 		return name;
+	}
+	
+	public Map<String, Object> getParameters() {
+		return Collections.unmodifiableMap(parameters);
 	}
 }
