@@ -20,6 +20,14 @@ import java.util.SortedSet;
  * provider interface is defined.
  */
 public class OperationDispatch {
+	private static OperationDispatch defaultInstance = null;
+
+	public static OperationDispatch getDefaultInstance() {
+		if(defaultInstance == null) {
+			defaultInstance = new OperationDispatch();
+		}
+		return defaultInstance;
+	}
 
 	Map<String, OperationSet> registry = new HashMap<String, OperationSet>();
 
@@ -66,7 +74,5 @@ public class OperationDispatch {
 		}
 		OperationSet set = registry.get(name);
 		set.add(factory);
-
 	}
-
 }

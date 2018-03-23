@@ -4,7 +4,11 @@ import java.awt.image.RenderedImage;
 
 import it.geosolutions.jaiext.affine.AffineDescriptor;
 
-// I need core parameter blocks
+/**
+ * TODO Refactor this away ?
+ *
+ * This may not be needed, the dispatch so far is happening in core
+ */
 public class AffineOperation extends Operation {
 	public AffineOperation() {
 		super(Affine.NAME);
@@ -12,10 +16,6 @@ public class AffineOperation extends Operation {
 
 	@Override
 	public RenderedImage create(OperationBuilder builder) {
-		AffineDescriptor descriptor = new AffineDescriptor();
-        descriptor.isRenderableSupported();
-        
-		return null;
+		return OperationDispatch.getDefaultInstance().create(builder);
 	}
-
 }

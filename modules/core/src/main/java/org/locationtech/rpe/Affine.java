@@ -38,5 +38,4 @@ public class Affine extends OperationBuilder {
 		parameter(TY, ty);
 		return this;
 	}
-
 }

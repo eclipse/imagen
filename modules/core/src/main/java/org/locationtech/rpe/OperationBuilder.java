@@ -13,6 +13,7 @@ import java.awt.RenderingHints;
  */
 import java.awt.image.RenderedImage;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class OperationBuilder {
@@ -24,7 +25,7 @@ public class OperationBuilder {
 	int sourceCount = 0;
 
 	/** Parameter map */
-	Map<String, Object> parameters;
+	Map<String, Object> parameters = new HashMap<String, Object>();
 
 	/** Optional rendering hints */
 	RenderingHints hints;
@@ -75,7 +76,7 @@ public class OperationBuilder {
 	 * @return this builder is returned for chaining
 	 */
 	OperationBuilder parameter(String name, Object value) {
-		parameter(name, value);
+		parameters.put(name, value);
 		return this;
 	}
 	/**
@@ -85,7 +86,7 @@ public class OperationBuilder {
 	 * @param value hint value
 	 * @return this builder is returned for chaining
 	 */
-	OperationBuilder hint(RenderingHints key, Object value) {
+	OperationBuilder hint(String key, Object value) {
 		hints.put(key, value);
 		return this;
 	}
@@ -96,8 +97,7 @@ public class OperationBuilder {
 	}
 
 	RenderedImage build() {
-		// Call to RPE dispatcher
-		return null;
+		return OperationDispatch.getDefaultInstance().create(this);
 	}
 
 	public String getName() {
