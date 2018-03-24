@@ -1,5 +1,8 @@
 package org.locationtech.rpe;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.RenderedImage;
+
 public class Affine extends OperationBuilder {
 	public static final String NAME = "affine";
 	private static final String SY = "sy";
@@ -13,6 +16,11 @@ public class Affine extends OperationBuilder {
 
 	public Affine() {
 		super(NAME);
+	}
+
+	public Affine(RenderedImage source) {
+		super(NAME);
+		parameter("source0", source);
 	}
 
 	Affine scale(double sx, double sy) {

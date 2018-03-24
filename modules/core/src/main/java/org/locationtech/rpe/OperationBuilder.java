@@ -107,4 +107,8 @@ public class OperationBuilder {
 	public Map<String, Object> getParameters() {
 		return Collections.unmodifiableMap(parameters);
 	}
+
+    public Object getSource(int i) {
+		return parameters.get("source" + i);
+	}
 }
