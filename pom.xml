@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.locationtech.rpe</groupId>
+    <artifactId>rpe</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Raster Processing Engine</name>
+    <url>https://projects.eclipse.org/projects/locationtech.rasterprocessingengine</url>
+    <description>Raster processing engine designed to stage tiles of raster data into memory for use by a processing chain.</description>
+
+    <!--
+
+    Build Raster Processing Engine and install in local repository:
+       mvn install
+
+    Build everything and skip tests:
+       mvn clean install -DskipTests
+
+    Setup for eclipse development:
+       mvn eclipse:eclipse
+       
+    To build the release (for Maven Central; committers only)
+       mvn install -Drelease
+    -->
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.jupiter.version>5.1.0</junit.jupiter.version>
+		<junit.vintage.version>5.1.0</junit.vintage.version>
+		<junit.platform.version>1.1.0</junit.platform.version>
+        <jaiext.version>1.0.20</jaiext.version>
+    </properties>
+
+    <!-- PROJECT INFORMATION -->
+    <licenses>
+        <license>
+            <name>Eclipse Publish License, Version 1.0</name>
+            <url>https://github.com/locationtech/jts/blob/master/LICENSE_EPLv1.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Jody Garnett</name>
+            <email>jodygarnett@osgeo.org</email>
+            <organization>Individual</organization>
+            <organizationUrl>http://how2map.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Eugene Cheipesh</name>
+            <email>echeipesh@azavea.com</email>
+            <organization>Azavea</organization>
+            <organizationUrl>https://www.azavea.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>git@github.com:locationtech/rasterprocessingengine.git</connection>
+        <developerConnection>git@github.com:locationtech/rasterprocessingengine.git</developerConnection>
+        <url>https://github.com/locationtech/rasterprocessingengine</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>repo.locationtech.org</id>
+            <name>RPE Repository - Snapshots</name>
+            <url>https://repo.locationtech.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>               
+    </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Repositories for Dependencies -->
+    <repositories>
+        <repository>
+            <id>central.maven.org</id>
+            <name>Central Maven repository</name>
+            <url>http://central.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+                            
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>osgeo</id>
+            <name>Open Source Geospatial Foundation Repository</name>
+            <url>http://download.osgeo.org/webdav/geotools/</url>
+        </repository>
+                    
+        <repository>
+            <!-- contains snapshot and release (including third-party-dependences)               -->
+            <!-- Restlet maven Repository (http://maven.restlet.org)                             -->
+            <!-- ucar (https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases) -->
+            <!-- geosolutions (http://maven.geo-solutions.it/)                                   -->
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <id>boundless</id>
+            <name>Boundless Maven Repository</name>
+            <url>https://repo.boundlessgeo.com/main/</url>
+        </repository>
+    </repositories>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <property>
+                    <name>release</name>
+                </property>
+            </activation>
+
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <!-- =========================================================== -->
+    <!--     Build Configuration                                     -->
+    <!-- =========================================================== -->
+    <build>
+        <plugins>
+            <!-- javadoc configuration -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <show>public</show>
+                    <header>${project.name} ${project.version}</header>
+                    <footer>${project.name} ${project.version}</footer>
+                    <failOnError>false</failOnError>
+                    <groups>
+                        <group>
+                            <title>Core - Image</title>
+                            <packages>org.locationtech.rpe.image.*</packages>
+                        </group>
+                        <group>
+                            <title>Core - Operation</title>
+                            <packages>org.locationtech.rpe.operation</packages>
+                        </group>
+                        <group>
+                            <title>Core - Other</title>
+                            <packages>org.locationtech.rpe.*</packages>
+                        </group>
+                    </groups>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Modules to build in appropriate dependency order -->
+    <modules>
+        <module>modules</module>
+    </modules>
+
+</project>
