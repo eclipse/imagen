@@ -7,8 +7,9 @@
         <artifactId>rpe-modules</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>rpe-app</artifactId>
+    <artifactId>rpe-wrapper</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
+    <description>Wrapper implementation backed by jai-ext operations</description>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>

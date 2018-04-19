@@ -9,5 +9,6 @@
     </parent>
     <artifactId>rpe-core</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
+    <description>Raster Processing Engine core interfaces</description>
     <packaging>jar</packaging>
 </project>

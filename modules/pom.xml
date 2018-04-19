@@ -13,7 +13,7 @@
     
     <modules>
         <module>core</module>
-        <module>app</module>
+        <module>wrapper</module>
     </modules>
     
     <build>
