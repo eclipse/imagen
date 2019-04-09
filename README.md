@@ -7,7 +7,7 @@ Welcome, this is a new project creating:
 * Ability to stage larger rasters as tiles in memory and process tiles in parallel
 * Clear image processing operations, allowing installations to use native libs to accelerate processing if available
 
-This is a [LocationTech](https://www.locationtech.org) open source project using the [Eclipse Distribution License v 1.0](LICENSE.md) - a BSD3 license.
+This is a [LocationTech](https://www.locationtech.org) open source project using the [Apache License v 2.0](LICENSE.md).
 
 For more information:
 

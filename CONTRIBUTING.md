@@ -11,7 +11,7 @@ Before you start
 
 Before your contribution can be accepted by the project, you need to create and electronically sign the Eclipse Contributor Agreement (ECA).
 
-1. Read the [Eclipse License Agreement (ECA)](http://www.eclipse.org/legal/ECA.php).
+1. Read the [Eclipse Contributor Agreement (ECA)](http://www.eclipse.org/legal/ECA.php).
 2. Use the [form](https://www.eclipse.org/contribute/cla) to complete and submit a ECA.
 3. You can use the [validate](https://www.eclipse.org/contribute/cla) page to check if you have already signed up.
 
@@ -33,4 +33,4 @@ Participation is encouraged using the github fork and pull request workflow:
 
 * Include test case demonstrating functionality
 * Contributions are expected to pass all tests and not break the build
-* Include Eclipse Distribution License (BSD) license headers on your contributed files
+* Any new files must include an appropriate Apache License header
