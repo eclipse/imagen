@@ -2,9 +2,11 @@ package org.locationtech.rpe;
 
 import it.geosolutions.jaiext.JAIExt;
 import org.junit.Test;
+import java.nio.file.Files;
 
 import javax.media.jai.JAI;
 import java.awt.image.RenderedImage;
+import java.nio.file.Paths;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -16,6 +18,11 @@ public class AffineOperationTest {
         dispatch.register(new JaiAffineOperation());
 
         String filename = "/Users/eugene/Downloads/occurrence_0E_60N.tif";
+
+        if( Files.notExists( Paths.get(filename))){
+            return; // skip test
+        }
+
         RenderedImage source0 = JAI.create("fileload", filename);
 
         // 1. the parameters in RPE Operation and JAI operation may not match

@@ -6,6 +6,8 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.Raster;
 import java.awt.image.RenderedImage;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.media.jai.*;
 import javax.media.jai.Interpolation;
@@ -14,6 +16,7 @@ import javax.media.jai.registry.RenderedRegistryMode;
 import javax.media.jai.util.Range;
 
 import it.geosolutions.jaiext.JAIExt;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 class BuilderTest {
@@ -24,6 +27,10 @@ class BuilderTest {
         // exploring what it takes to make a correct ParameterBlock for JAI
 
         String filename = "/Users/eugene/Downloads/occurrence_0E_60N.tif";
+        if( Files.notExists( Paths.get(filename))){
+            return; // skip test
+        }
+
         RenderedImage source0 = JAI.create("fileload", filename);
 
         AffineTransform transform  = new AffineTransform();        
@@ -60,13 +67,16 @@ class BuilderTest {
     @Test
     void testJAI() {
         String filename = "/Users/eugene/Downloads/occurrence_0E_60N.tif";
+        if( Files.notExists( Paths.get(filename))){
+            return; // skip test
+        }
         // path and name of the file to be read,that is on an accessible filesystem //";
         RenderedImage image = JAI.create("fileload", filename);
         Raster data = image.getData();
         System.out.println(data.toString());
     }
 
-    @Test
+    @Ignore
     void testBuilder() {
        RenderedImage affine = new Affine()
         .scale(3,9)
