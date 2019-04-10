@@ -3,11 +3,11 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.locationtech.rpe</groupId>
-        <artifactId>rpe</artifactId>
-        <version>0.2-SNAPSHOT</version>
+        <groupId>org.eclipse.imagen</groupId>
+        <artifactId>imagen</artifactId>
+        <version>0.3-SNAPSHOT</version>
     </parent>
-    <artifactId>rpe-modules</artifactId>
+    <artifactId>imagen-modules</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
     <packaging>pom</packaging>
     
