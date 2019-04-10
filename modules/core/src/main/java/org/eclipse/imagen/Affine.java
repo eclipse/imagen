@@ -5,9 +5,8 @@
  * which accompanies this distribution and is available at
  * http://www.opensource.org/licenses/apache2.0.php.
  */
-package org.locationtech.rpe;
+package org.eclipse.imagen;
 
-import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 
 public class Affine extends OperationBuilder {

@@ -1,4 +1,4 @@
-package org.locationtech.rpe;
+package org.eclipse.imagen;
 
 import javax.media.jai.InterpolationBilinear;
 import javax.media.jai.InterpolationNearest;

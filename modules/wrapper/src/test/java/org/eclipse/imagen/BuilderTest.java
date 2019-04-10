@@ -5,7 +5,7 @@
  * which accompanies this distribution and is available at
  * http://www.opensource.org/licenses/apache2.0.php.
  */
-package org.locationtech.rpe;
+package org.eclipse.imagen;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
