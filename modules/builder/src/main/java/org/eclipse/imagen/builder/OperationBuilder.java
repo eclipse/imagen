@@ -5,7 +5,7 @@
  * which accompanies this distribution and is available at
  * http://www.opensource.org/licenses/apache2.0.php.
  */
-package org.eclipse.imagen;
+package org.eclipse.imagen.builder;
 
 import java.awt.RenderingHints;
 /**

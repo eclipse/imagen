@@ -7,7 +7,7 @@
         <artifactId>imagen-modules</artifactId>
         <version>0.3-SNAPSHOT</version>
     </parent>
-    <artifactId>imagen-core</artifactId>
+    <artifactId>imagen-builder</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Raster Processing Engine core interfaces</description>
     <packaging>jar</packaging>
