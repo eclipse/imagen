@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<project name="imagen" basedir=".">
+
+    <property environment="env"/>
+    <property name="java.root"     value="${basedir}"/>
+    <property name="java1.dir"     value="${java.root}/java"/>
+    <property name="build.dir"   value="${java.root}/build"/>
+    <property name="classes.dir" value="${java.root}/build/classes"/>
+    <property name="jar.dir"     value="${java.root}/build"/>
+    
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${java1.dir}" destdir="${classes.dir}">
+                <compilerarg line="-encoding ISO-8859-1"/>
+                <compilerarg line="-source 1.8"/>
+                <compilerarg line="-target 1.8"/>
+                <!--
+                <compilerarg line="-classpath ${java.root}/jlib/mlibwrapper_jai.jar:${java.root}/jlib/clibwrapper_jiio.jar:${java.root}/jlib/rt.jar" />
+                -->
+                <compilerarg line="-classpath ${java.root}/jlib/mlibwrapper_jai.jar:${java.root}/jlib/rt.jar" />
+	</javac>
+    </target>
+
+    <copy tofile="${build.dir}/org.eclipse.imagen.registryFile.jai"
+        file="${java.root}/java/org/eclipse/imagen/registryFile.jai"/>
+    
+    <copy todir="${classes.dir}/org/eclipse/imagen" flatten="true">
+      <fileset dir="${java1.dir}/org/eclipse/imagen">
+         <include name="**/*.properties"/>
+      </fileset>
+    </copy>
+    
+    <target name="jar" depends="compile">
+        <jar destfile="${jar.dir}/${ant.project.name}.jar">
+        <fileset dir="${classes.dir}" />
+        <metainf dir="${build.dir}" prefix="META-INF" includes="org.eclipse.imagen.registryFile.jai"/>
+        </jar>
+    </target>
+
+
+    <target name="clean-build" depends="clean,jar"/>
+    
+
+</project>
