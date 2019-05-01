@@ -36,7 +36,7 @@ import java.security.PrivilegedAction;
 public class PropertyUtil {
 
     private static Hashtable bundles = new Hashtable();
-    private static String propertiesDir = "javax/media/jai";
+    private static String propertiesDir = "org.eclipse.imagen";
     
     public static InputStream getFileFromClasspath(String path) 
         throws IOException, FileNotFoundException {
@@ -137,7 +137,7 @@ public class PropertyUtil {
         return null;
     } 
     
-    /** Get bundle from .properties files in javax/media/jai dir. */
+    /** Get bundle from .properties files in org.eclipse.imagen dir. */
     private static ResourceBundle getBundle(String packageName) {
         ResourceBundle bundle = null;
         
