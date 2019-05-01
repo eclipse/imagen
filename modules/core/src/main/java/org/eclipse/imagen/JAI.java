@@ -600,7 +600,7 @@ public final class JAI {
 	try {
 	    InputStream is = JAI.class.getResourceAsStream("buildVersion");
 	    if (is == null) 
-		is = PropertyUtil.getFileFromClasspath("javax/media/jai/buildVersion");
+		is = PropertyUtil.getFileFromClasspath("org/eclipse/imagen/buildVersion");
 
 	    BufferedReader reader =
 		new BufferedReader(new InputStreamReader(is));
