@@ -7,8 +7,8 @@
         <artifactId>imagen-modules</artifactId>
         <version>0.3-SNAPSHOT</version>
     </parent>
-    <artifactId>imagen-builder</artifactId>
+    <artifactId>imagen-mlib</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>ImageN builder interfaces</description>
+    <description>ImageN MediaLib integration</description>
     <packaging>jar</packaging>
 </project>
