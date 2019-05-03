@@ -181,6 +181,21 @@
     <!-- =========================================================== -->
     <build>
         <plugins>
+            <!-- compile -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <debug>true</debug>
+                    <encoding>UTF-8</encoding>
+                    <fork>true</fork>                                          <!-- required for compiler argument below -->
+                    <compilerArgument>-XDignore.symbol.file</compilerArgument> <!-- for com.sun.image.codec references -->
+                </configuration>
+            </plugin>
+
             <!-- javadoc configuration -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
