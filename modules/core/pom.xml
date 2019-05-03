@@ -7,8 +7,8 @@
         <artifactId>imagen-modules</artifactId>
         <version>0.3-SNAPSHOT</version>
     </parent>
-    <artifactId>imagen-builder</artifactId>
+    <artifactId>imagen-core</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>ImageN builder interfaces</description>
+    <description>ImageN core interfaces</description>
     <packaging>jar</packaging>
 </project>
