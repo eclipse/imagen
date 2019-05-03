@@ -183,16 +183,12 @@
                     <failOnError>false</failOnError>
                     <groups>
                         <group>
-                            <title>Core - Image</title>
-                            <packages>org.locationtech.rpe.image.*</packages>
+                            <title>Core</title>
+                            <packages>org.eclipse.imagen*</packages>
                         </group>
                         <group>
-                            <title>Core - Operation</title>
-                            <packages>org.locationtech.rpe.operation</packages>
-                        </group>
-                        <group>
-                            <title>Core - Other</title>
-                            <packages>org.locationtech.rpe.*</packages>
+                            <title>Media</title>
+                            <packages>org.eclipse.imagen.media.*</packages>
                         </group>
                     </groups>
                 </configuration>
