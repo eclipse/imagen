@@ -1,0 +1,82 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Dennis Sigel">
+   <META NAME="COPYRIGHT" CONTENT="Copyright (c) 2019, Oracle and/or its affiliates. All rights reserved.">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; SunOS 5.7 sun4u) [Netscape]">
+</head>
+<body>
+
+<h3>Renderable Scale:</h3>
+
+<p>
+<strong>Demo</strong><br>
+This renderable scale demo shows the use of multi-resolution
+images and renerable ops.  Use the slider to scale the image
+over a 30 to 1 range.
+</p>
+
+<p>
+<strong>JAI</strong><br>
+The "Scale" operation translates and resizes an image.  For each
+pixel (x, y) of the destination, the source value at the fractional
+subpixel position ((x - xTrans)/xScale, (y - yTrans)/yScale) is
+constructed by means of an Interpolation object and written to the
+destination.
+</p>
+
+<p>
+When applying scale factors of scale_x, scale_y to a source image
+with width of src_width and height of src_height, the resulting image
+is defined to have the following dimensions:
+</p>
+
+<pre>
+<code>
+      dst_width = src_width * scale_x
+      dst_height = src_height * scale_y
+</code>
+</pre>
+
+<p>
+When interpolations which require padding the source such as Bilinear
+or Bicubic interpolation are specified, the source needs to be extended
+such that it has the extra pixels needed to compute all the destination
+pixels. This extension is performed via the <code>BorderExtender</code>
+class. The type of Border Extension can be specified as a
+<code>RenderingHint</code> to the <code>JAI.create</code> method.
+</p>
+
+<p>
+If no Border Extension is specified, the source will not be extended.
+The scaled image size is still calculated according to the formula
+specified above. However since there isn't enough source to compute all the
+destination pixels, only that subset of the destination image's pixels,
+which can be computed, will be written in the destination. The rest of the
+destination will not be written.
+</p>
+
+<p>
+Specifying a scale factor of greater than 1 increases the size
+of the image, specifying a scale factor between 0 and 1 (non-inclusive)
+decreases the size of an image. An IllegalArgumentException will be thrown
+if the specified scale factors are negative or equal to zero.
+</p>
+
+<p>
+"Scale" defines a PropertyGenerator that performs an identical
+transformation on the "ROI" property of the source image, which can
+be retrieved by calling the <code>getProperty</code> method with
+"ROI" as the property name.
+</p>
+
+<p>
+<strong>Theory</strong><br>
+The renderable scale operation looks at multi-resolution images
+to find the image with the next largest scale factor.  This image
+is used to scale to the desired output size.
+</p>
+<br>
+</body>
+</html>

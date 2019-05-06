@@ -1,0 +1,122 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Dennis Sigel">
+   <META NAME="COPYRIGHT" CONTENT="Copyright (c) 2019, Oracle and/or its affiliates. All rights reserved.">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; SunOS 5.7 sun4u) [Netscape]">
+</head>
+<body>
+<h3>Lookup Tables:</h3>
+
+<p>
+<strong>Demo</strong><br>
+The lookup table demo consists of a gray level image display,
+vertical colorbar display, and buttons which will load a
+predefined lookup table and perform a lookup operation on
+the image.  "Brighter" and "Darker" buttons are used to
+control image brightness.  Pressing the Reset button will
+restore the image to its original state.  This example
+shows a variety of effects achieved via lookup table
+operations.
+</p>
+
+<p>
+<strong>JAI</strong><br>
+The Lookup operation takes a rendered or renderable image and a
+lookup table, and performs general table lookup by passing the
+source image through the table.
+</p>
+
+<p>
+The source may be a single- or multi-banded image of data types
+<code>byte</code>, <code>ushort</code>, <code>short</code>, or
+<code>int</code>. The lookup table may be single- or multi-banded
+and of any JAI supported data types. The destination image must have
+the same data type as the lookup table and its number of bands is
+determined based on the number of bands of the source and the table.
+If the source is single-banded, the destination has the same number
+of bands as the lookup table; otherwise, the destination has the
+same number of bands as the source.
+</p>
+
+<p>
+If either the source or the table is single-banded and the other
+is multi-banded, then the single band is applied to every band
+of the multi-banded object. If both are multi-banded, then their
+corresponding bands are matched.
+</p>
+
+<p>
+The table may have a set of offset values, one for each band. This
+value is subtracted from the source pixel values before indexing into
+the table data array.
+</p>
+
+<p>
+It is the user's responsibility to make certain the lookup table
+supplied is suitable for the source image. Specifically, the table
+data covers the entire range of the source data. Otherwise, the result
+of this operation is undefined.
+</p>
+
+<p>
+By the nature of this operation, the destination may have a
+different number of bands and/or data type from the source. The
+<code>SampleModel</code> of the destination is created in accordance
+with the actual lookup table used in a specific case.
+</p>
+
+<p>
+The destination pixel values are defined by the pseudocode:
+<ul>
+<li>
+If the source image is single-banded and the lookup table is
+single- or multi-banded, then the destination image has the same
+number of bands as the lookup table:
+<pre>
+<code>
+dst[x][y][b] = table[b][src[x][y][0] - offsets[b]]
+</code>
+</pre>
+</li>
+
+<li>
+If the source image is multi-banded and the lookup table is
+single-banded, then the destination image has the same number of
+bands as the source image:
+<pre>
+<code>
+dst[x][y][b] = table[0][src[x][y][b] - offsets[0]]
+</code>
+</pre>
+</li>
+
+<li>
+If the source image is multi-banded and the lookup table is
+multi-banded, with the same number of bands as the source image,
+then the destination image will have the same number of bands as the
+source image:
+<pre>
+<code>
+dst[x][y][b] = table[b][src[x][y][b] - offsets[b]]
+</code>
+</pre>
+</li>
+</ul>
+</p>
+
+<p>
+<strong>Theory</strong><br>
+The lookup table modification provides a non-linear amplitude
+transformation.  Non-linear amplitude transformation is useful
+for a variety of effects.  Brightness, contrast, gamma
+correction, pseudo color and color reduction are a few examples
+of lookup table applications.  Pixel values of the image
+become addresses into the lookup table.  The pixel value is
+replaced by the contents at the associated address.
+</p>
+<br>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Dennis Sigel">
+   <META NAME="COPYRIGHT" CONTENT="Copyright (c) 2019, Oracle and/or its affiliates. All rights reserved.">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; SunOS 5.7 sun4u) [Netscape]">
+</head>
+<body>
+<h3>Warp Demo:</h3>
+<p>
+<strong>Demo</strong><br>
+This demo shows a variety of features available to
+perform image warping.  Affine, quadratic, and cubic
+warping are accesable through the pull down options
+button.  Source and destination positions can be
+toggled on and off.  The unwarped and warped image
+can be toggled for comparison and displacements can
+be magnified.  The warping equations are shown at the
+top of the image.  All points can be deleted at any
+time.
+</p>
+
+<p>
+To warp the image, click and drag a sequence of
+control points using the left mouse button.  For example,
+for affine press the mouse button and drag it to
+a new location.  A rubber band line will show the
+path.  When the mouse is released, a pair of points
+will be shown connected by a straight line.  Repeat
+this two more times.  A message at the bottom of the
+window will tally the number of sets selected.  Points
+can be dragged to new locations, or additional points
+can be added which will, again, warp the image.
+</p>
+
+<p>
+<strong>JAI</strong><br>
+Java Advanced Imaging provides a transformation class,
+Warp, that is used for nonlinear image coordinate
+transformation.  Pixel positions in the Warp class are
+represented using fixed-point coordinates, yielding
+subpixel accuracy but still allowing the use of integer
+arithmetic.  The degree of precision is set by the
+appropriate JAI functions in the <code>warpRect</code> method.
+</p>
+
+<p>
+The key method of this class is <code>warpRect</code>,
+which provides the locations of the pixels in source
+space that map to a given rectangular output region.
+The output region is specified using integer
+coordinates.  The source positions returned by the method
+are specified in fixed-point, subpixel, coordinates.
+</p>
+
+<p>
+Java Advanced Imaging supports eight warping functions:
+</p>
+<ul>
+<li>Polynomial</li>
+<li>General polynomial</li>
+<li>Grid</li>
+<li>Quadratic</li>
+<li>Cubic</li>
+<li>Perspective</li>
+<li>Affine</li>
+<li>OpImage</li>
+</ul>
+
+<p>
+<strong>Theory</strong><br>
+Beyond affine transforms, image warping is a type of
+geometric transformation that introduces curvature
+into the mapping process.  The introduction of
+curvature is important when an image has been
+distorted through lens aberrations and other non-linear
+processes.  It can also be used for image registration.
+</p>
+
+<p>
+Warping transformations, also known as rubber sheet
+transformations, can arbitrarily stretch an image
+using conjugate points.  This type of operation provides
+a nonlinear transformation between source and
+destination coordinates.
+</p>
+<br>
+Image Copyright &copy 1999, Pictures Now at
+http://www.picturesnow.com
+
+</body>
+</html>

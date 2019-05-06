@@ -1,0 +1,90 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Dennis Sigel">
+   <META NAME="COPYRIGHT" CONTENT="Copyright (c) 2019, Oracle and/or its affiliates. All rights reserved.">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; SunOS 5.7 sun4u) [Netscape]">
+</head>
+<body>
+
+<h3>Convolution:</h3>
+
+<p>
+<strong>Demo</strong><br>
+The convolution demo consists of a source image display, a control panel with ten
+pre-loaded kernels, a display of kernel coefficients, and a destination
+image display.  Pressing a button loads the appropriate
+kernel, performs a convolution between the source image and kernel, and displays the
+the result in the destination image window.  The kernel
+is normalized by the sum of the coefficients, this
+sum is shown in the center test field.  If the sum
+of the coefficients is zero, the sum is set to 1.0.
+The kernel matrix text fields are editable and input
+is restricted to valid integer or floating point
+numbers.  This allows investigation of various kernels
+and their influence on the convolution operation.
+The Custom button can be used to perform a convolution
+with the new kernel.  Please note that custom kernels
+are not saved and pressing another kernel option will
+erase the current kernel coefficients.
+</p>
+
+<p>
+<strong>JAI</strong><br>
+Pseudocode for the convolution operation on a single sample
+dst[x][y] follows.  Assume the kernel is of size
+width by height and has already been rotated through 180
+degrees. The kernel's Origin element is located at position
+(xOrigin, yOrigin): 
+</p>
+
+<pre>
+<font name=courier size=1>
+
+dst[x][y] = 0;
+for (int i = -xOrigin; i &lt; -xOrigin + width; i++) {
+   for (int j = -yOrigin; j &lt -yOrigin + height; j++) {
+      dst[x][y] += src[x+i][y+j] * kernel[xOrigin+i][yOrigin+j];
+   }
+}
+</font>
+</pre>
+Convolution, like any neighborhood operation, leaves a band
+of pixels around the edges undefined. For example, for a 3x3
+kernel only four kernel elements and four source pixels
+contribute to the convolution pixel at the corners of the
+source image. Pixels that do not allow the full kernel to
+be applied to the source are not included in the destination
+image. A "Border" operation may be used to add an appropriate
+border to the source image in order to avoid shrinkage of the
+image boundaries.  The kernel may not be bigger in any
+dimension than the image data.
+
+<p>
+A KernelJAI object is characterized by its width, height, and origin,
+or key element. The key element is the element which is placed
+over the current source pixel to perform convolution or error
+diffusion. In the case of ordered dithering an array of KernelJAI
+objects is actually required with there being one KernelJAI per
+band of the image to be dithered. For ordered dithering the
+location of the key element is irrelevant.
+</p>
+
+<p>
+<strong>Theory</strong><br>
+Convolution is a spatial operation that computes each
+output sample by multiplying elements of a kernel with
+the samples surrounding a particular source sample. 
+</p>
+
+<p>
+For each destination sample, the kernel is rotated 180
+degrees and its "key element," or origin, is placed
+over the source pixel corresponding with the destination
+pixel. The kernel elements are multiplied with the source
+pixels beneath them and the resulting products are summed
+to produce the destination sample value. 
+</p>
+</body>
+</html>

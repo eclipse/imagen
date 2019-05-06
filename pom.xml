@@ -228,6 +228,7 @@
     <!-- Modules to build in appropriate dependency order -->
     <modules>
         <module>modules</module>
+        <module>docs</module>
     </modules>
 
 </project>
