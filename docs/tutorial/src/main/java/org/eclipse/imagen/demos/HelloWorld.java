@@ -22,9 +22,8 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.media.jai.JAI;
-import javax.media.jai.PlanarImage;
-import org.eclipse.imagen.*;
+import org.eclipse.imagen.JAI;
+import org.eclipse.imagen.PlanarImage;
 import org.eclipse.imagen.widgets.*;
 
 public class HelloWorld extends JPanel {
