@@ -1,0 +1,54 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Dennis Sigel">
+   <META NAME="COPYRIGHT" CONTENT="Copyright (c) 2019, Oracle and/or its affiliates. All rights reserved.">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; SunOS 5.7 sun4u) [Netscape]">
+</head>
+<body>
+
+<h3>Introduction:</h3>
+<p>
+The Java Advanced Imaging API extends the Java platform, including
+the Java 2D API, by allowing sophisticated high-performance image
+processing to be incorporated into Java programs.  Java Advanced
+Imaging is a set of classes which provide imaging functionality
+beyond that of Java 2D and the Java Foundation classes while maintaining
+compatibility with those APIs.
+</p>
+<p>
+The Java Advanced Imaging API implements a set of core image
+processing capabilities including image tiling, regions of
+interest, threading, and deferred execution.  JAI also offers
+a set of core image processing operators including many common
+point, area, and frequency-domain operators.
+</p>
+<p>
+Java Advanced Imaging encapsulates image data formats and remote
+method invocations within a re-usable image data object allowing
+an image file, a network image object, or a real-time data stream
+to be processed identically.  JAI follows the Java run time
+library model providing platform independence with the
+"write once, run anywhere" paradigm.  Client-server imaging is
+supported by way of the Java platform's networking architecture
+and remote execution technologies.  Remote execution is based on
+Java RMI (remote method invocation).  This allows Java code on
+a client to invoke method calls on objects that reside on
+another computer without having to move those object to the
+client.
+</p>
+<p>
+Java Advanced Imaging follows an object model where both images
+and image operators are defined as objects subclassed from a
+common parent.  An operator object is instantiated with one or
+more image sources and other parameters.  This operator object
+may then become an image source for the next operator object.
+The connections between the objects define the flow of
+processed data.  The resulting editable graphs of image
+processing operations may be defined and instantiated as
+needed.  JAI also provides an extensible framework that allows
+customized solutions to be added to the core API.
+</p>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Dennis Sigel">
+   <META NAME="COPYRIGHT" CONTENT="Copyright (c) 2019, Oracle and/or its affiliates. All rights reserved.">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; SunOS 5.7 sun4u) [Netscape]">
+</head>
+<body>
+<h3>Composite:</h3>
+<p>
+<strong>Demo</strong><br>
+The composite demo operates on two source images, two alpha channels
+with scrollbars used to control the percentage contribution
+of each source image, and a single composite destination image.  
+With a second alpha channel scrollbar value of 255, the compositing
+operation becomes a simple blend operation between the two
+source images.  The contribution to the destination image is
+controlled by the first alpha channel.  In the initial state
+of the demo, 100% of the second image and 0% of the first
+image are set.  Please note that the alpha images need not
+be constant.
+</p>
+
+<p>
+<strong>JAI</strong><br>
+The JAI composite operation requires six parameters.  Two source
+images, two alpha images (second one may be null), a boolean
+flag indicating whether or not alpha has been multiplied to
+both sources and destination, and a "alphaFirst" flag where
+true indicates that the alpha channel is the first band of
+the destination image.
+</p>
+
+<p>
+For example,
+<pre>
+<code>
+    pb = new ParameterBlock()
+    pb.addSource(source1);
+    pb.addSource(source2);
+    pb.add(alpha1);
+    pb.add(null);
+    pb.add(new Boolean(false));
+    pb.add(new Boolean(false));
+    destination = JAI.create("composite", pb, null);
+</code>
+</pre>
+</p>
+
+<p>
+<strong>Theory</strong><br>
+The composite operation combines two images based on their
+alpha values at each pixel.  This is done on a per-band
+basis.  The two source images are expected to have the
+same number of bands and the same data type.  The
+destination image has the same data type as the two
+source images but with one extra band.  The extra band contains
+the resultant alpha channel.
+</p>
+
+<p>
+The destination pixel values may be viewed as representing
+a fractional pixel coverage or transparency factor.
+Specifically, composite implements the Porter-Duff "over"
+rule (see Computer Graphics, July 1984) in which the
+output color of a pixel with source value/alpha tuples
+<code>(A, a)</code> and <code>(B, b)</code> is given by
+<code>a*A + (1 - a)*(b*B).</code>  The output alpha value
+is given by <code>a + (1 - a)*b</code>.  For premultiplied
+source tuples <code>(a*A, a)</code> and <code>(b*B, b)</code>,
+the premultiplied output value is simply <code>(a*A) + (1 - a)*(b*B).</code>
+</p>
+
+<p>
+The color channels of the two source images are supplied via
+<code>source1</code> and <code>source2</code>. The two sources must
+be either both pre-multiplied by alpha or not. An alpha channel should
+not be included in either <code>source1</code> or <code>source2</code>.
+</p>
+
+<p> The alpha channel of the first source images must be supplied
+via the <code>source1Alpha</code> parameter. This parameter may not
+be null. The alpha channel of the second source image may be supplied
+via the <code>source2Alpha</code> parameter. This parameter may be
+null, in which case the second source is considered completely opaque.
+The alpha images should be single-banded and have the same data type
+as well as dimensions as their corresponding source images.
+</p>
+
+<p> The <code>alphaPremultiplied</code> parameter indicates whether
+or not the supplied alpha image is premultiplied to both the source
+images. It also indicates whether the destination image color channels
+have the alpha values multiplied to the pixel color values.
+</p>
+
+<p> The destination image is the combination of the two source images.
+It has the color channels and one additional alpha channel (the band
+index depends on <code>alphaFirst</code> parameter). Whether alpha
+value is pre-multiplied to the color channels also depends on the value
+of <code>alphaPremultiplied</code> (pre-multiplied if true).
+</p>
+<br>
+Images Copyright &copy 1999, Eyewire at http://www.eyewire.com
+
+</body>
+</html>

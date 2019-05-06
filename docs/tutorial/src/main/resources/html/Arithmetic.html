@@ -1,0 +1,70 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Dennis Sigel">
+   <META NAME="COPYRIGHT" CONTENT="Copyright (c) 2019, Oracle and/or its affiliates. All rights reserved.">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; SunOS 5.7 sun4u) [Netscape]">
+</head>
+<body>
+
+<h3>Arithmetic Operators:</h3>
+<p>
+<strong>Demo</strong><br>
+The arithmetic operator demo operates on two source images to
+produce a third resultant image.  In this case, the top color image is
+combined with a gray scale mask image.  When
+the buttons are pressed, the resultant image will
+be displayed below the source images.  Options for
+addition, subtraction, multiplication, and division
+of two images are activated using the provided
+buttons.
+</p>
+
+<p>
+<strong>JAI</strong><br>
+Support is provided for both monadic and dyadic
+arithmetic operators.  The monadic arithmetic
+operations include per-band addition, subtraction,
+multiplication, and division between a source image
+and a constant value which produce a destination
+image.  The dyadic arithmetic operations include
+per-band addition, subtraction, multiplication,
+and division between two source images to produce
+a destination image.  It is also possible to take
+the absolute value of pixels in the source image
+and store the results in a destination image.
+Exponentiation is also provided.
+</p>
+
+<p>
+The arithmetic operations require that both source
+images and the destination image have the same
+data type and number of bands.  The dimensions of the
+two images (height and width), however, need not
+be the same.
+</p>
+
+<p>
+When operations are performed, origin locations for
+each image or single image for monadic operations
+are aligned.  For example, for image addition the
+value at location 0,0 in one source image is added
+to location 0,0 of the second source image and
+the result is stored in location 0,0 of the
+destination image.  This procedure is repeated for
+every pixel.  Arithmetic operations on multi-band
+images are performed on corresponding bands in the
+source images.
+</p>
+
+<p>
+<strong>Theory</strong><br>
+Arithmetic operations are used to perform a
+pixel by pixel combination of two images.  A
+single constant may be used to represent a
+"constant image."
+</p>
+<br>
+</body>
+</html>

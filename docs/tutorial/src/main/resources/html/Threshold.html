@@ -1,0 +1,66 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Dennis Sigel">
+   <META NAME="COPYRIGHT" CONTENT="Copyright (c) 2019, Oracle and/or its affiliates. All rights reserved.">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; SunOS 5.7 sun4u) [Netscape]">
+</head>
+<body>
+<h3>Threshold:</h3>
+
+<p>
+<strong>Demo</strong><br>
+The threshold demo utilizes the threshold operation to perform a
+high pass intensity filter.  This is not to be confused with a high
+pass spatial convolution. The slider sets the current threshold.  Pixel
+values below the threshold are set to zero and pixels equal to or
+above the threshold value are left as is.  Using the
+slider visually shows the results of the operation.
+This operation alters the pixel values in the destination.
+It does not modify a colormap.
+</p>
+
+<p>
+<strong>JAI</strong><br>
+The Threshold operation takes one rendered image, and maps all
+the pixels of this image whose value falls within a specified range
+to a specified constant. The range is specified by a low value and
+a high value.
+</p>
+
+<p>
+If the number of elements supplied via the "high," "low," and
+"constants" arrays are less than the number of bands of the source
+image, then the element from entry 0 is applied to all the bands.
+Otherwise, the element from a different entry is applied to its
+corresponding band.
+</p>
+
+<p>
+<strong>Theory</strong><br>
+Thresholding, also known as "binary contrast enhancement,"
+provides a simple means of defining the boundaries of objects
+that appear on a contrasting background.  The threshold
+operation maps all the pixel values of an image that fall
+within a given range to one of a set of per-band constants.
+</p>
+
+<p>
+The pixel values of the destination image are defined byt the
+following pseudocode:
+<pre>
+<code>
+    if ( src[x][y][b] >= low[b] &&
+         src[x][y][b] &lt;= high[b] ) {
+         dst[x][y][b] = constants[b];
+    } else {
+         dst[x][y][b] = src[x][y][b];
+    }
+</code>
+</pre>
+</p>
+<br>
+
+</body>
+</html>
