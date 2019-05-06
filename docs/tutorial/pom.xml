@@ -11,4 +11,12 @@
     <name>${project.groupId}:${project.artifactId}</name>
     <description>ImageN tutorial</description>
     <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.imagen</groupId>
+            <artifactId>imagen-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

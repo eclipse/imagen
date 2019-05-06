@@ -40,7 +40,7 @@ import org.eclipse.imagen.*;
  */
 
 
-class RenderableDisplay extends JComponent {
+public class RenderableDisplay extends JComponent {
     
     RenderableImage source;
     PlanarImage rendering;
