@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos.codec;
+package org.eclipse.imagen.demo.codec;
 
 import java.awt.Point;
 import java.awt.Rectangle;
