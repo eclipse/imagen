@@ -38,9 +38,9 @@ displays the resulting image.  It's meant to be a simple "Hello World"
 application that uses Java Advanced Imaging and isn't complicated by
 other API calls.
 
-  JAIExampleApp may be run using the runjai2.sh script on Solaris, or
-runjai2.bat on Windows 95/98/NT.
+  JAIExampleApp may be run using maven:
 
+    mvn exec:java -Dexec.mainClass="org.eclipse.imagen.demo.JAIExampleApp" -Dexec.args="src/main/resources/images/new_zealand.tif"
 
 III.  JAIFileBrowser
 
