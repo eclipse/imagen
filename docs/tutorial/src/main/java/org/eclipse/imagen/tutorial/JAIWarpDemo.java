@@ -14,12 +14,11 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos;
+package org.eclipse.imagen.tutorial;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -29,17 +28,14 @@ import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 import java.awt.image.renderable.ParameterBlock;
-import java.io.File;
 import java.text.NumberFormat;
 import java.util.Enumeration;
 import java.util.Vector;
 import org.eclipse.imagen.*;
-import org.eclipse.imagen.widgets.*;
+
 import javax.swing.*;
 
 interface DemoListener {

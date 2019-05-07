@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos.network.server;
+package org.eclipse.imagen.tutorial.network.server;
 
 import java.io.File;
 import java.io.FilenameFilter;

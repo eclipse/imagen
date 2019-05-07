@@ -14,14 +14,13 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos.network.server;
+package org.eclipse.imagen.tutorial.network.server;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.renderable.ParameterBlock;
 import java.awt.image.RenderedImage;
 import java.awt.image.BufferedImage;
@@ -34,16 +33,14 @@ import java.rmi.RemoteException;
 import java.rmi.RMISecurityManager;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
+
 import org.eclipse.imagen.RenderableOp;
 import org.eclipse.imagen.RenderedOp;
 import org.eclipse.imagen.remote.JAIRMIDescriptor;

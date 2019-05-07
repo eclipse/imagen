@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos;
+package org.eclipse.imagen.tutorial;
 
 import java.io.File;
 import java.awt.BorderLayout;
@@ -23,7 +23,6 @@ import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.renderable.ParameterBlock;
-import java.awt.image.DataBuffer;
 import java.awt.event.*;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -31,7 +30,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.event.*;
+
 import org.eclipse.imagen.JAI;
 import org.eclipse.imagen.PlanarImage;
 import org.eclipse.imagen.Histogram;

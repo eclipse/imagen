@@ -14,9 +14,8 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos.network;
+package org.eclipse.imagen.tutorial.network;
 
-import java.awt.*;
 import java.awt.image.renderable.ParameterBlock;
 import java.awt.event.*;
 import java.util.Vector;
@@ -24,7 +23,6 @@ import org.eclipse.imagen.*;
 import org.eclipse.imagen.operator.TransposeDescriptor;
 import org.eclipse.imagen.remote.RemoteJAI;
 import javax.swing.*;
-import javax.swing.event.*;
 
 public class JAITransposePanel extends JAIDemoPanel implements ItemListener {
 

@@ -14,16 +14,14 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos.network;
+package org.eclipse.imagen.tutorial.network;
 
-import java.awt.*;
 import java.awt.image.renderable.*;
 import java.awt.event.*;
 import java.util.Vector;
 import org.eclipse.imagen.*;
 import org.eclipse.imagen.remote.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 public class JAIConvolvePanel extends JAIDemoPanel implements ItemListener {
 

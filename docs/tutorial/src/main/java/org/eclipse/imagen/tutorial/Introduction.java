@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos;
+package org.eclipse.imagen.tutorial;
 
 import java.io.File;
 import java.awt.BorderLayout;

@@ -14,15 +14,13 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos;
+package org.eclipse.imagen.tutorial;
 
 import java.io.File;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.*;
 import java.awt.image.renderable.*;
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.border.*;
 import org.eclipse.imagen.*;
 import org.eclipse.imagen.widgets.*;
