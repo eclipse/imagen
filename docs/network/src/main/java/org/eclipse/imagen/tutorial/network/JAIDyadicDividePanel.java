@@ -14,19 +14,15 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos.network;
+package org.eclipse.imagen.tutorial.network;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.renderable.ParameterBlock;
-import java.util.Hashtable;
 import java.util.Vector;
 import org.eclipse.imagen.*;
 import org.eclipse.imagen.remote.RemoteJAI;
 import javax.swing.*;
-import javax.swing.event.*;
 import java.awt.image.DataBuffer;
-import java.awt.image.SampleModel;
 
 public class JAIDyadicDividePanel extends JAIDyadicPanel {
   

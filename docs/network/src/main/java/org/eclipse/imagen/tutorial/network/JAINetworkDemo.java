@@ -14,15 +14,12 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos.network;
+package org.eclipse.imagen.tutorial.network;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.MediaTracker;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -31,19 +28,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.renderable.ParameterBlock;
 import java.awt.Component;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.net.InetAddress;
 import java.rmi.Naming;
-import java.rmi.RemoteException;
 import java.util.Hashtable;
 import java.util.Vector;
 import org.eclipse.imagen.*;
 import org.eclipse.imagen.remote.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import org.eclipse.imagen.media.rmi.ImageServer;
 
 class SourcePanel extends JPanel implements ListSelectionListener {
 

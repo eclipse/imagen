@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos.network.server;
+package org.eclipse.imagen.tutorial.network.server;
 
 import java.io.File;
 import java.rmi.Naming;
@@ -22,7 +22,7 @@ import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.rmi.RMISecurityManager;
 import java.rmi.server.UnicastRemoteObject;
-import org.eclipse.imagen.demos.network.DirectoryLister;
+import org.eclipse.imagen.tutorial.network.DirectoryLister;
 
 /**
  * An implementation of the <code>DirectoryLister</code> interface. This
