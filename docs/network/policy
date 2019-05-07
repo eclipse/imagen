@@ -1,0 +1,6 @@
+ grant {
+   // Allow everything only for testing purposes
+   // WARNING: This should never be used for production systems. A more
+   // restrictive policy file should be used to maintain security.
+   permission java.security.AllPermission;
+ };
