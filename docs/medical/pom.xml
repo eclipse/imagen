@@ -7,7 +7,7 @@
         <artifactId>imagen-docs</artifactId>
         <version>0.4-SNAPSHOT</version>
     </parent>
-    <artifactId>imagen-medical</artifactId>
+    <artifactId>imagen-demo-medical</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>ImageN medical demo.</description>
     <packaging>jar</packaging>
