@@ -13,6 +13,7 @@
     
     <modules>
         <module>tutorial</module>
+        <module>demo</module>
         <module>codec</module>
         <module>network</module>
     </modules>
