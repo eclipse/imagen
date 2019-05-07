@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package org.eclipse.imagen.demos.codec;
+package org.eclipse.imagen.demo.codec;
 
 import org.eclipse.imagen.media.codec.FileSeekableStream;
 import org.eclipse.imagen.media.codec.ImageCodec;
