@@ -184,116 +184,74 @@ descriptor    org.eclipse.imagen.remote.JAIRMIDescriptor
 # "rendered" factory objects
 #
 rendered    org.eclipse.imagen.media.opimage.AbsoluteCRIF		org.eclipse.imagen.media	absolute		sunabsoluterif
-rendered    org.eclipse.imagen.media.mlib.MlibAbsoluteRIF		org.eclipse.imagen.media	absolute		mlibabsoluterif
 rendered    org.eclipse.imagen.media.opimage.AddCollectionCRIF		org.eclipse.imagen.media	addcollection		sunaddcollectionrif
 rendered    org.eclipse.imagen.media.opimage.AddConstCRIF		org.eclipse.imagen.media	addconst		sunaddconstrif
-rendered    org.eclipse.imagen.media.mlib.MlibAddConstRIF		org.eclipse.imagen.media	addconst		mlibaddconstrif
 rendered    org.eclipse.imagen.media.opimage.AddCRIF			org.eclipse.imagen.media	add			sunaddrif
-rendered    org.eclipse.imagen.media.mlib.MlibAddRIF			org.eclipse.imagen.media	add			mlibaddrif
 rendered    org.eclipse.imagen.media.opimage.AffineCRIF		org.eclipse.imagen.media	affine			sunaffinerif
-rendered    org.eclipse.imagen.media.mlib.MlibAffineRIF		org.eclipse.imagen.media	affine			mlibaffinerif
 rendered    org.eclipse.imagen.media.opimage.AndConstCRIF		org.eclipse.imagen.media	andconst		sunandconstrif
-rendered    org.eclipse.imagen.media.mlib.MlibAndConstRIF		org.eclipse.imagen.media	andconst		mlibandconstrif
 rendered    org.eclipse.imagen.media.opimage.AndCRIF			org.eclipse.imagen.media	and			sunandrif
-rendered    org.eclipse.imagen.media.mlib.MlibAndRIF			org.eclipse.imagen.media	and			mlibandrif
 rendered    org.eclipse.imagen.media.opimage.AWTImageRIF		org.eclipse.imagen.media	awtimage		sunawtimagerif
 rendered    org.eclipse.imagen.media.opimage.BandCombineCRIF		org.eclipse.imagen.media	bandcombine		sunbandcombinerif
 rendered    org.eclipse.imagen.media.opimage.BandMergeCRIF		org.eclipse.imagen.media	bandmerge		sunbandmergerif
-rendered    org.eclipse.imagen.media.mlib.MlibBandCombineRIF		org.eclipse.imagen.media	bandcombine		mlibbandcombinerif
 rendered    org.eclipse.imagen.media.opimage.BandSelectCRIF		org.eclipse.imagen.media	bandselect		sunbandselectrif
-rendered    org.eclipse.imagen.media.mlib.MlibBandSelectRIF		org.eclipse.imagen.media	bandselect		mlibbandselectrif
 rendered    org.eclipse.imagen.media.opimage.BinarizeCRIF		org.eclipse.imagen.media	binarize		sunbinarizerif
-rendered    org.eclipse.imagen.media.mlib.MlibBinarizeRIF		org.eclipse.imagen.media	binarize		mlibbinarizerif
 rendered    org.eclipse.imagen.media.opimage.BMPRIF			org.eclipse.imagen.media	bmp			sunbmprif
 rendered    org.eclipse.imagen.media.opimage.BorderRIF			org.eclipse.imagen.media	border			sunborderrif
 rendered    org.eclipse.imagen.media.opimage.BoxFilterRIF		org.eclipse.imagen.media	boxfilter		sunboxfilterrif
-rendered    org.eclipse.imagen.media.mlib.MlibBoxFilterRIF		org.eclipse.imagen.media	boxfilter		mlibboxfilterrif
 rendered    org.eclipse.imagen.media.opimage.ClampCRIF			org.eclipse.imagen.media	clamp			sunclamprif
-rendered    org.eclipse.imagen.media.mlib.MlibClampRIF			org.eclipse.imagen.media	clamp			mlibclamprif
 rendered    org.eclipse.imagen.media.opimage.ColorConvertCRIF		org.eclipse.imagen.media	colorconvert		suncolorconvertrif
 rendered    org.eclipse.imagen.media.opimage.ColorQuantizerRIF		org.eclipse.imagen.media	colorquantizer		suncolorquantizerrif
 rendered    org.eclipse.imagen.media.opimage.CompositeCRIF		org.eclipse.imagen.media	composite		suncompositerif
-rendered    org.eclipse.imagen.media.mlib.MlibCompositeRIF		org.eclipse.imagen.media	composite		mlibcompositerif
 rendered    org.eclipse.imagen.media.opimage.ConstantCRIF		org.eclipse.imagen.media	constant		sunconstrif1
 rendered    org.eclipse.imagen.media.opimage.ConjugateCRIF		org.eclipse.imagen.media	conjugate		sunconjugaterif
 rendered    org.eclipse.imagen.media.opimage.ConvolveRIF		org.eclipse.imagen.media	convolve		sunconvolverif
-rendered    org.eclipse.imagen.media.mlib.MlibConvolveRIF		org.eclipse.imagen.media	convolve		mlibconvolverif
 rendered    org.eclipse.imagen.media.opimage.CropCRIF			org.eclipse.imagen.media	crop			suncroprif
 rendered    org.eclipse.imagen.media.opimage.DCTCRIF			org.eclipse.imagen.media	dct			sundctrif
-rendered    org.eclipse.imagen.media.mlib.MlibDCTRIF			org.eclipse.imagen.media	dct			mlibdctrif
 rendered    org.eclipse.imagen.media.opimage.DFTCRIF			org.eclipse.imagen.media	dft			sundftrif
-rendered    org.eclipse.imagen.media.mlib.MlibDFTRIF			org.eclipse.imagen.media	dft			mlibdftrif
 rendered    org.eclipse.imagen.media.opimage.DilateRIF			org.eclipse.imagen.media	dilate			sundilaterif
-rendered    org.eclipse.imagen.media.mlib.MlibDilateRIF		org.eclipse.imagen.media	dilate			mlibdilaterif
 rendered    org.eclipse.imagen.media.opimage.DivideCRIF		org.eclipse.imagen.media	divide			sundividerif
 rendered    org.eclipse.imagen.media.opimage.DivideComplexCRIF		org.eclipse.imagen.media	dividecomplex		sundividecomplexrif
-rendered    org.eclipse.imagen.media.mlib.MlibDivideRIF		org.eclipse.imagen.media	divide			mlibdividerif
 rendered    org.eclipse.imagen.media.opimage.DivideByConstCRIF		org.eclipse.imagen.media	dividebyconst		sundividebyconstrif
-rendered    org.eclipse.imagen.media.mlib.MlibDivideByConstRIF		org.eclipse.imagen.media	dividebyconst		mlibdividebyconstrif
 rendered    org.eclipse.imagen.media.opimage.DivideIntoConstCRIF	org.eclipse.imagen.media	divideintoconst		sundivideintoconstrif
-rendered    org.eclipse.imagen.media.mlib.MlibDivideIntoConstRIF	org.eclipse.imagen.media	divideintoconst		mlibdivideintoconstrif
 rendered    org.eclipse.imagen.media.opimage.EncodeRIF			org.eclipse.imagen.media	encode   		sunencoderif
 rendered    org.eclipse.imagen.media.opimage.ErodeRIF			org.eclipse.imagen.media	erode			suneroderif
-rendered    org.eclipse.imagen.media.mlib.MlibErodeRIF			org.eclipse.imagen.media	erode			mliberoderif
 rendered    org.eclipse.imagen.media.opimage.ErrorDiffusionRIF		org.eclipse.imagen.media	errordiffusion		sunerrordiffusionrif
 rendered    org.eclipse.imagen.media.opimage.ExpCRIF		        org.eclipse.imagen.media	exp			sunexprif
-rendered    org.eclipse.imagen.media.mlib.MlibExpRIF		        org.eclipse.imagen.media	exp			mlibexprif
 rendered    org.eclipse.imagen.media.opimage.ExtremaRIF		org.eclipse.imagen.media	extrema			sunextremarif
-rendered    org.eclipse.imagen.media.mlib.MlibExtremaRIF		org.eclipse.imagen.media	extrema			mlibextremarif
 rendered    org.eclipse.imagen.media.opimage.FileLoadRIF		org.eclipse.imagen.media	fileload		sunfileloadrif
 rendered    org.eclipse.imagen.media.opimage.FileStoreRIF		org.eclipse.imagen.media	filestore		sunfilestorerif
 rendered    org.eclipse.imagen.media.opimage.FilteredSubsampleRIF      org.eclipse.imagen.media       filteredsubsample       sunfilteredsubsamplerif
-rendered    org.eclipse.imagen.media.mlib.MlibFilteredSubsampleRIF     org.eclipse.imagen.media       filteredsubsample       mlibfilteredsubsamplerif
 rendered    org.eclipse.imagen.media.opimage.FormatCRIF		org.eclipse.imagen.media	format			sunformatrif
 rendered    org.eclipse.imagen.media.opimage.FPXRIF		        org.eclipse.imagen.media	fpx			sunfpxrif
 rendered    org.eclipse.imagen.media.opimage.GIFRIF		        org.eclipse.imagen.media	gif			sungifrif
-rendered    org.eclipse.imagen.media.mlib.MlibGradientRIF		org.eclipse.imagen.media	gradientmagnitude	mlibgradientrif
 rendered    org.eclipse.imagen.media.opimage.GradientRIF		org.eclipse.imagen.media	gradientmagnitude	sungradientrif
 rendered    org.eclipse.imagen.media.opimage.HistogramRIF		org.eclipse.imagen.media	histogram		sunhistogramrif
-rendered    org.eclipse.imagen.media.mlib.MlibHistogramRIF		org.eclipse.imagen.media	histogram		mlibhistogramrif
 rendered    org.eclipse.imagen.media.opimage.IDCTCRIF			org.eclipse.imagen.media	idct			sunidctrif
-rendered    org.eclipse.imagen.media.mlib.MlibIDCTRIF			org.eclipse.imagen.media	idct			mlibidctrif
 rendered    org.eclipse.imagen.media.opimage.IDFTCRIF			org.eclipse.imagen.media	idft			sunidftrif
-rendered    org.eclipse.imagen.media.mlib.MlibIDFTRIF			org.eclipse.imagen.media	idft			mlibidftrif
 rendered    org.eclipse.imagen.media.opimage.IIPCRIF			org.eclipse.imagen.media	iip			suniipcrif
 rendered    org.eclipse.imagen.media.opimage.IIPResolutionRIF		org.eclipse.imagen.media	iipresolution		suniipresolutionrif
 rendered    org.eclipse.imagen.media.opimage.ImageFunctionRIF		org.eclipse.imagen.media	imagefunction		sunimagefunctionrif
 rendered    org.eclipse.imagen.media.opimage.InvertCRIF		org.eclipse.imagen.media	invert			suninvertrif
-rendered    org.eclipse.imagen.media.mlib.MlibInvertRIF		org.eclipse.imagen.media	invert			mlibinvertrif
 rendered    org.eclipse.imagen.media.opimage.JPEGRIF		        org.eclipse.imagen.media	jpeg			sunjpegrif
 rendered    org.eclipse.imagen.media.opimage.LogCRIF		        org.eclipse.imagen.media	log			sunlogrif
-rendered    org.eclipse.imagen.media.mlib.MlibLogRIF		        org.eclipse.imagen.media	log			mliblogrif
 rendered    org.eclipse.imagen.media.opimage.LookupCRIF		org.eclipse.imagen.media	lookup			sunlookuprif
-rendered    org.eclipse.imagen.media.mlib.MlibLookupRIF		org.eclipse.imagen.media	lookup			mliblookuprif
 rendered    org.eclipse.imagen.media.opimage.MagnitudeCRIF		org.eclipse.imagen.media	magnitude		sunmagnituderif
 rendered    org.eclipse.imagen.media.opimage.MagnitudeSquaredCRIF	org.eclipse.imagen.media	magnitudesquared	sunmagnitudesquaredrif
 rendered    org.eclipse.imagen.media.opimage.MatchCDFCRIF		org.eclipse.imagen.media	matchcdf		sunmatchcdfrif
 rendered    org.eclipse.imagen.media.opimage.MaxCRIF		        org.eclipse.imagen.media	max			sunmaxrif
-rendered    org.eclipse.imagen.media.mlib.MlibMaxRIF		        org.eclipse.imagen.media	max			mlibmaxrif
 rendered    org.eclipse.imagen.media.opimage.MaxFilterRIF		org.eclipse.imagen.media	maxfilter		sunmaxfilterrif
-rendered    org.eclipse.imagen.media.mlib.MlibMaxFilterRIF		org.eclipse.imagen.media	maxfilter		mlibmaxfilterrif
 rendered    org.eclipse.imagen.media.opimage.MeanRIF		        org.eclipse.imagen.media	mean			sunmeanrif
-rendered    org.eclipse.imagen.media.mlib.MlibMeanRIF		        org.eclipse.imagen.media	mean			mlibmeanrif
 rendered    org.eclipse.imagen.media.opimage.MedianFilterRIF		org.eclipse.imagen.media	medianfilter		sunmedianfilterrif
-rendered    org.eclipse.imagen.media.mlib.MlibMedianFilterRIF		org.eclipse.imagen.media	medianfilter		mlibmedianfilterrif
 rendered    org.eclipse.imagen.media.opimage.MinCRIF		        org.eclipse.imagen.media	min			sunminrif
-rendered    org.eclipse.imagen.media.mlib.MlibMinRIF		        org.eclipse.imagen.media	min			mlibminrif
 rendered    org.eclipse.imagen.media.opimage.MinFilterRIF		org.eclipse.imagen.media	minfilter		sunminfilterrif
-rendered    org.eclipse.imagen.media.mlib.MlibMinFilterRIF		org.eclipse.imagen.media	minfilter		mlibminfilterrif
 rendered    org.eclipse.imagen.media.opimage.MosaicRIF		org.eclipse.imagen.media	mosaic		sunmosaicrif
-rendered    org.eclipse.imagen.media.mlib.MlibMosaicRIF		org.eclipse.imagen.media	mosaic		mlibmosaicrif
 rendered    org.eclipse.imagen.media.opimage.MultiplyCRIF		org.eclipse.imagen.media	multiply		sunmultiplyrif
 rendered    org.eclipse.imagen.media.opimage.MultiplyComplexCRIF	org.eclipse.imagen.media	multiplycomplex		sunmultiplycomplexrif
-rendered    org.eclipse.imagen.media.mlib.MlibMultiplyRIF		org.eclipse.imagen.media	multiply		mlibmultiplyrif
 rendered    org.eclipse.imagen.media.opimage.MultiplyConstCRIF		org.eclipse.imagen.media	multiplyconst		sunmultiplyconstrif
-rendered    org.eclipse.imagen.media.mlib.MlibMultiplyConstRIF		org.eclipse.imagen.media	multiplyconst		mlibmultiplyconstrif
 rendered    org.eclipse.imagen.media.opimage.NotCRIF			org.eclipse.imagen.media	not			sunnotrif
-rendered    org.eclipse.imagen.media.mlib.MlibNotRIF			org.eclipse.imagen.media	not			mlibnotrif
 rendered    org.eclipse.imagen.NullCRIF			   	org.eclipse.imagen		null			sunullrif
 rendered    org.eclipse.imagen.media.opimage.OrConstCRIF		org.eclipse.imagen.media	orconst			sunorconstrif
-rendered    org.eclipse.imagen.media.mlib.MlibOrConstRIF		org.eclipse.imagen.media	orconst			mliborconstrif
 rendered    org.eclipse.imagen.media.opimage.OrCRIF			org.eclipse.imagen.media	or			sunorrif
-rendered    org.eclipse.imagen.media.mlib.MlibOrRIF			org.eclipse.imagen.media	or			mliborrif
 rendered    org.eclipse.imagen.media.opimage.OrderedDitherRIF		org.eclipse.imagen.media	ordereddither		sunorderedditherrif
 rendered    org.eclipse.imagen.media.opimage.OverlayCRIF		org.eclipse.imagen.media	overlay			sunoverlayrif
 rendered    org.eclipse.imagen.media.opimage.PatternRIF		org.eclipse.imagen.media	pattern			sunpatternrif
@@ -304,40 +262,24 @@ rendered    org.eclipse.imagen.media.opimage.PNGRIF			org.eclipse.imagen.media	p
 rendered    org.eclipse.imagen.media.opimage.PNMRIF			org.eclipse.imagen.media	pnm			sunpnmrif
 rendered    org.eclipse.imagen.media.opimage.PolarToComplexCRIF	org.eclipse.imagen.media	polartocomplex		sunpolartocomplexrif
 rendered    org.eclipse.imagen.media.opimage.RescaleCRIF		org.eclipse.imagen.media	rescale			sunrescalerif
-rendered    org.eclipse.imagen.media.mlib.MlibRescaleRIF		org.eclipse.imagen.media	rescale			mlibrescalerif
 rendered    org.eclipse.imagen.media.opimage.RotateCRIF		org.eclipse.imagen.media	rotate			sunrotaterif
-rendered    org.eclipse.imagen.media.mlib.MlibRotateRIF		org.eclipse.imagen.media	rotate			mlibrotaterif
 rendered    org.eclipse.imagen.media.opimage.ScaleCRIF			org.eclipse.imagen.media	scale			sunscalerif
-rendered    org.eclipse.imagen.media.mlib.MlibScaleRIF			org.eclipse.imagen.media	scale			mlibscalerif
 rendered    org.eclipse.imagen.media.opimage.ShearRIF			org.eclipse.imagen.media	shear			sunshearrif
-rendered    org.eclipse.imagen.media.mlib.MlibShearRIF		        org.eclipse.imagen.media	shear			mlibshearrif
 rendered    org.eclipse.imagen.media.opimage.StreamRIF			org.eclipse.imagen.media	stream			sunstreamrif
 rendered    org.eclipse.imagen.media.opimage.SubsampleBinaryToGrayCRIF	org.eclipse.imagen.media	subsamplebinarytogray	sunsubsamplebinarytograyrif
-rendered    org.eclipse.imagen.media.mlib.MlibSubsampleBinaryToGrayRIF	org.eclipse.imagen.media	subsamplebinarytogray	mlibsubsamplebinarytograyrif
 rendered    org.eclipse.imagen.media.opimage.SubsampleAverageCRIF	org.eclipse.imagen.media	subsampleaverage	sunsubsampleaveragerif
-rendered    org.eclipse.imagen.media.mlib.MlibSubsampleAverageRIF	org.eclipse.imagen.media	subsampleaverage	mlibsubsampleaveragerif
 rendered    org.eclipse.imagen.media.opimage.SubtractCRIF		org.eclipse.imagen.media	subtract		sunsubtractrif
-rendered    org.eclipse.imagen.media.mlib.MlibSubtractRIF		org.eclipse.imagen.media	subtract		mlibsubtractrif
 rendered    org.eclipse.imagen.media.opimage.SubtractConstCRIF		org.eclipse.imagen.media	subtractconst		sunsubtractconstrif
-rendered    org.eclipse.imagen.media.mlib.MlibSubtractConstRIF		org.eclipse.imagen.media	subtractconst		mlibsubtractconstrif
 rendered    org.eclipse.imagen.media.opimage.SubtractFromConstCRIF	org.eclipse.imagen.media	subtractfromconst	sunsubtractfromconstrif
-rendered    org.eclipse.imagen.media.mlib.MlibSubtractFromConstRIF	org.eclipse.imagen.media	subtractfromconst	mlibsubtractfromconstrif
 rendered    org.eclipse.imagen.media.opimage.TIFFRIF			org.eclipse.imagen.media	tiff			suntiffrif
 rendered    org.eclipse.imagen.media.opimage.ThresholdCRIF		org.eclipse.imagen.media	threshold		sunthresholdrif
-rendered    org.eclipse.imagen.media.mlib.MlibThresholdRIF		org.eclipse.imagen.media	threshold		mlibthresholdrif
 rendered    org.eclipse.imagen.media.opimage.TranslateCRIF		org.eclipse.imagen.media	translate		suntransrif
-rendered    org.eclipse.imagen.media.mlib.MlibTranslateRIF		org.eclipse.imagen.media	translate		mlibtranslaterif
 rendered    org.eclipse.imagen.media.opimage.TransposeCRIF		org.eclipse.imagen.media	transpose		suntransposerif
-rendered    org.eclipse.imagen.media.mlib.MlibTransposeRIF		org.eclipse.imagen.media	transpose		mlibtransposerif
 rendered    org.eclipse.imagen.media.opimage.UnsharpMaskRIF		org.eclipse.imagen.media	unsharpmask		sununsharpmaskrif
-rendered    org.eclipse.imagen.media.mlib.MlibUnsharpMaskRIF		org.eclipse.imagen.media	unsharpmask		mlibunsharpmaskrif
 rendered    org.eclipse.imagen.media.opimage.URLRIF			org.eclipse.imagen.media	url			sunurlrif
 rendered    org.eclipse.imagen.media.opimage.WarpRIF			org.eclipse.imagen.media	warp			sunwarprif
-rendered    org.eclipse.imagen.media.mlib.MlibWarpRIF			org.eclipse.imagen.media	warp			mlibwarprif
 rendered    org.eclipse.imagen.media.opimage.XorConstCRIF		org.eclipse.imagen.media	xorconst		sunxorconstrif
-rendered    org.eclipse.imagen.media.mlib.MlibXorConstRIF		org.eclipse.imagen.media	xorconst		mlibxorconstrif
 rendered    org.eclipse.imagen.media.opimage.XorCRIF			org.eclipse.imagen.media	xor			sunxorrif
-rendered    org.eclipse.imagen.media.mlib.MlibXorRIF			org.eclipse.imagen.media	xor			mlibxorrif
 
 
 #
@@ -434,66 +376,4 @@ remoterendered      org.eclipse.imagen.media.rmi.JAIRMICRIF             jairmi
 # remote renderable factory objects
 #
 remoterenderable    org.eclipse.imagen.media.rmi.JAIRMICRIF             jairmi
-
-#
-# "rendered" factory object preferences
-#
-pref	rendered	absolute	org.eclipse.imagen.media	mlibabsoluterif	sunabsoluterif
-pref	rendered	addconst	org.eclipse.imagen.media	mlibaddconstrif	sunaddconstrif
-pref	rendered	add		org.eclipse.imagen.media	mlibaddrif	sunaddrif
-pref	rendered	affine		org.eclipse.imagen.media	mlibaffinerif	sunaffinerif
-pref	rendered	and		org.eclipse.imagen.media	mlibandrif	sunandrif
-pref	rendered	andconst	org.eclipse.imagen.media	mlibandconstrif	sunandconstrif
-pref	rendered	bandcombine	org.eclipse.imagen.media	mlibbandcombinerif	sunbandcombinerif
-pref	rendered	bandselect	org.eclipse.imagen.media	mlibbandselectrif	sunbandselectrif
-pref	rendered	binarize	org.eclipse.imagen.media	mlibbinarizerif	sunbinarizerif
-pref	rendered	boxfilter	org.eclipse.imagen.media	mlibboxfilterrif	sunboxfilterrif
-pref	rendered	clamp		org.eclipse.imagen.media	mlibclamprif	sunclamprif
-pref	rendered	composite	org.eclipse.imagen.media	mlibcompositerif	suncompositerif
-pref	rendered	convolve	org.eclipse.imagen.media	mlibconvolverif	sunconvolverif
-pref	rendered	dct		org.eclipse.imagen.media	mlibdctrif	sundctrif
-pref	rendered	dilate		org.eclipse.imagen.media	mlibdilaterif	sundilaterif
-pref	rendered	idct		org.eclipse.imagen.media	mlibidctrif	sunidctrif
-pref	rendered	dft		org.eclipse.imagen.media	mlibdftrif	sundftrif
-pref	rendered	idft		org.eclipse.imagen.media	mlibidftrif	sunidftrif
-pref	rendered	divide		org.eclipse.imagen.media	mlibdividerif	sundividerif
-pref	rendered	dividebyconst	org.eclipse.imagen.media	mlibdividebyconstrif	sundividebyconstrif
-pref	rendered	divideintoconst	org.eclipse.imagen.media	mlibdivideintoconstrif	sundivideintoconstrif
-pref	rendered	erode		org.eclipse.imagen.media	mliberoderif	suneroderif
-pref	rendered	exp		org.eclipse.imagen.media	mlibexprif	sunexprif
-pref	rendered	extrema		org.eclipse.imagen.media	mlibextremarif	sunextremarif
-pref	rendered	filteredsubsample org.eclipse.imagen.media	mlibfilteredsubsamplerif	sunfilteredsubsamplerif
-pref	rendered	gradientmagnitude	org.eclipse.imagen.media	mlibgradientrif sungradientrif
-pref	rendered	histogram	org.eclipse.imagen.media	mlibhistogramrif sunhistogramrif
-pref	rendered	invert		org.eclipse.imagen.media	mlibinvertrif	suninvertrif
-pref	rendered	log		org.eclipse.imagen.media	mliblogrif	sunlogrif
-pref	rendered	lookup		org.eclipse.imagen.media	mliblookuprif	sunlookuprif
-pref	rendered	max		org.eclipse.imagen.media	mlibmaxrif	sunmaxrif
-pref	rendered	maxfilter	org.eclipse.imagen.media	mlibmaxfilterrif	sunmaxfilterrif
-pref	rendered	mean		org.eclipse.imagen.media	mlibmeanrif	sunmeanrif
-pref	rendered	medianfilter	org.eclipse.imagen.media	mlibmedianfilterrif	sunmedianfilterrif
-pref	rendered	min		org.eclipse.imagen.media	mlibminrif	sunminrif
-pref	rendered	minfilter	org.eclipse.imagen.media	mlibminfilterrif	sunminfilterrif
-pref	rendered	mosaic	org.eclipse.imagen.media	mlibmosaicrif	sunmosaicrif
-pref	rendered	multiply	org.eclipse.imagen.media	mlibmultiplyrif	sunmultiplyrif
-pref	rendered	multiplyconst	org.eclipse.imagen.media	mlibmultiplyconstrif	sunmultiplyconstrif
-pref	rendered	not		org.eclipse.imagen.media	mlibnotrif	sunnotrif
-pref	rendered	or		org.eclipse.imagen.media	mliborrif	sunorrif
-pref	rendered	orconst		org.eclipse.imagen.media	mliborconstrif	sunorconstrif
-pref	rendered	rescale		org.eclipse.imagen.media	mlibrescalerif	sunrescalerif
-pref	rendered	rotate		org.eclipse.imagen.media	mlibrotaterif	sunrotaterif
-pref	rendered	scale		org.eclipse.imagen.media	mlibscalerif	sunscalerif
-pref	rendered	shear		org.eclipse.imagen.media	mlibshearrif	sunshearrif
-pref	rendered	subsampleaverage	org.eclipse.imagen.media	mlibsubsampleaveragerif	sunsubsampleaveragerif
-pref	rendered	subsamplebinarytogray	org.eclipse.imagen.media	mlibsubsamplebinarytograyrif	sunsubsamplebinarytograyrif
-pref	rendered	subtractconst	org.eclipse.imagen.media	mlibsubtractconstrif	sunsubtractconstrif
-pref	rendered	subtractfromconst	org.eclipse.imagen.media	mlibsubtractfromconstrif	sunsubtractfromconstrif
-pref	rendered	subtract	org.eclipse.imagen.media	mlibsubtractrif	sunsubtractrif
-pref	rendered	threshold	org.eclipse.imagen.media	mlibthresholdrif	sunthresholdrif
-pref	rendered	translate	org.eclipse.imagen.media	mlibtranslaterif	suntransrif
-pref	rendered	transpose	org.eclipse.imagen.media	mlibtransposerif	suntransposerif
-pref	rendered	unsharpmask	org.eclipse.imagen.media	mlibunsharpmaskrif	sununsharpmaskrif
-pref	rendered	warp		org.eclipse.imagen.media	mlibwarprif	sunwarprif
-pref	rendered	xor		org.eclipse.imagen.media	mlibxorrif	sunxorrif
-pref	rendered	xorconst	org.eclipse.imagen.media	mlibxorconstrif	sunxorconstrif
 
