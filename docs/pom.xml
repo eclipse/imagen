@@ -15,6 +15,7 @@
         <module>tutorial</module>
         <module>demo</module>
         <module>codec</module>
+        <module>medical</module>
         <module>network</module>
     </modules>
 
