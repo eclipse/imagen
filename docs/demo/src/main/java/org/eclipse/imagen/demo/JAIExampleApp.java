@@ -60,14 +60,12 @@ import org.eclipse.imagen.registry.RIFRegistry;
  * produces are "hardcoded" to that particular RIF, so the OpImages do
  * not need to be registered.
  */
-
-
 public class JAIExampleApp extends WindowAdapter {
 
     public JAIExampleApp(String imageName) {
 
-        Frame frame = new Frame("JAIExampleApp JAI Program");
-	frame.addWindowListener(this);
+        Frame frame = new Frame("JAIExampleApp ImageN Program");
+        frame.addWindowListener(this);
   
         // The SampleDescriptor is both an OperationDescriptor 
         // and a RIF.  Other RIFs can be registered with this
