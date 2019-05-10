@@ -1,1 +1,2 @@
-# hello world
+# ImageN Jekyll Configuration
+exclude:  README.md
