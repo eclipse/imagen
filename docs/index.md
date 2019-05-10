@@ -4,12 +4,15 @@ title: Eclipse ImageN
 ---
 # Eclipse ImageN
 
-## A simple ImageN Program
+The Eclipse ImageN project provides an extensible, on-demand image processing library with no artificial restrictions on raster size or number of bands.
 
-Before proceeding any further, let's take a look at an example ImageN program to get an idea of what it looks like. The Listing below shows a simple example of a complete JAI program. This example reads an image, passed to the program as a command line argument, scales the image by 2x with bilinear interpolation, then displays the result.
+Eclipse ImageN provides:
 
-**Simple Example JAI Program**
+* Modern Java API using literate programming style
+* Pure Java implementation
+* Clear image processing operations, allowing installations to use native libs to accelerate processing if available
+* On demand processing of large raster content staging tiles in memory for parallel processing
+* No artificial limitation on raster size or number of bands to support multi-spectral imagery
 
-{% highlight java linenos%}
-{% include ImageNSampleProgram.java %}
-{% endhighlight %}
+Visit [Eclipse ImageN](https://projects.eclipse.org/projects/technology.imagen) project
+page for more information.
