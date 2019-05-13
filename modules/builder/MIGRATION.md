@@ -1,6 +1,6 @@
 # JAI Migration Tutorial
 
-Raster Processing Engine offers a migration path for developers using the Java Advanced Imaging Framework.
+ImageN offers a migration path for developers migrating from Java Advanced Imaging API classes to ImageN builder approach which offers a "fluent" approach for improved ease of use and discoverability via IDE code completion.
 
 ## Simple JAI Program
 
@@ -52,9 +52,9 @@ window.pack();
 window.show();
 ```
 
-Raster Processing Engine also offers a facade class providing high level access to library functionality. Use of literate programming reduces the need for untyped API contracts (such as parameter blocks).
+ImageN offers a facade class providing high level access to library functionality. Use of literate programming reduces the need for untyped API contracts (such as parameter blocks).
 
-Here is the sample approach used with raster processing engine library:
+Here is the sample approach used with ImageN:
 
 ```java
 /*
