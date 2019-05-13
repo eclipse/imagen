@@ -7,7 +7,7 @@
         <artifactId>imagen</artifactId>
         <version>0.4-SNAPSHOT</version>
     </parent>
-    <artifactId>imagen-docs</artifactId>
+    <artifactId>imagen-demos</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
     <packaging>pom</packaging>
     
