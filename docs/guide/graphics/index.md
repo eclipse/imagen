@@ -1,10 +1,10 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](Analysis.doc.html)
-[![Next](shared/next.gif)](Properties.doc.html)
+---
+layout: default
+title: Graphic Rendering
+parent: Programming Guide
+nav_order: 12
+---
 
-*Programming in Java Advanced Imaging*
-
-\
 
 []{#51142}
 

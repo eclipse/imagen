@@ -1,17 +1,9 @@
 ---
 layout: default
-title: Java Advanced Imaging API Summary
+title: API Summary
+parent: Programming Guide
+nav_order: 18
 ---
-
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](Examples.doc.html)
-[![Next](shared/next.gif)](Glossary.doc.html)
-
-*Programming in Java Advanced Imaging*
-
-\
-
-[]{#72445}
 
   -------------------------------------------
     A P P E N D I X ![](shared/sm-space.gif)B

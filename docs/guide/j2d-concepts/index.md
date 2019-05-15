@@ -1,8 +1,9 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](Introduction.doc.html)
-[![Next](shared/next.gif)](Programming-environ.doc.html)
-
-*Programming in Java Advanced Imaging*
+---
+layout: default
+title: Java AWT Imaging
+parent: Programming Guide
+nav_order: 3
+---
 
 \
 

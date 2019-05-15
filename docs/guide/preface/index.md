@@ -1,6 +1,10 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](JAITOC.fm.html)
-[![Next](shared/next.gif)](Introduction.doc.html)
+---
+layout: default
+title: Preface
+parent: Programming Guide
+nav_order: 1
+---
+
 
 *Programming in Java Advanced Imaging*
 

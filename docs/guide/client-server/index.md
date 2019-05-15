@@ -1,10 +1,10 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](Properties.doc.html)
-[![Next](shared/next.gif)](Encode.doc.html)
+---
+layout: default
+title: Client-Server Imaging
+parent: Programming Guide
+nav_order: 14
+---
 
-*Programming in Java Advanced Imaging*
-
-\
 
 []{#47227}
 
