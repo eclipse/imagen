@@ -34,6 +34,10 @@ bundle exec jekyll serve
 
 Viewing the result in your browser: [http://localhost:4000/](http://localhost:4000/)
 
+## Site Theme
+
+The site uses the [Just The Docs](https://pmarsceill.github.io/just-the-docs/) theme (MIT License).
+
 ## Site Structure
 
 Definition:

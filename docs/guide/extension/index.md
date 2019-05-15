@@ -1,10 +1,9 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](Encode.doc.html)
-[![Next](shared/next.gif)](Examples.doc.html)
-
-*Programming in Java Advanced Imaging*
-
-\
+---
+layout: default
+title: Extending the API
+parent: Programming Guide
+nav_order: 16
+---
 
 []{#47227}
 

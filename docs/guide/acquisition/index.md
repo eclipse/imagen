@@ -1,14 +1,18 @@
 ---
 layout: default
-title: Image Acquisition and Display
+title: Acquisition and Display
+parent: Programming Guide
+nav_order: 5
 ---
 
-*Programming in Eclipse ImageN*
-
 # Chapter 4 Image Acquisition and Display
+{: .no_toc }
 
 **This chapter describes the ImageN image data types and the API
 constructors and methods for image acquisition and display.
+
+* Contents
+{:toc}
 
 ## 4.1 Introduction
 
@@ -35,7 +39,7 @@ FileLoad Operation](Acquisition.doc.html#69930).\" The
 `ScrollingImagePanel` is described in [Section 4.8, \"Image
 Display](Acquisition.doc.html#73265).\"
 
-<a name="listing-4-1"></a
+<a name="listing-4-1"></a>
 
 ------------------------------------------------------------------------
 {% highlight java linenos%}
@@ -3574,5 +3578,3 @@ Manipulation](Geom-image-manip.doc.html#51140).\"
 ^1^ [Burt, P.J. and Adelson, E.H., \"The Laplacian pyramid as a
 compact image code,\" *IEEE Transactions on Communications*, pp.
 532-540, 1983.]{#82022}
-
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.

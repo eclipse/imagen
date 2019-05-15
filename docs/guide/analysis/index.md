@@ -1,10 +1,9 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](Geom-image-manip.doc.html)
-[![Next](shared/next.gif)](Graphics.doc.html)
-
-*Programming in Java Advanced Imaging*
-
-\
+---
+layout: default
+title: Image Analysis
+parent: Programming Guide
+nav_order: 11
+---
 
 []{#55364}
 

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Eclipse ImageN
+nav_order: 1
 ---
 # Eclipse ImageN
 

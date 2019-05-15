@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Eclipse ImageN JAI Migration
+title: JAI Migration
+nav_order: 5
 ---
 # JAI Migration
 
@@ -86,33 +87,22 @@ Java 8 is a Long Term Support release, and includes the internal `com.sun.image.
 
 When running in Java 8 `imagen_codec` supports:
 
-* BMP
-* GIF (read only)
-* FlashPix (read only)
-* JPEG
-* PNG
-* PNM
-* TIFF
-* WBMP
+----------
 
-Java 8 includes[ImageIO](https://docs.oracle.com/javase/8/docs/api/javax/imageio/package-summary.html) formats:
+Format         | [Java 8 ImageIO](https://docs.oracle.com/javase/8/docs/api/javax/imageio/package-summary.html) | imagen_codec   | [Java 11 ImageIO](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/imageio/package-summary.html)
+-------------- | -------------- | -------------- | -------------- 
+BMP            | read/write     | read/write     | read/write
+FlashPix       |                | read           | 
+GIF            | read/write     | read           | read/write
+JPEG           | read/write     | read/write     | read/write
+PNG            | read/write     | read/write     | read/write
+PNM            |                | read/write     | 
+TIFF           |                | read/write     | read/write
+WBMP           | read/write     | read           | read/write
 
-* BMP
-* GIF
-* JPEG
-* PNG
-* WBMP
+----------
 
-Java 11 includes [ImageIO](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/imageio/package-summary.html) formats:
-
-* BMP
-* GIF
-* JPEG
-* PNG
-* TIFF
-* WBMP
-
-The key format missing from Java 8 is TIFF, which is included from Java 9 onward. You may wish to continue to use `imagen_codec` to provide TIFF support when operating in a Java 8 environment:
+The key format missing from Java 8 is TIFF, which is included in `ImageIO` from Java 9 onward. You may wish to continue to use `imagen_codec` to provide TIFF support when operating in a Java 8 environment:
 
 ```XML
 <profiles>
@@ -150,4 +140,3 @@ The operations taking advantage of `mlibwrapper_jai` have been factored out into
   <version>${jai.version}</version>
 </dependency>
 ```
-

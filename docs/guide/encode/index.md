@@ -1,10 +1,9 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](Client-server.doc.html)
-[![Next](shared/next.gif)](Extension.doc.html)
-
-*Programming in Java Advanced Imaging*
-
-\
+---
+layout: default
+title: Writing Image Files
+parent: Programming Guide
+nav_order: 15
+---
 
 []{#47227}
 

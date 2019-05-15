@@ -1,10 +1,10 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](Image-enhance.doc.html)
-[![Next](shared/next.gif)](Analysis.doc.html)
+---
+layout: default
+title: Geometric Image Manipulation
+parent: Programming Guide
+nav_order: 10
+---
 
-*Programming in Java Advanced Imaging*
-
-\
 
 []{#47227}
 

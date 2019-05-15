@@ -1,2 +1,20 @@
 # ImageN Jekyll Configuration
 exclude:  README.md
+
+# Theme
+remote_theme: pmarsceill/just-the-docs
+theme: "just-the-docs"
+
+# Theme configuration
+
+title: Eclipse ImageN
+description: Java Image Processing API
+
+# Enable or disable the site search
+search_enabled: true
+
+aux_links:
+    "Eclipse Project":
+      - "https://projects.eclipse.org/projects/technology.imagen"
+    "GitHub":
+      - "http://github.com/eclipse/imagen"

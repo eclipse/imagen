@@ -1,12 +1,9 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](J2D-concepts.doc.html)
-[![Next](shared/next.gif)](Acquisition.doc.html)
-
-*Programming in Java Advanced Imaging*
-
-\
-
-[]{#47227}
+---
+layout: default
+title: Programming Enviorment
+parent: Programming Guide
+nav_order: 4
+---
 
   ----------------------------------------
     C H A P T E R![](shared/sm-space.gif)3
