@@ -1,0 +1,804 @@
+<html><head><title>Program Examples</title></head>
+<body bgcolor=#ffffff>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Extension.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="API-summary.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+<center>
+<a name="72445">
+<table width=90% border=0><tr>
+<td align=right><font size=3>A P P E N D I X <img src="shared/sm-space.gif"></font><font size=7>A</td></table>
+</a></center><center>
+<a name="72446">
+<table width=90% border=0><tr><td align=right>
+<hr size=7 noshade>
+<font size=6>Program Examples</font></td></table>
+</a></center><blockquote>
+<p><br><br><br><P><font size=7><b>T</b></font>HIS appendix contains fully-operational JAI program examples.
+<p>The examples in this appendix are provided to demonstrate how to create simple programs using JAI. Although these examples can be compiled and run, they are not intended to be used that way since they are pretty simple and would not be particularly interesting, visually.
+<p><a name="72767">
+<h2>A.1	<img src="shared/space.gif">Lookup Operation Example</h2>
+</a><a href="Examples.doc.html#73865">Listing &#32;A-1</a> shows an example of the <code>Lookup</code> operation. This example program decodes a TIFF image file into a <code>RenderedImage</code>. If the TIFF image is an unsigned short type image, the program performs a <code>Lookup</code> operation to convert the image into a byte type image. Finally, the program displays the byte image.<p>
+<caption><font size=-1><b>
+<a name="73865">
+<center><font size=-1><b><i>Listing A-1	</i><img src="shared/sm-blank.gif" border=0> <strong>Example Lookup Program</strong></b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=13><pre>     import java.awt.Frame;
+     import java.awt.RenderingHints;
+     import java.awt.image.DataBuffer;
+     import java.awt.image.renderable.ParameterBlock;
+     import java.io.IOException;
+     import javax.media.jai.JAI;
+     import javax.media.jai.LookupTableJAI;
+     import javax.media.jai.RenderedOp;
+     import com.sun.media.jai.codec.FileSeekableStream;
+     import com.sun.media.jai.codec.TIFFDecodeParam;
+     import javax.media.jai.widget.ScrollingImagePanel;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td><pre>     public class LookupSampleProgram {
+</pre>
+<tr valign=top><td colspan=1 rowspan=3><pre>         // The main method.
+         public static void main(String[] args) {
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Validate input.
+             if (args.length != 1) {
+                System.out.println("Usage: java LookupSampleProgram " +
+                                   "TIFF_image_filename");
+                 System.exit(-1);
+             }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=12><pre>     // Create an input stream from the specified file name to be
+     // used with the TIFF decoder.
+             FileSeekableStream stream = null;
+             try {
+                 stream = new FileSeekableStream(args[0]);
+             } catch (IOException e) {
+                 e.printStackTrace();
+                 System.exit(0);
+             }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Store the input stream in a ParameterBlock to be sent to
+     // the operation registry, and eventually to the TIFF
+     // decoder.
+             ParameterBlock params = new ParameterBlock();
+             params.add(stream);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Specify to TIFF decoder to decode images as they are and
+     // not to convert unsigned short images to byte images.
+             TIFFDecodeParam decodeParam = new TIFFDecodeParam();
+             decodeParam.setDecodePaletteAsShorts(true);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // Create an operator to decode the TIFF file.
+             RenderedOp image1 = JAI.create("tiff", params);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=9><pre>     // Find out the first image's data type.
+             int dataType = image1.getSampleModel().getDataType();
+             RenderedOp image2 = null;
+             if (dataType == DataBuffer.TYPE_BYTE) {
+     // Display the byte image as it is.
+                 System.out.println("TIFF image is type byte.");
+                 image2 = image1;
+             } else if (dataType == DataBuffer.TYPE_USHORT) {
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     // Convert the unsigned short image to byte image.
+                 System.out.println("TIFF image is type ushort.");
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Setup a standard window-level lookup table. */
+                 byte[] tableData = new byte[0x10000];
+                 for (int i = 0; i &lt; 0x10000; i++) {
+                     tableData[i] = (byte)(i &gt;&gt; 8);
+                 }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=6><pre>     // Create a LookupTableJAI object to be used with the
+     // "lookup" operator.
+                 LookupTableJAI table = new LookupTableJAI(tableData);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // Create an operator to lookup image1.
+                 image2 = JAI.create("lookup", image1, table);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=6><pre>             } else {
+                 System.out.println("TIFF image is type " + dataType +
+                                    ", and will not be displayed.");
+                 System.exit(0);
+             }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     // Get the width and height of image2.
+             int width = image2.getWidth();
+             int height = image2.getHeight();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     // Attach image2 to a scrolling panel to be displayed.
+             ScrollingImagePanel panel = new ScrollingImagePanel(
+                                             image2, width, height);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Create a frame to contain the panel.
+             Frame window = new Frame("Lookup Sample Program");
+             window.add(panel);
+             window.pack();
+             window.show();
+         }
+     }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><a name="74136">
+<h2>A.2	<img src="shared/space.gif">Adding an OperationDescriptor Example</h2>
+</a><a href="Extension.doc.html#47285">Chapter &#32;14, "Extending the API</a>," describes how to extend the API by writing custom OperationDescriptors. <a href="Examples.doc.html#74163">Listing &#32;A-2</a> shows the construction of an <code>OperationDescriptor</code>, called <code>SampleDescriptor</code>, that is both an <code>OperationDescriptor</code> and a <code>RenderedImageFactory</code>. The operation created here is called <code>Sample</code> and takes two parameters for the operation.<p>
+<caption><font size=-1><b>
+<a name="74163">
+<center><font size=-1><b><i>Listing A-2	</i><img src="shared/sm-blank.gif" border=0> Example OperationDescriptor</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=16><pre>     import java.awt.Rectangle;
+     import java.awt.RenderingHints;
+     import java.awt.image.ComponentSampleModel;
+     import java.awt.image.DataBuffer;
+     import java.awt.image.DataBufferByte;
+     import java.awt.image.Raster;
+     import java.awt.image.RenderedImage;
+     import java.awt.image.SampleModel;
+     import java.awt.image.WritableRaster;
+     import java.awt.image.renderable.ParameterBlock;
+     import java.awt.image.renderable.RenderedImageFactory;
+     import javax.media.jai.ImageLayout;
+     import javax.media.jai.OperationDescriptorImpl;
+     import javax.media.jai.OpImage;
+     import javax.media.jai.PointOpImage;
+     import javax.media.jai.RasterAccessor;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     // A single class that is both an OperationDescriptor and
+     // a RenderedImageFactory along with the one OpImage it is
+     // capable of creating.  The operation implemented is a variation
+     // on threshold, although the code may be used as a template for
+     // a variety of other point operations.
+     public class SampleDescriptor extends OperationDescriptorImpl 
+                                   implements RenderedImageFactory {
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=15><pre>     // The resource strings that provide the general documentation
+     // and specify the parameter list for the "Sample" operation.
+     private static final String[][] resources = {
+         {"GlobalName",  "Sample"},
+         {"LocalName",   "Sample"},
+         {"Vendor",      "com.mycompany"},
+         {"Description", "A sample operation that thresholds source
+                          pixels"},
+         {"DocURL",      "http://www.mycompany.com/
+                          SampleDescriptor.html"},
+         {"Version",     "1.0"},
+         {"arg0Desc",    "param1"},
+         {"arg1Desc",    "param2"}
+         };
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=8><pre>     // The parameter names for the "Sample" operation. Extenders may
+     // want to rename them to something more meaningful. 
+         private static final String[] paramNames = {
+             "param1", "param2"
+         };
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=9><pre>     // The class types for the parameters of the "Sample" operation.  
+     // User defined classes can be used here as long as the fully 
+     // qualified name is used and the classes can be loaded.
+         private static final Class[] paramClasses = {
+             java.lang.Integer.class, java.lang.Integer.class
+         };
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=8><pre>     // The default parameter values for the "Sample" operation
+     // when using a ParameterBlockJAI.
+         private static final Object[] paramDefaults = {
+             new Integer(0), new Integer(255)
+         };
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>     // Constructor.
+     public SampleDescriptor() {
+        super(resources, 1, paramClasses, paramNames, paramDefaults);
+         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=15><pre>     // Creates a SampleOpImage with the given ParameterBlock if the 
+     // SampleOpImage can handle the particular ParameterBlock.
+         public RenderedImage create(ParameterBlock paramBlock,
+                                     RenderingHints renderHints) {
+             if (!validateParameters(paramBlock)) {
+                 return null;
+             }
+             return new SampleOpImage(paramBlock.getRenderedSource(0),
+                             new ImageLayout(),
+                             (Integer)paramBlock.getObjectParameter(0),
+                             (Integer)paramBlock.getObjectParameter(1));
+         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=18><pre>     // Checks that all parameters in the ParameterBlock have the 
+     // correct type before constructing the SampleOpImage
+     public boolean validateParameters(ParameterBlock paramBlock) {
+             for (int i = 0; i &lt; this.getNumParameters(); i++) {
+                 Object arg = paramBlock.getObjectParameter(i);
+                 if (arg == null) {
+                     return false;
+                 }
+                 if (!(arg instanceof Integer)) {
+                     return false;
+                 }
+             }
+             return true;
+         }
+     }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // SampleOpImage is an extension of PointOpImage that takes two
+     // integer parameters and one source and performs a modified
+     // threshold operation on the given source.
+     class SampleOpImage extends PointOpImage {
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>         private int param1;
+         private int param2;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // A dummy constructor used by the class loader. */
+         public SampleOpImage() {}
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=18><pre>     /** Constructs an SampleOpImage. The image dimensions are copied
+     *  from the source image.  The tile grid layout, SampleModel, and
+     *  ColorModel may optionally be specified by an ImageLayout
+     *  object.
+     *
+     * @param source    a RenderedImage.
+     * @param layout    an ImageLayout optionally containing the tile
+     *                  grid layout, SampleModel, and ColorModel, or
+     *                  null.
+     */
+         public SampleOpImage(RenderedImage source,
+                              ImageLayout layout,
+                              Integer param1,
+                              Integer param2) {
+             super(source, null, layout, true);
+             this.param1 = param1.intValue();
+             this.param2 = param2.intValue();
+         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=18><pre>     /**
+     * Performs a modified threshold operation on the pixels in a
+     * given rectangle.  Sample values below a lower limit are clamped
+     * to 0, while those above an upper limit are clamped to 255.  The
+     * results are returned in the input WritableRaster dest.  The
+     * sources are cobbled.
+     *
+     * @param sources   an array of sources, guarantee to provide all
+     *                necessary source data for computing the rectangle.
+     * @param dest   a tile that contains the rectangle to be computed.
+     * @param destRect the rectangle within this OpImage to be
+     *                 processed.
+     */
+         protected void computeRect(Raster[] sources,
+                                    WritableRaster dest,
+                                    Rectangle destRect) {
+             Raster source = sources[0];
+             Rectangle srcRect = mapDestRect(destRect, 0);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=8><pre>     // RasterAccessor is a convienient way to represent any given 
+     // Raster in a usable format.  It has very little overhead if
+     // the underlying Raster is in a common format (PixelSequential
+     // for this release) and allows generic code to process
+     // a Raster with an exotic format.  Essentially, it allows the
+     // common case to processed quickly and the rare case to be
+     // processed easily.
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // This "best case" formatTag is used to create a pair of 
+     // RasterAccessors for processing the source and dest rasters
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=7><pre>     RasterFormatTag[] formatTags = getFormatTags();
+     RasterAccessor srcAccessor = 
+        new RasterAccessor(sources[0], srcRect, formatTags[0],
+                           getSource(0).getColorModel());
+     RasterAccessor dstAccessor = 
+        new RasterAccessor(dest, destRect, formatTags[1],
+                           getColorModel());
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=19><pre>     // Depending on the base dataType of the RasterAccessors,
+     // either the byteLoop or intLoop method is called.  The two
+     // functions are virtually the same, except for the data type
+     // of the underlying arrays.
+             switch (dstAccessor.getDataType()) {
+             case DataBuffer.TYPE_BYTE:
+                 byteLoop(srcAccessor,dstAccessor);
+                 break;
+             case DataBuffer.TYPE_INT:
+                 intLoop(srcAccessor,dstAccessor);
+                 break;
+             default:
+                 String className = this.getClass().getName();
+                 throw new RuntimeException(className + 
+                                          " does not implement computeRect" + 
+                                      " for short/float/double data");
+             }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=9><pre>     // If the RasterAccessor object set up a temporary buffer for the 
+     // op to write to, tell the RasterAccessor to write that data
+     // to the raster now that we're done with it.
+             if (dstAccessor.isDataCopy()) {
+                 dstAccessor.clampDataArrays();
+                 dstAccessor.copyDataToRaster();
+             }
+         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=12><pre>     /**
+     * Computes an area of a given byte-based destination Raster using
+     * a souce RasterAccessor and a destination RasterAccesor.
+     * Processing is done as if the bytes are unsigned, even though
+     * the Java language has support only for signed bytes as a
+     * primitive datatype.
+     */
+     private void byteLoop(RasterAccessor src, RasterAccessor dst) {
+             int dwidth = dst.getWidth();
+             int dheight = dst.getHeight();
+             int dnumBands = dst.getNumBands();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>             byte dstDataArrays[][] = dst.getByteDataArrays();
+             int dstBandOffsets[] = dst.getBandOffsets();
+             int dstPixelStride = dst.getPixelStride();
+             int dstScanlineStride = dst.getScanlineStride();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>             byte srcDataArrays[][] = src.getByteDataArrays(); 
+             int srcBandOffsets[] = src.getBandOffsets();
+             int srcPixelStride = src.getPixelStride();
+             int srcScanlineStride = src.getScanlineStride();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>             byte bp1 = (byte)(param1 &amp; 0xff);
+             byte bp2 = (byte)(param2 &amp; 0xff);
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=11><pre>             // A standard imaging loop
+             for (int k = 0; k &lt; dnumBands; k++)  {
+                 byte dstData[] = dstDataArrays[k];
+                 byte srcData[] = srcDataArrays[k];
+                 int srcScanlineOffset = srcBandOffsets[k];
+                 int dstScanlineOffset = dstBandOffsets[k];
+                 for (int j = 0; j &lt; dheight; j++)  {
+                     int srcPixelOffset = srcScanlineOffset;
+                     int dstPixelOffset = dstScanlineOffset;
+                     for (int i = 0; i &lt; dwidth; i++)  {
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=14><pre>     // This code can be specialized by rewriting the 
+     // following block of code to do some other 
+     // operation.
+     //
+     //  Some examples:
+     //   InvertOp:
+     //      dstData[dstPixelOffset] = 
+     //        (byte)(0xff &amp; ~srcData[srcPixelOffset]);
+     //
+     //   AddConst:
+     //      dstData[dstPixelOffset] = 
+     //        (byte)(0xff &amp; (srcData[srcPixelOffset]+param1));
+     //
+     //   Currently, the operation performs a threshold.
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=8><pre>                 int pixel = srcData[srcPixelOffset] &amp; 0xff;
+                 if (pixel &lt; param1) {
+                     dstData[dstPixelOffset] = 0; // bp1;
+                 } else if (pixel &gt; param2) {
+                     dstData[dstPixelOffset] = (byte)255; // bp2;
+                 } else {
+                     dstData[dstPixelOffset] = srcData[srcPixelOffset];
+                 }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=8><pre>                         srcPixelOffset += srcPixelStride;
+                         dstPixelOffset += dstPixelStride;
+                     }
+                     srcScanlineOffset += srcScanlineStride;
+                     dstScanlineOffset += dstScanlineStride;
+                 }
+             }
+         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td><pre>     /**
+     * Computes an area of a given int-based destination Raster using
+     * a source RasterAccessor and a destination RasterAccesor.
+     */
+     private void intLoop(RasterAccessor src, RasterAccessor dst) {
+             int dwidth = dst.getWidth();
+             int dheight = dst.getHeight();
+             int dnumBands = dst.getNumBands();
+</pre>
+<tr valign=top><td colspan=1 rowspan=4><pre>             int dstDataArrays[][] = dst.getIntDataArrays();
+             int dstBandOffsets[] = dst.getBandOffsets();
+             int dstPixelStride = dst.getPixelStride();
+             int dstScanlineStride = dst.getScanlineStride();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>             int srcDataArrays[][] = src.getIntDataArrays();
+             int srcBandOffsets[] = src.getBandOffsets();
+             int srcPixelStride = src.getPixelStride();
+             int srcScanlineStride = src.getScanlineStride();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=26><pre>             for (int k = 0; k &lt; dnumBands; k++)  {
+                 int dstData[] = dstDataArrays[k];
+                 int srcData[] = srcDataArrays[k];
+                 int srcScanlineOffset = srcBandOffsets[k];
+                 int dstScanlineOffset = dstBandOffsets[k];
+                 for (int j = 0; j &lt; dheight; j++)  {
+                     int srcPixelOffset = srcScanlineOffset;
+                     int dstPixelOffset = dstScanlineOffset;
+                     for (int i = 0; i &lt; dwidth; i++)  {
+                         int pixel = srcData[srcPixelOffset];
+                         if (pixel &lt; param1) {
+                            dstData[dstPixelOffset] = 0;
+                         } else if (pixel &gt; param2) {
+                            dstData[dstPixelOffset] = 255;
+                         } else {
+                      dstData[dstPixelOffset] = srcData[srcPixelOffset];
+                         }
+                         srcPixelOffset += srcPixelStride;
+                         dstPixelOffset += dstPixelStride;
+                     }
+                     srcScanlineOffset += srcScanlineStride;
+                     dstScanlineOffset += dstScanlineStride;
+                 }
+             }
+         }
+     }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p>
+<p>
+<hr><br>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Extension.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="API-summary.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+
+
+<h5><a href="copyright.html">Copyright</a> &#169; 1999, Sun Microsystems, Inc.   All rights
+reserved.</h5>
+
+
+<!-- Last updated: Tue Nov 02 18:19:17 1999 -->
+</blockquote>
+</body>
+</html>

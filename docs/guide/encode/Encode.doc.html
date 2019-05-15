@@ -1,0 +1,1933 @@
+<html><head><title>Writing Image Files</title></head>
+<body bgcolor=#ffffff>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Client-server.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Extension.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+<center>
+<a name="47227">
+<table width=90% border=0><tr>
+<td align=right><font size=3>C H A P T E R</font><font size=7><img src="shared/sm-space.gif">13</td></table>
+</a></center><center>
+<a name="47285">
+<table width=90% border=0><tr><td align=right>
+<hr size=7 noshade>
+<font size=6>Writing Image Files</font></td></table>
+</a></center><blockquote>
+<p><br><br><br><P><font size=7><b>T</b></font>HIS chapter describes JAI's codec system for writing image data files.
+<p><a name="57309">
+<h2>13.1	<img src="shared/space.gif">Introduction</h2>
+</a>The JAI codec system supports a variety of image formats for writing an image to a file or to an <code>OutputStream</code> for further manipulation. For writing an image to a file, the <code>FileStore</code> operation (see <a href="Encode.doc.html#56452">Section &#32;13.2, "Writing to a File</a>") writes an image to a specified file in the specified format. For encoding an image  to an <code>OutputStream</code>, the <code>Encode</code> operation (see <a href="Encode.doc.html#56483">Section &#32;13.3, "Writing to an Output Stream</a>") writes an image to a given <code>OutputStream</code> in a specified format using the encoding parameters supplied via the <code>ImageEncodeParam</code> operation parameter.
+<p><a name="56452">
+<h2>13.2	<img src="shared/space.gif">Writing to a File</h2>
+</a>The <code>FileStore</code> operation writes an image to a given file in a specified format using the specified encoding parameters. This operation is much simpler than the encoders described in the remainder of this chapter.
+<p>The <code>FileStore</code> operation takes one rendered source image and three parameters:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="56518">
+Parameter
+</a><th><a name="56520">
+Type
+</a><th><a name="56522">
+Description
+</a>
+<tr valign=top><td><a name="56500">
+filename</a><br><td><a name="56502">
+String</a><br><td><a name="56504">
+The path of the file to write to.</a><br>
+<tr valign=top><td><a name="56506">
+format</a><br><td><a name="56508">
+String</a><br><td><a name="56510">
+The format of the file.</a><br>
+<tr valign=top><td><a name="57052">
+param</a><br><td><a name="57054">
+ImageEncodeParam</a><br><td><a name="57056">
+The encoding parameters.</a><br>
+
+</Table>
+
+<p>The <code>filename</code> parameter must be supplied or the operation will not be performed. Also, the specified file path must be writable.
+<p>The <code>format</code> parameter defaults to <code>tiff</code> if no value is provided. <a href="Encode.doc.html#56610">Table &#32;13-1</a> lists the recognized JAI file formats.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="56610">
+<i>Table 13-1	 </i><img src="shared/sm-blank.gif" border=0> JAI Writable File Formats
+</a></b></font></caption>
+<tr valign=top><th><a name="56614">
+File Format
+</a><th><a name="56616">
+Description
+</a>
+<tr valign=top><td><a name="56618">
+BMP</a><br><td><a name="56620">
+Microsoft Windows bitmap image file</a><br>
+<tr valign=top><td><a name="56622">
+JPEG</a><br><td><a name="56648">
+A file format developed by the Joint Photographic Experts Group</a><br>
+<tr valign=top><td><a name="56626">
+PNG</a><br><td><a name="56628">
+Portable Network Graphics</a><br>
+<tr valign=top><td><a name="56630">
+PNM</a><br><td><a name="56632">
+Portable aNy Map file format. Includes PBM, PGM, and PPM</a><br>
+<tr valign=top><td><a name="56634">
+TIFF</a><br><td><a name="56636">
+Tag Image File Format</a><br>
+
+</Table>
+
+<p>The <code>param</code> parameter must either be null or an instance of an <code>ImageEncodeParam</code> subclass appropriate to the format.
+<p><a href="Encode.doc.html#58219">Listing &#32;13-1</a> shows a code sample demonstrating the use of both the <code>Encode</code> and <code>FileStore</code> operations.
+<p><a name="56483">
+<h2>13.3	<img src="shared/space.gif">Writing to an Output Stream</h2>
+</a>The <code>Encode</code> operation writes an image to a given <code>OutputStream</code> in a specified format using the encoding parameters supplied via the <code>ImageEncodeParam</code> operation parameter.
+<p>The <code>Encode</code> operation takes one rendered source image and three parameters:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="51210">
+Parameter
+</a><th><a name="51212">
+Type
+</a><th><a name="51214">
+Description
+</a>
+<tr valign=top><td><a name="51222">
+stream</a><br><td><a name="51224">
+OutputStream</a><br><td><a name="51226">
+The OutputStream to write to.</a><br>
+<tr valign=top><td><a name="57025">
+format</a><br><td><a name="57027">
+String</a><br><td><a name="57029">
+The format of the created file.</a><br>
+<tr valign=top><td><a name="51228">
+param</a><br><td><a name="51230">
+ImageEncodeParam</a><br><td><a name="51232">
+The encoding parameters.</a><br>
+
+</Table>
+
+<p>The <code>param</code> parameter must either be null or an instance of an <code>ImageEncodeParam</code> subclass appropriate to the specified image format. The image encode parameter depends on the type of image file to be encoded. This parameter contains all of the information about the file type that the encoder needs to create the file. For example, the BMP format requires two parameter values, as described in the <code>BMPEncodeParam</code> class:
+<p><ul>
+<li>Version number - One of three values: <code>VERSION_2</code>, <code>VERSION_3</code>, or <code>VERSION_4</code>.<p></ul><ul>
+<li>Data layout - One of two values: <code>TOP_DOWN</code> or <code>BOTTOM_UP</code>.<p></ul>These parameters are described in detail in <a href="Encode.doc.html#51259">Section &#32;13.4, "Writing BMP Image Files</a>."
+<p><a href="Encode.doc.html#58219">Listing &#32;13-1</a> shows a code sample demonstrating the use of both the <code>Encode</code> and <code>FileStore</code> operations.<p>
+<caption><font size=-1><b>
+<a name="58219">
+<center><font size=-1><b><i>Listing 13-1	</i><img src="shared/sm-blank.gif" border=0> Writing an OutputStream and a File</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td><pre>     // Define the source and destination file names.
+     String inputFile = /images/FarmHouse.tif
+     String outputFile = /images/FarmHouse.bmp
+</pre>
+<tr valign=top><td><pre>     // Load the input image.
+     RenderedOp src = JAI.create("fileload", inputFile);
+</pre>
+<tr valign=top><td><pre>     // Encode the file as a BMP image.
+     FileOutputStream stream =
+         new FileOutputStream(outputFile);
+     JAI.create("encode", src, stream, BMP, null);
+</pre>
+<tr valign=top><td><pre>     // Store the image in the BMP format.
+     JAI.create("filestore", src, outputFile, BMP, null);
+</pre>
+
+<hr>
+
+<p><a name="51259">
+<h2>13.4	<img src="shared/space.gif">Writing BMP Image Files</h2>
+</a>As described above, the encoding of BMP images requires the specification of two parameters: version and data layout. By default, these values are:
+<p><ul>
+<li>Version - VERSION_3<p></ul><ul>
+<li>Data layout - pixels are stored in bottom-up order<p></ul>The JAI BMP encoder does not support compression of BMP image files.
+<p><a name="57416">
+<h3>13.4.1	<img src="shared/space.gif">BMP Version</h3>
+</a>JAI currently reads and writes Version2, Version3, and some of the Version 4 images. The BMP version number is read and specified with <code>getVersion</code> and <code>setVersion</code> methods in the <code>BMPEncodeParam</code> class. The BMP version parameters are as follows:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="51265">
+Parameter
+</a><th><a name="51267">
+Description
+</a>
+<tr valign=top><td><a name="51269">
+VERSION_2</a><br><td><a name="51271">
+Specifies BMP Version 2</a><br>
+<tr valign=top><td><a name="51273">
+VERSION_3</a><br><td><a name="51275">
+Specifies BMP Version 3</a><br>
+<tr valign=top><td><a name="51277">
+VERSION_4</a><br><td><a name="51279">
+Specifies BMP Version 4</a><br>
+
+</Table>
+
+<p>If not specifically set, <code>VERSION_3</code> is the default version.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.BMPEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setVersion(int versionNumber)
+<p></ul></pre><dl>
+<a name="56243">
+<dt><dd> sets the BMP version to be used.
+</a><P></dl>
+<pre><ul>
+<li>int getVersion()
+<p></ul></pre><dl>
+<a name="57353">
+<dt><dd> returns the BMP version to be used.
+</a><P></dl>
+<a name="56260">
+<h3>13.4.2	<img src="shared/space.gif">BMP Data Layout</h3>
+</a>The scan lines in the BMP bitmap are stored from the bottom up. This means that the first byte in the array represents the pixels in the lower-left corner of the bitmap, and the last byte represents the pixels in the upper-right corner.
+<p>The in-memory layout of the image data to be encoded is specified with <code>getDataLayout</code> and <code>setDataLayout</code> methods in the <code>BMPEncodeParam</code> class.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.BMPEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setTopDown(boolean topDown)
+<p></ul></pre><dl>
+<a name="56290">
+<dt><dd> sets the data layout to be top down.
+</a><P></dl>
+<a name="56293">
+<h3>13.4.3	<img src="shared/space.gif">Example Code</h3>
+</a><a href="Encode.doc.html#56298">Listing &#32;13-2</a> shows a code sample for encoding a BMP image.<p>
+<caption><font size=-1><b>
+<a name="56298">
+<center><font size=-1><b><i>Listing 13-2	</i><img src="shared/sm-blank.gif" border=0> Encoding a BMP Image</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td><pre>     OutputStream os = new FileOutputStream(fileToWriteTo);
+     BMPEncodeParam param = new BMPEncodeParam();
+     ImageEncoder enc = ImageCodec.createImageEncoder("BMP", os,
+                                                      param);
+     enc.encode(op);
+     os.close();
+</pre>
+
+<hr>
+
+<p><a name="51358">
+<h2>13.5	<img src="shared/space.gif">Writing JPEG Image Files</h2>
+</a>The JPEG standard was developed by a working group, known as the Joint Photographic Experts Group (JPEG). The JPEG image data compression standard handles grayscale and color images of varying resolution and size.
+<p>JPEG compression identifies and discards "extra" data that is beyond what the human eye can see. Since it discards data, the JPEG compression algorithm is considered "lossy." This means that once an image has been compressed and then decompressed, it will not be identical to the original image. In most cases, the difference between the original and compressed version of the image is indistinguishable.
+<p>An advantage of JPEG compression is the ability to select the quality when compressing the image. The lower the quality, the smaller the image file size, but the more different it will appear than the original.
+<p><a href="Encode.doc.html#57422">Table &#32;13-2</a> lists the JPEG encode parameters that may be set and the default values. The remaining sections describe these settings and how to change them.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="57422">
+<i>Table 13-2	 </i><img src="shared/sm-blank.gif" border=0> JPEG Encode Parameters
+</a></b></font></caption>
+<tr valign=top><th><a name="57428">
+Parameter
+</a><th><a name="57430">
+Description
+</a><th><a name="57432">
+Default Value
+</a>
+<tr valign=top><td><a name="58085">
+writeJFIFHeader</a><br><td><a name="58087">
+Controls whether the encoder writes a JFIF header using the APP0 marker. See <a href="Encode.doc.html#57417">Section &#32;13.5.1, "JFIF Header</a>."</a><br><td><a name="58092">
+True</a><br>
+<tr valign=top><td><a name="58098">
+qTabSlot[0],[1],[2]</a><br><td><a name="58102">
+Quantization tables. See <a href="Encode.doc.html#51433">Section &#32;13.5.3, "Quantization Table</a>."</a><br><td><a name="58105">
+0 for Y channel, 1 for Cb and Cr channels</a><br>
+<tr valign=top><td><a name="58107">
+qTab[0],[1],[2]</a><br><td><a name="58111">
+Quantization table contents.  See <a href="Encode.doc.html#51433">Section &#32;13.5.3, "Quantization Table</a>."</a><br><td><a name="58114">
+Null for all three channels</a><br>
+<tr valign=top><td><a name="58116">
+qTabSet[0],[1],[2]</a><br><td><a name="58120">
+Quantization table usage.  See <a href="Encode.doc.html#51433">Section &#32;13.5.3, "Quantization Table</a>."</a><br><td><a name="58123">
+False for all three channels</a><br>
+<tr valign=top><td><a name="57434">
+hSamp[0],[1],[2]</a><br><td><a name="57436">
+Horizontal subsampling. See <a href="Encode.doc.html#51546">Section &#32;13.5.4, "Horizontal and Vertical Subsampling</a>."</a><br><td><a name="57438">
+1 for Y channel, 2 for Cb and Cr channels</a><br>
+<tr valign=top><td><a name="57440">
+vSamp[0],[1],[2]</a><br><td><a name="57574">
+Vertical subsampling. See <a href="Encode.doc.html#51546">Section &#32;13.5.4, "Horizontal and Vertical Subsampling</a>."</a><br><td><a name="57528">
+1 for Y channel, 2 for Cb and Cr channels</a><br>
+<tr valign=top><td><a name="57464">
+qual</a><br><td><a name="57466">
+Quality setting. See <a href="Encode.doc.html#51700">Section &#32;13.5.5, "Compression Quality</a>."</a><br><td><a name="57468">
+0.75F</a><br>
+<tr valign=top><td><a name="57470">
+rstInterval</a><br><td><a name="57472">
+Restart interval. <a href="Encode.doc.html#57621">Section &#32;13.5.6, "Restart Interval</a>."</a><br><td><a name="57474">
+0</a><br>
+<tr valign=top><td><a name="57476">
+writeImageOnly</a><br><td><a name="57478">
+Controls whether encoder writes only the compressed image data. See <a href="Encode.doc.html#56121">Section &#32;13.5.7, "Writing an Abbreviated JPEG Stream</a>."</a><br><td><a name="57480">
+False</a><br>
+
+</Table>
+
+<p><a name="57417">
+<h3>13.5.1	<img src="shared/space.gif">JFIF Header</h3>
+</a>The JPEG File Interchange Format (JFIF) is a minimal file format that enables JPEG bitstreams to be exchanged between a wide variety of platforms and applications. This minimal format does not include any of the advanced features found in the TIFF JPEG specification or any application-specific file format. The sole purpose of this simplified format is to allow the exchange of JPEG compressed images.
+<p>The JFIF features are:
+<p><ul>
+<li>Uses the JPEG baseline image compression algorithm<p></ul><ul>
+<li>Uses JPEG interchange format compressed image representation<p></ul><ul>
+<li>Compatible with most platforms (PC, Mac, or Unix)<p></ul><ul>
+<li>Standard color space: one or three components. For three components, YC<sub>b</sub>C<sub>r</sub> (CCIR 601-256 levels)<p></ul>An APP0 marker is used to identify a JFIF file. The marker provides information that is missing from the JPEG stream, such as version number, <em>x</em> and <em>y</em> pixel density (dots per inch or dots per cm.), pixel aspect ratio (derived from <em>x</em> and <em>y</em> pixel density), and thumbnail. The <code>setWriteJFIFHeader</code> method controls whether the encoder writes a JFIF header using the APP0 marker.<code></code>
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.JPEGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setWriteJFIFHeader(boolean writeJFIF)
+<p></ul></pre><dl>
+<a name="56204">
+<dt><dd> controls whether the encoder writes a JFIF header using the APP0 marker. By default an APP0 marker is written to create a JFIF file.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameter</em>:<em></em>
+<p><td><code>writeJFIF</code>
+<p><td>If true, writes a JFIF header.
+<p>
+
+</Table>
+
+</a><P></dl>
+<a name="51386">
+<h3>13.5.2	<img src="shared/space.gif">JPEG DCT Compression Parameters</h3>
+</a>JAI uses the JPEG baseline DCT coding process, shown in <a href="Encode.doc.html#51423">Figure &#32;13-1</a>.
+<p><a name="51421">
+ <hr>
+<center><img src="Encode.doc.anc.gif"></center><hr>
+
+</a>
+<a name="51423">
+<center><font size=-1><b><i>Figure 13-1	</i><img src="shared/sm-blank.gif" border=0> JPEG Baseline DCT Coding</b></font></center>
+</a><p>
+For encoding, the image array is divided into 8 x 8 pixel blocks and a discrete cosine transform (DCT) is taken of each block, resulting in an 8 x 8array of transform coefficients. The DCT is a mathematical operation that takes the block of image samples as its input and converts the information from the spatial domain to the frequency domain. The 8 x 8 matrix input to the DCT represents brightness levels at specific <em>x</em>, <em>y</em> coordinates. The resulting 8 x 8 matrix values represent relative amounts of 64 spatial frequencies that make up the spectrum of the input data.
+<p>The next stage in the encoder quantizes the transform coefficients by dividing each DCT coefficient by a value from a quantization table. The quantization operation discards the smaller-valued frequency components, leaving only the larger-valued components.
+<p>After an image block has been quantized, it enters the entropy encoder, which creates the actual JPEG bitstream. The entropy encoder assigns a binary Huffman code to coefficient values. The length of each code is chosen to be inversely proportional to the expected probability of occurrence of a coefficient amplitude - frequently-occurring coefficient values get short code words, seldom-occurring coefficient values get long code words. The entropy encoder uses two tables, one for the AC frequency components and one for the DC frequency components.
+<p>The JPEG decoding process is essentially the inverse of the encoding process. The compressed image array data stream passes through the entropy encoder, which recreates the quantized coefficient values. Then, the quantized coefficients are reconstructed by multiplication with the quantizer table values. Finally, an inverse DCT is performed and the reconstructed image array is produced.
+<p>The following are the parameters that may be specified for JPEG DCT compression.
+<p><a name="51433">
+<h3>13.5.3	<img src="shared/space.gif">Quantization Table</h3>
+</a>The <code>setQTable</code> and <code>getQTable</code> methods are used to specify and retrieve the quantization table that will be used in encoding a particular band of the image. There are, by default, two quantizer tables:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="51439">
+Table
+</a><th><a name="51441">
+Band
+</a>
+<tr valign=top><td><a name="51443">
+0</a><br><td><a name="51445">
+Band 0</a><br>
+<tr valign=top><td><a name="51447">
+1</a><br><td><a name="51449">
+All other bands</a><br>
+
+</Table>
+
+<p>The parameter <code>tableNum</code> is usually a value between 0 and 3. This value indicates which of four quantization tables you are specifying. Table 0 is designed to be used with the luminance band of eight-bit YCC images. Table 1 is designed to be used with the chrominance bands of eight-bit YCC images. The two tables can also be set individually using the <code>setLumaQTable</code> (table 0) and <code>setChromaQTable</code> (table 1) methods. Tables 2 and 3 are not normally used.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.JPEGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setQTable(int component, int tableNum, int[] qTable)
+<p></ul></pre><dl>
+<a name="51453">
+<dt><dd> sets a quantization table to be used for a component. This method allows up to four independent tables to be specified. This disables any quality setting.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameters</em>:<em></em>
+<p><td><code>component</code>
+<p><td>The band to which this table applies.
+<p>
+<tr valign=top><td><code>tableNum</code>
+<p><td>The table number that this table is assigned to (0 to 3).
+<p>
+<tr valign=top><td><code>qTable</code>
+<p><td>Quantization table values in "zig-zag" order.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>int[] getQTable(int component)
+<p></ul></pre><dl>
+<a name="51455">
+<dt><dd> returns the contents of the quantization table used for a component. If this method is called before the quantization table is set, an error is thrown.
+</a><P></dl>
+<pre><ul>
+<li>void setLumaQTable(int[] qTable)
+<p></ul></pre><dl>
+<a name="56709">
+<dt><dd> sets the quantization table to be used for luminance data. This is a convenience method that explicitly sets the contents of quantization table 0. The length of the table must be 64. This disables any quality setting.
+</a><P></dl>
+<pre><ul>
+<li>void setChromaQTable(int[] qTable)
+<p></ul></pre><dl>
+<a name="56718">
+<dt><dd> sets the quantization table to be used for luminance data. This is a convenience method that explicitly sets the contents of quantization table 0. The length of the table must be 64. This method assumes that all chroma components will use the same table. This disables any quality setting.
+</a><P></dl>
+<pre><ul>
+<li>int getQTableSlot(int component)
+<p></ul></pre><dl>
+<a name="58061">
+<dt><dd> returns the quantization table slot used for a component. If this method is called before the quantization table data is set, an error is thrown.
+</a><P></dl>
+<a name="51546">
+<h3>13.5.4	<img src="shared/space.gif">Horizontal and Vertical Subsampling</h3>
+</a>JPEG allows the image components to be subsampled to reduce their resolution prior to encoding. This is typically done with YCC images, where the two chroma components can be subsampled, usually by a factor of two in both axes. This is possible due to the human visual system's low sensitivity to color images relative to luminance (Y) errors By default, the sampling factors for YCC input images are set to {1, 2, 2} for both horizontal and vertical axes.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.JPEGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setHorizontalSubsampling(int component, int subsample)
+<p></ul></pre><dl>
+<a name="51559">
+<dt><dd> sets the horizontal subsampling to be applied to an image band. Defaults to 1 for grayscale and (1,2,2) for RGB.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameter</em>:<em></em>
+<p><td><code>component</code>
+<p><td>The band for which to set horizontal subsampling.
+<p>
+<tr valign=top><td><code>subsample</code>
+<p><td>The horizontal subsampling factor.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>void setVerticalSubsampling(int component, int subsample)
+<p></ul></pre><dl>
+<a name="51561">
+<dt><dd> sets the vertical subsampling to be applied to an image band. Defaults to 1 for grayscale and (1,2,2) for RGB.
+</a><P></dl>
+<pre><ul>
+<li>int getHorizontalSubsampling(int component)
+<p></ul></pre><dl>
+<a name="51563">
+<dt><dd> returns the horizontal subsampling factor for a band.
+</a><P></dl>
+<pre><ul>
+<li>int getVerticalSubsampling(int component)
+<p></ul></pre><dl>
+<a name="51565">
+<dt><dd> returns the vertical subsampling factor for a band.
+</a><P></dl>
+<a name="51700">
+<h3>13.5.5	<img src="shared/space.gif">Compression Quality</h3>
+</a>Compression quality specifies a factor that relates to the desired tradeoff between image quality and the image data compression ratio. The quality value is a <code>float</code> between 0.0 and 1.0. A setting of 1.0 produces the highest quality image at a lower compression ratio. A setting of 0.0 produces the highest compression ratio, with a sacrifice to image quality. The quality value is typically set to 0.75.
+<p>The compression quality value controls image quality and compression ratio by determining a scale factor the encoder will use in creating scaled versions of the quantization tables. Some guidelines:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="56086">
+Quality Value
+</a><th><a name="56088">
+Meaning
+</a>
+<tr valign=top><td><a name="56104">
+1.0</a><br><td><a name="56106">
+Highest quality, no compression</a><br>
+<tr valign=top><td><a name="56090">
+0.75</a><br><td><a name="56092">
+High quality, good compression ratio</a><br>
+<tr valign=top><td><a name="56094">
+0.5</a><br><td><a name="56096">
+Medium quality, medium compression ratio</a><br>
+<tr valign=top><td><a name="56098">
+0.25</a><br><td><a name="56100">
+Low quality, high compression ratio</a><br>
+
+</Table>
+
+<p>
+<hr noshade><b>Note:</b> The values stored in the quantization table also affect image quality and compression ratio. See also <a href="Encode.doc.html#51433">Section &#32;13.5.3, "Quantization Table</a>."
+<hr noshade>
+<table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.JPEGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setQuality(float quality)
+<p></ul></pre><dl>
+<a name="51710">
+<dt><dd> sets the compression quality factor. Creates new quantization tables that replace the currently-installed quantization tables.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameter</em>:<em></em>
+<p><td><code>quality</code>
+<p><td>The desired quality level; a value of 0.0 to 1.0. The default value is 0.75.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>float getQuality()
+<p></ul></pre><dl>
+<a name="56753">
+<dt><dd> returns the quality setting for this encoding. This is a number between 0.0 and 1.0.
+</a><P></dl>
+<pre><ul>
+<li>boolean isQualitySet()
+<p></ul></pre><dl>
+<a name="57956">
+<dt><dd> tests if the quality parameter has been set in this <code>JPEGEncodeParam</code>.
+</a><P></dl>
+<a name="57621">
+<h3>13.5.6	<img src="shared/space.gif">Restart Interval</h3>
+</a>JPEG images use restart markers to define multiple strips or tiles. The restart markers are inserted periodically into the image data to delineate image segments known as <em>restart intervals</em>. To limit the effect of bitstream errors to a single restart interval, JAI provides methods to set the restart interval in JPEG Minimum Coded Units (MCUs). The default is zero (no restart interval markers).
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.JPEGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setRestartInterval(int restartInterval)
+<p></ul></pre><dl>
+<a name="57666">
+<dt><dd> sets the restart interval in Minimum Coded Units (MCUs).<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameter</em>:<em></em>
+<p><td><code>restartInterval</code>
+<p><td>Number of MCUs between restart markers.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>int getRestartInterval()
+<p></ul></pre><dl>
+<a name="57676">
+<dt><dd> returns the restart interval.
+</a><P></dl>
+<a name="56121">
+<h3>13.5.7	<img src="shared/space.gif">Writing an Abbreviated JPEG Stream</h3>
+</a>Normally, both the JPEG table data and compressed (or uncompressed) image data is written to the output stream. However, it is possible to write just the table data or just the image data. The <code>setWriteTablesOnly</code> method instructs the encoder to write only the table data to the output stream. The <code>setWriteImageOnly</code> method instructs the encoder to write only the compressed image data to the output stream.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.JPEGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setWriteTablesOnly(boolean tablesOnly)
+<p></ul></pre><dl>
+<a name="56152">
+<dt><dd> instructs the encoder to write only the table data to the output stream.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameter</em>:<em></em>
+<p><td><code>tablesOnly</code>
+<p><td>If true, only the tables will be written.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>void setWriteImageOnly(boolean imageOnly)
+<p></ul></pre><dl>
+<a name="56177">
+<dt><dd> instructs the encoder to write only the image data to the output stream.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameter</em>:<em></em>
+<p><td><code>imageOnly</code>
+<p><td>If true, only the compressed image will be written.
+<p>
+
+</Table>
+
+</a><P></dl>
+<a name="54656">
+<h3>13.5.8	<img src="shared/space.gif">Example Code</h3>
+</a><a href="Encode.doc.html#55335">Listing &#32;13-3</a> shows a code sample for encoding a JPEG image.<p>
+<caption><font size=-1><b>
+<a name="55335">
+<center><font size=-1><b><i>Listing 13-3	</i><img src="shared/sm-blank.gif" border=0> Encoding a JPEG Image</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=9><pre>     import java.awt.*;
+     import java.awt.event.*;
+     import java.awt.image.*;
+     import java.awt.image.renderable.*;
+     import java.io.*;
+     import javax.media.jai.*;
+     import javax.media.jai.widget.*;
+     import com.sun.media.jai.codec.*;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=7><pre>     public class JPEGWriterTest extends WindowContainer {
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     private ImageEncoder encoder = null;
+     private JPEGEncodeParam encodeParam = null;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=11><pre>     // Create some Quantization tables.
+         private static int[] qtable1 = {
+             1,1,1,1,1,1,1,1,
+             1,1,1,1,1,1,1,1,
+             1,1,1,1,1,1,1,1,
+             1,1,1,1,1,1,1,1,
+             1,1,1,1,1,1,1,1,
+             1,1,1,1,1,1,1,1,
+             1,1,1,1,1,1,1,1,
+             1,1,1,1,1,1,1,1
+         };
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=11><pre>         private static int[] qtable2 = {
+             2,2,2,2,2,2,2,2,
+             2,2,2,2,2,2,2,2,
+             2,2,2,2,2,2,2,2,
+             2,2,2,2,2,2,2,2,
+             2,2,2,2,2,2,2,2,
+             2,2,2,2,2,2,2,2,
+             2,2,2,2,2,2,2,2,
+             2,2,2,2,2,2,2,2
+         };
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=11><pre>         private static int[] qtable3 = {
+             3,3,3,3,3,3,3,3,
+             3,3,3,3,3,3,3,3,
+             3,3,3,3,3,3,3,3,
+             3,3,3,3,3,3,3,3,
+             3,3,3,3,3,3,3,3,
+             3,3,3,3,3,3,3,3,
+             3,3,3,3,3,3,3,3,
+             3,3,3,3,3,3,3,3
+         };
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=12><pre>         // Really rotten quality Q Table
+         private static int[] qtable4 = {
+             200,200,200,200,200,200,200,200,
+             200,200,200,200,200,200,200,200,
+             200,200,200,200,200,200,200,200,
+             200,200,200,200,200,200,200,200,
+             200,200,200,200,200,200,200,200,
+             200,200,200,200,200,200,200,200,
+             200,200,200,200,200,200,200,200,
+             200,200,200,200,200,200,200,200
+         };
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>     public static void main(String args[]) {
+         JPEGWriterTest jtest = new JPEGWriterTest(args);
+         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=10><pre>     // Load the source image.
+     private PlanarImage loadImage(String imageName) {
+     ParameterBlock pb = (new
+             ParameterBlock()).add(imageName);
+     PlanarImage src = JAI.create("fileload", pb);
+             if (src == null) {
+             System.out.println("Error in loading image " + imageName);
+                 System.exit(1);
+             }
+             return src;
+         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=11><pre>     // Create the image encoder.
+     private void encodeImage(PlanarImage img, FileOutputStream out)
+         {
+     encoder = ImageCodec.createImageEncoder("JPEG", out,
+                                             encodeParam);
+             try {
+                 encoder.encode(img);
+                 out.close();
+             } catch (IOException e) {
+                 System.out.println("IOException at encoding..");
+                 System.exit(1);
+             }
+         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=9><pre>     private FileOutputStream createOutputStream(String outFile) {
+             FileOutputStream out = null;
+             try {
+                 out = new FileOutputStream(outFile);
+             } catch(IOException e) {
+                 System.out.println("IOException.");
+                 System.exit(1);
+             }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>             return out;
+         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     public JPEGWriterTest(String args[]) {
+     // Set parameters from command line arguments.
+     String inFile = "images/Parrots.tif";
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     FileOutputStream out1 = createOutputStream("out1.jpg");
+     FileOutputStream out2 = createOutputStream("out2.jpg");
+     FileOutputStream out3 = createOutputStream("out3.jpg");
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // Create the source op image.
+     PlanarImage src = loadImage(inFile);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td><pre>        double[] constants = new double[3];
+        constants[0] = 0.0;
+        constants[1] = 0.0;
+        constants[2] = 0.0;
+        ParameterBlock pb = new ParameterBlock();
+        pb.addSource(src);
+        pb.add(constants);
+</pre>
+<tr valign=top><td><pre>     // Create a new src image with weird tile sizes
+     ImageLayout layout = new ImageLayout();
+     layout.setTileWidth(57);
+     layout.setTileHeight(57);
+     RenderingHints hints = new RenderingHints(JAI.KEY_IMAGE_LAYOUT,
+                                                       layout);
+     PlanarImage src1 = JAI.create("addconst", pb, hints);
+</pre>
+<tr valign=top><td colspan=1 rowspan=2><pre>     // ----- End src loading ------
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>     // Set the encoding parameters if necessary.
+     encodeParam = new JPEGEncodeParam();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     encodeParam.setQuality(0.1F);
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     encodeParam.setHorizontalSubsampling(0, 1);
+     encodeParam.setHorizontalSubsampling(1, 2);
+     encodeParam.setHorizontalSubsampling(2, 2);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     encodeParam.setVerticalSubsampling(0, 1);
+     encodeParam.setVerticalSubsampling(1, 1);
+     encodeParam.setVerticalSubsampling(2, 1);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>     encodeParam.setRestartInterval(64);
+     //encodeParam.setWriteImageOnly(false);
+     //encodeParam.setWriteTablesOnly(true);
+     //encodeParam.setWriteJFIFHeader(true);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     // Create the encoder.
+     encodeImage(src, out1);
+     PlanarImage dst1 = loadImage("out1.jpg");
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     //   ----- End first encode ---------
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     encodeParam.setLumaQTable(qtable1);
+     encodeParam.setChromaQTable(qtable2);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     encodeImage(src, out2);
+     PlanarImage dst2 = loadImage("out2.jpg");
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     //   ----- End second encode ---------
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=11><pre>     encodeParam = new JPEGEncodeParam();
+     encodeImage(loadImage("images/BlackCat.tif"), out3);
+     PlanarImage dst3 = loadImage("out3.jpg");
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     //   ----- End third encode ---------
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=15><pre>     setTitle ("JPEGWriter Test");
+     setLayout(new GridLayout(2, 2));
+     ScrollingImagePanel panel1 = new ScrollingImagePanel(src, 512,
+                                                          400);
+     ScrollingImagePanel panel2 = new ScrollingImagePanel(dst1, 512,
+                                                          400);
+     ScrollingImagePanel panel3 = new ScrollingImagePanel(dst2, 512,
+                                                          400);
+     ScrollingImagePanel panel4 = new ScrollingImagePanel(dst3, 512,
+                                                          400);
+        add(panel1);
+        add(panel2);
+        add(panel3);
+        add(panel4);
+        pack();
+        show();    }
+     }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><a name="51712">
+<h2>13.6	<img src="shared/space.gif">Writing PNG Image Files</h2>
+</a>The Portable Network Graphics (PNG) format is a file standard for compressed lossless bitmapped image files. A PNG file consists of an eight-byte PNG <em>signature</em> followed by several <em>chunks</em>. The signature identifies the file as a PNG file. The chunks provide additional information about the image. The JAI codec architecture supports PNG 1.1 and provides control over several of the chunks as described in this section.
+<p><a name="51714">
+<h3>13.6.1	<img src="shared/space.gif">PNG Image Layout</h3>
+</a>PNG images can be encoded in one of three pixel types, as defined by the subclass of <code>PNGEncodeParam</code>, as follows:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="51717">
+Pixel Type
+</a><th><a name="51719">
+Description
+</a>
+<tr valign=top><td><a name="51721">
+PNGEncodeParam.Palette</a><br><td><a name="51723">
+Also known as <em>indexed-color</em>, where each pixel is represented by a single sample that is an index into a supplied color palette. The com.sun.media.jai.codec.PNGEncodeParam.Palette class supports the encoding of palette pixel images.</a><br>
+<tr valign=top><td><a name="51725">
+PNGEncodeParam.Gray</a><br><td><a name="51727">
+Each pixel is represented by a single sample that is a grayscale level. The com.sun.media.jai.codec.PNGEncodeParam.Gray class supports the encoding of grayscale pixel images.</a><br>
+<tr valign=top><td><a name="51729">
+PNGEncodeParam.RGB</a><br><td><a name="51731">
+Also known as <em>truecolor</em>, where each pixel is represented by three samples: red, green, and blue. The com.sun.media.jai.codec.PNGEncodeParam.RGB class supports the encoding of RGB pixel images.</a><br>
+
+</Table>
+
+<p>Optionally, grayscale and RGB pixels can also include an alpha sample (see <a href="Encode.doc.html#53950">Section &#32;13.6.6.12, "Transparency (tRNS Chunk)</a>").
+<p>A call to the <code>getDefaultEncodeParam</code> method returns an instance of:
+<p><ul>
+<li><code>PNGEncodeParam.Palette</code> for an image with an <code>IndexColorModel</code>.<p></ul><ul>
+<li><code>PNGEncodeParam.Gray</code> for an image with only one or two bands.<p></ul><ul>
+<li><code>PNGEncodeParam.RGB</code> for all other images.<p></ul>This method provides no guarantee that the image can be successfully encoded by the PNG encoder, since the encoder only performs a superficial analysis of the image structure.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>static PNGEncodeParam getDefaultEncodeParam(RenderedImage im)
+<p></ul></pre><dl>
+<a name="53271">
+<dt><dd> returns an instance of <code>PNGEncodeParam.Palette</code>, <code>PNGEncodeParam.Gray</code>, or <code>PNGEncodeParam.RGB</code> appropriate for encoding the given image.
+</a><P></dl>
+<a name="53157">
+<h3>13.6.2	<img src="shared/space.gif">PNG Filtering</h3>
+</a>The PNG file definition allows the image data to be filtered before it is compressed, which can improve the compressibility of the data. PNG encoding supports five filtering algorithms, including "none," which indicates no filtering. The filtering algorithms are described below.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="53164">
+<i>Table 13-3	 </i><img src="shared/sm-blank.gif" border=0> PNG Filtering Algorithms &#32;
+</a></b></font></caption>
+<tr valign=top><th><a name="53168">
+Parameter
+</a><th><a name="53170">
+Description
+</a>
+<tr valign=top><td><a name="53172">
+PNG_FILTER_NONE</a><br><td><a name="53174">
+No filtering - the scanline is transmitted unaltered.</a><br>
+<tr valign=top><td><a name="53176">
+PNG_FILTER_SUB</a><br><td><a name="53178">
+The filter transmits the difference between each byte and the value of the corresponding byte of the prior pixel.</a><br>
+<tr valign=top><td><a name="53180">
+PNG_FILTER_UP</a><br><td><a name="53182">
+Similar to the Sub filter, except that the pixel immediately above the current pixel, rather than just to its left, is used as the predictor.</a><br>
+<tr valign=top><td><a name="53184">
+PNG_FILTER_AVERAGE</a><br><td><a name="53186">
+The filter uses the average of the two neighboring pixels (left and above) to predict the value of a pixel.</a><br>
+<tr valign=top><td><a name="53188">
+PNG_FILTER_PAETH</a><br><td><a name="53190">
+The filter computes a simple linear function of the three neighboring pixels (left, above, upper left), then chooses as predictor the neighboring pixel closest to the computed value.</a><br>
+
+</Table>
+
+<p>The filtering can be different for each row of an image by using the <code>filterRow</code> method. The method can be overridden to provide a custom algorithm for choosing the filter type for a given row.
+<p>The <code>filterRow</code> method is supplied with the current and previous rows of the image. For the first row of the image, or of an interlacing pass, the previous row array will be filled with zeros as required by the PNG specification.
+<p>The method is also supplied with five scratch arrays. These arrays may be used within the method for any purpose. At method exit, the array at the index given by the return value of the method should contain the filtered data. The return value will also be used as the filter type.
+<p>The default implementation of the method performs a trial encoding with each of the filter types, and computes the sum of absolute values of the differences between the raw bytes of the current row and the predicted values. The index of the filter producing the smallest result is returned.
+<p>As an example, to perform only "sub" filtering, this method could be implemented (non-optimally) as follows:<p>
+<caption><font size=-1><b></b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=7><pre>     for (int i = bytesPerPixel; i &lt; bytesPerRow + bytesPerPixel; i++)
+     {
+          int curr = currRow[i] &amp; 0xff;
+          int left = currRow[i - bytesPerPixel] &amp; 0xff;
+          scratchRow[PNG_FILTER_SUB][i] = (byte)(curr - left);
+     }
+     return PNG_FILTER_SUB;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>int filterRow(byte[] currRow, byte[] prevRow, 
+       byte[][] &#32;scratchRows, int bytesPerRow, int bytesPerPixel)
+<p></ul></pre><dl>
+<a name="54138">
+<dt><dd> returns the type of filtering to be used on a row of an image.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=5><em>Parameters</em>:<em></em>
+<p><td><code>currRow</code>
+<p><td>The current row as an array of <code>byte</code>s of length at least <code>bytesPerRow</code> + <code>bytesPerPixel</code>. The pixel data starts at index <code>bytesPerPixel</code>; the initial <code>bytesPerPixel</code> bytes are zero.
+<p>
+<tr valign=top><td><code>prevRow</code>
+<p><td>The current row as an array of <code>byte</code>s. The pixel data starts at index <code>bytesPerPixel</code>; the initial <code>bytesPerPixel</code> bytes are zero.
+<p>
+<tr valign=top><td><code>scratchRows</code>
+<p><td>An array of 5 <code>byte</code> arrays of length at least <code>bytesPerRow</code> + <code>bytesPerPixel</code>, usable to hold temporary results. The filtered row will be returned as one of the entries of this array. The returned filtered data should start at index <code>bytesPerPixel</code>; The initial <code>bytesPerPixel</code> bytes are not used.
+<p>
+<tr valign=top><td><code>bytesPerRow</code>
+<p><td>The number of bytes in the image row. This value will always be greater than 0.
+<p>
+<tr valign=top><td><code>bytesPerPixel</code>
+<p><td>The number of bytes representing a single pixel, rounded up to an integer. This is the <code>bpp</code> parameter described in the PNG specification.
+<p>
+
+</Table>
+
+</a><P></dl>
+<a name="53673">
+<h3>13.6.3	<img src="shared/space.gif">Bit Depth</h3>
+</a>The PNG specification identifies the following bit depth restrictions for each of the color types:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="53677">
+<i>Table 13-4	 </i><img src="shared/sm-blank.gif" border=0> PNG Bit Depth Restrictions &#32;
+</a></b></font></caption>
+<tr valign=top><th><a name="53683">
+Color Type
+</a><th><a name="53685">
+Allowed Bit Depths
+</a><th><a name="53687">
+Description
+</a>
+<tr valign=top><td><a name="53689">
+0</a><br><td><a name="53691">
+1, 2, 4, 8, 16</a><br><td><a name="53693">
+Grayscale. Each pixel is a grayscale sample.</a><br>
+<tr valign=top><td><a name="53695">
+2</a><br><td><a name="53697">
+8, 16</a><br><td><a name="53699">
+Truecolor (RGB) without alpha. Each pixel is an RGB triple.</a><br>
+<tr valign=top><td><a name="53701">
+3</a><br><td><a name="53703">
+1, 2, 4, 8</a><br><td><a name="53705">
+Indexed color (Palette). Each pixel is a palette index.</a><br>
+<tr valign=top><td><a name="53707">
+4</a><br><td><a name="53709">
+8, 16</a><br><td><a name="53711">
+Grayscale with alpha. Each pixel is a grayscale sample followed by an alpha sample.</a><br>
+<tr valign=top><td><a name="53713">
+6</a><br><td><a name="53715">
+8, 16</a><br><td><a name="53717">
+Truecolor (RGB) with alpha. Each pixel is an RGB triple followed by an alpha sample.</a><br>
+
+</Table>
+
+<p>The bit depth is specified by the <code>setBithDepth</code> method in the class type.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.Palette
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setBitDepth(int bitDepth)
+<p></ul></pre><dl>
+<a name="53723">
+<dt><dd> sets the desired bit depth for a palette image. The bit depth must be 1, 2, 4, or 8.
+</a><P></dl>
+<table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.Gray
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>public void setBitDepth(int bitDepth)
+<p></ul></pre><dl>
+<a name="57396">
+<dt><dd> sets the desired bit depth for a grayscale image. The bit depth must be 1, 2, 4, 8, or 16. 
+</a><P></dl>
+<table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.RGB
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setBitDepth(int bitDepth)
+<p></ul></pre><dl>
+<a name="53729">
+<dt><dd> sets the desired bit depth for an RGB image. The bit depth must be 8 or 16.
+</a><P></dl>
+<a name="53730">
+<h3>13.6.4	<img src="shared/space.gif">Interlaced Data Order</h3>
+</a>The interlaced data order indicates the transmission order of the image data. Two settings are currently allowed: no interlace and Adam7 interlace. With interlacing turned off, pixels are stored sequentially from left to right, and scanlines sequentially from top to bottom. Adam7 interlacing (named after its author, Adam M. Costello), consists of seven distinct passes over the image; each pass transmits a subset of the pixels in the image.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setInterlacing(boolean useInterlacing)
+<p></ul></pre><dl>
+<a name="53736">
+<dt><dd> turns Adam7 interlacing on or off.
+</a><P></dl>
+<pre><ul>
+<li>boolean getInterlacing()
+<p></ul></pre><dl>
+<a name="53738">
+<dt><dd> returns <code>true</code> if Adam7 interlacing will be used.
+</a><P></dl>
+<a name="53779">
+<h3>13.6.5	<img src="shared/space.gif">PLTE Chunk for Palette Images</h3>
+</a>The PLTE chunk provides the palette information palette or indexed-color images. The PLTE chunk must be supplied for all palette (color type 3) images and is optional for RGB (color type 2 and 6) images.
+<p>The PLTE chunk contains from 1 to 256 palette entries, each a three-byte series of the alternating red, green, and blue values, as follows:
+<p><ul>
+<li>Red: one byte (0 = black, 255 = red)<p></ul><ul>
+<li>Green: one byte (0 = black, 255 = green)<p></ul><ul>
+<li>Blue: one byte (0 = black, 255 = blue)<p></ul>The number of elements in the palette must be a multiple of 3, between 3 and 768 (3 x 256). The first entry in the palette is referenced by pixel value 0, the second by pixel value 1, and so on.
+<p>For RGB (color type 2 and 6) images, the PLTE chunk, if included, provides a suggested set of from 1 to 256 colors to which the RGB image can be quantized in case the viewing system cannot display RGB directly.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setPalette(int[] rgb)
+<p></ul></pre><dl>
+<a name="53819">
+<dt><dd> sets the RGB palette of the image to be encoded.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:<em></em>
+<p><td><code>rgb</code>
+<p><td>An array of <code>int</code>s.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>int[] getPalette()
+<p></ul></pre><dl>
+<a name="53855">
+<dt><dd> returns the current RGB palette.
+</a><P></dl>
+<pre><ul>
+<li>void unsetPalette()
+<p></ul></pre><dl>
+<a name="53865">
+<dt><dd> suppresses the PLTE chunk from being output.
+</a><P></dl>
+<pre><ul>
+<li>boolean isPaletteSet()
+<p></ul></pre><dl>
+<a name="53875">
+<dt><dd> returns true if a PLTE chunk will be output.
+</a><P></dl>
+<a name="53197">
+<h3>13.6.6	<img src="shared/space.gif">Ancillary Chunk Specifications</h3>
+</a>All ancillary PNG chunks are optional but are recommended. Most of the PNG chunks can be specified prior to encoding the image by <code>set</code> methods in the <code>PNGEncodeParam</code> class. The chunks that can be set and the methods used to set them are described in the following paragraphs.
+<p><a name="51917">
+<h4>13.6.6.1	<img src="shared/space.gif">Background Color (bKGD Chunk)</h4>
+</a>Methods are provided to set and read the suggested background color, which is encoded by the bKGD chunk.
+<p>For Palette (indexed color) images, the bKGD chunk contains a single value, which is the palette index of the color to be used as the background.
+<p>For Grayscale images, the bKGD chunk contains a single value, which is the gray level to be used as the background. The range of values is 0 to 2<sup>bitdepth</sup> - 1.
+<p>For RGB (truecolor) images, the bKGD chunk contains three values, one each for red, green, and blue. Each value has the range of 0 to 2<sup>bitdepth</sup> - 1.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.Palette
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setBackgroundPaletteIndex(int index)
+<p></ul></pre><dl>
+<a name="51955">
+<dt><dd> sets the palette index of the suggested background color.
+</a><P></dl>
+<pre><ul>
+<li>int getBackgroundPaletteIndex()
+<p></ul></pre><dl>
+<a name="51969">
+<dt><dd> returns the palette index of the suggested background color.
+</a><P></dl>
+<table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.Gray
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setBackgroundGray(int gray)
+<p></ul></pre><dl>
+<a name="51995">
+<dt><dd> sets the suggested gray level of the background.
+</a><P></dl>
+<pre><ul>
+<li>int getBackgroundGray()
+<p></ul></pre><dl>
+<a name="52005">
+<dt><dd> returns the suggested gray level of the background.
+</a><P></dl>
+<table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.RGB
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setBackgroundRGB(int[] rgb)
+<p></ul></pre><dl>
+<a name="52025">
+<dt><dd> sets the RGB value of the suggested background color. The <code>rgb</code> parameter should have three entries.
+</a><P></dl>
+<pre><ul>
+<li>int[] getBackgroundRGB()
+<p></ul></pre><dl>
+<a name="52042">
+<dt><dd> returns the RGB value of the suggested background color.
+</a><P></dl>
+<a name="52342">
+<h4>13.6.6.2	<img src="shared/space.gif">Chromaticity (cHRM Chunk)</h4>
+</a>Applications that need device-independent specification of colors in a PNG file can specify the 1931 CIE (<em>x</em>,<em>y</em>) chromaticities of the red, green, and blue primaries used in the image, and the referenced white point.
+<p>The chromaticity parameter should be a <code>float</code> array of length 8 containing the white point <em>X</em> and <em>Y</em>, red <em>X</em> and <em>Y</em>, green <em>X</em> and <em>Y</em>, and blue <em>X</em> and <em>Y</em> values in order.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setChromaticity(float[] chromaticity)
+<p></ul></pre><dl>
+<a name="52368">
+<dt><dd> sets the white point and primary chromaticities in CIE (<em>x</em>,<em>y</em>) space.
+</a><P></dl>
+<pre><ul>
+<li>void setChromaticity(float whitePointX, float whitePointY, 
+       float redX, float redY, float greenX, float greenY, 
+       float &#32;blueX, float blueY)
+<p></ul></pre><dl>
+<a name="52420">
+<dt><dd> a convenience method that calls the array version.
+</a><P></dl>
+<pre><ul>
+<li>float[] getChromaticity()
+<p></ul></pre><dl>
+<a name="52436">
+<dt><dd> returns the white point and primary chromaticities in CIE (<em>x</em>,<em>y</em>) space.
+</a><P></dl>
+<a name="52446">
+<h4>13.6.6.3	<img src="shared/space.gif">Gamma Correction (gAMA Chunk)</h4>
+</a>The gamma value specifies the relationship between the image samples and the desired display output intensity as a power function:
+<p><dl>
+<a name="52448">
+<dt><dd> sample = light_out<sup>gamma</sup>
+</a><P></dl>
+If the image's gamma value is unknown, the gAMA chunk should be suppressed. The absence of the gAMA chunk indicates that the gamma is unknown.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setGamma(float gamma)
+<p></ul></pre><dl>
+<a name="52463">
+<dt><dd> sets the gamma value for the image.
+</a><P></dl>
+<pre><ul>
+<li>float getGamma()
+<p></ul></pre><dl>
+<a name="52473">
+<dt><dd> returns the gamma value for the image.
+</a><P></dl>
+<pre><ul>
+<li>void unsetGamma()
+<p></ul></pre><dl>
+<a name="52487">
+<dt><dd> suppresses the gAMA chunk from being output.
+</a><P></dl>
+<a name="52489">
+<h4>13.6.6.4	<img src="shared/space.gif">Palette Histogram (hIST Chunk)</h4>
+</a>The palette histogram is a value that gives the approximate usage frequency of each color in the color palette. If the viewer is unable to provide all the colors listed in the palette, the histogram may help decide how to choose a subset of colors for display. The hIST chunk is only valid with Palette images.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.Palette
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setPaletteHistogram(int[] paletteHistogram)
+<p></ul></pre><dl>
+<a name="52508">
+<dt><dd> sets the palette histogram for the image.
+</a><P></dl>
+<pre><ul>
+<li>int[] getPaletteHistogram()
+<p></ul></pre><dl>
+<a name="52514">
+<dt><dd> returns the palette histogram for the image.
+</a><P></dl>
+<pre><ul>
+<li>void unsetPaletteHistogram()
+<p></ul></pre><dl>
+<a name="52528">
+<dt><dd> suppresses the hIST chunk from being output.
+</a><P></dl>
+<a name="52533">
+<h4>13.6.6.5	<img src="shared/space.gif">Embedded ICC Profile Data (iCCP Chunk)</h4>
+</a>You can specify that RGB image samples conform to the color space presented by the embedded International Color Consortium profile. The color space of the ICC profile must be an RGB color space.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setICCProfileData(byte[] ICCProfileData)
+<p></ul></pre><dl>
+<a name="52575">
+<dt><dd> sets the ICC profile data.
+</a><P></dl>
+<pre><ul>
+<li>byte[] getICCProfileData()
+<p></ul></pre><dl>
+<a name="52581">
+<dt><dd> returns the ICC profile data.
+</a><P></dl>
+<pre><ul>
+<li>void unsetICCProfileData()
+<p></ul></pre><dl>
+<a name="52591">
+<dt><dd> suppresses the iCCP chunk from being output.
+</a><P></dl>
+<a name="52596">
+<h4>13.6.6.6	<img src="shared/space.gif">Physical Pixel Dimensions (pHYS Chunk)</h4>
+</a>The intended pixel size or aspect ratio for display of the image may be specified in the pHYS chunk. The physical pixel dimensions information is presented as three integer values:
+<p><ul>
+<li>Pixels per unit, <em>x</em> axis<p></ul><ul>
+<li>Pixels per unit, <em>y</em> axis<p></ul><ul>
+<li>Unit specifier<p></ul>The unit specifier may have one of two values:
+<p><dl>
+<a name="52652">
+<dt><dd> 0 = Unit is unknown<br>1 = Unit is meters
+</a><P></dl>
+When the unit specifier is 0, the pHYS chunk defines pixel aspect ratio only; the actual size of the pixels remains unspecified.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setPhysicalDimension(int[] physicalDimension)
+<p></ul></pre><dl>
+<a name="52611">
+<dt><dd> sets the physical pixel dimension.
+</a><P></dl>
+<pre><ul>
+<li>void setPhysicalDimension(int xPixelsPerUnit, 
+       int &#32;yPixelsPerUnit, int unitSpecifier)
+<p></ul></pre><dl>
+<a name="52623">
+<dt><dd> a convenience method that calls the array version.
+</a><P></dl>
+<pre><ul>
+<li>int[] getPhysicalDimension()
+<p></ul></pre><dl>
+<a name="52645">
+<dt><dd> returns the physical pixel dimension.
+</a><P></dl>
+<a name="52700">
+<h4>13.6.6.7	<img src="shared/space.gif">Significant Bits (sBIT Chunk)</h4>
+</a>For PNG data that has been converted from a lower sample depth, the significant bits information in the sBIT chunk stores the number of significant bits in the original image. This value allows decoders to recover the original data losslessly, even if the data had a sample depth not directly supported by PNG.
+<p>The number of entries in the <code>significantBits</code> array must be equal to the number of output bands in the image:
+<p><ul>
+<li>1 - for a grayscale image<p></ul><ul>
+<li>2 - for a grayscale image with alpha<p></ul><ul>
+<li>3 - for palette or RGB images<p></ul><ul>
+<li>4 - for RGB images with alpha<p></ul><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.RGB
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setSignificantBits(int[] significantBits)
+<p></ul></pre><dl>
+<a name="52751">
+<dt><dd> sets the significant bits.
+</a><P></dl>
+<pre><ul>
+<li>int[] getSignificantBits()
+<p></ul></pre><dl>
+<a name="52757">
+<dt><dd> returns the significant bits.
+</a><P></dl>
+<pre><ul>
+<li>void unsetSignificantBits()
+<p></ul></pre><dl>
+<a name="52763">
+<dt><dd> suppresses the sBIT chunk from being output.
+</a><P></dl>
+<a name="53982">
+<h4>13.6.6.8	<img src="shared/space.gif">Suggested Palette (sPLT Chunk)</h4>
+</a>A suggested palette may be specified when the display device is not capable of displaying the full range of colors in the image. This palette provides a recommended set of colors, with alpha and frequency information, that can be used to construct a reduced palette to which the image can be quantized.
+<p>The suggested palette, as defined by the <code>PNGSuggestedPaletteEntry</code> class, consists of the following:
+<p><ul>
+<li>A palette name - a String that provides a convenient name for referring to the palette<p></ul><ul>
+<li>A <code>sampleDepth</code> parameter - must be either 8 or 16<p></ul><ul>
+<li>Red sample<p></ul><ul>
+<li>Green sample<p></ul><ul>
+<li>Blue sample<p></ul><ul>
+<li>Alpha sample<p></ul><ul>
+<li>Frequency - the value is proportional to the fraction of pixels in the image that are closest to that palette entry in RGBA space, before the image has been composited against any background<p></ul><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.Palette
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setSuggestedPalette(PNGSuggestedPaletteEntry[] palette)
+<p></ul></pre><dl>
+<a name="53994">
+<dt><dd> sets the suggested palette.
+</a><P></dl>
+<pre><ul>
+<li>PNGSuggestedPaletteEntry[] getSuggestedPalette()
+<p></ul></pre><dl>
+<a name="53996">
+<dt><dd> returns the suggested palette.
+</a><P></dl>
+<pre><ul>
+<li>void unsetSuggestedPalette()
+<p></ul></pre><dl>
+<a name="53998">
+<dt><dd> suppresses the sPLT chunk from being output.
+</a><P></dl>
+<a name="53898">
+<h4>13.6.6.9	<img src="shared/space.gif">PNG Rendering Intent (sRGB Chunk)</h4>
+</a>If the PNG image includes an sRGB chunk, the image samples confirm to the sRGB color space and should be displayed using the specified rendering "intent." The rendering intent specifies tradeoffs in colorimetric accuracy. There are four rendering intents:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="53902">
+<i>Table 13-5	 </i><img src="shared/sm-blank.gif" border=0> PNG Rendering Intent
+</a></b></font></caption>
+<tr valign=top><th><a name="53906">
+Parameter
+</a><th><a name="53908">
+Description
+</a>
+<tr valign=top><td><a name="53911">
+INTENT_PERCEPTUAL</a><br><td><a name="53913">
+The "perceptual" intent is for images that prefer good adaptation to the output device gamut at the expense of colorimetric accuracy, such as photographs.</a><br>
+<tr valign=top><td><a name="53916">
+INTENT_RELATIVE</a><br><td><a name="53918">
+The "relative colorimetric" intent is for images that require color appearance matching.</a><br>
+<tr valign=top><td><a name="53921">
+INTENT_SATURATION</a><br><td><a name="53923">
+The "saturation" intent is for images that prefer preservation of saturation at the expense of hue and lightness.</a><br>
+<tr valign=top><td><a name="53926">
+INTENT_ABSOLUTE</a><br><td><a name="53928">
+The "absolute colorimetric" intent is for images that require absolute colorimetry.</a><br>
+
+</Table>
+
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.RGB
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setSRGBIntent(int SRGBIntent)
+<p></ul></pre><dl>
+<a name="53931">
+<dt><dd> sets the PNG rendering intent.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameter</em>:<em></em>
+<p><td><code>SRGBIntent</code>
+<p><td>The sRGB rendering intent to be stored with the image. The legal values are 0 = Perceptual, 1 = Relative colorimetric, 2 = Saturation, and 3 = Absolute colorimetric.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>int getSRGBIntent()
+<p></ul></pre><dl>
+<a name="53933">
+<dt><dd> returns the rendering intent.
+</a><P></dl>
+<pre><ul>
+<li>void unsetSRGBIntent()
+<p></ul></pre><dl>
+<a name="53935">
+<dt><dd> suppresses the sRGB chunk from being output.
+</a><P></dl>
+<a name="52832">
+<h4>13.6.6.10	<img src="shared/space.gif">Textual Data (tEXt Chunk)</h4>
+</a>Textual data can be encoded along with the image in the tEXt chunk. The information stored in this chunk can be an image description or copyright notice. A keyword indicates what the text string contains. The following keywords are defined:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><code>Title</code>
+<p><td>A title or caption for the image
+<p>
+<tr valign=top><td><code>Author</code>
+<p><td>The name of the image's creator
+<p>
+<tr valign=top><td><code>Description</code>
+<p><td>A description of the image
+<p>
+<tr valign=top><td><code>Copyright</code>
+<p><td>A copyright notice
+<p>
+<tr valign=top><td><code>Creation Time</code>
+<p><td>The time the original image was created
+<p>
+<tr valign=top><td><code>Software</code>
+<p><td>The software used to create the image
+<p>
+<tr valign=top><td><code>Disclaimer</code>
+<p><td>A legal disclaimer
+<p>
+<tr valign=top><td><code>Warning</code>
+<p><td>A warning of the nature of the image content
+<p>
+<tr valign=top><td><code>Source</code>
+<p><td>The hardware device used to create the image
+<p>
+<tr valign=top><td><code>Comment</code>
+<p><td>Miscellaneous information
+<p>
+
+</Table>
+
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setText(String[] text)
+<p></ul></pre><dl>
+<a name="52855">
+<dt><dd> sets the text string to be encoded with the image.
+</a><P></dl>
+<pre><ul>
+<li>String[] getText()
+<p></ul></pre><dl>
+<a name="52861">
+<dt><dd> returns the text string to be encoded with the image.
+</a><P></dl>
+<pre><ul>
+<li>void unsetText()
+<p></ul></pre><dl>
+<a name="52873">
+<dt><dd> suppresses the tEXt chunk from being output.
+</a><P></dl>
+<a name="52880">
+<h4>13.6.6.11	<img src="shared/space.gif">Image Modification Timestamp (tIME Chunk)</h4>
+</a>The tIME chunk provides information on the last time the image was modified. The tIME information is a <code>Date</code> and the internal storage format uses UTC regardless of how the <code>modificationTime</code> parameter was created.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setModificationTime(Date modificationTime)
+<p></ul></pre><dl>
+<a name="52896">
+<dt><dd> sets the image modification time as a <code>Date</code> that will be sent in the tIME chunk.
+</a><P></dl>
+<pre><ul>
+<li>Date getModificationTime()
+<p></ul></pre><dl>
+<a name="52902">
+<dt><dd> returns the image modification time data that will be sent in the tIME chunk.
+</a><P></dl>
+<pre><ul>
+<li>void unsetModificationTime()
+<p></ul></pre><dl>
+<a name="52916">
+<dt><dd> suppresses the tIME chunk from being output.
+</a><P></dl>
+<a name="53950">
+<h4>13.6.6.12	<img src="shared/space.gif">Transparency (tRNS Chunk)</h4>
+</a>The tRNS chunk specifies that the image uses simple transparency. Simple transparency means either alpha values associated with palette entries for Palette images, or a single transparent color, for Grayscale and RGB images.
+<p>For Palette images, the tRNS chunk should contain a series of one-byte alpha values, one for each RGB triple in the palette. Each entry indicates that pixels of the corresponding palette index must be treated as having the specified alpha value.
+<p>For grayscale images, the tRNS chunk should contain a single gray level value, stored as an int. Pixels of the specified gray value are treated as transparent. If the grayscale image has an alpha value, setting the gray level causes the image's alpha channel to be ignored.
+<p>For RGB images, the tRNS chunk should an RGB color value, stored as an int. Pixels of the specified gray value are treated as transparent. If the RGB image has an alpha value, setting the gray level causes the image's alpha channel to be ignored.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.Palette
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setPaletteTransparency(byte[] alpha)
+<p></ul></pre><dl>
+<a name="53957">
+<dt><dd> sets the alpha values associated with each palette entry. The alpha parameter should have as many entries as there are RGB triples in the palette.
+</a><P></dl>
+<pre><ul>
+<li>byte[] getPaletteTransparency()
+<p></ul></pre><dl>
+<a name="53959">
+<dt><dd> returns the alpha values associated with each palette entry.
+</a><P></dl>
+<table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.Gray
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setTransparentGray(int transparentGray)
+<p></ul></pre><dl>
+<a name="53962">
+<dt><dd> sets the gray value to be used to denote transparency. Setting this attribute will cause the alpha channel of the input image to be ignored.
+</a><P></dl>
+<pre><ul>
+<li>int getTransparentGray()
+<p></ul></pre><dl>
+<a name="53964">
+<dt><dd> returns the gray value to be used to denote transparency.
+</a><P></dl>
+<table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam.RGB
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setTransparentRGB(int[] transparentRGB)
+<p></ul></pre><dl>
+<a name="53967">
+<dt><dd> sets the RGB value to be used to denote transparency. Setting this attribute will cause the alpha channel of the input image to be ignored.
+</a><P></dl>
+<pre><ul>
+<li>int[] getTransparentRGB()
+<p></ul></pre><dl>
+<a name="53969">
+<dt><dd> returns the RGB value to be used to denote transparency.
+</a><P></dl>
+<a name="52924">
+<h4>13.6.6.13	<img src="shared/space.gif">Compressed Text Data (zTXt Chunk)</h4>
+</a>Text data may be stored in the zTXt chunk, in addition to the text in the tEXt chunk. The zTXt chunk is intended for storing large blocks of text, since the text is compressed.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setCompressedText(String[] text)
+<p></ul></pre><dl>
+<a name="52928">
+<dt><dd> sets the compressed text to be sent in the zTXt chunk.
+</a><P></dl>
+<pre><ul>
+<li>String[] getCompressedText()
+<p></ul></pre><dl>
+<a name="52946">
+<dt><dd> returns the compressed text to be sent in the zTXt chunk.
+</a><P></dl>
+<pre><ul>
+<li>void unsetCompressedText()
+<p></ul></pre><dl>
+<a name="52960">
+<dt><dd> suppresses the zTXt chunk from being output.
+</a><P></dl>
+<a name="54008">
+<h4>13.6.6.14	<img src="shared/space.gif">Private Chunks</h4>
+</a>Private chunks may be added to the output file. These private chunks carry information that is not understood by most other applications. Private chunks should be given names with lowercase second letters to ensure that they do not conflict with any future public chunk information. See the PNG specification for more information on chunk naming conventions.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNGEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>synchronized void addPrivateChunk(String type, byte[] data)
+<p></ul></pre><dl>
+<a name="54024">
+<dt><dd> adds a private chunk to the output file.
+</a><P></dl>
+<pre><ul>
+<li>synchronized int getNumPrivateChunks()
+<p></ul></pre><dl>
+<a name="54032">
+<dt><dd> returns the number of private chunks to be written to the output file.
+</a><P></dl>
+<pre><ul>
+<li>synchronized String getPrivateChunkType(int index)
+<p></ul></pre><dl>
+<a name="54045">
+<dt><dd> returns the type of the private chunk at a given index, as a four-character <code>String</code>. The index must be smaller than the return value of <code>getNumPrivateChunks</code>.
+</a><P></dl>
+<pre><ul>
+<li>synchronized void removeUnsafeToCopyPrivateChunks()
+<p></ul></pre><dl>
+<a name="54077">
+<dt><dd> removes all private chunks associated with this parameter instance whose "safe-to-copy" bit is not set. This may be advisable when transcoding PNG images.
+</a><P></dl>
+<pre><ul>
+<li>synchronized void removeAllPrivateChunks()
+<p></ul></pre><dl>
+<a name="54097">
+<dt><dd> remove all private chunks associated with this parameter instance.
+</a><P></dl>
+<a name="52304">
+<h2>13.7	<img src="shared/space.gif">Writing PNM Image Files</h2>
+</a>The PNM format is one of the extensions of the PBM file format (PBM, PGM, and PPM). The portable bitmap format is a lowest-common-denominator monochrome file format. It was originally designed to make it reasonable to mail bitmaps between different types of machines. It now serves as the common language of a large family of bitmap conversion filters.
+<p>The PNM format comes in six variants:
+<p><ul>
+<li>PBM ASCII - three-banded images<p></ul><ul>
+<li>PBM raw - three-banded images<p></ul><ul>
+<li>PGM ASCII - single-banded images<p></ul><ul>
+<li>PGM raw - single-banded images<p></ul><ul>
+<li>PPM ASCII - single-banded images<p></ul><ul>
+<li>PPM raw - single-banded images<p></ul>The parameter values, then are <code>RAW</code> and <code>ASCII</code>.
+<p><a href="Encode.doc.html#54619">Listing &#32;13-4</a> shows a code sample for encoding a PNM image.<p>
+<caption><font size=-1><b>
+<a name="54619">
+<center><font size=-1><b><i>Listing 13-4	</i><img src="shared/sm-blank.gif" border=0> Encoding a PNM Image &#32;</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // Create the OutputStream.
+     OutputStream out = new FileOutputStream(fileToWriteTo);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     // Create the ParameterBlock.
+     PNMEncodeParam param = new PNMEncodeParam();
+     param.setRaw(true.equals("raw"));
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     //Create the PNM image encoder.
+     ImageEncoder encoder = ImageCodec.createImageEncoder("PNM",
+                                                           out,
+                                                           param);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.PNMEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setRaw(boolean raw)
+<p></ul></pre><dl>
+<a name="51848">
+<dt><dd> sets the RAWBITS option flag.
+</a><P></dl>
+<pre><ul>
+<li>boolean getRaw()
+<p></ul></pre><dl>
+<a name="51850">
+<dt><dd> retrieves the RAWBITS option flag.
+</a><P></dl>
+<a name="56754">
+<h2>13.8	<img src="shared/space.gif">Writing TIFF Image Files</h2>
+</a>The TIFF file format is a tag-based file format for storing and interchanging raster images. TIFF files typically come from scanners, frame grabbers, and paint- or photo-retouching programs.
+<p>By default, TIFF images in JAI are encoded without any compression and are written out in strips rather than tiles. However, JAI does support image compression, and the writing of tiled TIFF images.
+<p><a name="56811">
+<h3>13.8.1	<img src="shared/space.gif">TIFF Compression</h3>
+</a>JAI currently does not support compression of TIFF images.
+<p><a name="56916">
+<h3>13.8.2	<img src="shared/space.gif">TIFF Tiled Images</h3>
+</a>By default, the JAI encoder organizes TIFF images into strips. For low- to medium-resolution images, this is adequate. However, for high-resolution (large) images, the images can be accessed more efficiently if the image is divided into roughly square tiles instead of strips.
+<p>Writing of tiled TIFF images can be enabled by calling the <code>setWriteTiled</code> method.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.TIFFEncodeParam
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void setWriteTiled(boolean writeTiled)
+<p></ul></pre><dl>
+<a name="56949">
+<dt><dd> enables writing of TIFF images in tiles rather than in strips.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameter</em>:<em></em>
+<p><td><code>writeTiled</code>
+<p><td>Specifies whether the image data should be written out in tiled format.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean getWriteTiled()
+<p></ul></pre><dl>
+<a name="57721">
+<dt><dd> returns the value of the <code>writeTiled</code> parameter.
+</a><P></dl>
+
+<hr><br>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Client-server.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Extension.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+
+
+<h5><a href="copyright.html">Copyright</a> &#169; 1999, Sun Microsystems, Inc.   All rights
+reserved.</h5>
+
+
+<!-- Last updated: Tue Nov 02 18:10:57 1999 -->
+</blockquote>
+</body>
+</html>

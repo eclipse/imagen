@@ -1,0 +1,604 @@
+<html><head><title>Java AWT Imaging</title></head>
+<body bgcolor=#ffffff>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Introduction.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Programming-environ.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+<center>
+<a name="47227">
+<table width=90% border=0><tr>
+<td align=right><font size=3>C H A P T E R</font><font size=7><img src="shared/sm-space.gif">2</td></table>
+</a></center><center>
+<a name="47285">
+<table width=90% border=0><tr><td align=right>
+<hr size=7 noshade>
+<font size=6>Java AWT Imaging</font></td></table>
+</a></center><blockquote>
+<p><br><br><br><P><font size=7><b>D</b></font>IGITAL imaging in Java has been supported since its first release, through the <strong><kbd>java.awt</kbd></strong> and <strong><kbd>java.awt.image</kbd></strong> class packages. The image-oriented part of these class packages is referred to as <em>AWT Imaging</em> throughout this guide.
+<p><a name="52422">
+<h2>2.1	<img src="shared/space.gif">Introduction</h2>
+</a>The Java Advanced Imaging (JAI) API supports three imaging models:
+<p><ul>
+<li>The producer/consumer (push) model - the basic AWT imaging model<p></ul><ul>
+<li>The immediate mode model - an advanced AWT imaging model<p></ul><ul>
+<li>The pipeline (pull) model - The JAI model<p></ul><a href="J2D-concepts.doc.html#52516">Table &#32;2-1</a> lists the interfaces and classes for each of the three models.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="52516">
+<i>Table 2-1	 </i><img src="shared/sm-blank.gif" border=0> Imaging Model Interfaces and Classes
+</a></b></font></caption>
+<tr valign=top><th><a name="52522">
+AWT Push Model
+</a><th><a name="52524">
+Java 2D Immediate Mode Model
+</a><th><a name="52526">
+Pull Model
+</a>
+<tr valign=top><td><a name="52528">
+Image</a><br><a name="52529">
+ImageProducer</a><br><a name="52530">
+ImageConsumer</a><br><a name="52531">
+ImageObserver</a><br><td><a name="52533">
+BufferedImage</a><br><a name="52534">
+Raster</a><br><a name="52535">
+BufferedImageOp</a><br><a name="52536">
+RasterOp</a><br><td><a name="52538">
+RenderableImage</a><br><a name="52539">
+RenderableImageOp</a><br><a name="52540">
+RenderedOp</a><br><a name="52541">
+RenderableOp</a><br><a name="52542">
+TiledImage</a><br>
+
+</Table>
+
+<p><a name="52427">
+<h3>2.1.1	<img src="shared/space.gif">The AWT Push Model</h3>
+</a>The AWT push model, supported through the <code>java.awt</code> class package, is a simple filter model of image producers and consumers for image processing. An <code>Image</code> object is an abstraction that is not manipulated directly; rather it is used to obtain a reference to another object that implements the <code>ImageProducer</code> interface. Objects that implement this interface are in turn attached to objects that implement the ImageConsumer interface. Filter objects implement both the producer and consumer interfaces and can thus serve as both a source and sink of image data. Image data has associated with it a ColorModel that describes the pixel layout within the image and the interpretation of the data.
+<p>To process images in the push model, an Image object is obtained from some source (for example, through the <code>Applet.getImage()</code> method). The <code>Image.getSource()</code> method can then be used to get the <code>ImageProducer</code> for that <code>Image</code>. A series of FilteredImageSource objects can then be attached to the ImageProducer, with each filter being an ImageConsumer of the previous image source. AWT Imaging defines a few simple filters for image cropping and color channel manipulation.
+<p>The ultimate destination for a filtered image is an AWT <code>Image</code> object, created by a call to, for example, <code>Component.createImage()</code>. Once this consumer image has been created, it can by drawn upon the screen by calling <code>Image.getGraphics()</code> to obtain a <code>Graphics</code> object (such as a screen device), followed by <code>Graphics.drawImage()</code>.
+<p>AWT Imaging was largely designed to facilitate the display of images in a browser environment. In this context, an image resides somewhere on the network. There is no guarantee that the image will be available when required, so the AWT model does not force image filtering or display to completion. The model is entirely a <em>push</em> model. An ImageConsumer can never ask for data; it must wait for the ImageProducer to "push" the data to it. Similarly, an ImageConsumer has no guarantee about when the data will be completely delivered; it must wait for a call to its <code>ImageComplete()</code> method to know that it has the complete image. An application can also instantiate an ImageObserver object if it wishes to be notified about completion of imaging operations.
+<p>AWT Imaging does not incorporate the idea of an image that is backed by a persistent image store. While methods are provided to convert an input memory array into an ImageProducer, or capture an output memory array from an ImageProducer, there is no notion of a persistent image object that can be reused. When data is wanted from an Image, the programmer must retrieve a handle to the Image's ImageProducer to obtain it.
+<p>The AWT imaging model is not amenable to the development of high-performance image processing code. The push model, the lack of a persistent image data object, the restricted model of an image filter, and the relative paucity of image data formats are all severe constraints. AWT Imaging also lacks a number of common concepts that are often used in image processing, such as operations performed on a region of interest in an image.
+<p><a name="52551">
+<h3>2.1.2	<img src="shared/space.gif">AWT Push Model Interfaces and Classes</h3>
+</a>The following are the Java interfaces and classes associated with the AWT push model of imaging.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="52555">
+<i>Table 2-2	 </i><img src="shared/sm-blank.gif" border=0> Push Model Imaging Interfaces
+</a></b></font></caption>
+<tr valign=top><th><a name="52559">
+Interface
+</a><th><a name="52561">
+Description
+</a>
+<tr valign=top><td><a name="52582">
+Image</a><br><td><a name="52584">
+Extends: Object</a><br><a name="52585">
+The superclass of all classes that represent graphical images.</a><br>
+
+</Table>
+<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="52594">
+<i>Table 2-3	 </i><img src="shared/sm-blank.gif" border=0> Push Model Imaging Classes
+</a></b></font></caption>
+<tr valign=top><th><a name="52598">
+Class
+</a><th><a name="52600">
+Description
+</a>
+<tr valign=top><td><a name="52680">
+ColorModel</a><br><td><a name="52684">
+An abstract class that encapsulates the methods for translating a pixel value to color components (e.g., red, green, blue) and an alpha component.</a><br>
+<tr valign=top><td><a name="52695">
+FilteredImageSource</a><br><td><a name="52699">
+An implementation of the ImageProducer interface which takes an existing image and a filter object and uses them to produce image data for a new filtered version of the original image.</a><br>
+<tr valign=top><td><a name="52602">
+ImageProducer</a><br><td><a name="52621">
+The interface for objects that can produce the image data for Images. Each image contains an ImageProducer that is used to reconstruct the image whenever it is needed, for example, when a new size of the Image is scaled, or when the width or height of the Image is being requested. </a><br>
+<tr valign=top><td><a name="52606">
+ImageConsumer</a><br><td><a name="52641">
+The interface for objects expressing interest in image data through the ImageProducer interfaces. When a consumer is added to an image producer, the producer delivers all of the data about the image using the method calls defined in this interface. </a><br>
+<tr valign=top><td><a name="52610">
+ImageObserver</a><br><td><a name="52653">
+An asynchronous update interface for receiving notifications about Image information as the Image is constructed. </a><br>
+
+</Table>
+
+<p><a name="50792">
+<h2>2.2	<img src="shared/space.gif">The Immediate Mode Model</h2>
+</a>To alleviate some of the restrictions of the original AWT imaging model and to provide a higher level of abstraction, a new specification called the <em>Java &#32;2D</em> API was developed. This new API extends AWT's capabilities for both two-dimensional graphics and imaging. In practice, the Java &#32;2D package is now merged into the AWT specification and is a part of the Java Core (and thus available in all Java implementations). However, for purposes of discussion, the distinction between Java &#32;2D and the AWT is preserved in this chapter.
+<p>The Java &#32;2D API specifies a set of classes that extend the Java AWT classes to provide extensive support for both two-dimensional graphics and imaging. The support for 2D graphics is fairly complete, but will not be discussed further here.
+<p>For digital imaging, the Java &#32;2D API retains to some extent the AWT producer/consumer model but adds the concept of a memory-backed persistent image data object, an extensible set of 2D image filters, a wide variety of image data formats and color models, and a more sophisticated representation of output devices. The Java &#32;2D API also introduces the notion of resolution-independent image rendering by the introduction of the <em>Renderable</em> and <em>Rendered</em> interfaces, allowing images to be pulled through a chain of filter operations, with the image resolution selected through a rendering context.
+<p>The concepts of rendered and renderable images contained in the Java 2D API are essential to JAI. The next few sections explain these concepts; complete information about the classes discussed can be found in <em>The Java 2D API Specification</em> and the <em>Java 2D API White Paper</em>.
+<p><a name="51197">
+<h3>2.2.1	<img src="shared/space.gif">Rendering Independence</h3>
+</a>Rendering independence for images is a poorly understood topic because it is poorly named. The more general problem is "resolution independence," the ability to describe an image as you want it to appear, but independent of any specific instance of it. Resolution is but one feature of any such rendering. Others are the physical size, output device type, color quality, tonal quality, and rendering speed. A rendering-independent description is concerned with none of these.
+<p>In this document, the term <em>rendering-independent</em> is for the more general concept instead of <em>resolution-independent</em>. The latter term is used to specifically refer to independence from final display resolution.
+<p>For a rendering-independent description of an image, two fundamental elements are needed:
+<p><ul>
+<li>An unrendered source (sometimes called a <em>resolution-independent source</em>). For a still image, this is, conceptually, the viewfinder of an idealized camera trained on a real scene. It has no logical "size." Rather, one knows what it looks like and can imagine projecting it onto any surface. Furthermore, the ideal camera has an ideal lens that is capable of infinite zooming. The characteristics of this image are that it is dimensional, has a native aspect ratio (that of the capture device), and may have properties that could be queried.<p></ul><ul>
+<li>Operators for describing how to change the character of the image, independent of its final destination. It can be useful to think of this as a pipe of operations.<p></ul>Together, the unrendered source and the operators specify the visual character that the image should have when it is rendered. This specification can then be associated with any device, display size, or rendering quality. The primary power of rendering independence is that the same visual description can be routed to any display context with an optimal result.
+<p><a name="51292">
+<h3>2.2.2	<img src="shared/space.gif">Rendering-independent Imaging in Java AWT</h3>
+</a>The Java AWT API architecture integrates a model of rendering independence with a parallel, device-dependent (rendered) model. The rendering-independent portion of the architecture is a superset of, rather than a replacement for, the traditional model of device-dependent imaging.
+<p>The Java AWT API architecture supports context-dependent adaptation, which is superior to full image production and processing. Context-dependent adaptation is inherently more efficient and thus also suited to network sources. Beyond efficiency, it is the mechanism by which optimal image quality can be assured in any context.
+<p>The Java AWT API architecture is essentially synchronous is nature. This has several advantages, such as a simplified programming model and explicit controls on the type and order of results. However, the synchronous nature of Java AWT has one distinct disadvantage in that it is not well suited to notions of progressive rendering or network resources. These issues are addressed in JAI.
+<p><a name="51333">
+<h3>2.2.3	<img src="shared/space.gif">The Renderable Layer vs. the Rendered Layer</h3>
+</a>The Java AWT API architecture provides for two integrated imaging layers: renderable and rendered.
+<p><a name="51343">
+<h4>2.2.3.1	<img src="shared/space.gif">Renderable Layer</h4>
+</a>The renderable layer is a rendering-independent layer. All the interfaces and classes in the Java AWT API have <code>renderable</code> in their names.
+<p>The renderable layer provides image sources that can be optimally reused multiple times in different contexts, such as screen display or printing. The renderable layer also provides imaging operators that take rendering-independent parameters. These operators can be linked to form <em>chains</em>. The layer is essentially synchronous in the sense that it "pulls" the image through the chain whenever a rendering (such as to a display or a file) is requested. That is, a request is made at the sink end of the chain that is passed up the chain to the source. Such requests are context-specific (such as device specific), and the chain adapts to the context. Only the data required for the context is produced.
+<p><a name="51366">
+<h4>2.2.3.2	<img src="shared/space.gif">Rendered Layer</h4>
+</a>Image sources and operators in the parallel <em>Rendered layer</em> (the interfaces and classes have <code>rendered</code> in their names) are context-specific. A <code>RenderedImage</code> is an image that has been rendered to fulfill the needs of the context. Rendered layer operators can also be linked together to form chains. They take context-dependent parameters. Like the Renderable layer, the Rendered layer implements a synchronous "pull" model.
+<p><a name="51375">
+<h4>2.2.3.3	<img src="shared/space.gif">Using the Layers</h4>
+</a>Structurally, the Renderable layer is lightweight. It does not directly handle pixel processing. Rather, it makes use of operator objects from the Rendered layer. This is possible because the operator classes from the Rendered layer can implement an interface (the <code>ContextualRenderedImageFactory</code> interface) that allows them to adapt to different contexts.
+<p>Since the Rendered layer operators implement this interface, they house specific operations in their entirety. That is, all the intelligence required to function in both the Rendered and Renderable layers is housed in a single class. This simplifies the task of writing new operators and makes extension of the architecture manageable.
+<p><a href="J2D-concepts.doc.html#51378">Figure &#32;2-1</a> shows a renderable chain. The chain has a sink attached (a Graphics2D object), but no pixels flow through the chain yet.
+<p><a name="51377">
+ <hr>
+<center><img src="J2D-concepts.doc.anc.gif"></center><hr>
+
+</a>
+<a name="51378">
+<center><font size=-1><b><i>Figure 2-1	</i><img src="shared/sm-blank.gif" border=0> A Renderable Chain</b></font></center>
+</a><p>
+You may use either the Renderable or Rendered layer to construct an application. Many programmers will directly employ the Rendered layer, but the Renderable layer provides advantages that greatly simplify imaging tasks. For example, a chain of Renderable operators remains editable. Parameters used to construct the chain can be modified repeatedly. Doing so does not cause pixel value computation to occur. Instead, the pixels are computed only when they are needed by a specific rendition obtained from a <code>RenderableImage</code> by passing it defined <em>render contexts</em>.
+<p><a name="51446">
+<h3>2.2.4	<img src="shared/space.gif">The Render Context</h3>
+</a>The renderable layer allows for the construction of a chain of operators (<code>RenderableImageOps</code>) connected to a <code>RenderableImage</code> source. The end of this chain represents a new <code>RenderableImage</code> source. The implication of this is that <code>RenderableImageOps</code> must implement the same interface as sources: <code>RenderableImageOp</code> implements <code>RenderableImage</code>.
+<p>Such a source can be asked to provide various specific <code>RenderedImage</code>s corresponding to a specific context. The required size of the <code>RenderedImage</code> in the device space (the size in pixels) must be specified. This information is provided in the form of an affine transformation from the user space of the Renderable source to the desired device space.
+<p>Other information can also be provided to the source (or chain) to help it perform optimally for a specific context. A preference for speed over image quality is an example. Such information is provided in the form of an extensible hints table. It may also be useful to provide a means to limit the request to a specific area of the image.
+<p>The architecture refers to these parameters collectively as a <em>render context</em>. The parameters are housed in a <code>RenderContext</code> class. Render contexts form a fundamental link between the Renderable and Rendered layers. A <code>RenderableImage</code> source is given a <code>RenderContext</code> and, as a result, produces a specific rendering, or <code>RenderedImage</code>. This is accomplished by the Renderable chain instantiating a chain of Render layer objects. That is, a chain of <code>RenderedImage</code>s corresponding to the specific context, the <code>RenderedImage</code> object at the end of the chain being returned to the user.
+<p><a name="51549">
+<h2>2.3	<img src="shared/space.gif">Renderable and Rendered Classes</h2>
+</a>Many users will be able to employ the Renderable layer, with the advantages of its rendering-independent properties for most imaging purposes. Doing so eliminates the need to deal directly with pixels, greatly simplifying image manipulation. However, in many cases it is either necessary or desirable to work with pixels and the Rendered layer is used for this purpose.
+<p>The architecture of the provided classes is discussed in this section. Extending the model by writing new operators or algorithms in the Java 2D API is discussed. Details of how the Rendered layer functions internally within the Renderable layer are also covered.
+<p><a name="51574">
+<h3>2.3.1	<img src="shared/space.gif">The Renderable Layer</h3>
+</a>The renderable layer is primarily defined by the <code>RenderableImage</code> interface. Any class implementing this interface is a renderable image source, and is expected to adapt to <code>RenderContext</code>s. <code>RenderableImage</code>s are referenced through a user-defined coordinate system. One of the primary functions of the <code>RenderContext</code> is to define the mapping between this user space and the specific device space for the desired rendering.
+<p>A chain in this layer is a chain of <code>RenderableImage</code>s. Specifically, it is a chain of <code>RenderableImageOp</code>s (a class that implements <code>RenderableImage</code>), ultimately sourced by a <code>RenderableImage</code>.
+<p>There is only one <code>RenderableImageOp</code> class. It is a lightweight, general purpose class that takes on the functionality of a specific operation through a parameter provided at instantiation time. That parameter is the name of a class that implements a <code>ContextualRenderedImageFactory</code> (known as a CRIF, for short). Each instantiation of <code>RenderableImageOp</code> derives its specific functionality from the named class. In this way, the Renderable layer is heavily dependent on the Rendered layer.
+<p><p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="53782">
+<i>Table 2-4	 </i><img src="shared/sm-blank.gif" border=0> The Renderable Layer Interfaces and Classes &#32;
+</a></b></font></caption>
+<tr valign=top><th><a name="53788">
+Type
+</a><th><a name="53790">
+Name
+</a><th><a name="53792">
+Description
+</a>
+<tr valign=top><td colspan=1 rowspan=2><a name="53794">
+Interface</a><br><td><a name="53797">
+RenderableImage</a><br><td><a name="53799">
+A common interface for rendering-independent images (a notion that subsumes resolution independence).</a><br>
+<tr valign=top><td><a name="53804">
+ContextualRenderedImage-Factory</a><br><td><a name="53806">
+Extends: RenderedImageFactory</a><br><a name="53807">
+Provides an interface for the functionality that may differ between instances of RenderableImageOp.</a><br>
+<tr valign=top><td colspan=1 rowspan=4><a name="53809">
+Class</a><br><td><a name="53811">
+ParameterBlock</a><br><td><a name="53813">
+Extends: Object</a><br><a name="53814">
+Implements: Cloneable, Serializable</a><br><a name="53815">
+Encapsulates all the information about sources and parameters (expressed as base types or Objects) required by a RenderableImageOp and other future classes that manipulate chains of imaging operators. </a><br>
+<tr valign=top><td><a name="53819">
+RenderableImageOp</a><br><td><a name="53821">
+Extends: Object</a><br><a name="53822">
+Implements: RenderableImage</a><br><a name="53823">
+Handles the renderable aspects of an operation with help from its associated instance of a ContextualRenderedImageFactory.</a><br>
+<tr valign=top><td><a name="53827">
+RenderableImageProducer</a><br><td><a name="53829">
+Extends: Object</a><br><a name="53830">
+Implements: ImageProducer, Runnable</a><br><a name="53831">
+An adapter class that implements ImageProducer to allow the asynchronous production of a RenderableImage.</a><br>
+<tr valign=top><td><a name="53835">
+RenderContext</a><br><td><a name="53837">
+Extends: Object</a><br><a name="53838">
+Implements: Cloneable</a><br><a name="53839">
+Encapsulates the information needed to produce a specific rendering from a RenderableImage.</a><br>
+
+</Table>
+
+<p>The other block involved in the construction of <code>RenderableImageOp</code> is a <code>ParameterBlock</code>. The <code>ParameterBlock</code> houses the source(s) for the operation, plus parameters or other objects that the operator may require. The parameters are rendering-independent versions of the parameters that control the (Rendered) operator.
+<p>A Renderable chain is constructed by instantiating each successive <code>RenderableImageOp</code>, passing in the last <code>RenderableImage</code> as the source in the <code>ParameterBlock</code>. This chain can then be requested to provide a number of renderings to specific device spaces through the <code>getImage</code> method.
+<p>This chain, once constructed, remains editable. Both the parameters for the specific operations in the chain and the very structure of the chain can be changed. This is accomplished by the <code>setParameterBlock</code> method, setting new controlling parameters and/or new sources. These edits only affect future <code>RenderedImage</code>s derived from points in the chain below the edits. <code>RenderedImage</code>s that were previously obtained from the Renderable chain are immutable and completely independent from the chain from which they were derived.
+<p><a name="51895">
+<h3>2.3.2	<img src="shared/space.gif">The Rendered Layer</h3>
+</a>The Rendered layer is designed to work in concert with the Renderable layer. The Rendered layer is comprised of sources and operations for device-specific representations of images or renderings. The Rendered layer is primarily defined by the <code>RenderedImage</code> interface. Sources such as <code>BufferedImage</code> implement this interface.
+<p>Operators in this layer are simply <code>RenderedImage</code>s that take other <code>RenderedImage</code>s as sources. Chains, therefore, can be constructed in much the same manner as those of the Renderable layer. A sequence of <code>RenderedImage</code>s is instantiated, each taking the last <code>RenderedImage</code> as a source.
+<p>In <a href="J2D-concepts.doc.html#51937">Figure &#32;2-2</a>, when the user calls <code>Graphics2D.drawImage()</code>, a render context is constructed and used to call the <code>getImage()</code> method of the renderable operator. A rendered operator to actually do the pixel processing is constructed and attached to the source and sink of the renderable operator and is passed a clone of the renderable operator's parameter block. Pixels actually flow through the rendered operator to the Graphics2D. The renderable operator chain remains available to produce more renderings whenever its <code>getImage()</code> method is called.
+<p><a name="51936">
+ <hr>
+<center><img src="J2D-concepts.doc.anc1.gif"></center><hr>
+
+</a>
+<a name="51937">
+<center><font size=-1><b><i>Figure 2-2	</i><img src="shared/sm-blank.gif" border=0> Deriving a Rendering from a Renderable Chain<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="52034">
+<i>Table 2-5	 </i><img src="shared/sm-blank.gif" border=0> The Rendered Layer Interfaces and Classes
+</a></b></font></caption>
+<tr valign=top><th><a name="52082">
+Type
+</a><th><a name="52084">
+Name
+</a><th><a name="52086">
+Description
+</a>
+<tr valign=top><td><a name="52046">
+Interface</a><br><td><a name="52048">
+RenderedImage</a><br><td><a name="52050">
+A common interface for objects that contain or can produce image data in the form of Rasters.</a><br>
+<tr valign=top><td colspan=1 rowspan=2><a name="52052">
+Class</a><br><td><a name="52054">
+BufferedImage</a><br><td><a name="52056">
+Extends: <code>Image</code></a><br><a name="52114">
+Implements: WritableRenderedImage</a><br><a name="52115">
+A subclass that describes an Image with an accessible buffer of image data.</a><br>
+<tr valign=top><td><a name="52060">
+WritableRenderedImage</a><br><td><a name="52062">
+Extends: RenderedImage</a><br><a name="52134">
+A common interface for objects that contain or can produce image data that can be modified and/or written over.</a><br>
+
+</Table>
+</b></font></center>
+</a><p>
+A rendered image represents a virtual image with a coordinate system that maps directly to pixels. A Rendered image does not have to have image data associated with it, only that it be able to produce image data when requested. The <code>BufferedImage</code> class, which is the Java 2D API's implementation of <code>RenderedImage</code>, however, maintains a full page buffer that can be accessed and written to. Data can be accessed in a variety of ways, each with different properties.
+<p><a name="52031">
+<h2>2.4	<img src="shared/space.gif">Java Image Data Representation</h2>
+</a>In the Java AWT API, a sample is the most basic unit of image data. Each pixel is composed of a set of samples. For an RGB pixel, there are three samples; one each for red, green, and blue. All samples of the same kind across all pixels in an image constitute a <em>band</em>. For example, in an RGB image, all the red samples together make up a band. Therefore, an RGB image contains three bands.
+<p>A three-color subtractive image contains three bands; one each for cyan, magenta, and yellow (CMY). A four-color subtractive image contains four bands; one each for cyan, magenta, yellow, and black (CMYK).<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="52193">
+<i>Table 2-6	 </i><img src="shared/sm-blank.gif" border=0> Java 2D Image Data Classes
+</a></b></font></caption>
+<tr valign=top><th><a name="52241">
+Type
+</a><th><a name="52243">
+Name
+</a><th><a name="52245">
+Description
+</a>
+<tr valign=top><td colspan=1 rowspan=4><a name="52205">
+Class</a><br><td><a name="52207">
+DataBuffer</a><br><td><a name="52289">
+Extends: Object</a><br><a name="52209">
+Wraps one or more data arrays. Each data array in the DataBuffer is referred to as a bank.</a><br>
+<tr valign=top><td><a name="52265">
+Raster</a><br><td><a name="52267">
+Extends: Object</a><br><a name="52287">
+Represents a rectanglular array of pixels and provides methods for retrieving image data.</a><br>
+<tr valign=top><td><a name="53562">
+SampleModel</a><br><td><a name="53566">
+Extends: Object</a><br><a name="53564">
+Extracts samples of pixels in images.</a><br>
+<tr valign=top><td><a name="52219">
+WriteableRaster</a><br><td><a name="52221">
+Extends: Raster</a><br><a name="52277">
+Provides methods for storing image data and inherits methods for retrieving image data from it's parent class Raster.</a><br>
+
+</Table>
+
+<p>The basic unit of image data storage is the <code>DataBuffer</code>. The <code>DataBuffer</code> is a kind of raw storage that contains all of the samples for the image data but does not maintain a notion of how those samples can be put together as pixels. The information about how the samples are put together as pixels is contained in a <code>SampleModel</code>. The <code>SampleModel</code> class contains methods for deriving pixel data from a <code>DataBuffer</code>. Together, a <code>DataBuffer</code> and a <code>SampleModel</code> constitute a meaningful multi-pixel image storage unit called a <code>Raster</code>.
+<p>A <code>Raster</code> has methods that directly return pixel data for the image data it contains. There are two basic types of <code>Raster</code>s:
+<p><ul>
+<li><code>Raster</code> - a read-only object that has only accessors<p></ul><ul>
+<li><code>WritableRaster</code> - A writable object that has a variety of mutators<p></ul>There are separate interfaces for dealing with each raster type. The <code>RenderedImage</code> interface assumes that the data is read-only and does not contain methods for writing a <code>Raster</code>. The <code>WritableRenderedImage</code> interface assumes that the image data is writeable and can be modified.
+<p>Data from a <em>tile</em> is returned in a <code>Raster</code> object. A tile is not a class in the architecture; it is a concept. A tile is one of a set of regular rectangular regions that span the image on a regular grid. In the <code>RenderedImage</code> interface, there are several methods that relate to tiles and a tile grid. These methods are used by the JAI API, rather than the Java 2D API. In the Java 2D API, the implementation of the <code>WritableRenderedImage</code> (<code>BufferedImage</code>) is defined to have a single tile. This, the <code>getWritableTile</code> method will return all the image data. Other methods that relate to tiling will return the correct degenerative results.
+<p><code>RenderedImage</code>s do not necessarily maintain a <code>Raster</code> internally. Rather, they can return requested rectangles of image data in the form of a (<code>Writable</code>)<code>Raster</code> (through the <code>getData</code>, <code>getRect</code>, and <code>get</code>(<code>Writable</code>)<code>Tile</code> methods). This distinction allows <code>RenderedImages</code> to be virtual images, producing data only when needed. <code>RenderedImage</code>s do, however, have an associated <code>SampleModel</code>, implying that data returned in <code>Raster</code>s from the same image will always be written to the associated <code>DataBuffer</code> in the same way.
+<p>The Java 2D <code>BufferedImage</code> also adds an associated <code>ColorModel</code>, which is different from the <code>SampleModel</code>. The <code>ColorModel</code> determines how the bands are interpreted in a colorimetric sense.
+<p><a name="52335">
+<h2>2.5	<img src="shared/space.gif">Introducing the Java Advanced Imaging API</h2>
+</a>The JAI API builds on the foundation of the Java 2D API to allow more powerful and general imaging applications. The JAI API adds the following concepts:
+<p><ul>
+<li>Multi-tiled images<p></ul><ul>
+<li>Deferred execution<p></ul><ul>
+<li>Networked images<p></ul><ul>
+<li>Image property management<p></ul><ul>
+<li>Image operators with multiple sources<p></ul><ul>
+<li>Three-dimensional image data<p></ul>The combination of tiling and deferred execution allows for considerable run-time optimization while maintaining a simple imaging model for programmers. New operators may be added and the new operators may participate as first-class objects in the deferred execution model.
+<p>The JAI API also provides for a considerable degree of compatibility with the Java AWT and Java 2D imaging models. JAI's operators can work directly on Java 2D <code>BufferedImage</code> objects or any other image objects that implement the <code>RenderedImage</code> interface. JAI supports the same rendering-independent model as the Java 2D API. using device-independent coordinates. JAI also supports Java 2D-style drawing on both Rendered and Renderable images using the <code>Graphics</code> interface.
+<p>The JAI API does not make use of the image producer/consumer interfaces introduced in Java AWT and carried forward into the Java 2D API. Instead, the JAI API requires that image sources participate in the "pull" imaging model by responding to requests for arbitrary areas, thus making it impossible to instantiate an <code>ImageProducer</code> directly as a source. It is, however, possible to instantiate an <code>ImageProducer</code> that makes the JAI API image data available to older AWT applications.
+<p><a name="52401">
+<h3>2.5.1	<img src="shared/space.gif">Similarities with the Java 2D API</h3>
+</a>The JAI API is heavily dependent on the abstractions defined in the Java 2D API. In general, the entire mechanism for handling Renderable and Rendered images, pixel samples, and data storage is carried over into JAI. Here are some of the major points of congruity between Java 2D and JAI:
+<p><ul>
+<li>The <code>RenderableImage</code> and <code>RenderedImage</code> interfaces defined in the Java 2D API are used as a basis for higher-level abstractions. Further, JAI allows you to create and manipulate directed acyclic graphs of objects implementing these interfaces.<p></ul><ul>
+<li>The primary data object, the <code>TiledImage</code>, implements the <code>WritableRenderedImage</code> interface and can contain a regular tile grid of <code>Raster</code> objects. However, unlike the <code>BufferedImage</code> of the Java 2D API, <code>TiledImage</code> does not require that a <code>ColorModel</code> for photometric interpretation of its image data be present.<p></ul><ul>
+<li>The JAI operator objects are considerably more sophisticated than in the Java 2D API. The <code>OpImage</code>, the fundamental operator object, provides considerable support for extensibility to new operators beyone that in the Java 2D API. JAI has a registry mechanism that automates the selection of operations on <code>RenderedImages</code>.<p></ul><ul>
+<li>The Java 2D API <code>SampleModel</code>, <code>DataBuffer</code>, and <code>Raster</code> objects are carried over into JAI without change, except that <code>double</code>s and <code>float</code>s are allows to be used as the fundamental data types of a <code>DataBuffer</code> in addition to the <code>byte</code>, <code>short</code>, and <code>int</code> data types.<p></ul><a name="52719">
+<h3>2.5.2	<img src="shared/space.gif">JAI Data Classes</h3>
+</a>JAI introduces two new data classes, which extend the Java 2D <code>DataBuffer</code> image data class.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="52723">
+<i>Table 2-7	 </i><img src="shared/sm-blank.gif" border=0> JAI Data Classes
+</a></b></font></caption>
+<tr valign=top><th><a name="52747">
+Type
+</a><th><a name="52749">
+Name
+</a><th><a name="52751">
+Description
+</a>
+<tr valign=top><td colspan=1 rowspan=2><a name="52735">
+Class</a><br><td><a name="52737">
+DataBufferFloat</a><br><td><a name="52745">
+Extends: DataBuffer</a><br><a name="52787">
+Stores data internally in float form.</a><br>
+<tr valign=top><td><a name="52804">
+DataBufferDouble</a><br><td><a name="52806">
+Extends: DataBuffer</a><br><a name="52807">
+Stores data internally in double form.</a><br>
+
+</Table>
+
+<p><a name="52800">
+<h4>2.5.2.1	<img src="shared/space.gif">The DataBufferFloat Class</h4>
+</a><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.DataBufferFloat
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>DataBufferFloat(int size)
+<p></ul></pre><dl>
+<a name="52835">
+<dt><dd> constructs a float-based DataBuffer with a specified size.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:<em></em>
+<p><td><code>size</code>
+<p><td>The number of elements in the <code>DataBuffer</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>DataBufferFloat(int size, int numBanks)
+<p></ul></pre><dl>
+<a name="52869">
+<dt><dd> constructs a float-based DataBuffer with a specified number of banks, all of which are of a specified size.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>size</code>
+<p><td>The number of elements in each bank of the <code>DataBuffer</code>.
+<p>
+<tr valign=top><td><code>numBanks</code>
+<p><td>The number of banks in the <code>DataBuffer</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>DataBufferFloat(float[] dataArray, int size)
+<p></ul></pre><dl>
+<a name="52920">
+<dt><dd> constructs a float-based <code>DataBuffer</code> with the specified data array. Only the first size elements are available for use by this data buffer. The array must be large enough to hold <code>size</code> elements.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>dataArray</code>
+<p><td>An array of floats to be used as the first and only bank of this <code>DataBuffer</code>.
+<p>
+<tr valign=top><td><code>size</code>
+<p><td>The number of elements of the array to be used.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>DataBufferFloat(float[] dataArray, int size, int offset)
+<p></ul></pre><dl>
+<a name="52984">
+<dt><dd> constructs a float-based <code>DataBuffer</code> with the specified data array. Only the elements between <code>offset</code> and (<code>offset</code> + <code>size</code> - 1) are available for use by this <code>DataBuffer</code>. The array must be large enough to hold (<code>offset</code> + <code>size</code>) elements.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameters</em>:
+<p><td><code>dataArray</code>
+<p><td>An array of floats to be used as the first and only bank of this <code>DataBuffer</code>.
+<p>
+<tr valign=top><td><code>size</code>
+<p><td>The number of elements of the array to be used.
+<p>
+<tr valign=top><td><code>offset</code>
+<p><td>The offset of the first element of the array that will be used.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>DataBufferFloat(float[][] dataArray, int size)
+<p></ul></pre><dl>
+<a name="53051">
+<dt><dd> constructs a float-based <code>DataBuffer</code> with the specified data arrays. Only the first size elements of each array are available for use by this <code>DataBuffer</code>. The number of banks will be equal to <code>dataArray.length</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>dataArray</code>
+<p><td>An array of floats to be used as banks of this <code>DataBuffer</code>.
+<p>
+<tr valign=top><td><code>size</code>
+<p><td>The number of elements of each array to be used.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>DataBufferFloat(float[][] dataArray, int size, int[] offsets)
+<p></ul></pre><dl>
+<a name="53100">
+<dt><dd> constructs a float-based <code>DataBuffer</code> with the specified data arrays, size, and per-bank offsets. The number of banks is equal to <code>dataArray.length</code>. Each array must be at least as large as <code>size</code> + the corresponding <code>offset</code>. There must be an entry in the <code>offsets</code> array for each data array.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameters</em>:
+<p><td><code>dataArray</code>
+<p><td>An array of arrays of floats to be used as the banks of this <code>DataBuffer</code>.
+<p>
+<tr valign=top><td><code>size</code>
+<p><td>The number of elements of each array to be used.
+<p>
+<tr valign=top><td><code>offset</code>
+<p><td>An array of integer offsets, one for each bank.
+<p>
+
+</Table>
+
+</a><P></dl>
+<a name="53147">
+<h4>2.5.2.2	<img src="shared/space.gif">The DataBufferDouble Class</h4>
+</a><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.DataBufferDouble
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>DataBufferDouble(int size)
+<p></ul></pre><dl>
+<a name="53162">
+<dt><dd> constructs a double-based <code>DataBuffer</code> with a specified size.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:<em></em>
+<p><td><code>size</code>
+<p><td>The number of elements in the <code>DataBuffer</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>DataBufferDouble(int size, int numBanks)
+<p></ul></pre><dl>
+<a name="53192">
+<dt><dd> constructs a double-based <code>DataBuffer</code> with a specified number of banks, all of which are of a specified size.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>size</code>
+<p><td>The number of elements in each bank of the <code>DataBuffer</code>.
+<p>
+<tr valign=top><td><code>numBanks</code>
+<p><td>The number of banks in the <code>DataBuffer</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>DataBufferDouble(double[] dataArray, int size)
+<p></ul></pre><dl>
+<a name="53233">
+<dt><dd> constructs a double-based <code>DataBuffer</code> with the specified data array. Only the first <code>size</code> elements are available for use by this databuffer. The array must be large enough to hold <code>size</code> elements.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>dataArray</code>
+<p><td>An array of doubles to be used as the first and only bank of this <code>DataBuffer</code>.
+<p>
+<tr valign=top><td><code>size</code>
+<p><td>The number of elements of the array to be used.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>DataBufferDouble(double[] dataArray, int size, int offset)
+<p></ul></pre><dl>
+<a name="53282">
+<dt><dd> constructs a double-based <code>DataBuffer</code> with the specified data array. Only the elements between <code>offset</code> and (<code>offset</code> + <code>size</code> - 1) are available for use by this data buffer. The array must be large enough to hold (<code>offset</code> + <code>size</code>) elements.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameters</em>:
+<p><td><code>dataArray</code>
+<p><td>An array of doubles to be used as the first and only bank of this <code>DataBuffer</code>.
+<p>
+<tr valign=top><td><code>size</code>
+<p><td>The number of elements of the array to be used.
+<p>
+<tr valign=top><td><code>offset</code>
+<p><td>The offset of the first element of the array that will be used.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>DataBufferDouble(double[][] dataArray, int size)
+<p></ul></pre><dl>
+<a name="53339">
+<dt><dd> constructs a double-based <code>DataBuffer</code> with the specified data arrays. Only the first size elements of each array are available for use by this <code>DataBuffer</code>. The number of banks will be equal to <code>dataArray.length</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>dataArray</code>
+<p><td>An array of doubles to be used as banks of this <code>DataBuffer</code>.
+<p>
+<tr valign=top><td><code>size</code>
+<p><td>The number of elements of each array to be used.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>DataBufferDouble(double[][] dataArray, int size, int[] offsets)
+<p></ul></pre><dl>
+<a name="53380">
+<dt><dd> constructs a double-based <code>DataBuffer</code> with the specified data arrays, size, and per-bank offsets. The number of banks is equal to <code>dataArray.length</code>. Each array must be at least as large as <code>size</code> + the corresponding <code>offset</code>. There must be an entry in the offsets array for each data array.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameters</em>:
+<p><td><code>dataArray</code>
+<p><td>An array of arrays of doubles to be used as the banks of this <code>DataBuffer</code>.
+<p>
+<tr valign=top><td><code>size</code>
+<p><td>The number of elements of each array to be used.
+<p>
+<tr valign=top><td><code>offset</code>
+<p><td>An array of integer offsets, one for each bank.
+<p>
+
+</Table>
+
+</a><P></dl>
+
+<p>
+<hr><br>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Introduction.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Programming-environ.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+
+
+<h5><a href="copyright.html">Copyright</a> &#169; 1999, Sun Microsystems, Inc.   All rights
+reserved.</h5>
+
+
+<!-- Last updated: Tue Nov 02 17:07:28 1999 -->
+</blockquote>
+</body>
+</html>

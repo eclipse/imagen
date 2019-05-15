@@ -1,0 +1,783 @@
+<html><head><title>Programming in Java Advanced Imaging</title></head>
+<body bgcolor=#ffffff>
+ 
+<img src="shared/SunLogo.gif">
+<center>
+<Font size=7><i>Programming in Java Advanced Imaging</font></i></font>
+<p>Release 1.0.1, November 1999
+</center>
+<br>
+ 
+<center>
+<a name="69260">
+<table width=90% border=0><tr><td align=right>
+<font size=6>Contents</font>
+<hr size=7 noshade></td></table>
+</a></center><blockquote>
+<p><br><br><br><P>
+</a><a href="Preface.doc.html#48128">
+<H3> Preface    </H3>
+</a><dl>
+<a href="Preface.doc.html#48649">
+<dt><dd> Disclaimer        
+</a><a href="Preface.doc.html#48300">
+<dt><dd> About This Book        
+</a><a href="Preface.doc.html#47778">
+<dt><dd> Related Documentation        
+</a><a href="Preface.doc.html#48699">
+<dt><dd> Additional Information        
+</a><a href="Preface.doc.html#47925">
+<dt><dd> Style Conventions        
+</a></dl>
+<a href="Introduction.doc.html#47285">
+<H3> 1    Introduction to Java Advanced Imaging        </H3>
+</a><dl>
+<a href="Introduction.doc.html#52476">
+<dt><dd> 1.1    The Evolution of Imaging in Java        
+</a><a href="Introduction.doc.html#52465">
+<dt><dd> 1.2    Why Another Imaging API?        
+</a><a href="Introduction.doc.html#52433">
+<dt><dd> 1.3    JAI Features        
+</a><dl>
+<a href="Introduction.doc.html#52435">
+<dt><dd> 1.3.1    Cross-platform Imaging        
+</a><a href="Introduction.doc.html#54528">
+<dt><dd> 1.3.2    Distributed Imaging        
+</a><a href="Introduction.doc.html#52437">
+<dt><dd> 1.3.3    Object-oriented API        
+</a><a href="Introduction.doc.html#54286">
+<dt><dd> 1.3.4    Flexible and Extensible        
+</a><a href="Introduction.doc.html#54289">
+<dt><dd> 1.3.5    Device Independent        
+</a><a href="Introduction.doc.html#52444">
+<dt><dd> 1.3.6    Powerful        
+</a><a href="Introduction.doc.html#52446">
+<dt><dd> 1.3.7    High Performance        
+</a><a href="Introduction.doc.html#52448">
+<dt><dd> 1.3.8    Interoperable        
+</a></dl>
+<a href="Introduction.doc.html#53715">
+<dt><dd> 1.4    A Simple JAI Program        
+</a></dl>
+<a href="J2D-concepts.doc.html#47285">
+<H3> 2    Java AWT Imaging        </H3>
+</a><dl>
+<a href="J2D-concepts.doc.html#52422">
+<dt><dd> 2.1    Introduction        
+</a><dl>
+<a href="J2D-concepts.doc.html#52427">
+<dt><dd> 2.1.1    The AWT Push Model        
+</a><a href="J2D-concepts.doc.html#52551">
+<dt><dd> 2.1.2    AWT Push Model Interfaces and Classes        
+</a></dl>
+<a href="J2D-concepts.doc.html#50792">
+<dt><dd> 2.2    The Immediate Mode Model        
+</a><dl>
+<a href="J2D-concepts.doc.html#51197">
+<dt><dd> 2.2.1    Rendering Independence        
+</a><a href="J2D-concepts.doc.html#51292">
+<dt><dd> 2.2.2    Rendering-independent Imaging in Java AWT        
+</a><a href="J2D-concepts.doc.html#51333">
+<dt><dd> 2.2.3    The Renderable Layer vs. the Rendered Layer        
+</a><a href="J2D-concepts.doc.html#51446">
+<dt><dd> 2.2.4    The Render Context        
+</a></dl>
+<a href="J2D-concepts.doc.html#51549">
+<dt><dd> 2.3    Renderable and Rendered Classes        
+</a><dl>
+<a href="J2D-concepts.doc.html#51574">
+<dt><dd> 2.3.1    The Renderable Layer        
+</a><a href="J2D-concepts.doc.html#51895">
+<dt><dd> 2.3.2    The Rendered Layer        
+</a></dl>
+<a href="J2D-concepts.doc.html#52031">
+<dt><dd> 2.4    Java Image Data Representation        
+</a><a href="J2D-concepts.doc.html#52335">
+<dt><dd> 2.5    Introducing the Java Advanced Imaging API        
+</a><dl>
+<a href="J2D-concepts.doc.html#52401">
+<dt><dd> 2.5.1    Similarities with the Java 2D API        
+</a><a href="J2D-concepts.doc.html#52719">
+<dt><dd> 2.5.2    JAI Data Classes        
+</a></dl>
+</dl>
+<a href="Programming-environ.doc.html#47285">
+<H3> 3    Programming in Java Advanced Imaging        </H3>
+</a><dl>
+<a href="Programming-environ.doc.html#53111">
+<dt><dd> 3.1    Introduction        
+</a><a href="Programming-environ.doc.html#53105">
+<dt><dd> 3.2    An Overview of Graphs        
+</a><a href="Programming-environ.doc.html#55910">
+<dt><dd> 3.3    Processing Graphs        
+</a><dl>
+<a href="Programming-environ.doc.html#56858">
+<dt><dd> 3.3.1    Rendered Graphs        
+</a><a href="Programming-environ.doc.html#55932">
+<dt><dd> 3.3.2    Renderable Graphs        
+</a><a href="Programming-environ.doc.html#57712">
+<dt><dd> 3.3.3    Reusing Graphs        
+</a></dl>
+<a href="Programming-environ.doc.html#56364">
+<dt><dd> 3.4    Remote Execution        
+</a><a href="Programming-environ.doc.html#52603">
+<dt><dd> 3.5    Basic JAI API Classes        
+</a><dl>
+<a href="Programming-environ.doc.html#52605">
+<dt><dd> 3.5.1    The JAI Class        
+</a><a href="Programming-environ.doc.html#52611">
+<dt><dd> 3.5.2    The PlanarImage Class        
+</a><a href="Programming-environ.doc.html#52625">
+<dt><dd> 3.5.3    The CollectionImage Class        
+</a><a href="Programming-environ.doc.html#52640">
+<dt><dd> 3.5.4    The TiledImage Class        
+</a><a href="Programming-environ.doc.html#52693">
+<dt><dd> 3.5.5    The OpImage Class        
+</a><a href="Programming-environ.doc.html#52811">
+<dt><dd> 3.5.6    The RenderableOp Class        
+</a><a href="Programming-environ.doc.html#52834">
+<dt><dd> 3.5.7    The RenderedOp Class        
+</a></dl>
+<a href="Programming-environ.doc.html#55112">
+<dt><dd> 3.6    JAI API Operators        
+</a><dl>
+<a href="Programming-environ.doc.html#55124">
+<dt><dd> 3.6.1    Point Operators        
+</a><a href="Programming-environ.doc.html#55460">
+<dt><dd> 3.6.2    Area Operators        
+</a><a href="Programming-environ.doc.html#60616">
+<dt><dd> 3.6.3    Geometric Operators        
+</a><a href="Programming-environ.doc.html#60618">
+<dt><dd> 3.6.4    Color Quantization Operators        
+</a><a href="Programming-environ.doc.html#55610">
+<dt><dd> 3.6.5    File Operators        
+</a><a href="Programming-environ.doc.html#55692">
+<dt><dd> 3.6.6    Frequency Operators        
+</a><a href="Programming-environ.doc.html#55775">
+<dt><dd> 3.6.7    Statistical Operators        
+</a><a href="Programming-environ.doc.html#55826">
+<dt><dd> 3.6.8    Edge Extraction Operators        
+</a><a href="Programming-environ.doc.html#63124">
+<dt><dd> 3.6.9    Miscellaneous Operators        
+</a></dl>
+<a href="Programming-environ.doc.html#58389">
+<dt><dd> 3.7    Creating Operations        
+</a><dl>
+<a href="Programming-environ.doc.html#58937">
+<dt><dd> 3.7.1    Operation Name        
+</a><a href="Programming-environ.doc.html#58271">
+<dt><dd> 3.7.2    Parameter Blocks        
+</a><a href="Programming-environ.doc.html#55991">
+<dt><dd> 3.7.3    Rendering Hints        
+</a></dl>
+</dl>
+<a href="Acquisition.doc.html#81550">
+<H3> 4    Image Acquisition and Display        </H3>
+</a><dl>
+<a href="Acquisition.doc.html#50856">
+<dt><dd> 4.1    Introduction        
+</a><dl>
+<a href="Acquisition.doc.html#51157">
+<dt><dd> 4.1.1    Image Data        
+</a><a href="Acquisition.doc.html#52258">
+<dt><dd> 4.1.2    Basic Storage Types        
+</a></dl>
+<a href="Acquisition.doc.html#52336">
+<dt><dd> 4.2    JAI Image Types        
+</a><dl>
+<a href="Acquisition.doc.html#77718">
+<dt><dd> 4.2.1    Planar Image        
+</a><a href="Acquisition.doc.html#52363">
+<dt><dd> 4.2.2    Tiled Image        
+</a><a href="Acquisition.doc.html#53341">
+<dt><dd> 4.2.3    Snapshot Image        
+</a><a href="Acquisition.doc.html#77770">
+<dt><dd> 4.2.4    Remote Image        
+</a><a href="Acquisition.doc.html#53305">
+<dt><dd> 4.2.5    Collection Image        
+</a><a href="Acquisition.doc.html#77784">
+<dt><dd> 4.2.6    Image Sequence        
+</a><a href="Acquisition.doc.html#77800">
+<dt><dd> 4.2.7    Image Stack        
+</a><a href="Acquisition.doc.html#55720">
+<dt><dd> 4.2.8    Image MIP Map        
+</a><a href="Acquisition.doc.html#54266">
+<dt><dd> 4.2.9    Image Pyramid        
+</a><a href="Acquisition.doc.html#80612">
+<dt><dd> 4.2.10    Multi-resolution Renderable Images        
+</a></dl>
+<a href="Acquisition.doc.html#80641">
+<dt><dd> 4.3    Streams        
+</a><a href="Acquisition.doc.html#74172">
+<dt><dd> 4.4    Reading Image Files        
+</a><dl>
+<a href="Acquisition.doc.html#65553">
+<dt><dd> 4.4.1    Standard File Readers for Most Data Types        
+</a><a href="Acquisition.doc.html#61287">
+<dt><dd> 4.4.2    Reading TIFF Images        
+</a><a href="Acquisition.doc.html#75837">
+<dt><dd> 4.4.3    Reading FlashPix Images        
+</a><a href="Acquisition.doc.html#61965">
+<dt><dd> 4.4.4    Reading JPEG Images        
+</a><a href="Acquisition.doc.html#61988">
+<dt><dd> 4.4.5    Reading GIF Images        
+</a><a href="Acquisition.doc.html#62011">
+<dt><dd> 4.4.6    Reading BMP Images        
+</a><a href="Acquisition.doc.html#62013">
+<dt><dd> 4.4.7    Reading PNG Images        
+</a><a href="Acquisition.doc.html#64990">
+<dt><dd> 4.4.8    Reading PNM Images        
+</a><a href="Acquisition.doc.html#62069">
+<dt><dd> 4.4.9    Reading Standard AWT Images        
+</a><a href="Acquisition.doc.html#71531">
+<dt><dd> 4.4.10    Reading URL Images        
+</a></dl>
+<a href="Acquisition.doc.html#79558">
+<dt><dd> 4.5    Reformatting an Image        
+</a><a href="Acquisition.doc.html#81553">
+<dt><dd> 4.6    Converting a Rendered Image to Renderable        
+</a><a href="Acquisition.doc.html#72170">
+<dt><dd> 4.7    Creating a Constant Image        
+</a><a href="Acquisition.doc.html#73265">
+<dt><dd> 4.8    Image Display        
+</a><dl>
+<a href="Acquisition.doc.html#56896">
+<dt><dd> 4.8.1    Positioning the Image in the Panel        
+</a><a href="Acquisition.doc.html#55352">
+<dt><dd> 4.8.2    The ImageCanvas Class        
+</a><a href="Acquisition.doc.html#80045">
+<dt><dd> 4.8.3    Image Origin        
+</a></dl>
+</dl>
+<a href="Color.doc.html#47285">
+<H3> 5    Color Space        </H3>
+</a><dl>
+<a href="Color.doc.html#51145">
+<dt><dd> 5.1    Introduction        
+</a><a href="Color.doc.html#51219">
+<dt><dd> 5.2    Color Management        
+</a><dl>
+<a href="Color.doc.html#51226">
+<dt><dd> 5.2.1    Color Models        
+</a><a href="Color.doc.html#51305">
+<dt><dd> 5.2.2    Color Space        
+</a><a href="Color.doc.html#51500">
+<dt><dd> 5.2.3    ICC Profile and ICC Color Space        
+</a></dl>
+<a href="Color.doc.html#51516">
+<dt><dd> 5.3    Transparency        
+</a><a href="Color.doc.html#51551">
+<dt><dd> 5.4    Color Conversion        
+</a><a href="Color.doc.html#51591">
+<dt><dd> 5.5    Non-standard Linear Color Conversion (BandCombine)        
+</a></dl>
+<a href="Image-manipulation.doc.html#47285">
+<H3> 6    Image Manipulation        </H3>
+</a><dl>
+<a href="Image-manipulation.doc.html#50856">
+<dt><dd> 6.1    Introduction        
+</a><a href="Image-manipulation.doc.html#51458">
+<dt><dd> 6.2    Region of Interest Control        
+</a><dl>
+<a href="Image-manipulation.doc.html#60492">
+<dt><dd> 6.2.1    The ROI Class        
+</a><a href="Image-manipulation.doc.html#53075">
+<dt><dd> 6.2.2    The ROIShape Class        
+</a></dl>
+<a href="Image-manipulation.doc.html#51159">
+<dt><dd> 6.3    Relational Operators        
+</a><dl>
+<a href="Image-manipulation.doc.html#58435">
+<dt><dd> 6.3.1    Finding the Maximum Values of Two Images        
+</a><a href="Image-manipulation.doc.html#58446">
+<dt><dd> 6.3.2    Finding the Minimum Values of Two Images        
+</a></dl>
+<a href="Image-manipulation.doc.html#58465">
+<dt><dd> 6.4    Logical Operators        
+</a><dl>
+<a href="Image-manipulation.doc.html#56569">
+<dt><dd> 6.4.1    ANDing Two Images        
+</a><a href="Image-manipulation.doc.html#56421">
+<dt><dd> 6.4.2    ANDing an Image with a Constant        
+</a><a href="Image-manipulation.doc.html#61460">
+<dt><dd> 6.4.3    ORing Two Images        
+</a><a href="Image-manipulation.doc.html#58466">
+<dt><dd> 6.4.4    ORing an Image with a Constant        
+</a><a href="Image-manipulation.doc.html#59163">
+<dt><dd> 6.4.5    XORing Two Images        
+</a><a href="Image-manipulation.doc.html#59165">
+<dt><dd> 6.4.6    XORing an Image with a Constant        
+</a><a href="Image-manipulation.doc.html#62697">
+<dt><dd> 6.4.7    Taking the Bitwise NOT of an Image        
+</a></dl>
+<a href="Image-manipulation.doc.html#57560">
+<dt><dd> 6.5    Arithmetic Operators        
+</a><dl>
+<a href="Image-manipulation.doc.html#56366">
+<dt><dd> 6.5.1    Adding Two Source Images        
+</a><a href="Image-manipulation.doc.html#56269">
+<dt><dd> 6.5.2    Adding a Constant Value to an Image        
+</a><a href="Image-manipulation.doc.html#68198">
+<dt><dd> 6.5.3    Adding a Collection of Images        
+</a><a href="Image-manipulation.doc.html#69890">
+<dt><dd> 6.5.4    Adding Constants to a Collection of Rendered Images        
+</a><a href="Image-manipulation.doc.html#59012">
+<dt><dd> 6.5.5    Subtracting Two Source Images        
+</a><a href="Image-manipulation.doc.html#59014">
+<dt><dd> 6.5.6    Subtracting a Constant from an Image        
+</a><a href="Image-manipulation.doc.html#63705">
+<dt><dd> 6.5.7    Subtracting an Image from a Constant        
+</a><a href="Image-manipulation.doc.html#63828">
+<dt><dd> 6.5.8    Dividing One Image by Another Image        
+</a><a href="Image-manipulation.doc.html#59876">
+<dt><dd> 6.5.9    Dividing an Image by a Constant        
+</a><a href="Image-manipulation.doc.html#59931">
+<dt><dd> 6.5.10    Dividing an Image into a Constant        
+</a><a href="Image-manipulation.doc.html#59909">
+<dt><dd> 6.5.11    Dividing Complex Images        
+</a><a href="Image-manipulation.doc.html#58296">
+<dt><dd> 6.5.12    Multiplying Two Images        
+</a><a href="Image-manipulation.doc.html#58212">
+<dt><dd> 6.5.13    Multiplying an Image by a Constant        
+</a><a href="Image-manipulation.doc.html#59962">
+<dt><dd> 6.5.14    Multiplying Two Complex Images        
+</a><a href="Image-manipulation.doc.html#56159">
+<dt><dd> 6.5.15    Finding the Absolute Value of Pixels        
+</a><a href="Image-manipulation.doc.html#58051">
+<dt><dd> 6.5.16    Taking the Exponent of an Image        
+</a></dl>
+<a href="Image-manipulation.doc.html#62253">
+<dt><dd> 6.6    Dithering an Image        
+</a><dl>
+<a href="Image-manipulation.doc.html#56241">
+<dt><dd> 6.6.1    Ordered Dither        
+</a><a href="Image-manipulation.doc.html#56245">
+<dt><dd> 6.6.2    Error-diffusion Dither        
+</a></dl>
+<a href="Image-manipulation.doc.html#56747">
+<dt><dd> 6.7    Clamping Pixel Values        
+</a><a href="Image-manipulation.doc.html#63344">
+<dt><dd> 6.8    Band Copying        
+</a><a href="Image-manipulation.doc.html#70882">
+<dt><dd> 6.9    Constructing a Kernel        
+</a></dl>
+<a href="Image-enhance.doc.html#47285">
+<H3> 7    Image Enhancement        </H3>
+</a><dl>
+<a href="Image-enhance.doc.html#50856">
+<dt><dd> 7.1    Introduction        
+</a><a href="Image-enhance.doc.html#68364">
+<dt><dd> 7.2    Adding Borders to Images        
+</a><dl>
+<a href="Image-enhance.doc.html#68604">
+<dt><dd> 7.2.1    The Border Operation        
+</a><a href="Image-enhance.doc.html#68606">
+<dt><dd> 7.2.2    Extending the Edge of an Image        
+</a></dl>
+<a href="Image-enhance.doc.html#73080">
+<dt><dd> 7.3    Cropping an Image        
+</a><a href="Image-enhance.doc.html#76502">
+<dt><dd> 7.4    Amplitude Rescaling        
+</a><a href="Image-enhance.doc.html#70862">
+<dt><dd> 7.5    Histogram Equalization        
+</a><dl>
+<a href="Image-enhance.doc.html#70864">
+<dt><dd> 7.5.1    Piecewise Linear Mapping        
+</a><a href="Image-enhance.doc.html#71727">
+<dt><dd> 7.5.2    Histogram Matching        
+</a></dl>
+<a href="Image-enhance.doc.html#71424">
+<dt><dd> 7.6    Lookup Table Modification        
+</a><dl>
+<a href="Image-enhance.doc.html#51408">
+<dt><dd> 7.6.1    Creating the Lookup Table        
+</a><a href="Image-enhance.doc.html#56300">
+<dt><dd> 7.6.2    Performing the Lookup        
+</a><a href="Image-enhance.doc.html#64998">
+<dt><dd> 7.6.3    Other Lookup Table Operations        
+</a></dl>
+<a href="Image-enhance.doc.html#51172">
+<dt><dd> 7.7    Convolution Filtering        
+</a><dl>
+<a href="Image-enhance.doc.html#53067">
+<dt><dd> 7.7.1    Performing the Convolve Operation        
+</a><a href="Image-enhance.doc.html#59705">
+<dt><dd> 7.7.2    Box Filter        
+</a></dl>
+<a href="Image-enhance.doc.html#66803">
+<dt><dd> 7.8    Median Filtering        
+</a><a href="Image-enhance.doc.html#59829">
+<dt><dd> 7.9    Frequency Domain Processing        
+</a><dl>
+<a href="Image-enhance.doc.html#65663">
+<dt><dd> 7.9.1    Fourier Transform        
+</a><a href="Image-enhance.doc.html#65675">
+<dt><dd> 7.9.2    Cosine Transform        
+</a><a href="Image-enhance.doc.html#66700">
+<dt><dd> 7.9.3    Magnitude Enhancement        
+</a><a href="Image-enhance.doc.html#66728">
+<dt><dd> 7.9.4    Magnitude-squared Enhancement        
+</a><a href="Image-enhance.doc.html#66739">
+<dt><dd> 7.9.5    Phase Enhancement        
+</a><a href="Image-enhance.doc.html#66360">
+<dt><dd> 7.9.6    Complex Conjugate        
+</a><a href="Image-enhance.doc.html#66438">
+<dt><dd> 7.9.7    Periodic Shift        
+</a><a href="Image-enhance.doc.html#67381">
+<dt><dd> 7.9.8    Polar to Complex        
+</a><a href="Image-enhance.doc.html#67438">
+<dt><dd> 7.9.9    Images Based on a Functional Description        
+</a></dl>
+<a href="Image-enhance.doc.html#60152">
+<dt><dd> 7.10    Single-image Pixel Point Processing        
+</a><dl>
+<a href="Image-enhance.doc.html#64866">
+<dt><dd> 7.10.1    Pixel Inverting        
+</a><a href="Image-enhance.doc.html#60051">
+<dt><dd> 7.10.2    Logarithmic Enhancement        
+</a></dl>
+<a href="Image-enhance.doc.html#60966">
+<dt><dd> 7.11    Dual Image Pixel Point Processing        
+</a><dl>
+<a href="Image-enhance.doc.html#60992">
+<dt><dd> 7.11.1    Overlay Images        
+</a><a href="Image-enhance.doc.html#61005">
+<dt><dd> 7.11.2    Image Compositing        
+</a></dl>
+<a href="Image-enhance.doc.html#63249">
+<dt><dd> 7.12    Thresholding        
+</a></dl>
+<a href="Geom-image-manip.doc.html#51140">
+<H3> 8    Geometric Image Manipulation        </H3>
+</a><dl>
+<a href="Geom-image-manip.doc.html#50856">
+<dt><dd> 8.1    Introduction        
+</a><a href="Geom-image-manip.doc.html#51290">
+<dt><dd> 8.2    Interpolation        
+</a><dl>
+<a href="Geom-image-manip.doc.html#70504">
+<dt><dd> 8.2.1    Nearest-neighbor Interpolation        
+</a><a href="Geom-image-manip.doc.html#55403">
+<dt><dd> 8.2.2    Bilinear Interpolation        
+</a><a href="Geom-image-manip.doc.html#55431">
+<dt><dd> 8.2.3    Bicubic Interpolation        
+</a><a href="Geom-image-manip.doc.html#55447">
+<dt><dd> 8.2.4    Bicubic2 Interpolation        
+</a><a href="Geom-image-manip.doc.html#55492">
+<dt><dd> 8.2.5    Table Interpolation        
+</a></dl>
+<a href="Geom-image-manip.doc.html#56707">
+<dt><dd> 8.3    Geometric Transformation        
+</a><dl>
+<a href="Geom-image-manip.doc.html#60866">
+<dt><dd> 8.3.1    Translation Transformation        
+</a><a href="Geom-image-manip.doc.html#60938">
+<dt><dd> 8.3.2    Scaling Transformation        
+</a><a href="Geom-image-manip.doc.html#61009">
+<dt><dd> 8.3.3    Rotation Transformation        
+</a><a href="Geom-image-manip.doc.html#51275">
+<dt><dd> 8.3.4    Affine Transformation        
+</a></dl>
+<a href="Geom-image-manip.doc.html#55959">
+<dt><dd> 8.4    Perspective Transformation        
+</a><dl>
+<a href="Geom-image-manip.doc.html#66598">
+<dt><dd> 8.4.1    Performing the Transform        
+</a><a href="Geom-image-manip.doc.html#56192">
+<dt><dd> 8.4.2    Mapping a Quadrilateral        
+</a><a href="Geom-image-manip.doc.html#56537">
+<dt><dd> 8.4.3    Mapping Triangles        
+</a><a href="Geom-image-manip.doc.html#66375">
+<dt><dd> 8.4.4    Inverse Perspective Transform        
+</a><a href="Geom-image-manip.doc.html#73535">
+<dt><dd> 8.4.5    Creating the Adjoint of the Current Transform        
+</a></dl>
+<a href="Geom-image-manip.doc.html#66415">
+<dt><dd> 8.5    Transposing        
+</a><a href="Geom-image-manip.doc.html#57228">
+<dt><dd> 8.6    Shearing        
+</a><a href="Geom-image-manip.doc.html#53798">
+<dt><dd> 8.7    Warping        
+</a><dl>
+<a href="Geom-image-manip.doc.html#63708">
+<dt><dd> 8.7.1    Performing a Warp Operation        
+</a><a href="Geom-image-manip.doc.html#58097">
+<dt><dd> 8.7.2    Polynomial Warp        
+</a><a href="Geom-image-manip.doc.html#62828">
+<dt><dd> 8.7.3    General Polynomial Warp        
+</a><a href="Geom-image-manip.doc.html#62411">
+<dt><dd> 8.7.4    Grid Warp        
+</a><a href="Geom-image-manip.doc.html#58581">
+<dt><dd> 8.7.5    Quadratic Warp        
+</a><a href="Geom-image-manip.doc.html#66987">
+<dt><dd> 8.7.6    Cubic Warp        
+</a><a href="Geom-image-manip.doc.html#58571">
+<dt><dd> 8.7.7    Perspective Warp        
+</a><a href="Geom-image-manip.doc.html#58577">
+<dt><dd> 8.7.8    Affine Warp        
+</a></dl>
+</dl>
+<a href="Analysis.doc.html#55366">
+<H3> 9    Image Analysis        </H3>
+</a><dl>
+<a href="Analysis.doc.html#50856">
+<dt><dd> 9.1    Introduction        
+</a><a href="Analysis.doc.html#54841">
+<dt><dd> 9.2    Finding the Mean Value of an Image Region        
+</a><a href="Analysis.doc.html#54907">
+<dt><dd> 9.3    Finding the Extrema of an Image        
+</a><a href="Analysis.doc.html#54836">
+<dt><dd> 9.4    Histogram Generation        
+</a><dl>
+<a href="Analysis.doc.html#55111">
+<dt><dd> 9.4.1    Specifying the Histogram        
+</a><a href="Analysis.doc.html#52616">
+<dt><dd> 9.4.2    Performing the Histogram Operation        
+</a><a href="Analysis.doc.html#51842">
+<dt><dd> 9.4.3    Reading the Histogram Data        
+</a><a href="Analysis.doc.html#55476">
+<dt><dd> 9.4.4    Histogram Operation Example        
+</a></dl>
+<a href="Analysis.doc.html#51214">
+<dt><dd> 9.5    Edge Detection        
+</a><a href="Analysis.doc.html#52769">
+<dt><dd> 9.6    Statistical Operations        
+</a></dl>
+<a href="Graphics.doc.html#51143">
+<H3> 10    Graphics Rendering        </H3>
+</a><dl>
+<a href="Graphics.doc.html#51145">
+<dt><dd> 10.1    Introduction        
+</a><dl>
+<a href="Graphics.doc.html#51359">
+<dt><dd> 10.1.1    Simple 2D Graphics        
+</a><a href="Graphics.doc.html#51362">
+<dt><dd> 10.1.2    Renderable Graphics        
+</a></dl>
+<a href="Graphics.doc.html#51781">
+<dt><dd> 10.2    A Review of Graphics Rendering        
+</a><dl>
+<a href="Graphics.doc.html#51790">
+<dt><dd> 10.2.1    Overview of the Rendering Process        
+</a><a href="Graphics.doc.html#51812">
+<dt><dd> 10.2.2    Stroke Attributes        
+</a><a href="Graphics.doc.html#52230">
+<dt><dd> 10.2.3    Rendering Graphics Primitives        
+</a></dl>
+<a href="Graphics.doc.html#51398">
+<dt><dd> 10.3    Graphics2D Example        
+</a><a href="Graphics.doc.html#51405">
+<dt><dd> 10.4    Adding Graphics and Text to an Image        
+</a></dl>
+<a href="Properties.doc.html#47285">
+<H3> 11    Image Properties        </H3>
+</a><dl>
+<a href="Properties.doc.html#50856">
+<dt><dd> 11.1    Introduction        
+</a><dl>
+<a href="Properties.doc.html#52071">
+<dt><dd> 11.1.1    The PropertySource Interface        
+</a><a href="Properties.doc.html#51630">
+<dt><dd> 11.1.2    The PropertyGenerator Interface        
+</a></dl>
+<a href="Properties.doc.html#52095">
+<dt><dd> 11.2    Synthetic Properties        
+</a><a href="Properties.doc.html#51632">
+<dt><dd> 11.3    Regions of Interest        
+</a><a href="Properties.doc.html#52134">
+<dt><dd> 11.4    Complex Data        
+</a></dl>
+<a href="Client-server.doc.html#47285">
+<H3> 12    Client-Server Imaging        </H3>
+</a><dl>
+<a href="Client-server.doc.html#51145">
+<dt><dd> 12.1    Introduction        
+</a><a href="Client-server.doc.html#51212">
+<dt><dd> 12.2    Server Name and Port Number        
+</a><a href="Client-server.doc.html#51218">
+<dt><dd> 12.3    Setting the Timeout Period and Number of Retries        
+</a><a href="Client-server.doc.html#51951">
+<dt><dd> 12.4    Remote Imaging Test Example        
+</a><dl>
+<a href="Client-server.doc.html#51974">
+<dt><dd> 12.4.1    Simple Remote Imaging Example        
+</a><a href="Client-server.doc.html#52700">
+<dt><dd> 12.4.2    RemoteImaging Example Across Two Nodes        
+</a></dl>
+<a href="Client-server.doc.html#51162">
+<dt><dd> 12.5    Running Remote Imaging        
+</a><dl>
+<a href="Client-server.doc.html#54942">
+<dt><dd> 12.5.1    Step 1: Create a Security Policy File        
+</a><a href="Client-server.doc.html#55056">
+<dt><dd> 12.5.2    Step 2: Start the RMI Registry        
+</a><a href="Client-server.doc.html#54962">
+<dt><dd> 12.5.3    Step 3: Start the Remote Image Server        
+</a><a href="Client-server.doc.html#54969">
+<dt><dd> 12.5.4    Step 4: Run the Local Application        
+</a></dl>
+<a href="Client-server.doc.html#55174">
+<dt><dd> 12.6    Internet Imaging Protocol (IIP)        
+</a><dl>
+<a href="Client-server.doc.html#55178">
+<dt><dd> 12.6.1    IIP Operation        
+</a><a href="Client-server.doc.html#55791">
+<dt><dd> 12.6.2    IIPResolution Operation        
+</a></dl>
+</dl>
+<a href="Encode.doc.html#47285">
+<H3> 13    Writing Image Files        </H3>
+</a><dl>
+<a href="Encode.doc.html#57309">
+<dt><dd> 13.1    Introduction        
+</a><a href="Encode.doc.html#56452">
+<dt><dd> 13.2    Writing to a File        
+</a><a href="Encode.doc.html#56483">
+<dt><dd> 13.3    Writing to an Output Stream        
+</a><a href="Encode.doc.html#51259">
+<dt><dd> 13.4    Writing BMP Image Files        
+</a><dl>
+<a href="Encode.doc.html#57416">
+<dt><dd> 13.4.1    BMP Version        
+</a><a href="Encode.doc.html#56260">
+<dt><dd> 13.4.2    BMP Data Layout        
+</a><a href="Encode.doc.html#56293">
+<dt><dd> 13.4.3    Example Code        
+</a></dl>
+<a href="Encode.doc.html#51358">
+<dt><dd> 13.5    Writing JPEG Image Files        
+</a><dl>
+<a href="Encode.doc.html#57417">
+<dt><dd> 13.5.1    JFIF Header        
+</a><a href="Encode.doc.html#51386">
+<dt><dd> 13.5.2    JPEG DCT Compression Parameters        
+</a><a href="Encode.doc.html#51433">
+<dt><dd> 13.5.3    Quantization Table        
+</a><a href="Encode.doc.html#51546">
+<dt><dd> 13.5.4    Horizontal and Vertical Subsampling        
+</a><a href="Encode.doc.html#51700">
+<dt><dd> 13.5.5    Compression Quality        
+</a><a href="Encode.doc.html#57621">
+<dt><dd> 13.5.6    Restart Interval        
+</a><a href="Encode.doc.html#56121">
+<dt><dd> 13.5.7    Writing an Abbreviated JPEG Stream        
+</a><a href="Encode.doc.html#54656">
+<dt><dd> 13.5.8    Example Code        
+</a></dl>
+<a href="Encode.doc.html#51712">
+<dt><dd> 13.6    Writing PNG Image Files        
+</a><dl>
+<a href="Encode.doc.html#51714">
+<dt><dd> 13.6.1    PNG Image Layout        
+</a><a href="Encode.doc.html#53157">
+<dt><dd> 13.6.2    PNG Filtering        
+</a><a href="Encode.doc.html#53673">
+<dt><dd> 13.6.3    Bit Depth        
+</a><a href="Encode.doc.html#53730">
+<dt><dd> 13.6.4    Interlaced Data Order        
+</a><a href="Encode.doc.html#53779">
+<dt><dd> 13.6.5    PLTE Chunk for Palette Images        
+</a><a href="Encode.doc.html#53197">
+<dt><dd> 13.6.6    Ancillary Chunk Specifications        
+</a></dl>
+<a href="Encode.doc.html#52304">
+<dt><dd> 13.7    Writing PNM Image Files        
+</a><a href="Encode.doc.html#56754">
+<dt><dd> 13.8    Writing TIFF Image Files        
+</a><dl>
+<a href="Encode.doc.html#56811">
+<dt><dd> 13.8.1    TIFF Compression        
+</a><a href="Encode.doc.html#56916">
+<dt><dd> 13.8.2    TIFF Tiled Images        
+</a></dl>
+</dl>
+<a href="Extension.doc.html#47285">
+<H3> 14    Extending the API        </H3>
+</a><dl>
+<a href="Extension.doc.html#51567">
+<dt><dd> 14.1    Introduction        
+</a><a href="Extension.doc.html#55405">
+<dt><dd> 14.2    Package Naming Convention        
+</a><a href="Extension.doc.html#50856">
+<dt><dd> 14.3    Writing New Operators        
+</a><dl>
+<a href="Extension.doc.html#51621">
+<dt><dd> 14.3.1    Extending the OpImage Class        
+</a><a href="Extension.doc.html#51155">
+<dt><dd> 14.3.2    Extending the OperationDescriptor Interface        
+</a></dl>
+<a href="Extension.doc.html#51261">
+<dt><dd> 14.4    Iterators        
+</a><dl>
+<a href="Extension.doc.html#51439">
+<dt><dd> 14.4.1    RectIter        
+</a><a href="Extension.doc.html#51452">
+<dt><dd> 14.4.2    RookIter        
+</a><a href="Extension.doc.html#53284">
+<dt><dd> 14.4.3    RandomIter        
+</a><a href="Extension.doc.html#57770">
+<dt><dd> 14.4.4    Example RectIter        
+</a></dl>
+<a href="Extension.doc.html#56033">
+<dt><dd> 14.5    Writing New Image Decoders and Encoders        
+</a><dl>
+<a href="Extension.doc.html#51534">
+<dt><dd> 14.5.1    Image Codecs        
+</a></dl>
+</dl>
+<a href="Examples.doc.html#72446">
+<H3> A    Program Examples        </H3>
+</a><dl>
+<a href="Examples.doc.html#72767">
+<dt><dd> A.1    Lookup Operation Example        
+</a><a href="Examples.doc.html#74136">
+<dt><dd> A.2    Adding an OperationDescriptor Example        
+</a></dl>
+<a href="API-summary.doc.html#72446">
+<H3> B    Java Advanced Imaging API Summary        </H3>
+</a><dl>
+<a href="API-summary.doc.html#75376">
+<dt><dd> B.1    Java AWT Imaging        
+</a><a href="API-summary.doc.html#73746">
+<dt><dd> B.2    Java 2D Imaging        
+</a><dl>
+<a href="API-summary.doc.html#73747">
+<dt><dd> B.2.1    Java 2D Imaging Interfaces        
+</a><a href="API-summary.doc.html#74224">
+<dt><dd> B.2.2    Java 2D Imaging Classes        
+</a></dl>
+<a href="API-summary.doc.html#75368">
+<dt><dd> B.3    Java Advanced Imaging        
+</a><dl>
+<a href="API-summary.doc.html#75504">
+<dt><dd> B.3.1    JAI Interfaces        
+</a><a href="API-summary.doc.html#72561">
+<dt><dd> B.3.2    JAI Classes        
+</a><a href="API-summary.doc.html#77302">
+<dt><dd> B.3.3    JAI Iterator Interfaces        
+</a><a href="API-summary.doc.html#77419">
+<dt><dd> B.3.4    JAI Iterator Classes        
+</a><a href="API-summary.doc.html#73476">
+<dt><dd> B.3.5    JAI Operator Classes        
+</a><a href="API-summary.doc.html#79150">
+<dt><dd> B.3.6    JAI Widget Interfaces        
+</a><a href="API-summary.doc.html#73681">
+<dt><dd> B.3.7    JAI Widget Classes        
+</a></dl>
+</dl>
+<a href="Glossary.doc.html#47771">
+<H3> Glossary    </H3>
+</a>
+<hr><br>
+ 
+
+
+
+<h5><a href="copyright.html">Copyright</a> &#169; 1999, Sun Microsystems, Inc.   All rights
+reserved.</h5>
+
+
+<!-- Last updated: Tue Nov 02 16:56:52 1999 -->
+</blockquote>
+</body>
+</html>
