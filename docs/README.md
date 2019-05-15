@@ -38,6 +38,8 @@ Viewing the result in your browser: [http://localhost:4000/](http://localhost:40
 
 The site uses the [Just The Docs](https://pmarsceill.github.io/just-the-docs/) theme (MIT License).
 
+The [default.html](_layout/default.html) layout has been modified to include [copyright.html](_includes/copyright.html).
+
 ## Site Structure
 
 Definition:
@@ -56,9 +58,8 @@ Definition:
 
 Content:
 
-* [index.md] - main page
-* [guide](guide) - Eclipse ImageN guide
-
+* [index.md](index.md) - main page
+* [guide](guide) - Programming Guide
 
 ## Pages
 
