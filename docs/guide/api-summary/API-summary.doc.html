@@ -1,0 +1,1124 @@
+<html><head><title>Java Advanced Imaging API Summary</title></head>
+<body bgcolor=#ffffff>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Examples.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Glossary.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+<center>
+<a name="72445">
+<table width=90% border=0><tr>
+<td align=right><font size=3>A P P E N D I X <img src="shared/sm-space.gif"></font><font size=7>B</td></table>
+</a></center><center>
+<a name="72446">
+<table width=90% border=0><tr><td align=right>
+<hr size=7 noshade>
+<font size=6>Java Advanced Imaging API Summary</font></td></table>
+</a></center><blockquote>
+<p><br><br><br><P><font size=7><b>T</b></font>HIS appendix summarizes the imaging interfaces and classes for Java AWT, Java 2D, and Java Advanced Imaging API.
+<p><a name="75376">
+<h2>B.1	<img src="shared/space.gif">Java AWT Imaging</h2>
+</a><a href="API-summary.doc.html#75399">Table &#32;B-1</a> lists and describes the <code>java.awt</code> imaging classes.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="75399">
+Table B-1	  <strong><kbd>java.awt</kbd></strong> Imaging Classes
+</a></b></font></caption>
+<tr valign=top><th><a name="75403">
+Class
+</a><th><a name="75405">
+Description
+</a>
+<tr valign=top><td><a name="75407">
+Image</a><br><td><a name="75409">
+Extends: Object</a><br><a name="75413">
+The superclass of all classes that represent graphical images.</a><br>
+
+</Table>
+<p>
+<p><a name="73746">
+<h2>B.2	<img src="shared/space.gif">Java 2D Imaging</h2>
+</a>The Java 2D API is a set of classes for advanced 2D graphics and imaging. It encompasses line art, text, and images in a single comprehensive model. The API provides extensive support for image compositing and alpha channel images, a set of classes to provide accurate color space definition and conversion, and a rich set of display-oriented imaging operators.
+<p>The Java 2D classes are provided as additions to the <code>java.awt</code> and <code>java.awt.image</code> packages (rather than as a separate package).
+<p><a name="73747">
+<h3>B.2.1	<img src="shared/space.gif">Java 2D Imaging Interfaces</h3>
+</a><a href="API-summary.doc.html#73751">Table &#32;B-2</a> lists and briefly describes the imaging interfaces defined in the <code>java.awt.image </code>(Java &#32;2D) API.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="73751">
+Table B-2	  <strong><kbd>java.awt.image</kbd></strong> Interfaces &#32;
+</a></b></font></caption>
+<tr valign=top><th><a name="73755">
+Interface
+</a><th><a name="73757">
+Description
+</a>
+<tr valign=top><td><a name="73759">
+BufferedImageOp</a><br><td><a name="75427">
+Describes single-input/single-output operations performed on BufferedImage objects. This is implemented by such classes as AffineTransformOp, ConvolveOp, BandCombineOp,</a><br><a name="73761">
+and LookupOp.</a><br>
+<tr valign=top><td><a name="73763">
+ImageConsumer</a><br><td><a name="73793">
+Used for objects expressing interest in image data through the ImageProducer interfaces.</a><br>
+<tr valign=top><td><a name="73851">
+ImageObserver</a><br><td><a name="75436">
+Receives notifications about Image information as the Image is constructed.</a><br>
+<tr valign=top><td><a name="73847">
+ImageProducer</a><br><td><a name="73888">
+Used for objects that can produce the image data for Images. Each image contains an ImageProducer that is used to reconstruct the image whenever it is needed, for example, when a new size of the Image is scaled, or when the width or height of the Image is being requested.</a><br>
+<tr valign=top><td><a name="73843">
+ImagingLib</a><br><td><a name="73920">
+Provides a hook to access platform-specific imaging code.</a><br>
+<tr valign=top><td><a name="73839">
+RasterImageConsumer</a><br><td><a name="73954">
+Extends: ImageConsumer</a><br><a name="75463">
+The interface for objects expressing interest in image data through the ImageProducer interfaces. When a consumer is added to an image producer, the producer delivers all of the data about the image using the method calls defined in this interface.</a><br>
+<tr valign=top><td><a name="73835">
+RasterOp</a><br><td><a name="73998">
+Describes single-input/single-output operations performed on Raster objects. This is implemented by such classes as AffineTransformOp, ConvolveOp, and LookupOp.</a><br>
+<tr valign=top><td><a name="73831">
+RenderedImage</a><br><td><a name="74043">
+A common interface for objects that contain or can produce image data in the form of Rasters.</a><br>
+<tr valign=top><td><a name="73827">
+TileChangeListener</a><br><td><a name="74081">
+An interface for objects that wish to be informed when tiles of a WritableRenderedImage become modifiable by some writer via a call to getWritableTile, and when they become unmodifiable via the last call to releaseWritableTile.</a><br>
+<tr valign=top><td><a name="73823">
+WriteableRenderedImage</a><br><td><a name="74163">
+Extends: RenderedImage</a><br><a name="75484">
+A common interface for objects that contain or can produce image data that can be modified and/or written over.</a><br>
+
+</Table>
+<p>
+<p><a name="74224">
+<h3>B.2.2	<img src="shared/space.gif">Java 2D Imaging Classes</h3>
+</a><a href="API-summary.doc.html#74246">Table &#32;B-3</a> lists and briefly describes the imaging classes defined in the <code>java.awt.image </code>(Java &#32;2D) API.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="74246">
+Table B-3	  <strong><kbd>java.awt.image</kbd></strong> Classes &#32;
+</a></b></font></caption>
+<tr valign=top><th><a name="74414">
+Class
+</a><th><a name="74416">
+Description
+</a>
+<tr valign=top><td><a name="74254">
+AffineTransformOp</a><br><td><a name="74696">
+Extends: Object</a><br><a name="74703">
+Implements: BufferedImageOp, RasterOp</a><br><a name="74420">
+An abstract class that uses an affine transform to perform a linear mapping from 2D coordinates in the source image or Raster to 2D coordinates in the destination image or Raster.</a><br>
+<tr valign=top><td><a name="74258">
+AreaAveragingScaleFilter</a><br><td><a name="74705">
+Extends: ReplicateScaleFilter</a><br><a name="74547">
+An ImageFilter class for scaling images using a simple area averaging algorithm that produces smoother results than the nearest-neighbor algorithm.</a><br>
+<tr valign=top><td><a name="74262">
+BandCombineOp</a><br><td><a name="74715">
+Extends: Object</a><br><a name="74722">
+Implements: RasterOp</a><br><a name="74639">
+Performs an arbitrary linear combination of bands in a Raster, using a specified matrix.</a><br>
+<tr valign=top><td><a name="74266">
+BandedSampleModel</a><br><td><a name="74268">
+Extends: SampleModel</a><br><a name="74729">
+Provides more efficent implementations for accessing</a><br><a name="74738">
+image data than are provided in SampleModel. Used when working with images that store sample data for each band in a different bank of the DataBuffer.</a><br>
+<tr valign=top><td><a name="74270">
+BilinearAffineTransformOp</a><br><td><a name="74272">
+Extends: AffineTransformOp</a><br><a name="74757">
+Uses an affine transformation with bilinear interpolation to transform an image or Raster.</a><br>
+<tr valign=top><td><a name="74274">
+BufferedImage</a><br><td><a name="74276">
+Extends: Image</a><br><a name="74766">
+Implements: WritableRenderedImage</a><br><a name="74767">
+Describes an Image with an accessible buffer of image data.</a><br>
+<tr valign=top><td><a name="74278">
+BufferedImageFilter</a><br><td><a name="74280">
+Extends: ImageFilter</a><br><a name="74779">
+Implements: RasterImageConsumer, Cloneable</a><br><a name="74782">
+Provides a simple means of using a single-source/single-destination image operator (BufferedImageOp) to filter a BufferedImage or Raster in the Image Producer/Consumer/Observer paradigm.</a><br>
+<tr valign=top><td><a name="74282">
+ByteLookupTable</a><br><td><a name="74284">
+Extends: LookupTable</a><br><a name="74805">
+Defines a lookup table object. The lookup table contains byte data for one or more tile channels or image components (for example, separate arrays for R, G, and B), and it contains an offset that will be subtracted from the input value before indexing the array.</a><br>
+<tr valign=top><td><a name="74286">
+ColorConvertOp</a><br><td><a name="74288">
+Extends: Object</a><br><a name="74823">
+Implements: BufferedImageOp, RasterOp</a><br><a name="74826">
+Performs a pixel-by-pixel color conversion of the data in the source image. The resulting color values are scaled to the precision of the destination image data type.</a><br>
+<tr valign=top><td><a name="74290">
+ColorModel</a><br><td><a name="74292">
+Extends: Object</a><br><a name="74835">
+Implements: Transparency</a><br><a name="74838">
+An abstract class that encapsulates the methods for translating from pixel values to color components (e.g., red, green, blue) for an image.</a><br>
+<tr valign=top><td><a name="74294">
+ComponentColorModel</a><br><td><a name="74296">
+Extends: ColorModel</a><br><a name="74856">
+A ColorModel class that can handle an arbitrary ColorSpace and an array of color components to match the ColorSpace.</a><br>
+<tr valign=top><td><a name="74298">
+ComponentSampleModel</a><br><td><a name="74867">
+Extends: SampleModel</a><br><a name="74875">
+Stores the N samples that make up a pixel in N separate data array elements all of which are in the same bank of a dataBuffer.</a><br>
+<tr valign=top><td><a name="74302">
+ConvolveOp</a><br><td><a name="74884">
+Extends: Object</a><br><a name="74885">
+Implements: BufferedImageOp, RasterOp</a><br><a name="74895">
+Implements a convolution from the source to the destination. Convolution using a convolution kernel is a spatial operation that computes the output pixel from an input pixel by multiplying the kernel with the surround of the input pixel.</a><br>
+<tr valign=top><td><a name="74306">
+CropImageFilter</a><br><td><a name="74905">
+Extends: ImageFilter</a><br><a name="74308">
+An ImageFilter class for cropping images.</a><br>
+<tr valign=top><td><a name="74310">
+DataBuffer</a><br><td><a name="74921">
+Extends: Object</a><br><a name="74929">
+Wraps one or more data arrays. Each data array in the DataBuffer is referred to as a bank. Accessor methods for getting and setting elements of the DataBuffer's banks exist with and without a bank specifier.</a><br>
+<tr valign=top><td><a name="74314">
+DataBufferByte</a><br><td><a name="74316">
+Extends: DataBuffer</a><br><a name="74941">
+Stores data internally as bytes.</a><br>
+<tr valign=top><td><a name="74318">
+DataBufferInt</a><br><td><a name="74951">
+Extends: DataBuffer</a><br><a name="74952">
+Stores data internally as ints.</a><br>
+<tr valign=top><td><a name="74322">
+DataBufferShort</a><br><td><a name="74964">
+Extends: DataBuffer</a><br><a name="74965">
+Stores data internally as shorts.</a><br>
+<tr valign=top><td><a name="74326">
+DirectColorModel</a><br><td><a name="74328">
+Extends: PackedColorModel</a><br><a name="74977">
+Represents pixel values that have RGB color components embedded directly in the bits of the pixel itself.</a><br>
+<tr valign=top><td><a name="74330">
+FilteredImageSource</a><br><td><a name="74984">
+Extends: Object</a><br><a name="74332">
+Implements: ImageProducer</a><br><a name="74993">
+An implementation of the ImageProducer interface which takes an existing image and a filter object and uses them to produce image data for a new filtered version of the original image.</a><br>
+<tr valign=top><td><a name="74334">
+ImageFilter</a><br><td><a name="75005">
+Extends: Object</a><br><a name="75006">
+Implements: ImageConsumer, Cloneable</a><br><a name="75016">
+Implements a filter for the set of interface methods that are used to deliver data from an ImageProducer to an ImageConsumer.</a><br>
+<tr valign=top><td><a name="74338">
+IndexColorModel</a><br><td><a name="74340">
+Extends: ColorModel</a><br><a name="75027">
+Represents pixel values that are indices into a fixed colormap in the ColorModel's color space.</a><br>
+<tr valign=top><td><a name="74342">
+Kernel</a><br><td><a name="75040">
+Extends: Object</a><br><a name="75052">
+Defines a Kernel object - a matrix describing how a given pixel and its surrounding pixels affect the value of the given pixel in a filtering operation.</a><br>
+<tr valign=top><td><a name="74346">
+LookupOp</a><br><td><a name="75067">
+Extends: Object</a><br><a name="74348">
+Implements: BufferedImageOp, RasterOp</a><br><a name="75074">
+Implements a lookup operation from the source to the destination.</a><br>
+<tr valign=top><td><a name="74350">
+LookupTable</a><br><td><a name="75083">
+Extends: Object</a><br><a name="75091">
+Defines a lookup table object. The subclasses are ByteLookupTable and ShortLookupTable, which contain byte and short data, respectively.</a><br>
+<tr valign=top><td><a name="74354">
+MemoryImageSource</a><br><td><a name="75098">
+Extends: Object</a><br><a name="75099">
+Implements: ImageProducer</a><br><a name="75107">
+An implementation of the ImageProducer interface, which uses an array to produce pixel values for an Image.</a><br>
+<tr valign=top><td><a name="74358">
+MultiPixelPackedSampleModel</a><br><td><a name="74360">
+Extends: SampleModel</a><br><a name="75118">
+Stores one-banded images, but can pack multiple one-sample pixels into one data element.</a><br>
+<tr valign=top><td><a name="74362">
+NearestNeighborAffine-TransformOp</a><br><td><a name="74364">
+Extends: AffineTransformOp</a><br><a name="75133">
+Uses an affine transformation with nearest neighbor interpolation to transform an image or Raster.</a><br>
+<tr valign=top><td><a name="74366">
+PackedColorModel</a><br><td><a name="75144">
+Extends: ColorModel</a><br><a name="75154">
+An abstract ColorModel class that represents pixel values that have the color components embedded directly in the bits of an integer pixel.</a><br>
+<tr valign=top><td><a name="74370">
+PixelGrabber</a><br><td><a name="75161">
+Extends: Object</a><br><a name="75162">
+Implements: ImageConsumer</a><br><a name="75172">
+Implements an ImageConsumer which can be attached to an Image or ImageProducer object to retrieve a subset of the pixels in that image.</a><br>
+<tr valign=top><td><a name="74374">
+RGBImageFilter</a><br><td><a name="74376">
+Extends: ImageFilter</a><br><a name="75183">
+Provides an easy way to create an ImageFilter that modifies the pixels of an image in the default RGB ColorModel. It is meant to be used in conjunction with a FilteredImageSource object to produce filtered versions of existing images.</a><br>
+<tr valign=top><td><a name="74378">
+Raster</a><br><td><a name="75199">
+Extends: Object</a><br><a name="75207">
+Represents a rectanglular array of pixels and provides methods for retrieving image data. It contains a DataBuffer object that holds a buffer of image data in some format, a SampleModel that describes the format is capable of storing and retrieving Samples from the DataBuffer, and a Rect that defines the coordinate space of the raster (upper left corner, width and height).</a><br>
+<tr valign=top><td><a name="74382">
+ReplicateScaleFilter</a><br><td><a name="75233">
+Extends: ImageFilter</a><br><a name="74384">
+Scales images using the simplest algorithm.</a><br>
+<tr valign=top><td><a name="74386">
+RescaleOp</a><br><td><a name="75247">
+Extends: Object</a><br><a name="74388">
+Implements: BufferedImageOp, RasterOp</a><br><a name="75256">
+Performs a pixel-by-pixel rescaling of the data in the source image by multiplying each pixel value by a scale factor and then adding an offset.</a><br>
+<tr valign=top><td><a name="74390">
+SampleModel</a><br><td><a name="75267">
+Extends: Object</a><br><a name="75275">
+Defines an interface for extracting samples of an image without knowing how the underlying data is stored in a DataBuffer.</a><br>
+<tr valign=top><td><a name="74394">
+ShortLookupTable</a><br><td><a name="74396">
+Extends: LookupTable</a><br><a name="75286">
+Defines a lookup table object. The lookup table contains short data for one or more tile channels or image components (for example, separate arrays for R, G, and B), and it contains an offset that will be subtracted from the input value before indexing the array.</a><br>
+<tr valign=top><td><a name="74398">
+SinglePixelPackedSample-Model</a><br><td><a name="74400">
+Extends: SampleModel</a><br><a name="75303">
+Stores (packs) the N samples that make up a single pixel in one data array element. All data array elements reside in the first bank of a DataBuffer.</a><br>
+<tr valign=top><td><a name="74402">
+ThresholdOp</a><br><td><a name="75318">
+Extends: Object</a><br><a name="75319">
+Implements: BufferedImageOp, RasterOp</a><br><a name="75327">
+Performs thresholding on the source image by mapping the value of each image component (for BufferedImages) or channel element (for Rasters) that falls between a low and a high value, to a constant. </a><br>
+<tr valign=top><td><a name="74406">
+TileChangeMulticaster</a><br><td><a name="75337">
+Extends: Object</a><br><a name="75345">
+A convenience class that takes care of the details of implementing the TileChangeListener interface.</a><br>
+<tr valign=top><td><a name="74410">
+WritableRaster</a><br><td><a name="74412">
+Extends: Raster</a><br><a name="75358">
+Provides methods for storing image data and inherits methods for retrieving image data from it's parent class Raster.</a><br>
+
+</Table>
+<p>
+<p><a name="75368">
+<h2>B.3	<img src="shared/space.gif">Java Advanced Imaging</h2>
+</a>The Java Advanced Imaging API consists of the following packages:
+<p><ul>
+<li><code>javax.media.jai</code> - contains the "core" JAI interfaces and classes<p></ul><ul>
+<li><code>javax.media.jai.iterator</code> - contains special iterator interfaces and classes, which are useful for writing extension operations<p></ul><ul>
+<li><code>javax.media.jai.operator</code> - contains classes that describe all of the image operators<p></ul><ul>
+<li><code>javax.media.jai.widget</code> - contains interfaces and classes for creating simple image canvases and scrolling windows for image display<p></ul><a name="75504">
+<h3>B.3.1	<img src="shared/space.gif">JAI Interfaces</h3>
+</a><a href="API-summary.doc.html#72483">Table &#32;B-4</a> lists and briefly describes the interfaces defined in the Java Advanced Imaging API (<code>javax.media.jai</code>).<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="72483">
+Table B-4	  <strong>Summary of jai Interfaces</strong>
+</a></b></font></caption>
+<tr valign=top><th><a name="72535">
+Interface
+</a><th><a name="72537">
+Description
+</a>
+<tr valign=top><td><a name="81076">
+CollectionImageFactory</a><br><td><a name="81080">
+Abbreviated CIF, this interface is intended to be implemented</a><br><a name="81078">
+by classes that wish to act as factories to produce different collection image operators.</a><br>
+<tr valign=top><td><a name="81085">
+ImageFunction</a><br><td><a name="81089">
+A common interface for vector-valued functions that are to be evaluated at positions in the X-Y coordinate system. </a><br>
+<tr valign=top><td><a name="80586">
+ImageJAI</a><br><td><a name="80590">
+The top-level JAI image type, implemented by all JAI image classes.</a><br>
+<tr valign=top><td><a name="75916">
+OperationDescriptor</a><br><td><a name="75956">
+Describes a family of implementations of a high-level operation (RIF) that are to be added to an OperationRegistry.</a><br>
+<tr valign=top><td><a name="72491">
+PropertyGenerator</a><br><td><a name="72542">
+An interface through which properties may be computed dynamically with respect to an environment of pre-existing properties.</a><br>
+<tr valign=top><td><a name="72495">
+PropertySource</a><br><td><a name="72497">
+Encapsulates the set of operations involved in identifying and reading properties.</a><br>
+<tr valign=top><td><a name="80945">
+TileCache</a><br><td><a name="80947">
+Implements a caching mechanism for image tiles. The TileCache is a central place for OpImages to cache tiles they have computed. The tile cache is created with a given capacity, measured in tiles.</a><br>
+<tr valign=top><td><a name="80941">
+TileScheduler</a><br><td><a name="80943">
+Implements a mechanism for scheduling tile calculation.</a><br>
+
+</Table>
+<p>
+<p><a name="72561">
+<h3>B.3.2	<img src="shared/space.gif">JAI Classes</h3>
+</a><a href="API-summary.doc.html#72571">Table &#32;B-5</a> lists and briefly describes the classes defined in the Java Advanced Imaging API (<code>javax.media.jai</code>).<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="72571">
+Table B-5	  Summary of jai Classes &#32;
+</a></b></font></caption>
+<tr valign=top><th><a name="72627">
+Class
+</a><th><a name="72629">
+Description
+</a>
+<tr valign=top><td><a name="72583">
+AreaOpImage</a><br><td><a name="72585">
+Extends: OpImage</a><br><a name="72636">
+An abstract base class for image operators that require only a fixed rectangular source region around a source pixel in order to compute each each destination pixel.</a><br>
+<tr valign=top><td><a name="80622">
+BorderExtender</a><br><td><a name="80624">
+An abstract superclass for classes that extend a WritableRaster with additional pixel data taken from a PlanarImage.</a><br>
+<tr valign=top><td><a name="81098">
+BorderExtenderConstant</a><br><td><a name="81102">
+Extends: BorderExtender</a><br><a name="81106">
+Implements border extension by filling all pixels outside of the image bounds with constant values.</a><br>
+<tr valign=top><td><a name="80618">
+BorderExtenderCopy</a><br><td><a name="80620">
+Extends: BorderExtender</a><br><a name="80649">
+Implements border extension by filling all pixels outside of the image bounds with copies of the edge pixels.</a><br>
+<tr valign=top><td><a name="80614">
+BorderExtenderReflect</a><br><td><a name="80671">
+Extends: BorderExtender</a><br><a name="80616">
+Implements border extension by filling all pixels outside of the image bounds with copies of the whole image.</a><br>
+<tr valign=top><td><a name="80610">
+BorderExtenderWrap</a><br><td><a name="80699">
+Extends: BorderExtender</a><br><a name="80612">
+Implements border extension by filling all pixels outside of the image bounds with copies of the whole image.</a><br>
+<tr valign=top><td><a name="80606">
+BorderExtenderZero</a><br><td><a name="81120">
+Extends: BorderExtender</a><br><a name="80608">
+Implements border extension by filling all pixels outside of the image bounds with zeros.</a><br>
+<tr valign=top><td><a name="81113">
+CanvasJAI</a><br><td><a name="81115">
+Extends: java.awt.Canvas</a><br><a name="81130">
+Automatically returns an instance of GraphicsJAI from its getGraphics method.</a><br>
+<tr valign=top><td><a name="80171">
+CollectionImage</a><br><td><a name="80173">
+Extends: ImageJAI</a><br><a name="80189">
+Implements: java.util.Collection</a><br><a name="80176">
+An abstract superclass for classes representing a collection of objects. </a><br>
+<tr valign=top><td><a name="80167">
+CollectionOp</a><br><td><a name="80169">
+Extends: CollectionImage</a><br><a name="80202">
+A node in a rendered imaging chain representing a CollectionImage.</a><br>
+<tr valign=top><td><a name="76013">
+ColorCube</a><br><td><a name="76017">
+Extends: LookupTableJAI</a><br><a name="76015">
+Represents a color cube lookup table that provides a fixed, invertible mapping between tables indices and sample values.</a><br>
+<tr valign=top><td><a name="80716">
+ComponentSampleModelJAI</a><br><td><a name="80718">
+Extends: ComponentSampleModel</a><br><a name="80721">
+Represents image data that is stored such that each sample of a pixel occupies one data element of the DataBuffer.</a><br>
+<tr valign=top><td><a name="80216">
+CoordinateImage</a><br><td><a name="80218">
+Extends: java.lang.Object</a><br><a name="80221">
+Represents an image that is associated with a coordinate. This class is used with ImageStack. </a><br>
+<tr valign=top><td><a name="72615">
+DataBufferDouble</a><br><td><a name="72617">
+Extends: java.awt.image.DataBuffer</a><br><a name="72691">
+Stores DataBuffer data internally in double form.</a><br>
+<tr valign=top><td><a name="72619">
+DataBufferFloat</a><br><td><a name="72693">
+Extends: java.awt.image.DataBuffer</a><br><a name="72621">
+Stores DataBuffer data internally in float form.</a><br>
+<tr valign=top><td><a name="72740">
+DisplayOpImage</a><br><td><a name="72742">
+Extends: OpImage</a><br><a name="72754">
+A placeholder for display functionality.</a><br>
+<tr valign=top><td><a name="80734">
+FloatDoubleColorModel</a><br><td><a name="80736">
+Extends: ComponentColorModel</a><br><a name="80742">
+A ColorModel class that works with pixel values that represent color and alpha information as separate samples, using float or double elements, and that store each sample in a separate data element.</a><br>
+<tr valign=top><td><a name="72732">
+GraphicsJAI</a><br><td><a name="72734">
+Extends: java.awt.Graphics2D</a><br><a name="72772">
+An extension of java.awt.Graphics and java.awt.Graphics2D that will support new drawing operations.</a><br>
+<tr valign=top><td><a name="75844">
+Histogram</a><br><td><a name="75846">
+Extends: java.lang.Object</a><br><a name="76131">
+Accumulates histogram information on an image. A histogram counts the number of image samples whose values lie within a given range of values, or <em>bin</em>.</a><br>
+<tr valign=top><td><a name="72720">
+ImageLayout</a><br><td><a name="72722">
+Extends: java.lang.Object</a><br><a name="72801">
+Implements: java.lang.Clonable</a><br><a name="76178">
+Describes the desired layout of an OpImage.</a><br>
+<tr valign=top><td><a name="76188">
+ImageMIPMap</a><br><td><a name="76190">
+Extends: ImageCollection</a><br><a name="76199">
+Represents a stack of images with a fixed operational relationship between adjacent slices.</a><br>
+<tr valign=top><td><a name="72716">
+ImagePyramid</a><br><td><a name="72718">
+Extends: ImageCollection</a><br><a name="72815">
+Represents a stack of images with a fixed operational relationship between adjacent slices.</a><br>
+<tr valign=top><td><a name="72712">
+ImageSequence</a><br><td><a name="72714">
+Extends: ImageCollection</a><br><a name="72826">
+Represents a sequence of images with associated timestamps and camera positions that can be used to represent video or time-lapse photography.</a><br>
+<tr valign=top><td><a name="72708">
+ImageStack</a><br><td><a name="72710">
+Extends: ImageCollection</a><br><a name="72834">
+Represents a group of images, each with a defined spatial orientation in a common coordinate system, such as CT scans or seismic volumes.</a><br>
+<tr valign=top><td><a name="80234">
+IntegerSequence</a><br><td><a name="80236">
+Extends: java.lang.Object</a><br><a name="80247">
+Represents an image that is associated with a coordinate. This class is used with ImageStack. </a><br>
+<tr valign=top><td><a name="72704">
+Interpolation</a><br><td><a name="72706">
+Extends: java.lang.Object</a><br><a name="72849">
+Encapsulates a particualr algorithm for performing sampling on a regular grid of pixels using a local neighborhood. It is intended to be used by operations that resample their sources, including affine mapping and warping.</a><br>
+<tr valign=top><td><a name="72700">
+InterpolationBicubic</a><br><td><a name="72702">
+Extends: InterpolationTable</a><br><a name="72857">
+Performs bicubic interpolation.</a><br>
+<tr valign=top><td><a name="72901">
+InterpolationBicubic2</a><br><td><a name="72903">
+Extends: InterpolationTable</a><br><a name="72908">
+Performs bicubic interpolation using a different polynomial than InterpolationBicubic.</a><br>
+<tr valign=top><td><a name="72897">
+InterpolationBilinear</a><br><td><a name="72917">
+Extends: Interpolation</a><br><a name="72899">
+Represents bilinear interpolation.</a><br>
+<tr valign=top><td><a name="72893">
+InterpolationNearest</a><br><td><a name="72924">
+Extends: Interpolation</a><br><a name="72895">
+Represents nearest-neighbor interpolation.</a><br>
+<tr valign=top><td><a name="76249">
+InterpolationTable</a><br><td><a name="76253">
+Extends: Interpolation</a><br><a name="76251">
+Represents nearest-neighbor interpolation.</a><br>
+<tr valign=top><td><a name="72885">
+JAI</a><br><td><a name="72887">
+Extends: java.lang.Object</a><br><a name="72940">
+A convenience class for instantiating operations.</a><br>
+<tr valign=top><td><a name="72881">
+KernelJAI</a><br><td><a name="72950">
+Extends: java.lang.Object</a><br><a name="72883">
+A convolution kernel, used by the Convolve operation.</a><br>
+<tr valign=top><td><a name="72873">
+LookupTableJAI</a><br><td><a name="72967">
+Extends: java.lang.Object</a><br><a name="72973">
+A lookup table object for the Lookup operation.</a><br>
+<tr valign=top><td><a name="76301">
+MultiResolutionRenderable-Image</a><br><td><a name="76305">
+Extends: java.lang.Object</a><br><a name="76303">
+Implements: java.awt.image.renderable, RenderableImage</a><br><a name="76315">
+A RenderableImage that produces renderings based on a set of supplied RenderedImages at various</a><br><a name="76313">
+resolution. </a><br>
+<tr valign=top><td><a name="73046">
+NullOpImage</a><br><td><a name="73048">
+Extends: PointOpImage</a><br><a name="73116">
+A trivial OpImage subclass that simply transmits its source unchanged. Potentially useful when an interface requires an OpImage but another sort of RenderedImage (such as a TiledImage) is to be used.</a><br>
+<tr valign=top><td><a name="76332">
+OperationDescriptorImpl</a><br><td><a name="76336">
+Extends: java.lang.Object</a><br><a name="76334">
+Implements: OperationDescriptor</a><br><a name="76346">
+A concrete implementation of the OperationDescriptor interface, suitable for subclassing. </a><br>
+<tr valign=top><td><a name="73034">
+OperationRegistry</a><br><td><a name="73146">
+Extends: java.lang.Object</a><br><a name="76360">
+Implements: java.io.Externalizable</a><br><a name="73152">
+Maps an operation name into a RenderedImageFactory capable of implementing the operation, given a specific set of sources and parameters.</a><br>
+<tr valign=top><td><a name="76352">
+OpImage</a><br><td><a name="76354">
+Extends: PlanarImage</a><br><a name="76370">
+The parent class for all imaging operations. OpImage centralizes a number of common functions, including connecting sources and sinks during construction of OpImage chains, and tile cache management.</a><br>
+<tr valign=top><td><a name="75802">
+ParameterBlockJAI</a><br><td><a name="76397">
+Extends: java.awt.image.renderable, ParameterBlock</a><br><a name="76399">
+A convenience subclass of ParameterBlock that allows the use of default parameter values and getting/setting parameters by name.</a><br>
+<tr valign=top><td><a name="73026">
+PerspectiveTransform</a><br><td><a name="76414">
+Extends: java.lang.Object</a><br><a name="73028">
+Implements: java.lang.Cloneable, java.io.Serializable</a><br><a name="73172">
+A 2D perspective (or projective) transform, used by various OpImages.</a><br>
+<tr valign=top><td><a name="73018">
+PlanarImage</a><br><td><a name="73020">
+Extends: java.awt.Image</a><br><a name="73185">
+Implements: java.awt.image.RenderedImage</a><br><a name="73190">
+A fundamental base class representing two-dimensional images.</a><br>
+<tr valign=top><td><a name="73231">
+PointOpImage</a><br><td><a name="73233">
+Extends: OpImage</a><br><a name="76472">
+An abstract base class for image operators that require only a single source pixel to compute each destination pixel. </a><br>
+<tr valign=top><td><a name="76486">
+PropertyGeneratorImpl</a><br><td><a name="76490">
+Extends: java.lang.Object</a><br><a name="76492">
+A utility class to simplify the writing of property generators.</a><br>
+<tr valign=top><td><a name="76504">
+RasterAccessor</a><br><td><a name="76508">
+Extends: java.lang.Object</a><br><a name="76510">
+An adapter class for presenting image data in a ComponentSampleModel format, even if the data is not stored that way.</a><br>
+<tr valign=top><td><a name="79989">
+RasterFactory</a><br><td><a name="79993">
+A convenience class for the construction of various types of WritableRaster and SampleModel objects.</a><br>
+<tr valign=top><td><a name="80841">
+RasterFormatTag</a><br><td><a name="80845">
+Encapsulates some of the information needed for RasterAccessor to understand how a Raster is laid out.</a><br>
+<tr valign=top><td><a name="79915">
+RemoteImage</a><br><td><a name="79917">
+Extends: PlanarImage</a><br><a name="79918">
+An implementation of RenderedImage that uses a RMIImage as its source.</a><br>
+<tr valign=top><td><a name="76555">
+RenderableGraphics</a><br><td><a name="76559">
+Extends: Graphics2D</a><br><a name="80263">
+Implements: RenderableImage, Serializable</a><br><a name="76557">
+An implementation of Graphics2D with RenderableImage semantics.</a><br>
+<tr valign=top><td><a name="76580">
+RenderableImageAdapter</a><br><td><a name="76584">
+Extends: java.lang.Object</a><br><a name="76585">
+Implements: java.awt.image.renderable.RenderableImage, PropertySource</a><br><a name="76582">
+An adapter class for externally-generated RenderableImages.</a><br>
+<tr valign=top><td><a name="76597">
+RenderableOp</a><br><td><a name="76601">
+Extends: java.awt.image.renderable.RenderableImageOp</a><br><a name="76602">
+Implements: PropertySource</a><br><a name="76599">
+A JAI version of RenderableImageOp.</a><br>
+<tr valign=top><td><a name="76614">
+RenderedImageAdapter</a><br><td><a name="76618">
+Extends: PlanarImage</a><br><a name="76616">
+A PlanarImage wrapper for a non-writable RenderedImage.</a><br>
+<tr valign=top><td><a name="76630">
+RenderedOp</a><br><td><a name="76634">
+Extends: PlanarImage</a><br><a name="76632">
+A node in a rendered imaging chain.</a><br>
+<tr valign=top><td><a name="73227">
+ROI</a><br><td><a name="73271">
+Extends: java.lang.Object</a><br><a name="73273">
+Represents a region of interest of an image.</a><br>
+<tr valign=top><td><a name="73223">
+ROIShape</a><br><td><a name="73225">
+Extends: ROI</a><br><a name="73291">
+Represents a region of interest within an image as a Shape.</a><br>
+<tr valign=top><td><a name="75715">
+ScaleOpImage</a><br><td><a name="76704">
+Extends: WarpOpImage</a><br><a name="76706">
+Used by further extension classes that perform scale-like operations and thus require rectilinear backwards mapping and padding by the resampling filter dimensions.</a><br>
+<tr valign=top><td><a name="80010">
+SequentialImage</a><br><td><a name="80012">
+Extends: java.lang.Object</a><br><a name="80026">
+Represents an image that is associated with a time stamp and a camera position. Used with ImageSequence.</a><br>
+<tr valign=top><td><a name="73397">
+SnapshotImage</a><br><td><a name="73401">
+Extends: PlanarImage:</a><br><a name="73399">
+Implements: java.awt.image.TileObserver</a><br><a name="76734">
+Provides an arbitrary number of synchronous views of a possibly changing WritableRenderedImage.</a><br>
+<tr valign=top><td><a name="73393">
+SourcelessOpImage</a><br><td><a name="73395">
+Extends: OpImage</a><br><a name="73422">
+An abstract base class for image operators that have no image sources.</a><br>
+<tr valign=top><td><a name="76751">
+StatisticsOpImage</a><br><td><a name="76755">
+Extends: OpImage</a><br><a name="76757">
+An abstract base class for image operators that compute statistics on a given region of an image and with a given sampling rate.</a><br>
+<tr valign=top><td><a name="73373">
+TiledImage</a><br><td><a name="73451">
+Extends: PlanarImage</a><br><a name="73375">
+Implements: java.awt.image.WritableRenderedImage</a><br><a name="73459">
+A concrete implementation of WritableRenderedImage.</a><br>
+<tr valign=top><td><a name="80043">
+UntiledOpImage</a><br><td><a name="80045">
+Extends: OpImage</a><br><a name="80051">
+A general class for single-source operations in which the values of all pixels in the source image contribute to the value of each pixel in the destination image.</a><br>
+<tr valign=top><td><a name="73369">
+Warp</a><br><td><a name="73467">
+Extends: java.lang.Object</a><br><a name="73371">
+A description of an image warp.</a><br>
+<tr valign=top><td><a name="76860">
+WarpAffine</a><br><td><a name="76864">
+Extends: WarpPolynomial</a><br><a name="76862">
+A description of an Affine warp.</a><br>
+<tr valign=top><td><a name="76872">
+WarpCubic</a><br><td><a name="76876">
+Extends: WarpPolynomial</a><br><a name="76874">
+A cubic-based description of an image warp. </a><br>
+<tr valign=top><td><a name="76912">
+WarpGeneralPolynomial</a><br><td><a name="76916">
+Extends: WarpPolynomial</a><br><a name="76918">
+A general polynomial-based description of an image warp.</a><br>
+<tr valign=top><td><a name="76908">
+WarpGrid</a><br><td><a name="76930">
+Extends: Warp</a><br><a name="76910">
+A regular grid-based description of an image warp. </a><br>
+<tr valign=top><td><a name="76904">
+WarpOpImage</a><br><td><a name="76942">
+Extends: OpImage</a><br><a name="76944">
+A general implementation of image warping, and a superclass for other geometric image operations.</a><br>
+<tr valign=top><td><a name="76900">
+WarpPerspective</a><br><td><a name="76956">
+Extends: Warp</a><br><a name="76902">
+A description of a perspective (projective) warp. </a><br>
+<tr valign=top><td><a name="76896">
+WarpPolynomial</a><br><td><a name="76968">
+Extends: Warp</a><br><a name="76898">
+A polynomial-based description of an image warp.</a><br>
+<tr valign=top><td><a name="76892">
+WarpQuadratic</a><br><td><a name="76980">
+Extends: WarpPolynomial</a><br><a name="76982">
+A quadratic-based description of an image warp.</a><br>
+<tr valign=top><td><a name="76888">
+WritableRenderedImage-Adapter</a><br><td><a name="76994">
+Extends: RenderedImageAdapter</a><br><a name="76995">
+Implements: java.awt.image.WritableRenderedImage</a><br><a name="76890">
+A PlanarImage wrapper for a WritableRenderedImage.</a><br>
+
+</Table>
+<p>
+<p><a name="77302">
+<h3>B.3.3	<img src="shared/space.gif">JAI Iterator Interfaces</h3>
+</a><a href="API-summary.doc.html#77306">Table &#32;B-6</a> lists the JAI iterator classes (<code>javax.media.jai.iterator</code>).<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="77306">
+Table B-6	  JAI Iterator Interfaces
+</a></b></font></caption>
+<tr valign=top><th><a name="77310">
+Interface
+</a><th><a name="77312">
+Description
+</a>
+<tr valign=top><td><a name="77314">
+RandomIter</a><br><td><a name="77362">
+An iterator that allows random read-only access to any sample within its bounding rectangle.</a><br>
+<tr valign=top><td><a name="77318">
+RectIter</a><br><td><a name="77320">
+An iterator for traversing a read-only image in top-to-bottom, left-to-right order.</a><br>
+<tr valign=top><td><a name="77358">
+RookIter</a><br><td><a name="77360">
+An iterator for traversing a read-only image using arbitrary up-down and left-right moves.</a><br>
+<tr valign=top><td><a name="77322">
+WritableRandomIter</a><br><td><a name="77388">
+Extends: RandomIter</a><br><a name="77324">
+An iterator that allows random read/write access to any sample within its bounding rectangle.</a><br>
+<tr valign=top><td><a name="77326">
+WritableRectIter</a><br><td><a name="77396">
+Extends: RectIter</a><br><a name="77328">
+An iterator for traversing a read/write image in top-to-bottom, left-to-right order.</a><br>
+<tr valign=top><td><a name="77330">
+WritableRookIter</a><br><td><a name="77408">
+Extends: RookIter, WritableRectIter</a><br><a name="77332">
+An iterator for traversing a read/write image using arbitrary up-down and left-right moves.</a><br>
+
+</Table>
+<p>
+<p><a name="77419">
+<h3>B.3.4	<img src="shared/space.gif">JAI Iterator Classes</h3>
+</a><a href="API-summary.doc.html#77427">Table &#32;B-7</a> lists the JAI iterator classes (<code>javax.media.jai.iterator</code>).<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="77427">
+Table B-7	  JAI Iterator Classes
+</a></b></font></caption>
+<tr valign=top><th><a name="77431">
+Class
+</a><th><a name="77433">
+Description
+</a>
+<tr valign=top><td><a name="77435">
+RandomIterFactory</a><br><td><a name="77461">
+Extends: java.lang.Object</a><br><a name="77463">
+A factory class to instantiate instances of the RandomIter and WritableRandomIter interfaces on sources of type Raster, RenderedImage, and WritableRenderedImage. </a><br>
+<tr valign=top><td><a name="77439">
+RectIterFactory</a><br><td><a name="77478">
+Extends: java.lang.Object</a><br><a name="77480">
+A factory class to instantiate instances of the RectIter and WritableRectIter interfaces on sources of type Raster, RenderedImage, and WritableRenderedImage.</a><br>
+<tr valign=top><td><a name="77443">
+RookIterFactory</a><br><td><a name="77493">
+Extends: java.lang.Object</a><br><a name="77495">
+A factory class to instantiate instances of the RookIter and WritableRookIter interfaces on sources of type Raster, RenderedImage, and WritableRenderedImage.</a><br>
+
+</Table>
+<p><code></code>
+<p><a name="73476">
+<h3>B.3.5	<img src="shared/space.gif">JAI Operator Classes</h3>
+</a><a href="API-summary.doc.html#73482">Table &#32;B-8</a> lists the JAI operator classes (<code>javax.jai.operator</code>). These classes extend the JAI OperationDescriptor class.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="73482">
+Table B-8	  JAI Operator Classes &#32;
+</a></b></font></caption>
+<tr valign=top><th><a name="73486">
+Class
+</a><th><a name="73488">
+Description
+</a>
+<tr valign=top><td><a name="77508">
+AbsoluteDescriptor</a><br><td><a name="77520">
+Extends: OperationDescriptorImpl</a><br><a name="77510">
+An OperationDescriptor for the Absolute operation, which gives the mathematical absolute value of the pixel values of a source image.</a><br>
+<tr valign=top><td><a name="80096">
+AddCollectionDescriptor</a><br><td><a name="80100">
+Extends: OperationDescriptorImpl</a><br><a name="80109">
+An OperationDescriptor for the AddCollection operation, which takes a collection of rendered images, and adds every set of pixels, one from each source image of the corresponding position and band.</a><br>
+<tr valign=top><td><a name="77512">
+AddConstDescriptor</a><br><td><a name="77534">
+Extends: OperationDescriptorImpl</a><br><a name="77514">
+An OperationDescriptor for the AddConst operation, which adds one of a set of constant values to the pixel values of a source image on a per-band basis.</a><br>
+<tr valign=top><td><a name="80360">
+AddConstToCollection-Descriptor</a><br><td><a name="80372">
+Extends: OperationDescriptorImpl</a><br><a name="80409">
+An OperationDescriptor for the AddConstToCollection operation, which adds constants to a collection of rendered images.</a><br>
+<tr valign=top><td><a name="77516">
+AddDescriptor</a><br><td><a name="77552">
+Extends: OperationDescriptorImpl</a><br><a name="77553">
+An OperationDescriptor for the Add operation, which adds the pixel values of two source images on a per-band basis.</a><br>
+<tr valign=top><td><a name="73490">
+AffineDescriptor</a><br><td><a name="73492">
+Extends: OperationDescriptorImpl</a><br><a name="77567">
+An OperationDescriptor for the Affine operation, which performs an affine mapping between a source and a destination image.</a><br>
+<tr valign=top><td><a name="77607">
+AndConstDescriptor</a><br><td><a name="77611">
+Extends: OperationDescriptorImpl</a><br><a name="77612">
+An OperationDescriptor for the AndConst operation, which performs a bitwise logical AND between the pixel values of a source image with one of a set of per-band constants.</a><br>
+<tr valign=top><td><a name="77603">
+AndDescriptor</a><br><td><a name="77624">
+Extends: OperationDescriptorImpl</a><br><a name="77802">
+An OperationDescriptor for the And operation, which performs a bitwise logical AND between the pixel values of the two source images on a per-band basis.</a><br>
+<tr valign=top><td><a name="77599">
+AWTImageDescriptor</a><br><td><a name="77648">
+Extends: OperationDescriptorImpl</a><br><a name="77649">
+An OperationDescriptor for the AWTImage operation, which imports a standard AWT image into JAI.</a><br>
+<tr valign=top><td><a name="77595">
+BandCombineDescriptor</a><br><td><a name="77661">
+Extends: OperationDescriptorImpl</a><br><a name="77662">
+An OperationDescriptor for the BandCombine operation, which computes an arbitrary linear combination of the bands of a source image for each band of a destination image, using a specified matrix.</a><br>
+<tr valign=top><td><a name="77591">
+BandSelectDescriptor</a><br><td><a name="77674">
+Extends: OperationDescriptorImpl</a><br><a name="77675">
+An OperationDescriptor for the BandSelect operation, which copies the pixel data from a specified number of bands in a source image to a destination image in a specified order.</a><br>
+<tr valign=top><td><a name="77587">
+BMPDescriptor</a><br><td><a name="77687">
+Extends: OperationDescriptorImpl</a><br><a name="77688">
+An OperationDescriptor for the BMP operation, which reads BMP image data file from an input stream.</a><br>
+<tr valign=top><td><a name="77583">
+BorderDecriptor</a><br><td><a name="77700">
+Extends: OperationDescriptorImpl</a><br><a name="77701">
+An OperationDescriptor for the Border operation, which adds a border around an image.</a><br>
+<tr valign=top><td><a name="77579">
+BoxFilterDescriptor</a><br><td><a name="77713">
+Extends: OperationDescriptorImpl</a><br><a name="77854">
+An OperationDescriptor for the BoxFilter operation, which determines the intensity of a pixel in an image by averaging the source pixels within a rectangular area around the pixel.</a><br>
+<tr valign=top><td><a name="77730">
+ClampDescriptor</a><br><td><a name="77734">
+Extends: OperationDescriptorImpl</a><br><a name="77864">
+An OperationDescriptor for the Clamp operation, which sets all the pixel values below a "low" value to that low value, and sets all the pixel values above a "high" value to that high value.</a><br>
+<tr valign=top><td><a name="80384">
+ColorConvertDescriptor</a><br><td><a name="80388">
+Extends: OperationDescriptorImpl</a><br><a name="80400">
+An OperationDescriptor for the ColorConvert operation, which performs a pixel-by-pixel color conversion of the data in a source image.</a><br>
+<tr valign=top><td><a name="77726">
+CompositeDescriptor</a><br><td><a name="77747">
+Extends: OperationDescriptorImpl</a><br><a name="77874">
+An OperationDescriptor for the Composite operation, which combines two images based on their alpha values at each pixel.</a><br>
+<tr valign=top><td><a name="80420">
+ConjugateDescriptor</a><br><td><a name="80424">
+Extends: OperationDescriptorImpl</a><br><a name="80440">
+An OperationDescriptor for the Conjugate operation, which negates the imaginary components of pixel values of an image containing complex data.</a><br>
+<tr valign=top><td><a name="73494">
+ConstantDescriptor</a><br><td><a name="73496">
+Extends: OperationDescriptorImpl</a><br><a name="77934">
+An OperationDescriptor for the Constant operation, which defines a multi-banded, tiled rendered image with constant pixel values.</a><br>
+<tr valign=top><td><a name="77978">
+ConvolveDescriptor</a><br><td><a name="78012">
+Extends: OperationDescriptorImpl</a><br><a name="77980">
+An OperationDescriptor for the Convolve operation, which computes each output sample by multiplying elements of a kernel with the samples surrounding a particular source sample.</a><br>
+<tr valign=top><td><a name="80447">
+CropDescriptor</a><br><td><a name="80451">
+Extends: OperationDescriptorImpl</a><br><a name="80460">
+An OperationDescriptor for the Crop operation, which crops a rendered or renderable image to a specified rectangular area.</a><br>
+<tr valign=top><td><a name="79749">
+DCTDescriptor</a><br><td><a name="79751">
+Extends: OperationDescriptorImpl</a><br><a name="79766">
+An operation descriptor for the DCT operation, which computes the even discrete cosine transform of an image.</a><br>
+<tr valign=top><td><a name="79745">
+DFTDescriptor</a><br><td><a name="79773">
+Extends: OperationDescriptorImpl</a><br><a name="79782">
+An OperationDescriptor for the DFT operation, which computes the discrete Fourier transform of an image.</a><br>
+<tr valign=top><td><a name="77970">
+DivideByConstDescriptor</a><br><td><a name="78052">
+Extends: OperationDescriptorImpl</a><br><a name="78063">
+An OperationDescriptor for the DivideByConst operation, which divides the pixel values of a source image by a constant.</a><br>
+<tr valign=top><td><a name="77966">
+DivideComplexDescriptor</a><br><td><a name="78069">
+Extends: OperationDescriptorImpl</a><br><a name="78080">
+An OperationDescriptor for the DivideComplex operation, which divides two images representing complex data.</a><br>
+<tr valign=top><td><a name="77962">
+DivideDescriptor</a><br><td><a name="78086">
+Extends: OperationDescriptorImpl</a><br><a name="78097">
+An OperationDescriptor for the Divide operation, which divides the pixel values of one first source image by the pixel values of another source image on a per-band basis.</a><br>
+<tr valign=top><td><a name="77958">
+DivideIntoConstDescriptor</a><br><td><a name="78110">
+Extends: OperationDescriptorImpl</a><br><a name="78119">
+An OperationDescriptor for the DivideIntoConst operation, which divides a constant by the pixel values of a source image.</a><br>
+<tr valign=top><td><a name="80965">
+EncodeDescriptor</a><br><td><a name="80969">
+Extends: OperationDescriptorImpl</a><br><a name="80967">
+An OperationDescriptor for the Encode operation, which stores an image to an OutputStream.</a><br>
+<tr valign=top><td><a name="78162">
+ErrorDiffusionDescriptor</a><br><td><a name="78166">
+Extends: OperationDescriptorImpl</a><br><a name="78164">
+An OperationDescriptor for the ErrorDiffusion operation, which performs color quantization by finding the nearest color to each pixel in a supplied color map.</a><br>
+<tr valign=top><td><a name="78158">
+ExpDescriptor</a><br><td><a name="78179">
+Extends: OperationDescriptorImpl</a><br><a name="78188">
+An OperationDescriptor for the Exp operation, which takes the exponential of the pixel values of an image.</a><br>
+<tr valign=top><td><a name="78154">
+ExtremaDescriptor</a><br><td><a name="78194">
+Extends: OperationDescriptorImpl</a><br><a name="78209">
+An OperationDescriptor for the Extrema operation, which scans an image and finds the image-wise maximum and minimum pixel values for each band.</a><br>
+<tr valign=top><td><a name="80127">
+FileLoadDescriptor</a><br><td><a name="80139">
+Extends: OperationDescriptorImpl</a><br><a name="80129">
+An OperationDescriptor for the FileLoad operation, which reads an image from a file.</a><br>
+<tr valign=top><td><a name="80986">
+FileStoreDescriptor</a><br><td><a name="80990">
+Extends: OperationDescriptorImpl</a><br><a name="80988">
+An OperationDescriptor for the FileStore operation, which stores an image to a file.</a><br>
+<tr valign=top><td><a name="79924">
+FormatDescriptor</a><br><td><a name="79926">
+Extends: OperationDescriptorImpl</a><br><a name="79927">
+An OperationDescriptor for the Format operation, which reformats an image.</a><br>
+<tr valign=top><td><a name="81189">
+FPXDescriptor</a><br><td><a name="81191">
+Extends: OperationDescriptorImpl</a><br><a name="81192">
+An OperationDescriptor for the FPX operation, which reads FlashPix data from an input stream.</a><br>
+<tr valign=top><td><a name="78280">
+GIFDescriptor</a><br><td><a name="78301">
+Extends: OperationDescriptorImpl</a><br><a name="78282">
+An OperationDescriptor for the GIF operation, which reads GIF data from an input stream.</a><br>
+<tr valign=top><td><a name="80471">
+GradientMagnitudeDescriptor</a><br><td><a name="80475">
+Extends: OperationDescriptorImpl</a><br><a name="80484">
+An OperationDescriptor for the Gradient operation, which is an edge detector that computes the magnitude of the image gradient vector in two orthogonal directions.</a><br>
+<tr valign=top><td><a name="78272">
+HistogramDecriptor</a><br><td><a name="78331">
+Extends: OperationDescriptorImpl</a><br><a name="78340">
+An OperationDescriptor for the Histogram operation, which scans a specified region of an image and generates a histogram based on the pixel values within that region of the image.</a><br>
+<tr valign=top><td><a name="78268">
+IDCTDescriptor</a><br><td><a name="78348">
+Extends: OperationDescriptorImpl</a><br><a name="78270">
+An OperationDescriptor for the IDCT operation, which computes the inverse discrete cosine transform of an image.</a><br>
+<tr valign=top><td><a name="79830">
+IDFTDescriptor</a><br><td><a name="79834">
+Extends: OperationDescriptorImpl</a><br><a name="79835">
+An OperationDescriptor for the IDFT operation, which computes the inverse discrete Fourier transform of an image.</a><br>
+<tr valign=top><td><a name="81242">
+IIPDescriptor</a><br><td><a name="81254">
+Extends: OperationDescriptorImpl</a><br><a name="81244">
+An OperationDescriptor for the IIP operation, which reads an image from an IIP server and creates a RenderedImage or a RenderableImage based on data from the server.</a><br>
+<tr valign=top><td><a name="81238">
+IIPResolutionDescriptor</a><br><td><a name="81263">
+Extends: OperationDescriptorImpl</a><br><a name="81240">
+An OperationDescriptor for the IIPResolution operation, which reads an image at a particular resolution from an IIP server and creates a RenderedImage based on the data from the server.</a><br>
+<tr valign=top><td><a name="80493">
+ImageFunctionDescriptor</a><br><td><a name="80497">
+Extends: OperationDescriptorImpl</a><br><a name="80506">
+An OperationDescriptor for the ImageFunction operation, which generates an image on the basis of a functional description provided by an object that is an instance of a class that implements the ImageFunction interface.</a><br>
+<tr valign=top><td><a name="73498">
+InvertDescriptor</a><br><td><a name="73581">
+Extends: OperationDescriptorImpl</a><br><a name="73586">
+An OperationDescriptor for the Invert operation, which inverts the pixel values of an image.</a><br>
+<tr valign=top><td><a name="78409">
+JPEGDescriptor</a><br><td><a name="78413">
+Extends: OperationDescriptorImpl</a><br><a name="78411">
+An OperationDescriptor for the JPEG operation, which reads a standard JPEG (JFIF) file.</a><br>
+<tr valign=top><td><a name="78405">
+LogDescriptor</a><br><td><a name="78424">
+Extends: OperationDescriptorImpl</a><br><a name="78407">
+An OperationDescriptor for the Log operation, which takes the logarithm of the pixel values of an image.</a><br>
+<tr valign=top><td><a name="78401">
+LookupDescriptor</a><br><td><a name="78439">
+Extends: OperationDescriptorImpl</a><br><a name="78448">
+An OperationDescriptor for the Lookup operation, which performs general table lookup on an image.</a><br>
+<tr valign=top><td><a name="78397">
+MagnitudeDescriptor</a><br><td><a name="78456">
+Extends: OperationDescriptorImpl</a><br><a name="78467">
+An OperationDescriptor for the Magnitude operation, which computes the magnitude of each pixel of an image.</a><br>
+<tr valign=top><td><a name="79851">
+MagnitudeSquaredDescriptor</a><br><td><a name="80917">
+Extends: OperationDescriptorImpl</a><br><a name="79867">
+An OperationDescriptor for the MagnitudeSquared operation, which computes the squared magnitude of each pixel of a complex image.</a><br>
+<tr valign=top><td><a name="80880">
+MatchCDFDescriptor</a><br><td><a name="80909">
+Extends: OperationDescriptorImpl</a><br><a name="80894">
+An OperationDescriptor for the MatchCDF operation, which matches pixel values to a supplied cumulative distribution function (CDF).</a><br>
+<tr valign=top><td><a name="78393">
+MaxDescriptor</a><br><td><a name="78473">
+Extends: OperationDescriptorImpl</a><br><a name="78395">
+An OperationDescriptor for the Max operation, which computes the pixelwise maximum value of two images.</a><br>
+<tr valign=top><td><a name="78504">
+MeanDescriptor</a><br><td><a name="78516">
+Extends: OperationDescriptorImpl</a><br><a name="78506">
+An OperationDescriptor for the Mean operation, which scans a specified region of an image and computes the image-wise mean pixel value for each band within the region.</a><br>
+<tr valign=top><td><a name="78500">
+MedianFilterDescriptor</a><br><td><a name="78523">
+Extends: OperationDescriptorImpl</a><br><a name="78502">
+An OperationDescriptor for the MedianFilter operation, which is useful for removing isolated lines or pixels while preserving the overall appearance of an image.</a><br>
+<tr valign=top><td><a name="78496">
+MinDescriptor</a><br><td><a name="78548">
+Extends: OperationDescriptorImpl</a><br><a name="78498">
+An OperationDescriptor for the Min operation, which computes the pixelwise minimum value of two images.</a><br>
+<tr valign=top><td><a name="78492">
+MultiplyComplexDescriptor</a><br><td><a name="78563">
+Extends: OperationDescriptorImpl</a><br><a name="78494">
+An OperationDescriptor for the MultiplyComplex operation, which multiplies two images representing complex data.</a><br>
+<tr valign=top><td><a name="78488">
+MultiplyConstDescriptor</a><br><td><a name="78578">
+Extends: OperationDescriptorImpl</a><br><a name="78490">
+An OperationDescriptor for the MultiplyConst operation, which multiplies the pixel values of a source image with a constant on a per-band basis.</a><br>
+<tr valign=top><td><a name="78611">
+MultiplyDescriptor</a><br><td><a name="78615">
+Extends: OperationDescriptorImpl</a><br><a name="78613">
+An OperationDescriptor for the Multiply operation, which multiplies the pixel values of two source images on a per-band basis.</a><br>
+<tr valign=top><td><a name="78607">
+NotDescriptor</a><br><td><a name="78630">
+Extends: OperationDescriptorImpl</a><br><a name="78609">
+An OperationDescriptor for the Multiply operation, which performs a bitwise logical NOT operation on each pixel of a source image on a per-band basis.</a><br>
+<tr valign=top><td><a name="78603">
+OrConstDescriptor</a><br><td><a name="78643">
+Extends: OperationDescriptorImpl</a><br><a name="78605">
+An OperationDescriptor for the OrConst operation, which performs a bitwise logical OR between the pixel values of a source image with a constant on a per-band basis.</a><br>
+<tr valign=top><td><a name="79877">
+OrderedDitherDescriptor</a><br><td><a name="79889">
+Extends: OperationDescriptorImpl</a><br><a name="79894">
+An OperationDescriptor for the OrderedDither operation, which performs color quantization by finding the nearest color to each pixel in a supplied color cube and "shifting" the resulting index value by a pseudo-random amount determined by the values of a supplied dither mask.</a><br>
+<tr valign=top><td><a name="81194">
+OrDescriptor</a><br><td><a name="81196">
+Extends: OperationDescriptorImpl</a><br><a name="81197">
+An OperationDescriptor for the Or operation, which performs a bitwise logical OR between the pixel values of the two source images on a per-band basis.</a><br>
+<tr valign=top><td><a name="78595">
+OverlayDescriptor</a><br><td><a name="78673">
+Extends: OperationDescriptorImpl</a><br><a name="78597">
+An OperationDescriptor for the Overlay operation, which overlays one image on top of another image.</a><br>
+<tr valign=top><td><a name="78706">
+PatternDescriptor</a><br><td><a name="78710">
+Extends: OperationDescriptorImpl</a><br><a name="78708">
+An OperationDescriptor for the Pattern operation, which defines a tiled image consisting of a repeated pattern.</a><br>
+<tr valign=top><td><a name="80524">
+PeriodicShiftDescriptor</a><br><td><a name="80528">
+Extends: OperationDescriptorImpl</a><br><a name="80526">
+An OperationDescriptor for the PeriodicShift operation, which computes the periodic translation of an image.</a><br>
+<tr valign=top><td><a name="78702">
+PhaseDescriptor</a><br><td><a name="78725">
+Extends: OperationDescriptorImpl</a><br><a name="78704">
+An OperationDescriptor for the Phase operation, which computes the phase angle of each pixel of an image.</a><br>
+<tr valign=top><td><a name="80905">
+PiecewiseDescriptor</a><br><td><a name="80921">
+Extends: OperationDescriptorImpl</a><br><a name="80907">
+An OperationDescriptor for the Piecewise operation, which applies a piecewise pixel value mapping to an image.</a><br>
+<tr valign=top><td><a name="78698">
+PNGDescriptor</a><br><td><a name="78740">
+Extends: OperationDescriptorImpl</a><br><a name="78700">
+An OperationDescriptor for the PNG operation, which reads a PNG input stream.</a><br>
+<tr valign=top><td><a name="78694">
+PNMDescriptor</a><br><td><a name="78755">
+Extends: OperationDescriptorImpl</a><br><a name="78696">
+An OperationDescriptor for the PNM operation, which reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats.</a><br>
+<tr valign=top><td><a name="80541">
+PolarToComplexDescriptor</a><br><td><a name="80545">
+Extends: OperationDescriptorImpl</a><br><a name="80554">
+An OperationDescriptor for the PolarToComplex operation, which computes a complex image from a magnitude and a phase image.</a><br>
+<tr valign=top><td><a name="81199">
+RenderableDescriptor</a><br><td><a name="81203">
+Extends: OperationDescriptorImpl</a><br><a name="81201">
+An OperationDescriptor for the Renderable operation, which produces a RenderableImage from a RenderedImage.</a><br>
+<tr valign=top><td><a name="78686">
+RescaleDescriptor</a><br><td><a name="78788">
+Extends: OperationDescriptorImpl</a><br><a name="78688">
+An OperationDescriptor for the Rescale operation, which maps the pixel values of an image from one range to another range.</a><br>
+<tr valign=top><td><a name="73502">
+RotateDescriptor</a><br><td><a name="73592">
+Extends: OperationDescriptorImpl</a><br><a name="73601">
+An OperationDescriptor for the Rotate operation, which rotates an image about a given point by a given angle.</a><br>
+<tr valign=top><td><a name="73506">
+ScaleDescriptor</a><br><td><a name="73626">
+Extends: OperationDescriptorImpl</a><br><a name="73635">
+An OperationDescriptor for the Scale operation, which translates and resizes an image.</a><br>
+<tr valign=top><td><a name="78848">
+ShearDescriptor</a><br><td><a name="78852">
+Extends: OperationDescriptorImpl</a><br><a name="78850">
+An OperationDescriptor for the Shear operation, which shears an image horizontally or vertically.</a><br>
+<tr valign=top><td><a name="78840">
+StreamDescriptor</a><br><td><a name="78886">
+Extends: OperationDescriptorImpl</a><br><a name="78842">
+An OperationDescriptor for the Stream operation, which reads java.io.InputStream files.</a><br>
+<tr valign=top><td><a name="78836">
+SubtractConstDescriptor</a><br><td><a name="78905">
+Extends: OperationDescriptorImpl</a><br><a name="78838">
+An OperationDescriptor for the SubtractConst operation, which subtracts one of a set of constant values from the pixel values of a source image on a per-band basis.</a><br>
+<tr valign=top><td><a name="78832">
+SubtractDescriptor</a><br><td><a name="78920">
+Extends: OperationDescriptorImpl</a><br><a name="78834">
+An OperationDescriptor for the Subtract operation, which subtracts the pixel values of the second source image from the first source image on a per-band basis.</a><br>
+<tr valign=top><td><a name="78951">
+SubtractFromConstDescriptor</a><br><td><a name="78955">
+Extends: OperationDescriptorImpl</a><br><a name="78953">
+An OperationDescriptor for the SubtractFromConst operation, which subtracts the pixel values of a source image from one of a set of constant values on a per-band basis.</a><br>
+<tr valign=top><td><a name="78947">
+ThresholdDescriptor</a><br><td><a name="78968">
+Extends: OperationDescriptorImpl</a><br><a name="78949">
+An OperationDescriptor for the Threshold operation, which maps all the pixel values of an image that fall within a given range to one of a set of per-band constants.</a><br>
+<tr valign=top><td><a name="78943">
+TIFFDescriptor</a><br><td><a name="78983">
+Extends: OperationDescriptorImpl</a><br><a name="78945">
+An OperationDescriptor for the TIFF operation, which reads TIFF 6.0 data from an input stream.</a><br>
+<tr valign=top><td><a name="73510">
+TranslateDescriptor</a><br><td><a name="73654">
+Extends: OperationDescriptorImpl</a><br><a name="73664">
+An OperationDescriptor for the Translate operation, which copies an image to a new location in the plane.</a><br>
+<tr valign=top><td><a name="79054">
+TransposeDescriptor</a><br><td><a name="79062">
+Extends: OperationDescriptorImpl</a><br><a name="79056">
+An OperationDescriptor for the Transpose operation, which flips or rotates an image.</a><br>
+<tr valign=top><td><a name="80561">
+URLDescriptor</a><br><td><a name="80565">
+Extends: OperationDescriptorImpl</a><br><a name="80563">
+An OperationDescriptor for the URL operation, which reads an image from a file, via a URL path.</a><br>
+<tr valign=top><td><a name="79046">
+WarpDescriptor</a><br><td><a name="79096">
+Extends: OperationDescriptorImpl</a><br><a name="79107">
+An OperationDescriptor for the Warp operation, which performs general warping on an image.</a><br>
+<tr valign=top><td><a name="79042">
+XorConstDescriptor</a><br><td><a name="79115">
+Extends: OperationDescriptorImpl</a><br><a name="79044">
+An OperationDescriptor for the XorConst operation, which performs a bitwise logical XOR between the pixel values of a source image with a constant.</a><br>
+<tr valign=top><td><a name="79038">
+XorDescriptor</a><br><td><a name="79130">
+Extends: OperationDescriptorImpl</a><br><a name="79040">
+An OperationDescriptor for the Xor operation, which performs a bitwise logical XOR between the pixel values of two source images on a per-band basis.</a><br>
+
+</Table>
+<p>
+<p><a name="79150">
+<h3>B.3.6	<img src="shared/space.gif">JAI Widget Interfaces</h3>
+</a><a href="API-summary.doc.html#79156">Table &#32;B-9</a> lists the JAI widget interfaces (<code>javax.media.jai.widget</code>).<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="79156">
+Table B-9	  JAI Widget Interfaces
+</a></b></font></caption>
+<tr valign=top><th><a name="79160">
+Interface
+</a><th><a name="79162">
+Description
+</a>
+<tr valign=top><td><a name="79164">
+ViewportListener</a><br><td><a name="79944">
+Used by the ScrollingImagePanel class to inform listeners of the current viewable area of the image.</a><br>
+
+</Table>
+<p><code></code>
+<p><a name="73681">
+<h3>B.3.7	<img src="shared/space.gif">JAI Widget Classes</h3>
+</a><a href="API-summary.doc.html#73685">Table &#32;B-10</a> lists the JAI widget classes (<code>javax.media.jai.widget</code>).<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="73685">
+Table B-10	  JAI Widget Classes
+</a></b></font></caption>
+<tr valign=top><th><a name="73689">
+Class
+</a><th><a name="73691">
+Description
+</a>
+<tr valign=top><td><a name="73693">
+ImageCanvas</a><br><td><a name="73695">
+Extends: java.awt.Canvas</a><br><a name="73712">
+A simple output widget for a RenderedImage. This class can be used in any context that calls for a Canvas.</a><br>
+<tr valign=top><td><a name="73697">
+ScrollingImagePanel</a><br><td><a name="73699">
+Extends: java.awt.Panel</a><br><a name="73725">
+Implements: java.awt.event.AdjustmentListener, java.awt.event.MouseListener, java.awt.event.MouseMotionListener</a><br><a name="73730">
+An extension of java.awt.Panel that contains an ImageCanvas and vertical and horizontal scrollbars.</a><br>
+
+</Table>
+<p>
+<p>
+<p>
+<hr><br>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Examples.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Glossary.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+
+
+<h5><a href="copyright.html">Copyright</a> &#169;1999 , Sun Microsystems, Inc.   All rights
+reserved.</h5>
+
+
+<!-- Last updated: Tue Jan 25 17:33:59 2000 -->
+</blockquote>
+</body>
+</html>

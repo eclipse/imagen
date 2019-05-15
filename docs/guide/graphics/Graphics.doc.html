@@ -1,0 +1,458 @@
+<html><head><title>Graphics Rendering</title></head>
+<body bgcolor=#ffffff>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Analysis.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Properties.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+<center>
+<a name="51142">
+<table width=90% border=0><tr>
+<td align=right><font size=3>C H A P T E R</font><font size=7><img src="shared/sm-space.gif">10</td></table>
+</a></center><center>
+<a name="51143">
+<table width=90% border=0><tr><td align=right>
+<hr size=7 noshade>
+<font size=6>Graphics Rendering</font></td></table>
+</a></center><blockquote>
+<p><br><br><br><P><font size=7><b>T</b></font>HIS chapter describes the JAI presentation of rendering shapes, text, and images.
+<p><a name="51145">
+<h2>10.1	<img src="shared/space.gif">Introduction</h2>
+</a>JAI provides classes that support drawing operations beyond the <code>Graphics2D</code> class. Three different types of graphics rendering are offered: simple 2D graphics, renderable graphics, and tiled image graphics. These are described in more detail in the sections that follow.
+<p><a name="51772">
+ <hr>
+<center><img src="Graphics.doc.anc.gif"></center><hr>
+
+</a>
+<a name="51778">
+<center><font size=-1><b><i>Figure 10-1	</i><img src="shared/sm-blank.gif" border=0> Simple Text and Line Added to an Image</b></font></center>
+</a><p>
+<a name="51359">
+<h3>10.1.1	<img src="shared/space.gif">Simple 2D Graphics</h3>
+</a>The <code>Graphics2D</code> class extends the even simpler <code>Graphics</code> class to provide more control over geometry, coordinate transformations, color management, and text layout. <code>Graphics2D</code> is the fundamental class for rendering two-dimensional shapes, text and images. <code>Graphics2D</code> supports geometric rendering by providing a mechanism for rendering virtually any geometric shape, draw styled lines of any width, and fill geometric shapes with virtually any texture.
+<p>The <code>BufferedImage.createGraphics</code> method creates a <code>Graphics2D</code> object, which can then be used to draw into this <code>BufferedImage</code>.
+<p>Geometric shapes are provided through implementations of the <code>Shape</code> interface, such as <code>Polygon</code>, <code>Rectangle</code>, <code>CubicCurve2D</code>, and <code>QuadCurve2D</code>. Fill and pen styles are provided through implementations of the <code>Paint</code> and <code>Stroke</code> interfaces. For example, the <code>Paint</code> interface supports <code>Color</code>, <code>GradientPaint</code>, and <code>TexturePaint</code>. The <code>Stroke</code> interface supports <code>BasicStroke</code>, which defines a set of attributes for the outlines of graphics primitives.
+<p>Text is added to graphics using the <code>Font</code> class, which represents character fonts. A <code>Font</code> is defined by a collections of <code>Glyphs</code>, which in turn are defined by individual <code>Shapes</code>. Since text is represented by glyphs, text strings can also be stroked and filled like other geometric objects.
+<p><a name="51362">
+<h3>10.1.2	<img src="shared/space.gif">Renderable Graphics</h3>
+</a>The <code>RenderableGraphics</code> class is an implementation of <code>Graphics2D</code> with <code>RenderableImage</code> semantics. This means that content may be drawn into the image using the <code>Graphics2D</code> interface and later be turned into <code>RenderedImages</code> with different resolutions and characteristics.
+<p>The <code>RenderableGraphics</code> class allows you to store a sequence of drawing commands and "replay" them at an arbitrary output resolution. By serializing an instance of <code>RenderableGraphics</code>, you create a kind of metafile for storing the graphical content.
+<p>The methods in the <code>RenderableGraphics</code> class override the methods in the <code>java.awt.Graphics</code> and <code>java.awt.Graphics2D</code> classes. This means that you can use the methods in <code>RenderableGraphics</code> to set your fonts and colors, to create the graphics shapes and text, define a clipping path, and so on.
+<p>The only method unique to <code>RenderableGraphics</code> is the <code>createRendering</code> method, which creates a <code>RenderedImage</code> that represents a rendering of the image using a given <code>RenderContext</code>. This is the most general way to obtain a rendering of a <code>RenderableImage</code>. 
+<p><a name="51781">
+<h2>10.2	<img src="shared/space.gif">A Review of Graphics Rendering</h2>
+</a>To render a graphic object, you set up the <code>Graphics2D</code> context and pass the graphic object to one of the <code>Graphics2D</code> rendering methods. Before rendering the graphic object, you first need to set certain state attributes that define how the <code>Graphics2D</code> context displays the graphics. For example, you specify:
+<p><ul>
+<li>The stroke width<p></ul><ul>
+<li>How strokes are joined<p></ul><ul>
+<li>A clipping path to limit the area that is rendered<p></ul><ul>
+<li>Define colors and patterns to fill shapes with<p></ul><code>Graphics2D</code> defines several methods that add or change attributes in the graphics context. Most of these methods take an object that represents a particular attribute, such as a <code>Paint</code> or <code>Stroke</code> object.
+<p><a name="51790">
+<h3>10.2.1	<img src="shared/space.gif">Overview of the Rendering Process</h3>
+</a>When a graphic object is rendered, the geometry, image, and attribute information are combined to calculate which pixel values must be changed on the display.
+<p>The rendering process for a <code>Shape</code> is described into the following four steps:
+<p><ul>
+
+1.	 If the <code>Shape</code> is to be stroked, the <code>Stroke</code> attribute in the <code>Graphics2D</code> context is used to generate a new <code>Shape</code> that encompasses the stroked path.<p>
+
+2.	 The coordinates of the <code>Shape</code>'s path are transformed from user space into device coordinate space according to the transform attribute in the <code>Graphics2D</code> context.<p>
+
+3.	 The <code>Shape</code>'s path is clipped using the clip attribute in the <code>Graphics2D</code> context.<p>
+
+4.	 The remaining <code>Shape</code> is filled using the <code>Paint</code> and <code>Composite</code> attributes in the <code>Graphics2D</code> context.<p>
+</ul>
+Rendering text is similar to rendering a <code>Shape</code>, since the text is rendered as glyphs and each glyph is a <code>Shape</code>. However, you still must specify what <code>Font</code> to use for the text and get the appropriate glyphs from the <code>Font</code> before rendering. The attributes are described in more detail in the following sections.
+<p><a name="51812">
+<h3>10.2.2	<img src="shared/space.gif">Stroke Attributes</h3>
+</a>The <code>Graphics2D</code> <code>Stroke</code> attribute defines the characteristics of strokes. The <code>BasicStroke</code> object is used to define the stroke attributes for a <code>Graphics2D</code> context. <code>BasicStroke</code> defines characteristics such as line width, endcap style, segment join style, and pattern (solid or dashing). To change the <code>Stroke</code> attribute in the <code>Graphics2D</code> context, you call the <code>setStroke</code> method.
+<p><a name="51997">
+<h4>10.2.2.1	<img src="shared/space.gif">Line Width</h4>
+</a>The line width is specified in <em>points</em> (there are 72 points to the inch). To set the stroke width, create a <code>BasicStroke</code> object with the desired width and call <code>setStroke</code>. The following example sets the stroke width to 12 points.
+<p><pre><hr>
+     wideStroke = new BasicStroke(12.0);
+</pre><pre>     g2.setStroke(wideStroke);
+
+<hr></pre><a name="51840">
+<h4>10.2.2.2	<img src="shared/space.gif">Endcap Style</h4>
+</a><a href="Graphics.doc.html#51844">Table &#32;10-1</a> lists the endcap style attributes.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="51844">
+<i>Table 10-1	 </i><img src="shared/sm-blank.gif" border=0> Endcap Styles
+</a></b></font></caption>
+<tr valign=top><th><a name="51850">
+Appearance
+</a><th><a name="51852">
+Attribute
+</a><th><a name="51854">
+Description
+</a>
+<tr valign=top><td><a name="51856">
+<hr>
+<center><img src="Graphics.doc.anc1.gif"></center><hr>
+</a><br><td><a name="51858">
+CAP_BUTT</a><br><td><a name="51860">
+Ends unclosed subpaths with no added decoration.</a><br>
+<tr valign=top><td><a name="51862">
+<hr>
+<center><img src="Graphics.doc.anc2.gif"></center><hr>
+</a><br><td><a name="51864">
+CAP_ROUND</a><br><td><a name="51866">
+Ends unclosed subpaths with a round end cap that has a radius equal to half the pen width.</a><br>
+<tr valign=top><td><a name="51868">
+<hr>
+<center><img src="Graphics.doc.anc3.gif"></center><hr>
+</a><br><td><a name="51870">
+CAP_SQUARED</a><br><td><a name="51872">
+Ends unclosed subpaths with a square projection that extends beyond the end of the segment to a distance equal to half the line width.</a><br>
+
+</Table>
+
+<p>To set the endcap style, create a <code>BasicStroke</code> object with the desired attribute. The following example sets the stroke width to 12 points and endcap style is set to <code>CAP_ROUND</code>.
+<p><pre><hr>
+     wideStroke = new BasicStroke(12.0, BasicStroke.CAP_ROUND);
+</pre><pre>     g2.setStroke(roundStroke);
+
+<hr></pre><a name="51899">
+<h4>10.2.2.3	<img src="shared/space.gif">Join Style</h4>
+</a><a href="Graphics.doc.html#51903">Table &#32;10-2</a> lists the join style attributes. These attributes affect the appearance of line junctions.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="51903">
+<i>Table 10-2	 </i><img src="shared/sm-blank.gif" border=0> Join Styles
+</a></b></font></caption>
+<tr valign=top><th><a name="51909">
+Appearance
+</a><th><a name="51911">
+Attribute
+</a><th><a name="51913">
+Description
+</a>
+<tr valign=top><td><a name="51915">
+<hr>
+<center><img src="Graphics.doc.anc4.gif"></center><hr>
+</a><br><td><a name="51917">
+JOIN_BEVEL</a><br><td><a name="51944">
+Joins path segments by connecting the outer corners of their wide outlines with a straight segment.</a><br>
+<tr valign=top><td><a name="51921">
+<hr>
+<center><img src="Graphics.doc.anc5.gif"></center><hr>
+</a><br><td><a name="51923">
+JOIN_ROUND</a><br><td><a name="51978">
+Joins path segments by rounding off the corner at a radius of half the line width.</a><br>
+<tr valign=top><td><a name="51927">
+<hr>
+<center><img src="Graphics.doc.anc6.gif"></center><hr>
+</a><br><td><a name="51929">
+JOIN_MITER</a><br><td><a name="51985">
+Joins path segments by extending their outside edges until they meet.</a><br>
+
+</Table>
+
+<p>To set the join style, create a <code>BasicStroke</code> object with the desired attribute. The following example sets the stroke width to 12 points, an endcap style of <code>CAP_ROUND</code>, and a join style of <code>JOIN_ROUND</code>.
+<p><pre><hr>
+     wideStroke = new BasicStroke(12.0, BasicStroke.CAP_ROUND,
+</pre><pre>                                  BasicStroke.JOIN_ROUND);
+</pre><pre>     g2.setStroke(roundStroke);
+
+<hr></pre><a name="51991">
+<h4>10.2.2.4	<img src="shared/space.gif">Stroke Style</h4>
+</a>The stroke style is defined by two parameters:
+<p><ul>
+<li><code>dash</code> - an array that represents the dashing pattern. Alternating elements in the array represent the dash size and the size of the space between dashes. Element 0 represents the first dash, element 1 represents the first space.<p></ul><ul>
+<li><code>dash_phase</code> - an offset that defines where the dashing pattern starts.<p></ul><a href="Graphics.doc.html#52134">Listing &#32;10-1</a> shows a code sample in which two different dashing patterns are created. In the first pattern, the size of the dashes and the space between them is constant. The second pattern uses a six-element array to define the dashing pattern. The two dash patterns are shown in <a href="Graphics.doc.html#52035">Figure &#32;10-2</a>.<p>
+<caption><font size=-1><b>
+<a name="52134">
+<center><font size=-1><b><i>Listing 10-1	</i><img src="shared/sm-blank.gif" border=0> Example Stroke Styles</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // Define the first dashed line.
+     float dash1[] = {10.0f};
+     BasicStroke bs = new BasicStroke(5.0f, BasicStroke.CAP_BUTT,
+                          BasicStroke.JOIN_MITER, 10.0f, dash1, 0.0f);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     g2.setStroke(bs);
+     Line2D line = new Line2D.Float(20.0f, 10.0f, 100.0f, 10.0f);
+     g2.draw(line);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td><pre>     // Define the second dashed line.
+     float[] dash2 = {6.0f, 4.0f, 2.0f, 4.0f, 2.0f, 4.0f};
+     bs = new BasicStroke(5.0f, BasicStroke.CAP_BUTT,
+                          BasicStroke.JOIN_MITER, 10.0f, dash2, 0.0f);
+     g2.setStroke(bs);
+     g2.draw(line);
+</pre>
+
+<hr>
+
+<p><a name="52034">
+ <hr>
+<center><img src="Graphics.doc.anc7.gif"></center><hr>
+
+</a>
+<a name="52035">
+<center><font size=-1><b><i>Figure 10-2	</i><img src="shared/sm-blank.gif" border=0> Example Stroke Styles</b></font></center>
+</a><p>
+<a name="52119">
+<h4>10.2.2.5	<img src="shared/space.gif">Fill Styles</h4>
+</a>The <code>Paint</code> attribute in the <code>Graphics2D</code> context defines the fill color or pattern used when text and <code>Shape</code>s are rendered.
+<p><a name="52121">
+<h5> Filling a Shape with a Gradient</h5>
+</a>The <code>GradientPaint</code> class allows a shape to be filled with a gradient of one color to another. When creating a <code>GradientPaint</code> object, you specify a beginning position and color, and an ending position and color. The fill color changes proportionally from one color to the other along the line connecting the two positions, as shown in <a href="Graphics.doc.html#52622">Figure &#32;10-3</a>.
+<p>In all three stars, the gradient line extends from point P1 to point P2. In the middle star, all of the points along the gradient line extending to the left of P1 take the beginning color and the points to the right of P2 take the ending color.
+<p><a name="52621">
+ <hr>
+<center><img src="Graphics.doc.anc8.gif"></center><hr>
+
+</a>
+<a name="52622">
+<center><font size=-1><b><i>Figure 10-3	</i><img src="shared/sm-blank.gif" border=0> Filling a Shape with a Gradient</b></font></center>
+</a><p>
+To fill a shape with a gradient of one color to another:
+<p><ul>
+
+1.	 Create a <code>GradientPaint</code> object<p>
+
+2.	 Call <code>Graphics2D.setPaint</code><p>
+
+3.	 Create the <code>Shape</code> object<p>
+
+4.	 Call <code>Graphics2D.fill(shape)</code><p>
+</ul>
+<a href="Graphics.doc.html#52145">Listing &#32;10-2</a> shows sample code in which a rectangle is filled with a blue-green gradient.<p>
+<caption><font size=-1><b>
+<a name="52145">
+<center><font size=-1><b><i>Listing 10-2	</i><img src="shared/sm-blank.gif" border=0> Example Filling a Rectangle with a Gradient</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=4><pre>     GradientPaint gp = new GradientPaint(50.0f, 50.0f, Color.blue,
+                                          50.0f, 250.0f, Color.green);
+     g2.setPaint(gp);
+     g2.fillRect(50, 50, 200, 200);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><a name="52161">
+<h5> Filling a Shape with a Texture</h5>
+</a>The <code>TexturePaint</code> class allows you to fill a shape with a repeating pattern. When you create a <code>TexturePaint</code>, you specify a <code>BufferedImage</code> to use as the pattern. You also pass the constructor a rectangle to define the repetition frequency of the pattern.
+<p>To fill a shape with a texture:
+<p><ul>
+
+1.	 Create a <code>TexturePaint</code> object<p>
+
+2.	 Call <code>Graphics2D.setPaint</code><p>
+
+3.	 Create the <code>Shape</code><p>
+
+4.	 Call <code>Graphics2D.fill(shape)</code><p>
+</ul>
+<a href="Graphics.doc.html#52179">Listing &#32;10-3</a> shows sample code in which a shape is filled with texture.<p>
+<caption><font size=-1><b>
+<a name="52179">
+<center><font size=-1><b><i>Listing 10-3	</i><img src="shared/sm-blank.gif" border=0> Example Filling a Shape with Texture</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=4><pre>     // Create a buffered image texture patch of size 5 X 5.
+     BufferedImage bi = new BufferedImage(5, 5,
+                            BufferedImage.TYPE_INT_RGB);
+     Graphics2D big bi.createGraphics();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td><pre>     // Render into the BufferedImage graphics to create the texture.
+     big.setColor(Color.green);
+     big.fillRect(0, 0, 5, 5);
+     big.setColor(Color.lightGray);
+     big.fillOval(0, 0, 5, 5);
+</pre>
+<tr valign=top><td><pre>     // Create a texture paint from the buffered image.
+     Rectangle r = new Rectangle(0, 0, 5, 5);
+     TexturePaint tp = new
+         TexturePaint(bi, r, TexturePaint.NEAREST_NEIGHBOR);
+</pre>
+<tr valign=top><td><pre>     // Add the texture paint to the graphics context.
+     g2.setPaint(tp);
+</pre>
+<tr valign=top><td><pre>     // Create and render a rectangle filled with the texture.
+     g2.fillRect(0, 0, 200, 200);
+     }
+</pre>
+
+<hr>
+
+<p><a name="52230">
+<h3>10.2.3	<img src="shared/space.gif">Rendering Graphics Primitives</h3>
+</a>The <code>Graphics2D</code> class provides methods for creating <code>Shape</code>s and <code>Text</code>, and for rendering <code>Images</code>. <a href="Graphics.doc.html#52234">Table &#32;10-3</a> lists these methods.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="52234">
+<i>Table 10-3	 </i><img src="shared/sm-blank.gif" border=0> Graphics Primitives Methods
+</a></b></font></caption>
+<tr valign=top><th><a name="52238">
+Method
+</a><th><a name="52240">
+Description
+</a>
+<tr valign=top><td><a name="52242">
+draw</a><br><td><a name="52262">
+Strokes the outline of a Shape using the Stroke and Paint settings of the current Graphics2D context.</a><br>
+<tr valign=top><td><a name="52246">
+fill</a><br><td><a name="52269">
+Fills the interior of a Shape using the Paint settings of the Graphics2D context.</a><br>
+<tr valign=top><td><a name="52250">
+drawString</a><br><td><a name="52252">
+Renders the specified text string using the Paint setting of the Graphics2D context.</a><br>
+<tr valign=top><td><a name="52254">
+drawImage</a><br><td><a name="52256">
+Renders the specified Image.</a><br>
+<tr valign=top><td><a name="52286">
+drawRenderableImage</a><br><td><a name="52288">
+Renders the specified RenderableImage.</a><br>
+<tr valign=top><td><a name="52282">
+drawRenderedImage</a><br><td><a name="52284">
+Renders the specified RenderedImage.</a><br>
+
+</Table>
+
+<p><a name="52289">
+<h4>10.2.3.1	<img src="shared/space.gif">Drawing a Shape</h4>
+</a>The <code>Graphics2D.draw</code> method is used to render the outline of any <code>Shape</code>. The <code>Graphics2D</code> class also inherits draw methods from the <code>Graphics</code> class, such as <code>drawLine</code>, <code>drawRect</code>, <code>drawRoundRect</code>, <code>drawOval</code>, <code>drawArc</code>, <code>drawPolyline</code>, <code>drawPolygon</code>, and <code>draw3DRect</code>.
+<p>When a <code>Shape</code> is drawn, its path is stroked with the <code>Stroke</code> object in the <code>Graphics2D</code> context. (See <a href="Graphics.doc.html#51812">Section &#32;10.2.2, "Stroke Attributes</a>," for more information.) By setting an appropriate <code>BasicStroke</code> object in the <code>Graphics2D</code> context, you can draw lines of any width or pattern. The <code>BasicStroke</code> object also defines the line's endcap and join attributes.
+<p>To render a <code>Shape</code>'s outline:
+<p><ul>
+
+1.	 Create the <code>BasicStroke</code> object<p>
+
+2.	 Call <code>Graphics2D.setStroke</code><p>
+
+3.	 Create the <code>Shape</code><p>
+
+4.	 Call <code>Graphics2D.draw(shape)</code><p>
+</ul>
+<a href="Graphics.doc.html#52316">Listing &#32;10-4</a> shows a code example in which a <code>GeneralPath</code> object is used to define a star and a <code>BasicStroke</code> object is added to the <code>Graphics2D</code> context to define the star's line width and join attributes.<p>
+<caption><font size=-1><b>
+<a name="52316">
+<center><font size=-1><b><i>Listing 10-4	</i><img src="shared/sm-blank.gif" border=0> Example Drawing a Shape &#32;</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td><pre>     public void paint(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+</pre>
+<tr valign=top><td><pre>        // Create and set the stroke.
+        g2.setStroke(new BasicStroke(4.0f));
+</pre>
+<tr valign=top><td><pre>        // Create a star using a general path object.
+        GeneralPath p new GeneralPath(GeneralPath.NON_ZERO);
+        p.moveTo(- 100.0f, - 25.0f);
+        p.lineTo(+ 100.0f, - 25.0f);
+        p.lineTo(- 50.0f, + 100.0f);
+        p.lineTo(+ 0.0f, - 100.0f);
+        p.lineTo(+ 50.0f, + 100.0f);
+        p.closePath();
+</pre>
+<tr valign=top><td><pre>        // Translate the origin towards the center of the canvas.
+        g2.translate(100.0f, 100.0f);
+</pre>
+<tr valign=top><td><pre>        // Render the star's path.
+        g2.draw(p);
+     }
+</pre>
+
+<hr>
+
+<p><a name="52346">
+<h4>10.2.3.2	<img src="shared/space.gif">Filling a Shape</h4>
+</a>The <code>Graphics2D.fill</code> method is used to fill any <code>Shape</code>. When a <code>Shape</code> is filled, the area within its path is rendered with the <code>Paint</code> object in the Graphics2D context: a <code>Color</code>, <code>TexturePaint</code>, or <code>GradientPaint</code>.
+<p>The <code>Graphics2D</code> class also inherits fill methods from the <code>Graphics</code> class, such as <code>fillRect</code>, <code>fill3DRect</code>, <code>fillRoundRect</code>, <code>FillOval</code>, <code>fillArc</code>, <code>fillPolygon</code>, and <code>clearRect</code>.
+<p>To fill a <code>Shape</code>:
+<p><ul>
+
+1.	 Set the fill color or pattern on the <code>Graphics2D</code> context using <code>Graphics2D.setColor</code>, or <code>Graphics2DsetPaint</code>.<p>
+
+2.	 Create the <code>Shape</code><p>
+
+3.	 Call <code>Graphics2D.fill</code> to render the <code>Shape</code><p>
+</ul>
+<a href="Graphics.doc.html#52394">Listing &#32;10-5</a> shows a code example in which the <code>setColor</code> method is called to define a green fill for a <code>Rectangle2D</code>.<p>
+<caption><font size=-1><b>
+<a name="52394">
+<center><font size=-1><b><i>Listing 10-5	</i><img src="shared/sm-blank.gif" border=0> Example Filling a Shape</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td><pre>     Public void paint(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+</pre>
+<tr valign=top><td><pre>        g2.setpaint(Color.green);
+        Rectangle2D r2 = new Rectangle2D.float(25, 25, 150, 150);
+</pre>
+<tr valign=top><td><pre>        g2.fill(r2);
+     }
+</pre>
+
+<hr>
+
+<p><a name="52415">
+<h4>10.2.3.3	<img src="shared/space.gif">Rendering Text</h4>
+</a>The entire subject of fonts and text layout is too extensive to try to describe here. In this section, we'll give a brief overview of the <code>Graphics2D.drawString</code> method, which is used to render a text string.
+<p>There are two basic variations on the <code>drawString</code> method. Two methods takes a <code>String</code> for an argument and two methods take an <code>AttributedCharacterIterator</code>. If the argument is a <code>String</code>, the current <code>Font</code> in the <code>Graphics2D</code> context is used to convert the characters in the <code>String</code> into a set of glyphs with whatever basic layout and shaping algorithms the font implements. If the argument is an <code>AttributedCharacterIterator</code>, the iterator is asked to convert itself to a <code>TextLayout</code> using its embedded font attributes. The <code>TextLayout</code> implements more sophisticated glyph layout algorithms that perform Unicode I-directional layout adjustments automatically for multiple fonts of differing writing directions.
+<p>A third method used to render text is the <code>Graphics2D.drawGlyphVector</code> method, which takes a <code>GlyphVector</code> as an argument. The <code>GlyphVector</code> object contains the appropriate font-specific glyph codes with explicit coordinates for the position of each glyph.
+<p>The character outlines are filled with the <code>Paint</code> object in the Graphics2D context.
+<p><a name="51398">
+<h2>10.3	<img src="shared/space.gif">Graphics2D Example</h2>
+</a><a href="Graphics.doc.html#51518">Listing &#32;10-6</a> shows a code sample for a Graphics2D example. <p>
+<caption><font size=-1><b>
+<a name="51518">
+<center><font size=-1><b><i>Listing 10-6	</i><img src="shared/sm-blank.gif" border=0> Graphics2D Example</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td><pre>     // Read a RenderedImage and convert it to a BufferedImage.
+     imagePath = new String("./images/sample.jpg");
+     Image ai = loadAWTImage(imagePath, this);
+     RenderedImage ri = JAI.create("awtimage", ai);
+     BufferedImage bi = getBufferedImage(ri);
+     RenderedImage targetImage = null;
+     targetImage = new BufferedImage(bi.getWidth(),
+                                     bi.getHeight(),
+                                     bi.getType());
+</pre>
+<tr valign=top><td><pre>     // Create a Graphics2D object to draw into the BufferedImage.
+     Graphics2D g2d = targetImage.createGraphics();
+</pre>
+
+<hr>
+
+<p><a name="51405">
+<h2>10.4	<img src="shared/space.gif">Adding Graphics and Text to an Image</h2>
+</a>The <code>java.awt.Graphics2D</code> class enables you to draw lines, geometric shapes, images, and text. These objects can then be "painted" over a <code>TiledImage</code>.
+<p>
+<p>
+<hr><br>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Analysis.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Properties.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+
+
+<h5><a href="copyright.html">Copyright</a> &#169; 1999, Sun Microsystems, Inc.   All rights
+reserved.</h5>
+
+
+<!-- Last updated: Tue Nov 02 18:04:40 1999 -->
+</blockquote>
+</body>
+</html>

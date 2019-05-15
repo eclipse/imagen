@@ -1,0 +1,2479 @@
+<html><head><title>Image Manipulation</title></head>
+<body bgcolor=#ffffff>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Color.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Image-enhance.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+<center>
+<a name="47227">
+<table width=90% border=0><tr>
+<td align=right><font size=3>C H A P T E R</font><font size=7><img src="shared/sm-space.gif">6</td></table>
+</a></center><center>
+<a name="47285">
+<table width=90% border=0><tr><td align=right>
+<hr size=7 noshade>
+<font size=6>Image Manipulation</font></td></table>
+</a></center><blockquote>
+<p><br><br><br><P><font size=7><b>T</b></font>HIS chapter describes the basics of manipulating images to prepare them for further processing.
+<p><a name="50856">
+<h2>6.1	<img src="shared/space.gif">Introduction</h2>
+</a>The JAI image manipulation objects and methods are used to enhance and geometrically modify images and to extract information from images. Image manipulation includes:
+<p><ul>
+<li>Region of interest (ROI) control<p></ul><ul>
+<li>Relational operators<p></ul><ul>
+<li>Logical operators<p></ul><ul>
+<li>Arithmetic operators<p></ul><ul>
+<li>Dithering<p></ul><ul>
+<li>Clamping pixel values<p></ul><ul>
+<li>Band copy<p></ul><a name="51458">
+<h2>6.2	<img src="shared/space.gif">Region of Interest Control</h2>
+</a>Typically, any image enhancement operation takes place over the entire image. While the image enhancement operation may improve portions of an image, other portions of the image may lose detail. You usually want some way of limiting the enhancement operation to specific regions of the image.
+<p>To restrict the image enhancement operations to specific regions of an image, a region-of-interest mask is created. A region of interest (ROI) is conceptually a mask of true or false values. The ROI mask controls which source image pixels are to be processed and which destination pixels are to be recorded.
+<p>JAI supports two different types of ROI mask: a Boolean mask and a threshold value. The <code>ROIShape</code> class uses a Boolean mask, which allows operations to be performed quickly and with compact storage. The <code>ROI</code> class allows the specification of a threshold value; pixel values greater than or equal to the threshold value are included in the ROI. Pixel values less than the threshold are excluded.
+<p>The region of interest is usually defined using a <code>ROIShape</code>, which stores its area using the <code>java.awt.Shape</code> classes. These classes define an area as a geometrical description of its outline. The <code>ROI</code> class stores an area as a single-banded image.
+<p>An ROI can be attached to an image as a property. See <a href="Properties.doc.html#47285">Chapter &#32;11, "Image Properties</a>."
+<p><a name="60492">
+<h3>6.2.1	<img src="shared/space.gif">The ROI Class</h3>
+</a>The <code>ROI</code> class stores an area as a grayscale (single-banded) image. This class represents region information in image form, and can thus be used as a fallback where a <code>Shape</code> representation is unavailable. Inclusion and exclusion of pixels is defined by a threshold value. Source pixel values greater than or equal to the threshold value indicate inclusion in the ROI and are processed. Pixel values less than the threshold value are excluded from processing.
+<p>Where possible, subclasses such as <code>ROIShape</code> are used since they provide a more compact means of storage for large regions.
+<p>The <code>getAsShape()</code> method may be called optimistically on any instance of <code>ROI</code>. However, it may return null to indicate that a <code>Shape</code> representation of the <code>ROI</code> is not available. In this case, <code>getAsImage()</code> should be called as a fallback.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.ROI
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>ROI(RenderedImage im)
+<p></ul></pre><dl>
+<a name="51428">
+<dt><dd> constructs an <code>ROI</code> object from a <code>RenderedImage</code>. The inclusion threshold is taken to be halfway between the minimum and maximum sample values specified by the image's <code>SampleModel</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>im</code>
+<p><td>A single-banded <code>RenderedImage</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI(RenderedImage im, int threshold)
+<p></ul></pre><dl>
+<a name="51437">
+<dt><dd> constructs an <code>ROI</code> object from a <code>RenderedImage</code>. The inclusion <code>threshold</code> is specified explicitly.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:
+<p><td><code>im</code>
+<p><td>A single-banded <code>RenderedImage</code>.
+<p>
+<tr valign=top><td><code>threshold</code>
+<p><td>The inclusion/exclusion threshold of the <code>ROI.</code>
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>Shape getAsShape()
+<p></ul></pre><dl>
+<a name="58926">
+<dt><dd> returns a <code>Shape</code> representation of the <code>ROI</code>, if possible. If none is available, null is returned. A proper instance of <code>ROI</code> (one that is not an instance of any subclass of <code>ROI</code>) will always return null.
+</a><P></dl>
+<pre><ul>
+<li>PlanarImage getAsImage()
+<p></ul></pre><dl>
+<a name="58948">
+<dt><dd> returns a <code>PlanarImage</code> representation of the <code>ROI</code>. This method will always succeed.
+</a><P></dl>
+<pre><ul>
+<li>int getThreshold()
+<p></ul></pre><dl>
+<a name="71152">
+<dt><dd> returns the inclusion/exclusion threshold value.
+</a><P></dl>
+<pre><ul>
+<li>void setThreshold(int threshold)
+<p></ul></pre><dl>
+<a name="71172">
+<dt><dd> sets the inclusion/exclusion threshold value.
+</a><P></dl>
+<a name="71173">
+<h4>6.2.1.1	<img src="shared/space.gif">Determining the ROI Bounds</h4>
+</a>The <code>getBounds</code> methods in the <code>ROI</code> class read the bounds of the <code>ROI</code>, as either a <code>Rectangle</code> or a <code>Rectangle2D</code>.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.ROI
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>Rectangle getBounds()
+<p></ul></pre><dl>
+<a name="53917">
+<dt><dd> returns the bounds of the <code>ROI</code> as a <code>Rectangle</code>.
+</a><P></dl>
+<pre><ul>
+<li>Rectangle2D getBounds2D()
+<p></ul></pre><dl>
+<a name="53921">
+<dt><dd> returns the bounds of the <code>ROI</code> as a <code>Rectangle2D</code>.
+</a><P></dl>
+<a name="54597">
+<h4>6.2.1.2	<img src="shared/space.gif">Determining if an Area Lies Within or Intersects the ROI</h4>
+</a>The <code>contains</code> methods in the <code>ROI</code> class test whether a given point or rectangular region lie within the <code>ROI</code>. The <code>intersects</code> methods test whether a given rectangular region intersect with the <code>ROI</code>.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.ROI
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>boolean contains(Point p)
+<p></ul></pre><dl>
+<a name="53997">
+<dt><dd> returns true if the <code>Point</code> lies within the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>p</code>
+<p><td>A <code>Point</code> identifying the pixel to be queried.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(Point2D p)
+<p></ul></pre><dl>
+<a name="54025">
+<dt><dd> returns true if the <code>Point2D</code> lies within the ROI.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>p</code>
+<p><td>A <code>Point2D</code> identifying the pixel to be queried.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(int x, int y)
+<p></ul></pre><dl>
+<a name="54038">
+<dt><dd> returns true if the point lies within the ROI.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>An int specifying the <em>x</em> coordinate of the pixel to be queried.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>An int specifying the <em>y</em> coordinate of the pixel to be queried.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(double x, double y)
+<p></ul></pre><dl>
+<a name="54057">
+<dt><dd> returns true if the point lies within the ROI.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>A double specifying the <em>x</em> coordinate of the pixel to be queried.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>A double specifying the <em>y</em> coordinate of the pixel to be queried.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(Rectangle rect)
+<p></ul></pre><dl>
+<a name="54067">
+<dt><dd> returns true if the <code>Rectangle</code> lies within the ROI.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>rect</code>
+<p><td>A <code>Rectangle</code> specifying the region to be tested for inclusion.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(Rectangle2D r)
+<p></ul></pre><dl>
+<a name="53977">
+<dt><dd> returns true if the <code>Rectangle2D</code> lies within the ROI.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>r</code>
+<p><td>A <code>Rectangle2D</code> specifying the region to be tested for inclusion.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(int x, int y, int w, int h)
+<p></ul></pre><dl>
+<a name="54096">
+<dt><dd> returns true if the rectangle lies within the ROI.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=4><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>The int <em>x</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>The int <em>y</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>w</code>
+<p><td>The int width of the region.
+<p>
+<tr valign=top><td><code>h</code>
+<p><td>The int height of the region.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(double x, double y, double w, double h)
+<p></ul></pre><dl>
+<a name="54119">
+<dt><dd> returns true if the rectangle lies within the ROI.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=4><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>The double <em>x</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>The double <em>y</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>w</code>
+<p><td>The double width of the region.
+<p>
+<tr valign=top><td><code>h</code>
+<p><td>The double height of the region.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean intersects(Rectangle rect)
+<p></ul></pre><dl>
+<a name="53965">
+<dt><dd> returns true if the <code>Rectangle</code> intersects the ROI.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>rect</code>
+<p><td>A <code>Rectangle</code> specifying the region to be tested for inclusion.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean intersects(Rectangle2D r)
+<p></ul></pre><dl>
+<a name="53961">
+<dt><dd> returns true if the <code>Rectangle2D</code> intersects the ROI.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>r</code>
+<p><td>A <code>Rectangle2D</code> specifying the region to be tested for inclusion.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean intersects(int x, int y, int w, int h)
+<p></ul></pre><dl>
+<a name="54166">
+<dt><dd> returns true if the rectangle intersects the ROI.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=4><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>The int <em>x</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>The int <em>y</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>w</code>
+<p><td>The int width of the region.
+<p>
+<tr valign=top><td><code>h</code>
+<p><td>The int height of the region.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean intersects(double x, double y, double w, double h)
+<p></ul></pre><dl>
+<a name="53953">
+<dt><dd> returns true if the rectangle intersects the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=4><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>The double <em>x</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>The double <em>y</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>w</code>
+<p><td>The double width of the region.
+<p>
+<tr valign=top><td><code>h</code>
+<p><td>The double height of the region.
+<p>
+
+</Table>
+
+</a><P></dl>
+<a name="54623">
+<h4>6.2.1.3	<img src="shared/space.gif">Creating a New ROI from an Existing ROI</h4>
+</a>Several methods allow the creation of a new <code>ROI</code> from an existing <code>ROI</code>. The <code>add</code> method adds another ROI to an existing one, creating a new ROI.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.ROI
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>ROI add(ROI im)
+<p></ul></pre><dl>
+<a name="54642">
+<dt><dd> adds another <code>ROI</code> to this one and returns the result as a new <code>ROI</code>. The addition is performed by an "AddROIs" RIF to be specified. The supplied <code>ROI</code> will be converted to a rendered form if necessary.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>im</code>
+<p><td>An <code>ROI</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI subtract(ROI im)
+<p></ul></pre><dl>
+<a name="54256">
+<dt><dd> subtracts another <code>ROI</code> to this one and returns the result as a new <code>ROI</code>. The subtraction is performed by a "SubtractROIs" RIF to be specified. The supplied <code>ROI</code> will be converted to a rendered form if necessary.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>im</code>
+<p><td>An <code>ROI</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI intersect(ROI im)
+<p></ul></pre><dl>
+<a name="54279">
+<dt><dd> intersects the <code>ROI</code> with another <code>ROI</code> and returns the result as a new <code>ROI</code>. The intersection is performed by a "IntersectROIs" RIF to be specified. The supplied <code>ROI</code> will be converted to a rendered form if necessary.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>im</code>
+<p><td>An <code>ROI</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI exclusiveOr(ROI im)
+<p></ul></pre><dl>
+<a name="54302">
+<dt><dd> exclusive-ORs the <code>ROI</code> with another <code>ROI</code> and returns the result as a new <code>ROI</code>. The intersection is performed by an "XorROIs" RIF to be specified. The supplied <code>ROI</code> will be converted to a rendered form if necessary.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>im</code>
+<p><td>An <code>ROI</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI transform(AffineTransform at)
+<p></ul></pre><dl>
+<a name="54347">
+<dt><dd> performs an affine transformation and returns the result as a new <code>ROI</code>. The transformation is performed by an "Affine" RIF.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>at</code>
+<p><td>An <code>AffineTransform</code> specifying the transformation.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI performImageOp(RenderedImageFactory RIF, ParameterBlock 
+       paramBlock, int sourceIndex, Hashtable renderHints, 
+       Hashtable renderHintsObserved)
+<p></ul></pre><dl>
+<a name="54378">
+<dt><dd> transforms an ROI using an imaging operation. The operation is specified by a <code>RenderedImageFactory</code>. The operation's <code>ParameterBlock</code>, minus the image source itself is supplied, along with an index indicating where to insert the <code>ROI</code> image. The usual <code>renderHints</code> and <code>renderHintsObserved</code> arguments allow rendering hints to be passed in and information on which hints were followed to be passed out.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=5><em>Parameters</em>:
+<p><td><code>RIF</code>
+<p><td>A <code>RenderedImageFactory</code> that will be used to create the op.
+<p>
+<tr valign=top><td><code>paramBlock</code>
+<p><td>A <code>ParameterBlock</code> containing all sources and parameters for the operation except for the <code>ROI</code> itself.
+<p>
+<tr valign=top><td><code>sourceIndex</code>
+<p><td>The index of the <code>ParameterBlock</code>'s sources where the <code>ROI</code> is to be inserted.
+<p>
+<tr valign=top><td><code>renderHints</code>
+<p><td>A Hashtable of rendering hints.
+<p>
+<tr valign=top><td><code>renderHints-Observed</code>
+<p><td>A Hashtable of observed rendering hints.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI performImageOp(RenderedImageFactory RIF, ParameterBlock 
+       paramBlock, int sourceIndex)
+<p></ul></pre><dl>
+<a name="54409">
+<dt><dd> transforms an <code>ROI</code> using an imaging operation. The operation is specified by a <code>RenderedImageFactory</code>. The operation's <code>ParameterBlock</code>, minus the image source itself is supplied, along with an index indicating where to insert the <code>ROI</code> image. Rendering hints are taken to be null. <p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameters</em>:
+<p><td><code>RIF</code>
+<p><td>A <code>RenderedImageFactory</code> that will be used to create the op.
+<p>
+<tr valign=top><td><code>paramBlock</code>
+<p><td>A <code>ParameterBlock</code> containing all sources and parameters for the operation except for the <code>ROI</code> itself.
+<p>
+<tr valign=top><td><code>sourceIndex</code>
+<p><td>The index of the <code>ParameterBlock</code>'s sources where the <code>ROI</code> is to be inserted.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI performImageOp(String name, ParameterBlock paramBlock, 
+       int &#32;sourceIndex, Hashtable renderHints, 
+       Hashtable &#32;renderHintsObserved)
+<p></ul></pre><dl>
+<a name="54445">
+<dt><dd> transforms an <code>ROI</code> using an imaging operation. The operation is specified by name; the default JAI registry is used to resolve this into a RIF. The operation's <code>ParameterBlock</code>, minus the image source itself is supplied, along with an index indicating where to insert the <code>ROI</code> image. The usual <code>renderHints</code> and <code>renderHintsObserved</code> arguments allow rendering hints to be passed in and information on which hints were followed to be passed out.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=5><em>Parameters</em>:
+<p><td><code>name</code>
+<p><td>The name of the operation to be performed.
+<p>
+<tr valign=top><td><code>paramBlock</code>
+<p><td>A <code>ParameterBlock</code> containing all sources and parameters for the operation except for the <code>ROI</code> itself.
+<p>
+<tr valign=top><td><code>sourceIndex</code>
+<p><td>The index of the <code>ParameterBlock</code>'s sources where the <code>ROI</code> is to be inserted.
+<p>
+<tr valign=top><td><code>renderHints</code>
+<p><td>A Hashtable of rendering hints.
+<p>
+<tr valign=top><td><code>renderHints-Observed</code>
+<p><td>A Hashtable of observed rendering hints.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI performImageOp(String name, ParameterBlock paramBlock, 
+       int &#32;sourceIndex)
+<p></ul></pre><dl>
+<a name="54472">
+<dt><dd> transforms an <code>ROI</code> using an imaging operation. The operation is specified by name; the default JAI registry is used to resolve this into a RIF. The operation's <code>ParameterBlock</code>, minus the image source itself is supplied, along with an index indicating where to insert the ROI image. Rendering hints are taken to be null.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameters</em>:
+<p><td><code>name</code>
+<p><td>The name of the operation to be performed.
+<p>
+<tr valign=top><td><code>paramBlock</code>
+<p><td>A <code>ParameterBlock</code> containing all sources and parameters for the operation except for the <code>ROI</code> itself.
+<p>
+<tr valign=top><td><code>sourceIndex</code>
+<p><td>The index of the <code>ParameterBlock</code>'s sources where the <code>ROI</code> is to be inserted.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>Shape getAsShape()
+<p></ul></pre><dl>
+<a name="54490">
+<dt><dd> returns a Shape representation of the <code>ROI</code>, if possible. If none is available, null is returned. A proper instance of <code>ROI</code> (one that is not an instance of any subclass of <code>ROI</code>) will always return null.
+</a><P></dl>
+<pre><ul>
+<li>PlanarImage getAsImage()
+<p></ul></pre><dl>
+<a name="54515">
+<dt><dd> returns a <code>PlanarImage</code> representation of the <code>ROI</code>. This method will always succeed.
+</a><P></dl>
+<a name="53075">
+<h3>6.2.2	<img src="shared/space.gif">The ROIShape Class</h3>
+</a>The <code>ROIShape</code> class is used to store a region of interest within an image as an instance of a <code>java.awt.Shape</code>. Such regions are binary by definition. Using a <code>Shape</code> representation allows Boolean operations to be performed quickly and with compact storage. If a <code>PropertyGenerator</code> responsible for generating the <code>ROI</code> property of a particular <code>OperationDescriptor</code> (such as a <code>warp</code>) cannot reasonably produce an <code>ROIShape</code> representing the region, it should call the <code>getAsImage()</code> method on its sources and produce its output <code>ROI</code> in image form.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.ROIShape
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>ROIShape(Shape s)
+<p></ul></pre><dl>
+<a name="53871">
+<dt><dd> constructs an <code>ROIShape</code> from a <code>Shape</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>s</code>
+<p><td>A <code>Shape</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROIShape(Area a)
+<p></ul></pre><dl>
+<a name="53875">
+<dt><dd> constructs an <code>ROIShape</code> from an <code>Area</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>a</code>
+<p><td>An <code>Area</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<a name="55291">
+<h4>6.2.2.1	<img src="shared/space.gif">Determining the ROI Bounds</h4>
+</a>The following methods in the <code>ROIShape</code> class read the bounds of the <code>ROI</code>.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.ROIShape
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>Rectangle getBounds()
+<p></ul></pre><dl>
+<a name="53752">
+<dt><dd> returns the bounds of the ROI as a <code>Rectangle</code>.
+</a><P></dl>
+<pre><ul>
+<li>Rectangle2D getBounds2D()
+<p></ul></pre><dl>
+<a name="53756">
+<dt><dd> returns the bounds of the ROI as a <code>Rectangle2D</code>.
+</a><P></dl>
+<a name="55317">
+<h4>6.2.2.2	<img src="shared/space.gif">Determining if an Area Lies Within or Intersects the ROIShape</h4>
+</a>The <code>ROIShape.contains</code> method is used to determine if a given pixel lies within the region of interest. The <code>ROIShape.intersects</code> method is used to determine if a rectangular region of the image intersects the ROI.<code></code>
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.ROIShape
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>boolean contains(Point p)
+<p></ul></pre><dl>
+<a name="53760">
+<dt><dd> returns true if the pixel lies within the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>p</code>
+<p><td>The coordinates of the pixel to be queried.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(Point2D p)
+<p></ul></pre><dl>
+<a name="53764">
+<dt><dd> returns true if the pixel lies within the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>p</code>
+<p><td>The coordinates of the pixel to be queried.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(int x, int y)
+<p></ul></pre><dl>
+<a name="53768">
+<dt><dd> returns true if the pixel lies within the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>The <em>x</em> coordinate of the pixel to be queried.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>The <em>y</em> coordinate of the pixel to be queried.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(double x, double y)
+<p></ul></pre><dl>
+<a name="53772">
+<dt><dd> returns true if the pixel lies within the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>The <em>x</em> coordinate of the pixel to be queried.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>The <em>y</em> coordinate of the pixel to be queried.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(Rectangle rect)
+<p></ul></pre><dl>
+<a name="53776">
+<dt><dd> returns true if the rectangular region is entirely contained within the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>rect</code>
+<p><td>The region to be tested for inclusion.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(Rectangle2D r)
+<p></ul></pre><dl>
+<a name="53780">
+<dt><dd> returns true if the rectangular region is entirely contained within the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>r</code>
+<p><td>The region to be tested for inclusion.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(int x, int y, int w, int h)
+<p></ul></pre><dl>
+<a name="53784">
+<dt><dd> returns true if the rectangular region is entirely contained within the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=4><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>The <em>x</em> coordinate of the pixel to be queried.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>The <em>y</em> coordinate of the pixel to be queried.
+<p>
+<tr valign=top><td><code>w</code>
+<p><td>The width of the region.
+<p>
+<tr valign=top><td><code>h</code>
+<p><td>The height of the region.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean contains(double x, double y, double w, double h)
+<p></ul></pre><dl>
+<a name="53788">
+<dt><dd> returns true if the rectangular region is entirely contained within the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=4><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>The <em>x</em> coordinate of the pixel to be queried.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>The <em>y</em> coordinate of the pixel to be queried.
+<p>
+<tr valign=top><td><code>w</code>
+<p><td>The width of the region.
+<p>
+<tr valign=top><td><code>h</code>
+<p><td>The height of the region.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean intersects(Rectangle rect)
+<p></ul></pre><dl>
+<a name="53792">
+<dt><dd> returns true if the rectangular region intersects the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>rect</code>
+<p><td>The region to be tested for inclusion.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean intersects(Rectangle2D r)
+<p></ul></pre><dl>
+<a name="53796">
+<dt><dd> returns true if the rectangular region intersects the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>rect</code>
+<p><td>The region to be tested for inclusion.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean intersects(int x, int y, int w, int h)
+<p></ul></pre><dl>
+<a name="53800">
+<dt><dd> returns true if the rectangular region intersects the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=4><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>The <em>x</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>The <em>y</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>w</code>
+<p><td>The width of the region.
+<p>
+<tr valign=top><td><code>h</code>
+<p><td>The height of the region.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>boolean intersects(double x, double y, double w, double h)
+<p></ul></pre><dl>
+<a name="53804">
+<dt><dd> returns true if the rectangular region intersects the <code>ROI</code>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=4><em>Parameters</em>:
+<p><td><code>x</code>
+<p><td>The <em>x</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>y</code>
+<p><td>The <em>y</em> coordinate of the upper left corner of the region.
+<p>
+<tr valign=top><td><code>w</code>
+<p><td>The width of the region.
+<p>
+<tr valign=top><td><code>h</code>
+<p><td>The height of the region.
+<p>
+
+</Table>
+
+</a><P></dl>
+<a name="55680">
+<h4>6.2.2.3	<img src="shared/space.gif">Creating a New ROIShape from an Existing ROIShape</h4>
+</a>Several methods allow the creation of a new <code>ROIShape</code> from the old <code>ROIShape</code>.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.ROIShape
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>ROI add(ROI im)
+<p></ul></pre><dl>
+<a name="53808">
+<dt><dd> adds another mask to this one. This operation may force this mask to be rendered.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>im</code>
+<p><td>An <code>ROI</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI subtract(ROI im)
+<p></ul></pre><dl>
+<a name="53812">
+<dt><dd> subtracts another mask from this one. This operation may force this mask to be rendered.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>im</code>
+<p><td>An <code>ROI</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI intersect(ROI im)
+<p></ul></pre><dl>
+<a name="53816">
+<dt><dd> sets the mask to its intersection with another mask. This operation may force this mask to be rendered.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>im</code>
+<p><td>An <code>ROI</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI exclusiveOr(ROI im)
+<p></ul></pre><dl>
+<a name="53820">
+<dt><dd> sets the mask to its exclusive-OR with another mask. This operation may force this mask to be rendered.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>im</code>
+<p><td>An <code>ROI</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>ROI transform(AffineTransform at)
+<p></ul></pre><dl>
+<a name="53824">
+<dt><dd> performs an affine transformation and returns the result as a new ROI. The transformation is performed by an "Affine" RIF.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>at</code>
+<p><td>The affine transform.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>Shape getAsShape()
+<p></ul></pre><dl>
+<a name="55786">
+<dt><dd> returns the internal <code>Shape</code> representation or null if not possible. Since we have a shape available, we simply return it. 
+</a><P></dl>
+<pre><ul>
+<li>PlanarImage getAsImage()
+<p></ul></pre><dl>
+<a name="55796">
+<dt><dd> returns the shape as a <code>PlanarImage</code>. This requires performing an antialiased rendering of the internal <code>Shape</code>. We use an eight-bit, single channel image with a <code>ComponentColorModel</code> and a <code>ColorSpace.TYPE_GRAY</code> color space.
+</a><P></dl>
+<a name="51159">
+<h2>6.3	<img src="shared/space.gif">Relational Operators</h2>
+</a>Given two source images and a destination image, the JAI relational operators allow you to:
+<p><ul>
+<li>Find the larger of the pixels in the two source images and store the results in the destination (<code>Max</code>).<p></ul><ul>
+<li>Find the smaller of the pixels in the two source images and store the results in the destination (<code>Min</code>).<p></ul>The relational operators require that both source images and the destination image have the same data type and number of bands. The sizes of the two images (height and width), however, need not be the same.
+<p>When determining the maximum and minimum pixels in the two images, JAI performs a band-by-band comparison.
+<p>
+<hr noshade><b>Note:</b> Don't confuse the relational Min and Max operators with the Extrema operation (see <a href="Analysis.doc.html#54907">Section &#32;9.3, "Finding the Extrema of an Image</a>"), which finds the image-wise minimum and maximum pixel values for each band of an image.
+<hr noshade>
+<a name="58435">
+<h3>6.3.1	<img src="shared/space.gif">Finding the Maximum Values of Two Images</h3>
+</a>The <code>max</code> operation takes two rendered images, and for every pair of pixels, one from each source image of the corresponding position and band, finds the maximum pixel value.
+<p>The two source images may have different numbers of bands and data types. By default, the destination image bound is the intersection of the two source image bounds. If the two source images don't intersect, the destination will have a width and a height of 0. The number of bands of the destination image is the same as the least number of bands of the source images, and the data type is the biggest data type of the source images.
+<p>The pixel values of the destination image are defined by the following pseudocode:
+<p><pre>     if (srcs[0][x][y][b] &gt; srcs[1][x][y][b]) {
+         dst[x][y][b] = srcs[0][x][y][b];
+     } else {
+         dst[x][y][b] = srcs[1][x][y][b];
+     }
+</pre>The <code>max</code> operation takes two source images and no parameters. <a href="Image-manipulation.doc.html#70421">Listing &#32;6-1</a> shows a partial code sample of computing the pixelwise maximum value of two images in the rendered mode.<p>
+<caption><font size=-1><b>
+<a name="70421">
+<center><font size=-1><b><i>Listing 6-1	</i><img src="shared/sm-blank.gif" border=0> Finding the Maximum Value of Two Images</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=6><pre>     // Create two constant images
+     RenderedOp im0 = JAI.create("constant", param1);
+     RenderedOp im1 = JAI.create("constant", param2);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td><pre>     // Find the maximum value of the two images
+     RenderedOp im2 = JAI.create("max", im0, im1);
+</pre>
+
+<hr>
+
+<p><a name="58446">
+<h3>6.3.2	<img src="shared/space.gif">Finding the Minimum Values of Two Images</h3>
+</a>The <code>min</code> operation takes two rendered images, and for every pair of pixels, one from each source image of the corresponding position and band, finds the minimum pixel value.
+<p>The two source images may have different numbers of bands and data types. By default, the destination image bound is the intersection of the two source image bounds. If the two source images don't intersect, the destination will have a width and a height of 0. The number of bands of the destination image is the same as the least number of bands of the source images, and the data type is the biggest data type of the source images.
+<p>The pixel values of the destination image are defined by the following pseudocode:
+<p><pre>     if (srcs[0][x][y][b] &lt; srcs[1][x][y][b]) {
+         dst[x][y][b] = srcs[0][x][y][b];
+     } else {
+         dst[x][y][b] = srcs[1][x][y][b];
+     }
+</pre>The <code>min</code> operation takes two rendered source images and no parameters. <a href="Image-manipulation.doc.html#70445">Listing &#32;6-2</a> shows a partial code sample of computing the pixelwise minimum value of two images in the renderable mode.<p>
+<caption><font size=-1><b>
+<a name="70445">
+<center><font size=-1><b><i>Listing 6-2	</i><img src="shared/sm-blank.gif" border=0> Finding the Minimum Value of Two Images</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Set up the parameter block and add the two source images to it
+     ParameterBlock pb = new ParameterBlock();
+     pb.add(im0);
+     pb.add(im1);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td><pre>     // Find the maximum value of the two images
+     RenderableOp im2 = JAI.createRenderable("min", pb, hints);
+</pre>
+
+<hr>
+
+<p><a name="58465">
+<h2>6.4	<img src="shared/space.gif">Logical Operators</h2>
+</a>JAI supports <em>monadic</em>, <em>dyadic</em>, and <em>unary</em> logical operators. The monadic logical operations include pixel-by-pixel AND, OR, and XOR operations between a source image and a constant to produce a destination image. The dyadic logical operations include pixel-by-pixel AND, OR, and XOR operations between two source images to produce a destination image. The unary logical operation is a NOT operation (complement image) on each pixel of a source image on a per-band basis.
+<p>JAI supports the following logical operations:
+<p><ul>
+<li>Take the bitwise AND of the two source images and store the results in the destination (<code>And</code>)<p></ul><ul>
+<li>Take the bitwise AND of a source image and one of a set of per-band constants (<code>AndConst</code>)<p></ul><ul>
+<li>Take the bitwise OR of the two source images and store the results in the destination (<code>Or</code>)<p></ul><ul>
+<li>Take the bitwise OR of a source image and one of a set of per-band constants (<code>OrConst</code>)<p></ul><ul>
+<li>Take the bitwise XOR (exclusiveOR) of the two source images and store the results in the destination (<code>Xor</code>)<p></ul><ul>
+<li>Take the bitwise XOR of a source image and one of a set of per-band constants (<code>XorConst</code>)<p></ul><ul>
+<li>Take the bitwise NOT of a source image on each pixel on a per-band basis (<code>Not</code>)<p></ul>As with the relational operators, the logical operations require that both source images and the destination image have the same data type and number of bands. The sizes of the two images (height and width), however, need not be the same.
+<p><a name="56569">
+<h3>6.4.1	<img src="shared/space.gif">ANDing Two Images</h3>
+</a>The <code>And</code> operation takes two rendered or renderable source images, and performs a bit-wise logical AND on every pair of pixels, one from each source image, of the corresponding position and band.
+<p>Both source images must have integral data types. The two data types may be different.
+<p>Unless altered by an <code>ImageLayout</code> hint, the destination image bound is the intersection of the two source image bounds. If the two sources don't intersect, the destination will have a width and height of 0. The number of bands of the destination image is equal to the lesser number of bands of the source images, and the data type is the smallest data type with sufficient range to cover the range of both source data types.
+<p>The following matrix defines the logical <code>And</code> operation.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="56613">
+src0
+</a><th><a name="56615">
+src1
+</a><th><a name="56617">
+Result
+</a>
+<tr valign=top><td><a name="56619">
+0</a><br><td><a name="56621">
+0</a><br><td><a name="56623">
+0</a><br>
+<tr valign=top><td><a name="56625">
+0</a><br><td><a name="56627">
+1</a><br><td><a name="56629">
+0</a><br>
+<tr valign=top><td><a name="56631">
+1</a><br><td><a name="56633">
+0</a><br><td><a name="56635">
+0</a><br>
+<tr valign=top><td><a name="56637">
+1</a><br><td><a name="56639">
+1</a><br><td><a name="56641">
+1</a><br>
+
+</Table>
+
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     dst[x][y][b] = srcs[0][x][y][b] &amp; srcs[1][x][y][b];
+</pre>The <code>And</code> operation takes two rendered or renderable source images and no parameters.
+<p><a href="Image-manipulation.doc.html#70476">Listing &#32;6-3</a> shows a partial code sample of using the <code>And</code> operation to AND two images together.<p>
+<caption><font size=-1><b>
+<a name="70476">
+<center><font size=-1><b><i>Listing 6-3	</i><img src="shared/sm-blank.gif" border=0> ANDing Two Images</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Set up the parameter block and add the two source images to it.
+     ParameterBlock pb = new ParameterBlock();
+     pb.addSource(im0);          // The first image
+     pb.addSource(im1);          // The second image
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td><pre>     // AND the two images together.
+     RenderableOp op = JAI.createRenderable("and", pb, hints);
+</pre>
+
+<hr>
+
+<p><a name="56421">
+<h3>6.4.2	<img src="shared/space.gif">ANDing an Image with a Constant</h3>
+</a>The <code>AndConst</code> operation takes one rendered or renderable image and an array of integer constants, and performs a bit-wise logical AND between every pixel in the same band of the source and the constant from the corresponding array entry. If the number of constants supplied is less than the number of bands of the destination, then the constant from entry 0 is applied to all the bands. Otherwise, a constant from a different entry is applied to each band.
+<p>The source image must have an integral data type. By default, the destination image bound, data type, and number of bands are the same as the source image.
+<p>The following matrix defines the logical <code>AndConst</code> operation:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="57569">
+src
+</a><th><a name="57571">
+const
+</a><th><a name="57573">
+Result
+</a>
+<tr valign=top><td><a name="57575">
+0</a><br><td><a name="57577">
+0</a><br><td><a name="57579">
+0</a><br>
+<tr valign=top><td><a name="57581">
+0</a><br><td><a name="57583">
+1</a><br><td><a name="57585">
+0</a><br>
+<tr valign=top><td><a name="57587">
+1</a><br><td><a name="57589">
+0</a><br><td><a name="57591">
+0</a><br>
+<tr valign=top><td><a name="57593">
+1</a><br><td><a name="57595">
+1</a><br><td><a name="57597">
+1</a><br>
+
+</Table>
+
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     if (constants.length &lt; dstNumBands) {
+         dst[x][y][b] = srcs[x][y][b] &amp; constants[0];
+     } else {
+         dst[x][y][b] = srcs[x][y][b] &amp; constants[b];
+     }
+</pre>The <code>AndConst</code> operation takes one rendered or renderable source image and one parameter:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="59369">
+Parameter
+</a><th><a name="59371">
+Type
+</a><th><a name="59373">
+Description
+</a>
+<tr valign=top><td><a name="59375">
+constants</a><br><td><a name="59377">
+int</a><br><td><a name="59379">
+The per-band constants to logically AND with.</a><br>
+
+</Table>
+
+<p><a href="Image-manipulation.doc.html#70503">Listing &#32;6-4</a> shows a partial code sample of using the <code>AndConst</code> operation to AND a source image with a defined constant of value 1.2.<p>
+<caption><font size=-1><b>
+<a name="70503">
+<center><font size=-1><b><i>Listing 6-4	</i><img src="shared/sm-blank.gif" border=0> ANDing an Image with a Constant</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=8><pre>     // Set up the parameter block with the source and a constant
+     // value.
+     ParameterBlock pb = new ParameterBlock();
+     pb.addSource(im);       // im as the source image
+     pb.add(1.2f);     // The constant
+     
+     // AND the image with the constant.
+     RenderableOp op = JAI.createRenderable("andconst", pb, hints);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><a name="61460">
+<h3>6.4.3	<img src="shared/space.gif">ORing Two Images</h3>
+</a>The <code>Or</code> operation takes two rendered or renderable images, and performs a bit-wise logical OR on every pair of pixels, one from each source image of the corresponding position and band.
+<p>Both source images must have integral data types. The two data types may be different.
+<p>Unless altered by an <code>ImageLayout</code> hint, the destination image bound is the intersection of the two source image bounds. If the two sources don't intersect, the destination will have a width and height of 0. The number of bands of the destination image is equal to the lesser number of bands of the source images, and the data type is the smallest data type with sufficient range to cover the range of both source data types.
+<p>The following matrix defines the logical <code>OR</code> operation:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="59692">
+src0
+</a><th><a name="59694">
+src1
+</a><th><a name="59696">
+Result
+</a>
+<tr valign=top><td><a name="59698">
+0</a><br><td><a name="59700">
+0</a><br><td><a name="59702">
+0</a><br>
+<tr valign=top><td><a name="59704">
+0</a><br><td><a name="59706">
+1</a><br><td><a name="59708">
+1</a><br>
+<tr valign=top><td><a name="59710">
+1</a><br><td><a name="59712">
+0</a><br><td><a name="59714">
+1</a><br>
+<tr valign=top><td><a name="59716">
+1</a><br><td><a name="59718">
+1</a><br><td><a name="59720">
+1</a><br>
+
+</Table>
+
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     dst[x][y][b] = srcs[0][x][y][b] | srcs[1][x][y][b];
+</pre>The <code>Or</code> operation takes two rendered or renderable source images and no parameters.
+<p><a href="Image-manipulation.doc.html#70533">Listing &#32;6-5</a> shows a partial code sample of using the <code>or</code> operation to OR two images.<p>
+<caption><font size=-1><b>
+<a name="70533">
+<center><font size=-1><b><i>Listing 6-5	</i><img src="shared/sm-blank.gif" border=0> ORing Two Images &#32;</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=5><pre>     // Read the first image.
+     pb = new ParameterBlock();
+     pb.addSource(file1);
+     RenderedOp src1 = JAI.create("stream", pb);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     // Read the second image.
+     pb = new ParameterBlock();
+     pb.addSource(file2);
+     RenderedImage src2 = JAI.create("stream", pb);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // OR the two images.
+     RenderedOp dst = JAI.create("or", src1, src2);
+</pre>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><a name="58466">
+<h3>6.4.4	<img src="shared/space.gif">ORing an Image with a Constant</h3>
+</a>The <code>OrConst</code> operation takes one rendered or renderable image and an array of integer constants, and performs a bit-wise logical OR between every pixel in the same band of the source image and the constant from the corresponding array entry. If the number of constants supplied is less than the number of bands of the destination, the constant from entry 0 is applied to all the bands. Otherwise, a constant from a different entry is applied to each band.
+<p>The source image must have an integral data type. By default, the destination image bound, data type, and number of bands are the same as the source image.
+<p>The following matrix defines the logical <code>OrConst</code> operation:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="71957">
+src
+</a><th><a name="71959">
+const
+</a><th><a name="71961">
+Result
+</a>
+<tr valign=top><td><a name="71963">
+0</a><br><td><a name="71965">
+0</a><br><td><a name="71967">
+0</a><br>
+<tr valign=top><td><a name="71969">
+0</a><br><td><a name="71971">
+1</a><br><td><a name="71973">
+1</a><br>
+<tr valign=top><td><a name="71975">
+1</a><br><td><a name="71977">
+0</a><br><td><a name="71979">
+1</a><br>
+<tr valign=top><td><a name="71981">
+1</a><br><td><a name="71983">
+1</a><br><td><a name="71985">
+1</a><br>
+
+</Table>
+
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     if (constants.length &lt; dstNumBands) {
+         dst[x][y][b] = src[x][y][b] | constants[0];
+     } else {
+         dst[x][y][b] = src[x][y][b] | constants[b];
+     }
+</pre>The <code>OrConst</code> operation takes one rendered or renderable source image and one parameter:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="71989">
+Parameter
+</a><th><a name="71991">
+Type
+</a><th><a name="71993">
+Description
+</a>
+<tr valign=top><td><a name="71995">
+constants</a><br><td><a name="71997">
+int</a><br><td><a name="71999">
+The per-band constants to logically OR with.</a><br>
+
+</Table>
+
+<p><a name="59163">
+<h3>6.4.5	<img src="shared/space.gif">XORing Two Images</h3>
+</a>The <code>Xor</code> operation takes two rendered or renderable images, and performs a bit-wise logical XOR on every pair of pixels, one from each source image of the corresponding position and band.
+<p>Both source images must have integral data types. The two data types may be different.
+<p>Unless altered by an <code>ImageLayout</code> hint, the destination image bound is the intersection of the two source image bounds. If the two source images don't intersect, the destination will have a width and height of 0. The number of bands of the destination image is equal to the lesser number of bands of the source images, and the data type is the smallest data type with sufficient range to cover the range of both source data types.
+<p>The following matrix defines the <code>Xor</code> operation:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="59440">
+src0
+</a><th><a name="59442">
+src1
+</a><th><a name="59444">
+Result
+</a>
+<tr valign=top><td><a name="59446">
+0</a><br><td><a name="59448">
+0</a><br><td><a name="59450">
+0</a><br>
+<tr valign=top><td><a name="59452">
+0</a><br><td><a name="59454">
+1</a><br><td><a name="59456">
+1</a><br>
+<tr valign=top><td><a name="59458">
+1</a><br><td><a name="59460">
+0</a><br><td><a name="59462">
+1</a><br>
+<tr valign=top><td><a name="59464">
+1</a><br><td><a name="59466">
+1</a><br><td><a name="59468">
+0</a><br>
+
+</Table>
+
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     dst[x][y][b] = srcs[0][x][y][b] ^ srcs[0][x][y][b];
+</pre>The <code>Xor</code> operation takes one rendered or renderable source image and no parameters.
+<p><a name="59165">
+<h3>6.4.6	<img src="shared/space.gif">XORing an Image with a Constant</h3>
+</a>The <code>XorConst</code> operation takes one rendered or renderable image and an array of integer constants, and performs a bit-wise logical OR between every pixel in the same band of the source and the constant from the corresponding array entry. If the number of constants supplied is less than the number of bands of the destination, the constant from entry 0 is applied to all the bands. Otherwise, a constant from a different entry is applied to each band.
+<p>The source image must have an integral data type. By default, the destination image bound, data type, and number of bands are the same as the source image.
+<p>The following matrix defines the logical <code>XorConst</code> operation:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="59198">
+src
+</a><th><a name="59200">
+const
+</a><th><a name="59202">
+Result
+</a>
+<tr valign=top><td><a name="59204">
+0</a><br><td><a name="59206">
+0</a><br><td><a name="59208">
+0</a><br>
+<tr valign=top><td><a name="59210">
+0</a><br><td><a name="59212">
+1</a><br><td><a name="59214">
+1</a><br>
+<tr valign=top><td><a name="59216">
+1</a><br><td><a name="59218">
+0</a><br><td><a name="59220">
+1</a><br>
+<tr valign=top><td><a name="59222">
+1</a><br><td><a name="59224">
+1</a><br><td><a name="59226">
+0</a><br>
+
+</Table>
+
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     if (constants.length &lt; dstNumBands) {
+         dst[x][y][b] = src[x][y][b] ^ constants[0];
+     } else {
+         dst[x][y][b] = src[x][y][b] ^ constants[b];
+     }
+</pre>The <code>XorConst</code> operation takes one rendered or renderable source image and one parameter:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="59309">
+Parameter
+</a><th><a name="59311">
+Type
+</a><th><a name="59313">
+Description
+</a>
+<tr valign=top><td><a name="59315">
+constant</a><br><td><a name="59317">
+int</a><br><td><a name="59319">
+The constant to logically XOR with.</a><br>
+
+</Table>
+
+<p><a name="62697">
+<h3>6.4.7	<img src="shared/space.gif">Taking the Bitwise NOT of an Image</h3>
+</a>The <code>Not</code> operation takes one rendered or renderable image, and performs a bit-wise logical NOT on every pixel from every band of the source image. This operation, also known as a <em>complement</em> operation, creates an image that is somewhat like a photographic negative.
+<p>The <code>Not</code> operation looks at the values in the source image as binary values and changes all the 1's in those values to 0's, and all the 0's to 1's. The operation then writes the one's complement version of the source image to the destination. 
+<p>The source image must have an integral data type. By default, the destination image bound, data type, and number of bands are the same as the source image.
+<p>The following matrix defines the logical NOT operation.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="72921">
+src
+</a><th><a name="72923">
+Result
+</a>
+<tr valign=top><td><a name="72925">
+1</a><br><td><a name="72927">
+0</a><br>
+<tr valign=top><td><a name="72929">
+0</a><br><td><a name="72931">
+1</a><br>
+
+</Table>
+
+<p>The pixel values of the destination image are defined by the following pseudocode:
+<p><pre>     dst[x][y][b] = ~(src[x][y][b])
+</pre>The <code>Not</code> operation takes one rendered or renderable source image and no parameters.
+<p><a href="Image-manipulation.doc.html#70578">Listing &#32;6-6</a> shows a partial code sample of using the <code>Not</code> operation.<p>
+<caption><font size=-1><b>
+<a name="70578">
+<center><font size=-1><b><i>Listing 6-6	</i><img src="shared/sm-blank.gif" border=0> Taking the NOT of an Image</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Read the source image.
+     pb = new ParameterBlock();
+     pb.addSource(file);
+     RenderedOp src = JAI.create("stream", pb);
+     
+     // Create the Not operation.
+     RenderedOp dst = JAI.create("Not", src);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><a name="57560">
+<h2>6.5	<img src="shared/space.gif">Arithmetic Operators</h2>
+</a>JAI supports both <em>monadic</em> and <em>dyadic</em> arithmetic operators. The monadic arithmetic operations include per-band addition, subtraction, division, and multiplication operations between a source image and a constant to produce a destination image. The dyadic arithmetic operations include per-band addition, subtraction, division, and multiplication operations between two source images to produce a destination image.
+<p>The JAI arithmetic operators allow you to:
+<p><ul>
+<li>Add two source images and store the results in a destination image (<code>Add</code>)<p></ul><ul>
+<li>Add a constant value to the pixels in a source image and store the results in a destination image (<code>AddConst</code>)<p></ul><ul>
+<li>Add a collection of images and store the results in a destination image (<code>AddCollection</code>)<p></ul><ul>
+<li>Add a an array of double constants to a collection of rendered images (<code>AddConstToCollection</code>)<p></ul><ul>
+<li>Subtract one source image from an other and store the results in a destination image (<code>Subtract</code>)<p></ul><ul>
+<li>Subtract a constant value from the pixels in a source image and store the results in a destination image (<code>SubtractConst</code>)<p></ul><ul>
+<li>Divide one source image into an other and store the results in a destination image (<code>Divide</code>)<p></ul><ul>
+<li>Divide two source images of complex data and store the results in a destination image (<code>DivideComplex</code>)<p></ul><ul>
+<li>Divide a source image by a constant value (<code>DivideByConst</code>)<p></ul><ul>
+<li>Divide a source image into a constant value (<code>DivideIntoConst</code>)<p></ul><ul>
+<li>Multiply two source images and store the results in a destination image (<code>Multiply</code>)<p></ul><ul>
+<li>Multiply a source image by a constant value (<code>MultiplyConst)</code><p></ul><ul>
+<li>Multiply two images representing complex data (<code>MultiplyComplex</code>)<p></ul><ul>
+<li>Find the absolute value of pixels in a source image and store the results in a destination image (<code>Absolute</code>)<p></ul><ul>
+<li>Take the exponent of an image and store the results in a destination image (<code>Exp</code>)<p></ul>As with the relational and logical operators, the arithmetic operations require that both source images and the destination image have the same data type and number of bands. The sizes of the two images (height and width), however, need not be the same.
+<p>When JAI adds two images, it takes the value at location 0,0 in one source image, adds it to the value at location 0,0 in the second source image, and writes the sum at location 0,0 in the destination image. It then does the same for all other points in the images. Subtraction, multiplication, and division are handled similarly.
+<p>Arithmetic operations on multi-band images are performed on corresponding bands in the source images. That is, band 0 of the first image is added to band 0 of the second image, and so on.
+<p><a name="56366">
+<h3>6.5.1	<img src="shared/space.gif">Adding Two Source Images</h3>
+</a>The <code>Add</code> operation takes two rendered or renderable source images, and adds every pair of pixels, one from each source image of the corresponding position and band. The two source images may have different numbers of bands and data types. By default, the destination image bounds are the intersection of the two source image bounds. If the sources don't intersect, the destination will have a width and height of 0.
+<p>The default number of bands of the destination image is equal to the smallest number of bands of the sources, and the data type is the smallest data type with sufficient range to cover the range of both source data types (not necessarily the range of their sums).
+<p>As a special case, if one of the source images has <em>N</em> bands (where <em>N</em> is greater than one), the other source has one band, and an <code>ImageLayout</code> hint is provided containing a destination <code>SampleModel</code> with <em>K</em> bands (1 &lt; <em>K</em> <img src="shared/chars/lt_equal.gif"> <em>N</em>), then the single band of the one1-banded source is added to each of the first <em>K</em> bands of the <em>N</em>-band source.
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     dst[x][y][dstBand] = clamp(srcs[0][x][y][src0Band] +
+                                srcs[1][x][y][src1Band]);
+</pre>If the result of the addition underflows or overflows the minimum or maximum value supported by the destination image, the value will be clamped to the minimum or maximum value, respectively.
+<p>The <code>Add</code> operation two rendered or renderable source images and no parameters.
+<p><a href="Image-manipulation.doc.html#70605">Listing &#32;6-7</a> shows a partial code sample of using the <code>Add</code> operation to add two images.<p>
+<caption><font size=-1><b>
+<a name="70605">
+<center><font size=-1><b><i>Listing 6-7	</i><img src="shared/sm-blank.gif" border=0> Adding Two Images &#32;</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=4><pre>     // Read the two images.
+     pb = new ParameterBlock();
+     pb.addSource(s1);
+     RenderedImage src1 = (RenderedImage)JAI.create("stream", pb);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>     pb = new ParameterBlock();
+     pb.addSource(s2);
+     RenderedImage src2 = (RenderedImage)JAI.create("stream", pb);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>     // Create the ParameterBlock for the operation
+     pb = new ParameterBlock();
+     pb.addSource(src1);
+     pb.addSource(src2);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     // Create the Add operation.
+     RenderedImage dst = (RenderedImage)JAI.create("add", pb);
+</pre>
+<tr valign=top>
+
+<hr>
+
+<p><a name="56269">
+<h3>6.5.2	<img src="shared/space.gif">Adding a Constant Value to an Image</h3>
+</a>The <code>AddConst</code> operation adds one of a set of constant values to every pixel value of a source image on a per-band basis:
+<p><pre>     if (constants.length &lt; dstNumBands) {
+         dst[x][y][b] = src[x][y][b] + constants[0];
+     else {
+         dst[x][y][b] = src[x][y][b] + constants[b]
+</pre>The <code>AddConst</code> operation takes one rendered or renderable source image and one parameter:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="57421">
+Parameter
+</a><th><a name="57423">
+Type
+</a><th><a name="57425">
+Description
+</a>
+<tr valign=top><td><a name="57427">
+constants</a><br><td><a name="57429">
+double</a><br><td><a name="57431">
+The per-band constants to be added.</a><br>
+
+</Table>
+
+<p>The set of <code>constants</code> must contain one entry for each band of the source image. If the number of constants supplied is less than the number of bands of the destination image, the constant from entry 0 is applied to all the bands. Otherwise, a constant from a different entry is applied to each band.
+<p>By default, the destination image bound, data type, and number of bands are the same as the source image.
+<p>If the result of the addition underflows or overflows the minimum or maximum value supported by the destination image, the value will be clamped to the minimum or maximum value, respectively.
+<p><a href="Image-manipulation.doc.html#70988">Listing &#32;6-8</a> shows a partial code sample of using the <code>AddConst</code> operation.<p>
+<caption><font size=-1><b>
+<a name="70988">
+<center><font size=-1><b><i>Listing 6-8	</i><img src="shared/sm-blank.gif" border=0> Adding a Constant to an Image &#32;</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=5><pre>     // Create the constant values.
+     RenderedImage im1, im2;
+     ParameterBlock pb;
+     double k0, k1, k2;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=9><pre>     pb = new ParameterBlock();
+     pb.addSource(im1);
+     double[] constants = new double[3]; // or however many bands
+                                         // in im1
+     constants[0] = k0;
+     constants[1] = k1;
+     constants[2] = k2;
+     pb.add(constants);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     // Construct the AddConst operation.
+     RenderedImage addConstImage = JAI.create("addconst", pb, null);
+</pre>
+<tr valign=top>
+
+<hr>
+
+<p><a name="68198">
+<h3>6.5.3	<img src="shared/space.gif">Adding a Collection of Images</h3>
+</a>The <code>AddCollection</code> operation takes a collection of rendered images and adds every set of pixels, one from each source image of the corresponding position and band.
+<p>There's no restriction on the actual class type used to represent the source collection, but each element of the collection must be of the class <code>RenderedImages</code>. The number of images in the collection may vary from two to <em>n</em>, and is only limited by memory size. The source images may have different number of bands and data types.
+<p>By default, the destination image bound is the intersection of all the source image bounds. If any of the two sources don't intersect, the destination will have a width and a height of 0. The number of bands of the destination image is the same as the least number of bands of all the sources, and the data type is the biggest data type of all the sources.
+<p>The destination pixel values are calculated as:
+<p><pre>     dst[x][y][b] = 0;
+     for (int i = 0; i &lt; numSources; i++) {
+         dst[x][y][b] += srcs[i][x][y][b];
+     }
+</pre>If the result of the operation underflows or overflows the minimum or maximum value supported by the destination data type, the value will be clamped to the minimum or maximum value, respectively.
+<p>The <code>AddCollection</code> operation takes a collection of source images and no parameters.
+<p><a name="69890">
+<h3>6.5.4	<img src="shared/space.gif">Adding Constants to a Collection of Rendered Images</h3>
+</a>The <code>AddConstToCollection</code> operation takes a collection of rendered images and an array of double constants, and for each rendered image in the collection adds a constant to every pixel of its corresponding band.
+<p>The operation will attempt to store the result images in the same collection class as that of the source images. If a new instance of the source collection class can not be created, the operation will store the result images in a <code>java.util.Vector</code>. The output collection will contain the same number of images as in the source collection.
+<p>The <code>AddConstToCollection</code> operation takes a collection of rendered images and one parameter.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="69967">
+Parameter
+</a><th><a name="69969">
+Type
+</a><th><a name="69975">
+Description
+</a>
+<tr valign=top><td><a name="69971">
+constants</a><br><td><a name="69973">
+double</a><br><td><a name="69977">
+The constants to be added.</a><br>
+
+</Table>
+
+<p>If the number of constants supplied is less than the number of bands of the source image, the same constant from entry 0 is applied to all the bands. Otherwise, a constant from a different entry is applied to each band.
+<p><a name="59012">
+<h3>6.5.5	<img src="shared/space.gif">Subtracting Two Source Images</h3>
+</a>The <code>Subtract</code> operation takes two rendered or renderable images, and for every pair of pixels, one from each source image of the corresponding position and band, subtracts the pixel from the second source from the pixel from the first source.
+<p>The two source images may have different numbers of bands and data types. By default, the destination image bounds are the intersection of the two source image bounds. If the sources don't intersect, the destination will have a width and height of 0.
+<p> The default number of bands of the destination image is equal to the smallest number of bands of the source images, and the data type is the smallest data type with sufficient range to cover the range of both source data types (not necessarily the range of their sums).
+<p>As a special case, if one of the source images has <em>N</em> bands (where <em>N</em>  is greater than one), the other source has one band, and an <code>ImageLayout</code> hint is provided containing a destination <code>SampleModel</code> with <em>K</em> bands (1 &lt; <em>K</em> <img src="shared/chars/lt_equal.gif"> <em>N</em>), then the single band of the one-banded source is subtracted from or into each of the first <em>K</em> bands of the <em>N</em>-band source.
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     dst[x][y][dstBand] = clamp(srcs[0][x][y][src0Band] -
+                                srcs[1][x][y][src1Band]);
+</pre>If the result of the subtraction underflows or overflows the minimum or maximum value supported by the destination image, the value will be clamped to the minimum or maximum value respectively.
+<p>The <code>Subtract</code> operation takes two rendered or renderable source images and no parameters.
+<p><a name="59014">
+<h3>6.5.6	<img src="shared/space.gif">Subtracting a Constant from an Image</h3>
+</a>The <code>Subtract</code>Const operation takes one rendered or renderable image and an array of double constants, and subtracts every pixel of the same band of the source from the constant from the corresponding array entry. If the number of constants supplied is less than the number of bands of the destination, the constant from entry 0 is applied to all the bands. Otherwise, a constant from a different entry is applied to each band.
+<p>By default, the destination image bound, data type, and number of bands are the same as the source image.
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     if (constants.length &lt; dstNumBands) {
+         dst[x][y][b] = constants[0] - src[x][y][b];
+     } else {
+         dst[x][y][b] = constants[b] - src[x][y][b];
+     }
+</pre>The <code>Subtract</code>Const operation takes rendered or renderable source image and one parameter:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="60837">
+Parameter
+</a><th><a name="60839">
+Type
+</a><th><a name="60841">
+Description
+</a>
+<tr valign=top><td><a name="60843">
+constants</a><br><td><a name="60845">
+double</a><br><td><a name="60847">
+The per-band constants to be subtracted.</a><br>
+
+</Table>
+
+<p>If the result of the subtraction underflows or overflows the minimum or maximum value supported by the destination image, the value will be clamped to the minimum or maximum value respectively.
+<p><a name="63705">
+<h3>6.5.7	<img src="shared/space.gif">Subtracting an Image from a Constant</h3>
+</a>The <code>SubtractFromConst</code> operation takes one rendered or renderable source image and an array of double constants, and subtracts a constant from every pixel of its corresponding band of the source image. If the number of constants supplied is less than the number of bands of the destination, the constant from entry 0 is applied to all the bands. Otherwise, a constant from a different entry is applied to each band. By default, the destination image bounds, data type, and number of bands are the same as the source image.
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     if (constants.length &lt; dstNumBands) {
+         dst[x][y][b] = src[x][y][b] - constants[0];
+     } else {
+         dst[x][y][b] = src[x][y][b] - constants[b];
+     }
+</pre>The <code>SubtractFrom</code>Const operation takes one rendered or renderable source image and one parameter:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="63744">
+Parameter
+</a><th><a name="63746">
+Type
+</a><th><a name="63748">
+Description
+</a>
+<tr valign=top><td><a name="63750">
+constants</a><br><td><a name="63752">
+double</a><br><td><a name="63754">
+The constants to be subtracted.</a><br>
+
+</Table>
+
+<p>If the result of the subtraction underflows or overflows the minimum or maximum value supported by the destination image, the value will be clamped to the minimum or maximum value respectively.
+<p><a name="63828">
+<h3>6.5.8	<img src="shared/space.gif">Dividing One Image by Another Image</h3>
+</a>The <code>Divide</code> operation takes two rendered or renderable images, and for every pair of pixels, one from each source image of the corresponding position and band, divides the pixel from the first source by the pixel from the second source.
+<p>In case of division by 0, if the numerator is 0, the result is set to 0; otherwise, the result is set to the maximum value supported by the destination data type.
+<p>The <code>Divide</code> operation does not require any parameters.
+<p>The two source images may have different number of bands and data types. By default, the destination image bound is the intersection of the two source image bounds. If the two sources don't intersect, the destination will have a width and a height of 0. The default number of bands of the destination image is the same as the least number of bands of the source images, and the data type is the biggest data type of the sources.
+<p>As a special case, if one of the source images has <em>N</em> bands (where <em>N</em> is greater than one), the other source has one band, and an <code>ImageLayout</code> hint is provided containing a destination <code>SampleModel</code> with <em>K</em> bands (1 &lt; <em>K</em> <img src="shared/chars/lt_equal.gif"> <em>N</em>), then the single band of the one-banded source will be divided by or into to each of the first <em>K</em> bands of the <em>N</em>-band source.
+<p>If the result of the operation underflows or overflows the minimum or maximum value supported by the destination data type, it will be clamped to the minimum or maximum value respectively.
+<p>The <code>Divide</code> operation takes two rendered or renderable source images and no parameters.
+<p><a name="59876">
+<h3>6.5.9	<img src="shared/space.gif">Dividing an Image by a Constant</h3>
+</a>The <code>DivideByConst</code> operation takes one rendered or renderable source image and an array of double constants, and divides every pixel of the same band of the source by the constant from the corresponding array entry. If the number of constants supplied is less than the number of bands of the destination, the constant from entry 0 is applied to all the bands. Otherwise, a constant from a different entry is applied to each band.
+<p>In case of division by 0, if the numerator is 0, the result is set to 0. Otherwise, the result is set to the maximum value supported by the destination data type. By default, the destination image bound, data type, and number of bands are the same as the source image.
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     if (constants.length &lt; dstNumBands) {
+         dst[x][y][b] = srcs[x][y][b]/constants[0];
+     } else {
+         dst[x][y][b] = srcs[x][y][b]/constants[b];
+     }
+</pre>The <code>DivideByConst</code> operation takes one rendered or renderable source image and one parameter:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="60880">
+Parameter
+</a><th><a name="60882">
+Type
+</a><th><a name="60884">
+Description
+</a>
+<tr valign=top><td><a name="60886">
+constants</a><br><td><a name="60888">
+double</a><br><td><a name="60890">
+The per-band constants to divide by.</a><br>
+
+</Table>
+
+<p>If the result of the division underflows or overflows the minimum or maximum value supported by the destination image, the value will be clamped to the minimum or maximum value, respectively.
+<p><a name="59931">
+<h3>6.5.10	<img src="shared/space.gif">Dividing an Image into a Constant</h3>
+</a>The <code>DivideIntoConst</code> operation takes one rendered or renderable image and an array of double constants, and divides every pixel of the same band of the source into the constant from the corresponding array entry. If the number of constants supplied is less than the number of bands of the destination, the constant from entry 0 is applied to all the bands. Otherwise, a constant from a different entry is applied to each band.
+<p>In case of division by 0, if the numerator is 0, the result is set to 0. Otherwise, the result is set to the maximum value supported by the destination data type.
+<p>By default, the destination image bound, data type, and number of bands are the same as the source image.
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     if (constants.length &lt; dstNumBands) {
+         dst[x][y][b] = constants[0]/src[x][y][b];
+     } else {
+         dst[x][y][b] = constants[b]/src[x][y][b];
+     }
+</pre>The <code>DivideIntoConst</code> operation takes one rendered or renderable source image and one parameter:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="60923">
+Parameter
+</a><th><a name="60925">
+Type
+</a><th><a name="60927">
+Description
+</a>
+<tr valign=top><td><a name="60929">
+constants</a><br><td><a name="60931">
+double</a><br><td><a name="60933">
+The per-band constants to be divided into.</a><br>
+
+</Table>
+
+<p>If the result of the division underflows or overflows the minimum or maximum value supported by the destination image, the value will be clamped to the minimum or maximum value, respectively.
+<p><a name="59909">
+<h3>6.5.11	<img src="shared/space.gif">Dividing Complex Images</h3>
+</a>The <code>DivideComplex</code> operation divides two images representing complex data. The source images must each contain an even number of bands with the even-indexed bands (0, 2, etc.) representing the real and the odd-indexed bands (1, 3, etc.) the imaginary parts of each pixel. The destination image similarly contains an even number of bands with the same interpretation and with contents defined by:
+<p><pre>     <em>a</em> = src0[<em>x</em>][<em>y</em>][2<em>k</em>];
+     <em>b</em> = src0[<em>x</em>][<em>y</em>][2<em>k</em> + 1];
+     <em>c</em> = src1[<em>x</em>][<em>y</em>][2<em>k</em>];
+     <em>d</em> = src1[<em>x</em>][<em>y</em>][2<em>k</em> + 1];
+     
+     dst[<em>x</em>][<em>y</em>][2<em>k</em>] = (<em>a</em>*<em>c</em> + <em>b</em>*<em>d</em>)/(<em>c</em><sup>2</sup> + <em>d</em><sup>2</sup>)
+     dst[<em>x</em>][<em>y</em>][2<em>k</em> + 1] = (<em>b</em>*<em>c</em> - <em>a</em>*<em>d</em>)/(<em>c</em><sup>2</sup> + <em>d</em><sup>2</sup>)
+</pre><dl>
+<a name="70178">
+<dt><dd> where <img src="Image-manipulation.doc.ancA4.gif">
+</a><P></dl>
+With one exception, the number of bands of the destination image is the same as the minimum of the number of bands of the two sources, and the data type is the biggest data type of the sources. The exception occurs when one of the source images has two bands, the other source image has <em>N</em> = 2<em>K</em> bands where <em>K</em> is greater than one, and an <code>ImageLayout</code> hint is provided containing a destination <code>SampleModel</code> that specifies <em>M</em> = 2<em>L</em> bands for the destination image where <em>L</em> is greater than one and L <img src="shared/chars/lt_equal.gif"> <em>K</em>. In this special case if the first source has two bands, its single complex component will be divided by each of the first <em>L</em> complex components of the second source. If the second source has two bands, its single complex component will divide each of the <em>L</em> complex components of the first source.
+<p>If the result of the operation underflows or overflows the minimum or /maximum value supported by the destination data type, it will be clamped to the minimum or maximum value, respectively.
+<p>The <code>DivideComplex</code> operation takes two rendered or renderable source images representing complex data and no parameters.
+<p><a name="58296">
+<h3>6.5.12	<img src="shared/space.gif">Multiplying Two Images</h3>
+</a>The <code>Multiply</code> operation takes two rendered or renderable images, and multiplies every pair of pixels, one from each source image of the corresponding position and band.
+<p>The two source images may have different number of bands and data types. By default, the destination image bound is the intersection of the two source image bounds. If the two source images don't intersect, the destination will have a width and a height of 0.
+<p>The default number of bands of the destination image is the same as the least number of bands of the source images, and the data type is the biggest data type of the source images. A special case may occur if one of the source images has <em>N</em> bands where <em>N</em> is greater than one, the other source has one band, and an <code>ImageLayout</code> hint is provided containing a destination <code>SampleModel</code>. If the <code>SampleModel</code> hint specifies <em>K</em> bands for the destination image where <em>K</em> is greater than one and <em>K</em> <img src="shared/chars/lt_equal.gif"> <em>N</em>, each of the first <em>K</em> bands of the <em>N</em>-band source is multiplied by the single band of the one-band source.
+<p>In the default case the destination pixel values are calculated as:
+<p><pre>     for (int h = 0; h &lt; dstHeight; h++) {
+          for (int w = 0; w &lt; dstWidth; w++) {
+              for (int b = 0; b &lt; dstNumBands; b++) {
+                   dst[h][w][b] = src1[h][w][b] * src2[h][w][b];
+              }
+          }
+     }
+</pre>The <code>Multiply</code> operation takes two rendered or renderable source images and no  parameters.
+<p>If the result of the multiplication underflows or overflows the minimum or maximum value supported by the destination image, the value will be clamped to the minimum or maximum value, respectively.
+<p><a name="58212">
+<h3>6.5.13	<img src="shared/space.gif">Multiplying an Image by a Constant</h3>
+</a>The <code>MultiplyConst</code> operation takes one rendered or renderable image and an array of double constants, and multiplies every pixel of the same band of the source by the constant from the corresponding array entry. If the number of constants supplied is less than the number of bands of the destination, the constant from entry 0 is applied to all the bands. Otherwise, a constant from a different entry is applied to each band. By default, the destination image bound, data type, and number of bands are the same as the source image.
+<p>The destination pixel values are calculated as:
+<p><pre>     if (constants.length &lt; dstNumBands) {
+         dst[x][y][b] = srcs[x][y][b]*constants[0];
+     } else {
+         dst[x][y][b] = srcs[x][y][b]*constants[b];
+     }
+</pre>The <code>MultiplyConst</code> operation takes one rendered or renderable source image and one parameter:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="60998">
+Parameter
+</a><th><a name="61000">
+Type
+</a><th><a name="61002">
+Description
+</a>
+<tr valign=top><td><a name="61004">
+constants</a><br><td><a name="61006">
+double</a><br><td><a name="61008">
+The per-band constants to multiply by.</a><br>
+
+</Table>
+
+<p>If the result of the multiplication underflows or overflows the minimum or maximum value supported by the destination image, the value will be clamped to the minimum or maximum value respectively.
+<p><a name="59962">
+<h3>6.5.14	<img src="shared/space.gif">Multiplying Two Complex Images</h3>
+</a>The <code>MultiplyComplex</code> operation multiplies two images representing complex data. The source images must each contain an even number of bands, with the with the even-indexed bands (0, 2, etc.) representing the real and the odd-indexed bands (1, 3, etc.) the imaginary parts of each pixel. The destination image similarly contains an even number of bands with the same interpretation and with contents defined by:
+<p><pre>     a = src0[x][y][2<em>k</em>];
+     b = src0[x][y][2<em>k</em> + 1];
+     c = src1[x][y][2<em>k</em>];
+     d = src1[x][y][2<em>k</em> + 1];
+     
+     dst[x][y][2<em>k</em>] = a*c - b*d;
+     dst[x][y][2<em>k</em> + 1] = a*d + b*c;
+</pre><dl>
+<a name="70089">
+<dt><dd> where <img src="Image-manipulation.doc.anc3.gif">
+</a><P></dl>
+With one exception, the number of bands of the destination image is the same as the minimum of the number of bands of the two source images, and the data type is the biggest data type of the sources. The exception occurs when one of the source images has two bands, the other source image has <em>N</em> = 2<em>K</em> bands where <em>K</em> is greater than one, and an <code>ImageLayout</code> hint is provided containing a destination <code>SampleModel</code> that specifies <em>M</em> = 2<em>L</em> bands for the destination image where <em>L</em> is greater than one and <em>L</em> <img src="shared/chars/lt_equal.gif"> <em>K</em>. In this special case each of the first <em>L</em> complex components in the <em>N</em>-band source will be multiplied by the single complex component in the one-band source.
+<p>If the result of the operation underflows or overflows the minimum or maximum value supported by the destination data type, it will be clamped to the minimum or maximum value, respectively.
+<p>The <code>MultiplyComplex</code> operation takes two rendered source images representing complex data and no parameters.
+<p><a name="56159">
+<h3>6.5.15	<img src="shared/space.gif">Finding the Absolute Value of Pixels</h3>
+</a>Images with signed integer pixels have an asymmetrical range of values from <br>-32,768 to 32,767, which is not very useful for many imaging operations. The <code>Absolute</code> operation takes a single rendered or renderable source image, and computes the mathematical absolute value of each pixel:
+<p><pre>     if (src[<em>x</em>][<em>y</em>][<em>b</em>] &lt; 0) {
+          dst[<em>x</em>][<em>y</em>][<em>b</em>] = -src[<em>x</em>][<em>y</em>][<em>b</em>];
+      } else {
+          dst[<em>x</em>][<em>y</em>][<em>b</em>] = src[<em>x</em>][<em>y</em>][<em>b</em>];
+      }
+</pre>For signed integral data types, the smallest value of the data type does not have a positive counterpart; such values will be left unchanged. This behavior parallels that of the Java unary minus operator.
+<p>The <code>Absolute</code> operation takes one rendered or renderable source image and no parameters
+<p><a name="58051">
+<h3>6.5.16	<img src="shared/space.gif">Taking the Exponent of an Image</h3>
+</a>The <code>Exp</code> operation takes the exponential of the pixel values of an image. The pixel values of the destination image are defined by the following pseudocode:
+<p><pre>     dst[<em>x</em>][<em>y</em>][<em>b</em>] = java.lang.Math.exp(src[<em>x</em>][<em>y</em>][<em>b</em>])
+</pre>For integral image datatypes, the result will be rounded and clamped as needed.
+<p>The <code>Exp</code> operation takes one rendered or renderable source image and no parameters.
+<p><a href="Image-manipulation.doc.html#70720">Listing &#32;6-9</a> shows a partial code sample of using the <code>Exp</code> operation to take the exponent of an image.<p>
+<caption><font size=-1><b>
+<a name="70720">
+<center><font size=-1><b><i>Listing 6-9	</i><img src="shared/sm-blank.gif" border=0> Taking the Exponent of an Image &#32;</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=4><pre>     // Create a ParameterBlock with the source image.
+     pb = new ParameterBlock();
+     pb.addSource(src);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     // Perform the Exp operation
+     RenderedImage dst = JAI.create("exp", pb);
+</pre>
+<tr valign=top>
+
+<hr>
+
+<p><a name="62253">
+<h2>6.6	<img src="shared/space.gif">Dithering an Image</h2>
+</a>The display of a 24-bit color image on an 8-bit frame buffer requires an operation known as <em>dithering</em>. The dithering operation compresses the three bands of an RGB image to a single-banded byte image.
+<p>The dithering operation uses a lookup table through which the source image is passed to produce the destination image. The most-common use for the dithering operation is to convert true-color (three-band byte) images to pseudo-color (single-band byte) images.
+<p>JAI offers two operations for dithering an image: ordered dither and error-diffusion dither. The choice of dithering operation depends on desired speed and image quality, as shown in <a href="Image-manipulation.doc.html#65311">Table &#32;6-1</a>.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="65311">
+<i>Table 6-1	 </i><img src="shared/sm-blank.gif" border=0> Dithering Choices
+</a></b></font></caption>
+<tr valign=top><th><a name="65317">
+Dither Type
+</a><th><a name="65319">
+Relative Speed
+</a><th><a name="65321">
+Relative Quality
+</a>
+<tr valign=top><td><a name="65323">
+Ordered</a><br><td><a name="65325">
+Medium</a><br><td><a name="65327">
+Medium</a><br>
+<tr valign=top><td><a name="65329">
+Error diffusion</a><br><td><a name="65331">
+Slowest</a><br><td><a name="65333">
+Best</a><br>
+
+</Table>
+
+<p><a name="56241">
+<h3>6.6.1	<img src="shared/space.gif">Ordered Dither</h3>
+</a><code></code>The ordered dithering operation is somewhat faster than the error-diffusion dither and produces a somewhat better destination image quality than the error-diffusion dither. The <code>OrderedDither</code> operation also differs from error-diffusion dither in that it (<code>OrderedDither</code>) uses a color cube rather than a general lookup table.
+<p>The <code>OrderedDither</code> operation performs color quantization by finding the nearest color to each pixel in a supplied color cube lookup table and "shifting" the resulting index value by a pseudo-random amount determined by the values of a supplied <em>dither mask</em>.
+<p>The <code>OrderedDither</code> operation takes one rendered source image and two parameters:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="63972">
+Parameter
+</a><th><a name="63974">
+Type
+</a><th><a name="63976">
+Description
+</a>
+<tr valign=top><td><a name="63978">
+colorMap</a><br><td><a name="63980">
+ColorCube</a><br><td><a name="63982">
+The color cube. See <a href="Image-manipulation.doc.html#65379">Section &#32;6.6.1.1, "Color Map Parameter</a>."</a><br>
+<tr valign=top><td><a name="63984">
+ditherMask</a><br><td><a name="63986">
+KernelJAI[]</a><br><td><a name="63988">
+The dither mask. See <a href="Image-manipulation.doc.html#65380">Section &#32;6.6.1.2, "Dither Mask Parameter</a>."</a><br>
+
+</Table>
+
+<p><a name="65379">
+<h4>6.6.1.1	<img src="shared/space.gif">Color Map Parameter</h4>
+</a>The <code>colorMap</code> parameter can be either one of the predefined <code>ColorCubes</code>, or a custom color map can be created as a <code>ColorCube</code> object. To create a custom color map, see <a href="Image-enhance.doc.html#62701">Section &#32;7.6.1.3, "Creating a Color-cube Lookup Table</a>."
+<p>The predefined color maps are:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="66064">
+colorMap
+</a><th><a name="66066">
+Description
+</a>
+<tr valign=top><td><a name="66068">
+BYTE_496</a><br><td><a name="66070">
+A ColorCube with dimensions 4:9:6, useful for dithering RGB images into 216 colors. The offset of this ColorCube is 38. This color cube dithers blue values in the source image to one of four blue levels, green values to one of nine green levels, and red values to one of six red levels. This is the default color cube for the ordered dither operation.</a><br>
+<tr valign=top><td><a name="66072">
+BYTE_855</a><br><td><a name="66074">
+A ColorCube with dimensions 8:5:5, useful for dithering YCbCr images into 200 colors. The offset of this ColorCube is 54. This color cube dithers blue values in the source image to one of eight blue levels, green values to one of five green levels, and red values to one of five red levels.</a><br>
+
+</Table>
+
+<p><a name="65380">
+<h4>6.6.1.2	<img src="shared/space.gif">Dither Mask Parameter</h4>
+</a>The dither mask is a three-dimensional array of floating point values, the depth of which equals the number of bands in the image. The dither mask is supplied as an array of <code>KernelJAI</code> objects. Each element of the array is a <code>KernelJAI</code> object that represents the dither mask matrix for the corresponding band. All <code>KernelJAI</code> objects in the array must have the same dimensions and contain floating point values greater than or equal to 0.0 and less than or equal to 1.0.
+<p>The <code>ditherMask</code> parameter may either be one of the predefined dither masks or a custom mask may be created. To create a custom dither mask, see <a href="Image-manipulation.doc.html#70882">Section &#32;6.9, "Constructing a Kernel</a>."
+<p>The predefined dither masks are (see <a href="Image-manipulation.doc.html#64816">Figure &#32;6-1</a>):<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="66117">
+ditherMask
+</a><th><a name="66119">
+Description
+</a>
+<tr valign=top><td><a name="66121">
+DITHER_MASK_441</a><br><td><a name="66123">
+A 4 x 4 x 1 mask useful for dithering eight-bit grayscale images to one-bit images</a><br>
+<tr valign=top><td><a name="66125">
+DITHER_MASK_443</a><br><td><a name="66127">
+A 4 x 4 x 3 mask useful for dithering 24-bit color images to eight-bit pseudocolor images. This is the default dither mask for the OrderedDither operation.</a><br>
+
+</Table>
+
+<p><a name="64815">
+ <hr>
+<center><img src="Image-manipulation.doc.anc9.gif"></center><hr>
+
+</a>
+<a name="64816">
+<center><font size=-1><b><i>Figure 6-1	</i><img src="shared/sm-blank.gif" border=0> Ordered Dither Masks</b></font></center>
+</a><p>
+<a name="68884">
+<h4>6.6.1.3	<img src="shared/space.gif">OrderedDither Example</h4>
+</a><a href="Image-manipulation.doc.html#70282">Listing &#32;6-10</a> shows a partial code sample of using the <code>OrderedDither</code> operation.<p>
+<caption><font size=-1><b>
+<a name="70282">
+<center><font size=-1><b><i>Listing 6-10	</i><img src="shared/sm-blank.gif" border=0> Ordered Dither Example &#32;</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Create the color cube.
+     ColorCube colorMap =
+         srcRescale.getSampleModel().getTransferType() ==
+                    DataBuffer.TYPE_BYTE ?
+         ColorCube.BYTE_496 :
+         ColorCube.createColorCube(dataType, 38, new int[] {4, 9, 6});
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // Set the dither mask to the pre-defined 4x4x3 mask.
+     KernelJAI[] ditherMask = KernelJAI.DITHER_MASK_443;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // Create a new ParameterBlock.
+     ParameterBlock pb = new ParameterBlock();
+     pb.addSource(srcRescale).add(colorMap).add(ditherMask);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Create a gray scale color model.
+     ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+     int bits[] = new int[] {8};
+     ColorModel cm = new ComponentColorModel(cs, bits, false, false,
+                                             Transparency.OPAQUE,
+                                             DataBuffer.TYPE_BYTE);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>     // Create a tiled layout with the requested ColorModel.
+     layout = new ImageLayout();
+     layout.setTileWidth(TILE_WIDTH).setTileHeight(TILE_HEIGHT);
+     layout.setColorModel(cm);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>     // Create RenderingHints for the ImageLayout.
+     rh = new RenderingHints(JAI.KEY_IMAGE_LAYOUT, layout);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // Create the <code>ordered</code> dither OpImage.
+     PlanarImage image = (PlanarImage)JAI.create("ordereddither",
+                                                 pb, rh);
+</pre>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><a name="56245">
+<h3>6.6.2	<img src="shared/space.gif">Error-diffusion Dither</h3>
+</a>The error-diffusion dithering operation produces the most accurate destination image, but is more complex and thus takes longer than the ordered dither.
+<p>The <code>ErrorDiffusion</code> operation performs color quantization by finding the nearest color to each pixel in a supplied lookup table, called a color map, and "diffusing" the color quantization error below and to the right of the pixel.
+<p>The source image and the color map must have the same data type and number of bands. Also, the color map must have the same offset in all bands. The resulting image is single-banded.
+<p>The <code>ErrorDiffusion</code> operation takes one rendered source image and two parameters:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="63569">
+Parameter
+</a><th><a name="63587">
+Type
+</a><th><a name="63589">
+Description
+</a>
+<tr valign=top><td><a name="63575">
+colorMap</a><br><td><a name="63577">
+LookupTableJAI</a><br><td><a name="63579">
+The color map. A LookupTableJAI (see <a href="Image-enhance.doc.html#51408">Section &#32;7.6.1, "Creating the Lookup Table</a>") or a ColorCube (see <a href="Image-manipulation.doc.html#65379">Section &#32;6.6.1.1, "Color Map Parameter</a>").</a><br>
+<tr valign=top><td><a name="63581">
+errorKernel</a><br><td><a name="63583">
+KernelJAI</a><br><td><a name="63585">
+The error filter kernel. See <a href="Image-manipulation.doc.html#65437">Section &#32;6.6.2.1, "Error Filter Kernel</a>."</a><br>
+
+</Table>
+
+<p><a name="65437">
+<h4>6.6.2.1	<img src="shared/space.gif">Error Filter Kernel</h4>
+</a>The <code>errorKernel</code> parameter can be one of three predefined error filters or you can create your own. To create your own, see <a href="Image-manipulation.doc.html#70882">Section &#32;6.9, "Constructing a Kernel</a>."
+<p>The predefined kernels are (see <a href="Image-manipulation.doc.html#67565">Figure &#32;6-2</a>):<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="66174">
+errorKernel
+</a><th><a name="66176">
+Description
+</a>
+<tr valign=top><td><a name="66178">
+ERROR_FILTER_FLOYD_STEINBERG</a><br><td><a name="66180">
+Based on the Floyd-Steinberg filter model (the default if none is specified).</a><br>
+<tr valign=top><td><a name="66182">
+ERROR_FILTER_JARVIS</a><br><td><a name="66184">
+Based on the Jarvis-Judice-Ninke filter model.</a><br>
+<tr valign=top><td><a name="66186">
+ERROR_FILTER_STUCKI</a><br><td><a name="66188">
+Based on the Stucki filter model</a><br>
+
+</Table>
+
+<p>The error filter kernel, also known as the <em>error distribution filter</em>, diffuses the color quantization error below and to the right of the pixel. The elements of the error filter kernel that are in the same row and to the right of the key element or are in a row below that of the key element must be between 0.0 and 1.0 and must sum to approximately 1.0. The other elements of the error filter kernel are ignored.
+<p>In operation, the filter is laid on top of the source image so that its origin aligns with the pixel to be passed through the lookup table. <a href="Image-manipulation.doc.html#65540">Figure &#32;6-3</a> shows an example using the Floyd-Steinberg filter. The diffusion operation then:
+<p><ul>
+<li>Sets the pixel at 0,2 to 214 + (5 x [7/16])<p></ul><ul>
+<li>Sets the pixel at 1,0 to 128 + (5 x [3/16])<p></ul><ul>
+<li>Sets the pixel at 1,1 to 255 + (5 x [5/16])<p></ul><ul>
+<li>Sets the pixel at 1,2 to 104 + (5 x [1/16])<p></ul>The filter is then moved to the next pixel and the process is repeated. The result of this process is an averaging that produces a smoother dithered image with little or no contouring.
+<p><a name="67563">
+ <hr>
+<center><img src="Image-manipulation.doc.anc1.gif"></center><hr>
+
+</a>
+<a name="67565">
+<center><font size=-1><b><i>Figure 6-2	</i><img src="shared/sm-blank.gif" border=0> Error Diffusion Dither Filters</b></font></center>
+</a><p><a name="65539">
+ <hr>
+<center><img src="Image-manipulation.doc.anc10.gif"></center><hr>
+
+</a><a name="65540">
+<center><font size=-1><b><i>Figure 6-3	</i><img src="shared/sm-blank.gif" border=0> Error Diffusion Operation</b></font></center>
+</a><p>
+<a name="68885">
+<h4>6.6.2.2	<img src="shared/space.gif">ErrorDiffusion Example</h4>
+</a><a href="Image-manipulation.doc.html#70390">Listing &#32;6-11</a> shows a partial code sample of using the <code>ErrorDiffusion</code> operation.<p>
+<caption><font size=-1><b>
+<a name="70390">
+<center><font size=-1><b><i>Listing 6-11	</i><img src="shared/sm-blank.gif" border=0> Error Diffusion Example</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=9><pre>     // Create a color map with the 4-9-6 color cube and the 
+     // Floyd-Steinberg error kernel.
+     ParameterBlock pb;
+     pb.addSource(src);
+     pb.add(ColorCube.BYTE_496);
+     pb.add(KernelJAI.ERROR_FILTER_FLOYD_STEINBERG);
+     
+     // Perform the error diffusion operation.
+     dst = (PlanarImage)JAI.create("errordiffusion", pb, null);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><a name="56747">
+<h2>6.7	<img src="shared/space.gif">Clamping Pixel Values</h2>
+</a>The <code>clamp</code> operation restricts the range of pixel values for a source image by constraining the range of pixels to defined "low" and "high" values. The operation takes one rendered or renderable source image, and sets all the pixels whose value is below a low value to that low value and all the pixels whose value is above a high value to that high value. The pixels whose value is between the low value and the high value are left unchanged.
+<p>A different set of low and high values may be applied to each band of the source image, or the same set of low and high values may be applied to all bands of the source. If the number of low and high values supplied is less than the number of bands of the source, the values from entry 0 are applied to all the bands. Each low value must be less than or equal to its corresponding high value.
+<p>The pixel values of the destination image are defined by the following pseudocode:
+<p><pre>     lowVal = (low.length &lt; dstNumBands) ?
+              low[0] : low[b];
+     highVal = (high.length &lt; dstNumBands) ?
+               high[0] : high[b];
+     
+     if (src[x][y][b] &lt; lowVal) {
+         dst[x][y][b] = lowVal;
+     } else if (src[x][y][b] &gt; highVal) {
+         dst[x][y][b] = highVal;
+     } else {
+         dst[x][y][b] = src[x][y][b];
+     }
+</pre>The <code>clamp</code> operation takes one rendered or renderable source image and two parameters:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="73429">
+Parameter
+</a><th><a name="73431">
+Type
+</a><th><a name="73433">
+Description
+</a>
+<tr valign=top><td><a name="73435">
+low</a><br><td><a name="73437">
+Double</a><br><td><a name="73439">
+The lower boundary for each band.</a><br>
+<tr valign=top><td><a name="73441">
+high</a><br><td><a name="73443">
+Double</a><br><td><a name="73445">
+The upper boundary for each band.</a><br>
+
+</Table>
+
+<p><a href="Image-manipulation.doc.html#73456">Listing &#32;6-12</a> shows a partial code sample of using the <code>Clamp</code> operation to clamp pixels values to between 5 and 250.<p>
+<caption><font size=-1><b>
+<a name="73456">
+<center><font size=-1><b><i>Listing 6-12	</i><img src="shared/sm-blank.gif" border=0> Clamp Operation &#32;</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=5><pre>     // Get the source image width, height, and SampleModel.
+     int w = src.getWidth();
+     int h = src.getHeight();
+     int b = src.getSampleModel().getNumBands();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     // Set the low and high clamp values.
+     double[] low, high;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>     low  = new double[b];
+     high = new double[b];
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>     for (int i=0; i&lt;b; i++) {
+          low[i]  = 5;               // The low clamp value
+          high[i] = 250;             // The high clamp value
+     }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=6><pre>     // Create the ParameterBlock with the source and parameters.
+     pb = new ParameterBlock();
+     pb.addSource(src);
+     pb.add(low);
+     pb.add(high);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     // Perform the operation.
+     RenderedImage dst = JAI.create("clamp", pb);
+</pre>
+<tr valign=top>
+
+<hr>
+
+<p><a name="63344">
+<h2>6.8	<img src="shared/space.gif">Band Copying</h2>
+</a>The <code>BandSelect</code> operation chooses <em>N</em> bands from a rendered or renderable source image and copies the pixel data of these bands to the destination image in the order specified. The <code>bandIndices</code> parameter specifies the source band indices, and its size (<em>bandIndices.length</em>) determines the number of bands of the destination image. The destination image may have ay number of bands, and a particular band of the source image may be repeated in the destination image by specifying it multiple times in the <code>bandIndices</code> parameter.
+<p>Each of the <code>bandIndices</code> value should be a valid band index number of the source image. For example, if the source only has two bands, 1 is a valid band index, but 3 is not. The first band is numbered 0.
+<p>The destination pixel values are defined by the following pseudocode:
+<p><pre>     dst[x][y][b] = src[x][y][bandIndices[b]];
+</pre>The <code>bandselect</code> operation takes one rendered or renderable source image and one parameter:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="63453">
+Parameter
+</a><th><a name="63455">
+Type
+</a><th><a name="63457">
+Description
+</a>
+<tr valign=top><td><a name="63417">
+bandIndices</a><br><td><a name="63419">
+int[]</a><br><td><a name="63421">
+The indices of the selected bands of the image.</a><br>
+
+</Table>
+
+<p><a href="Image-manipulation.doc.html#70887">Listing &#32;6-13</a> shows a partial code sample of using the <code>BandSelect</code> operation.<p>
+<caption><font size=-1><b>
+<a name="70887">
+<center><font size=-1><b><i>Listing 6-13	</i><img src="shared/sm-blank.gif" border=0> BandSelect Operation</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=7><pre>     // Set the indices of three bands of the image.
+     int[] bandIndices;
+     bandIndices = new int[3];
+     bandIndices[0] = 0;
+     bandIndices[1] = 2;
+     bandIndices[2] = 2;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>     // Construct the ParameterBlock.
+     pb = new ParameterBlock();
+     pb.addSource(src);
+     pb.add(bandIndices);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     // Perform the operation
+     RenderedImage dst = (RenderedImage)JAI.create("bandSelect",
+                                                   pb);
+</pre>
+<tr valign=top>
+
+<hr>
+
+<p><a name="70882">
+<h2>6.9	<img src="shared/space.gif">Constructing a Kernel</h2>
+</a>The <code>KernelJAI</code> class is an auxiliary class used with the convolve, ordered dither, error diffusion dither, dilate, and erode operations. A <code>KernelJAI</code> is characterized by its width, height, and key element (origin) position. The key element is the element that is placed over the current source pixel to perform convolution or error diffusion.
+<p>For the <code>OrderedDither</code> operation (see <a href="Image-manipulation.doc.html#56241">Section &#32;6.6.1, "Ordered Dither</a>"), an array of <code>KernelJAI</code> objects is actually required with there being one <code>KernelJAI</code> per band of the image to be dithered. The location of the key element is in fact irrelevant to the <code>OrderedDither</code> operation.
+<p>There are four constructors for creating a <code>KernelJAI</code>. The following constructor constructs a <code>KernelJAI</code> object with the given parameters.
+<p><pre>     KernelJAI(int width, int height, float[] data)
+</pre>The <code>width</code> and <code>height</code> parameters determine the kernel size. The <code>data</code> parameter is a pointer to the floating point values stored in a data array. The key element is set to
+<p><dl>
+<a name="67824">
+<dt><dd> <img src="Image-manipulation.doc.anc7.gif">
+</a><P></dl>
+The following constructor constructs a <code>KernelJAI</code> object with the given parameters.
+<p><pre>     KernelJAI(int width, int height, int xOrigin, int yOrigin,<br>
+           float[] data)
+</pre>The <code>xOrigin</code> and <code>yOrigin</code> parameters determine the key element's origin.
+<p>The following constructor constructs a separable <code>KernelJAI</code> object from two float arrays.
+<p><pre>     KernelJAI(int width, int height, int xOrigin, int yOrigin,<br>
+           float[] dataH, float[] dataV)
+</pre>The <code>dataH</code> and <code>dataV</code> parameters specify the float data for the horizontal and vertical directions, respectively.
+<p>The following constructor constructs a <code>KernelJAI</code> object from a <code>java.awt.image.Kernel</code> object.
+<p><pre>     KernelJAI(java.awt.image.Kernel k)
+</pre><a href="Image-manipulation.doc.html#70938">Listing &#32;6-14</a> shows a partial code sample for creating a simple 3 x 3 kernel with the key element located at coordinates 1,1, as shown in <a href="Image-manipulation.doc.html#67855">Figure &#32;6-4</a>.<p>
+<caption><font size=-1><b>
+<a name="70938">
+<center><font size=-1><b><i>Listing 6-14	</i><img src="shared/sm-blank.gif" border=0> Constructing a KernelJAI</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=8><pre>     kernel = new KernelJAI;
+     float[] kernelData = {
+         0.0F,        1.0F,        0.0F,
+         1.0F,        1.0F,        1.0F,
+         0.0F,        1.0F,        0.0F
+     };
+     kernel = new KernelJAI(3, 3, 1, 1, kernelData);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><a name="67766">
+ <hr>
+<center><img src="Image-manipulation.doc.anc8.gif"></center><hr>
+
+</a>
+<a name="67855">
+<center><font size=-1><b><i>Figure 6-4	</i><img src="shared/sm-blank.gif" border=0> Example Kernel</b></font></center>
+</a><p>
+The Java Advanced Imaging API provides a shorthand method for creating several commonly-used kernels, listed in <a href="Image-manipulation.doc.html#68076">Table &#32;6-2</a>, which can simply be called by name. These kernels and their use are described in more detail in <a href="Image-manipulation.doc.html#56241">Section &#32;6.6.1, "Ordered Dither</a>," <a href="Image-manipulation.doc.html#56245">Section &#32;6.6.2, "Error-diffusion Dither</a>," and <a href="Analysis.doc.html#51214">Section &#32;9.5, "Edge Detection</a>."<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="68076">
+<i>Table 6-2	 </i><img src="shared/sm-blank.gif" border=0> Named Kernels
+</a></b></font></caption>
+<tr valign=top><th><a name="68080">
+Kernel Name
+</a><th><a name="68082">
+Description and Use
+</a>
+<tr valign=top><td><a name="68103">
+DITHER_MASK_441</a><br><td><a name="68105">
+Ordered dither filter. A 4 x 4 x 1 mask useful for dithering 8-bit grayscale images to 1-bit images</a><br>
+<tr valign=top><td><a name="68108">
+DITHER_MASK_443</a><br><td><a name="68110">
+Ordered dither filter. A 4 x 4 x 3 mask useful for dithering 24-bit color images to 8-bit pseudocolor images.</a><br>
+<tr valign=top><td><a name="68135">
+ERROR_FILTER_FLOYD_STEINBERG</a><br><td><a name="68138">
+Error diffusion filter, based on the Floyd-Steinberg model.</a><br>
+<tr valign=top><td><a name="68129">
+ERROR_FILTER_JARVIS</a><br><td><a name="68132">
+Error diffusion filter, based on the Jarvis-Judice-Ninke model.</a><br>
+<tr valign=top><td><a name="68123">
+ERROR_FILTER_STUCKI</a><br><td><a name="68126">
+Error diffusion filter, based on the Stucki model</a><br>
+<tr valign=top><td><a name="69605">
+GRADIENT_MASK_SOBEL_<br>HORIZONTAL</a><br><td><a name="69607">
+The horizontal gradient filter mask for the Gradient operation.</a><br>
+<tr valign=top><td><a name="69601">
+GRADIENT_MASK_SOBEL_<br>VERTICAL</a><br><td><a name="69603">
+The vertical gradient filter mask for the Gradient operation.</a><br>
+
+</Table>
+
+<p>The following code sample shows the format for creating a named kernel:
+<p><pre>     KernelJAI kernel = KernelJAI.ERROR_FILTER_FLOYD_STEINBERG;
+</pre><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.KernelJAI
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>public KernelJAI(int width, int height, int xOrigin, 
+       int &#32;yOrigin, float[] data)
+<p></ul></pre><dl>
+<a name="69657">
+<dt><dd> constructs a <code>KernelJAI</code> with the given parameters. The data array is copied.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=5><em>Parameters</em>:
+<p><td><code>width</code>
+<p><td>The width of the kernel.
+<p>
+<tr valign=top><td><code>height</code>
+<p><td>The height of the kernel
+<p>
+<tr valign=top><td><code>xOrigin</code>
+<p><td>The <em>x</em> coordinate of the key kernel element.
+<p>
+<tr valign=top><td><code>yOrigin</code>
+<p><td>The <em>y</em> coordinate of the key kernel element.
+<p>
+<tr valign=top><td><code>data</code>
+<p><td>The float data in row-major format.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>public KernelJAI(int width, int height, int xOrigin, 
+       int &#32;yOrigin, float[] dataH, float[] dataV)
+<p></ul></pre><dl>
+<a name="69776">
+<dt><dd> constructs a separable <code>KernelJAI</code> from two float arrays. The data arrays are copied.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:
+<p><td><code>dataH</code>
+<p><td>The float data for the horizontal direction.
+<p>
+<tr valign=top><td><code>dataV</code>
+<p><td>The float data for the vertical direction.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>public KernelJAI(int width, int height, float[] data)
+<p></ul></pre><dl>
+<a name="69830">
+<dt><dd> constructs a <code>KernelJAI</code> with the given parameters. The data array is copied. The key element is set to (trunc(width/2), trunc(height/2)).<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameters</em>:
+<p><td><code>data</code>
+<p><td>The float data in row-major format.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>public KernelJAI(Kernel k)
+<p></ul></pre><dl>
+<a name="69881">
+<dt><dd> constructs a <code>KernelJAI</code> from a <code>java.awt.image.Kernel</code> object.
+</a><P></dl>
+
+<p>
+<hr><br>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Color.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Image-enhance.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+
+
+<h5><a href="copyright.html">Copyright</a> &#169; 1999, Sun Microsystems, Inc.   All rights
+reserved.</h5>
+
+
+<!-- Last updated: Tue Nov 02 17:33:38 1999 -->
+</blockquote>
+</body>
+</html>

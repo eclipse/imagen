@@ -1,0 +1,1122 @@
+<html><head><title>Extending the API</title></head>
+<body bgcolor=#ffffff>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Encode.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Examples.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+<center>
+<a name="47227">
+<table width=90% border=0><tr>
+<td align=right><font size=3>C H A P T E R</font><font size=7><img src="shared/sm-space.gif">14</td></table>
+</a></center><center>
+<a name="47285">
+<table width=90% border=0><tr><td align=right>
+<hr size=7 noshade>
+<font size=6>Extending the API</font></td></table>
+</a></center><blockquote>
+<p><br><br><br><P><font size=7><b>T</b></font>HIS chapter describes how the JAI API may be extended.
+<p><a name="51567">
+<h2>14.1	<img src="shared/space.gif">Introduction</h2>
+</a>No image processing API can hope to capture the enormous variety of operations that can be performed on a digital image. Although the JAI API supports a large number of imaging operations, it was designed from the beginning to encourage programmers to write extensions rather than manipulating image data directly. JAI allows virtually <em>any</em> image processing algorithm to be added to the API and used as if it were a native part of the API.
+<p>The mechanism for adding functionality to the API can be presented at multiple levels of encapsulation and complexity. This allows programmers who wish to add simple things to the API to deal with simple concepts, while more complex extensions have complete control over their environment at the lowest levels of abstraction. The API also supports a variety of programming styles, including an immediate mode and a deferred mode of execution for different types of imaging applications.
+<p><a name="55405">
+<h2>14.2	<img src="shared/space.gif">Package Naming Convention</h2>
+</a>All extensions to JAI require the addition of new classes. All new classes are grouped into packages as a convenient means of organizing the new classes and separating the new classes from code libraries provided by others.
+<p>All new packages are given a <em>product name</em>. A product name is the accepted Java method of using your company's reversed Internet address to name new packages. This product naming convention helps to guarantee the uniqueness of package names. Supposing that your company's Internet address is <code>WebStuff.COM</code> and you wish to create a new package named <code>Prewitt</code>. A good choice of package name would be
+<p><pre>     com.webstuff.Prewitt
+</pre>Or, even
+<p><pre>     com.webstuff.media.jai.Prewitt
+</pre>To uniquely identify the package as part of JAI.
+<p>The above new <code>prewitt</code> class file must now be placed into a subdirectory that matches the product name, such as:
+<p><dl>
+<a name="55468">
+<dt><dd> <code>com/webstuff/media/jai</code> <em>for Solaris-based systems</em>
+</a><P><dl>
+<a name="55482">
+<dt><dd> or
+</a><P></dl>
+<a name="55477">
+<dt><dd> <code>com\webstuff\media\jai</code> <em>for Windows systems</em>
+</a><P></dl>
+The Java convention for class naming is to use initial caps for the name, as in the <code>Prewitt</code> example above. So called multi-word class names use initial caps for each word. For example <code>AddOpImage</code>.
+<p>Vendors are encouraged to use unique product names (by means of the Java programming language convention of reversed internet addresses) to maximize the likelihood of a clean installation.
+<p><a name="50856">
+<h2>14.3	<img src="shared/space.gif">Writing New Operators</h2>
+</a>To extend the JAI API by creating new operations, you will need to write a new <code>OpImage</code> subclass. This may be done by subclassing one or more existing utility classes to automate some of the details of the operator you wish to implement. For most operators, you need only supply a routine that is capable of producing an arbitrary rectangle of output, given contiguous source data.
+<p>Once created, new operators may be made available to users transparently and without user source code changes using the JAI registry mechanism. Existing applications may be tuned for new hardware platforms by strategic insertion of new implementations of existing operators.
+<p>To create a new operator, you need to create the following new classes:
+<p><ul>
+<li>A class that extends the <code>OpImage</code> class or any of its subclasses. This new class does the actual processing. See <a href="Extension.doc.html#51621">Section &#32;14.3.1, "Extending the OpImage Class</a>."<p></ul><ul>
+<li>A class that extends the <code>OperationDescriptor</code> class. This new class describes the operation such as name, parameter list, and so on. See <a href="Extension.doc.html#51155">Section &#32;14.3.2, "Extending the OperationDescriptor Interface</a>."<p></ul><ul>
+<li>If the operator will function in the Rendered mode only, a class that implements <code>java.awt.image.renderable.RenderedImageFactory</code>.<p></ul><a name="51621">
+<h3>14.3.1	<img src="shared/space.gif">Extending the OpImage Class</h3>
+</a>Every new operator being written must be a subclass of <code>OpImage</code> or one of its subclasses. The <code>OpImage</code> class currently has the following subclasses:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="51670">
+<i>Table 14-1	 </i><img src="shared/sm-blank.gif" border=0> OpImage Subclasses &#32;
+</a></b></font></caption>
+<tr valign=top><th><a name="51674">
+Class
+</a><th><a name="51676">
+Description
+</a>
+<tr valign=top><td><a name="51678">
+AreaOpImage</a><br><td><a name="51702">
+An abstract base class for image operators that require only a fixed rectangular source region around a source pixel in order to compute each destination pixel.</a><br>
+<tr valign=top><td><a name="55534">
+NullOpImage</a><br><td><a name="55536">
+Extends: PointOpImage</a><br><a name="55537">
+A trivial OpImage subclass that simply transmits its source unchanged. Potentially useful when an interface requires an OpImage but another sort of RenderedImage (such as a TiledImage) is to be used.</a><br>
+<tr valign=top><td><a name="51690">
+PointOpImage</a><br><td><a name="51723">
+An abstract base class for image operators that require only a single source pixel in order to compute each destination pixel.</a><br>
+<tr valign=top><td><a name="55550">
+ScaleOpImage</a><br><td><a name="55552">
+Extends: WarpOpImage</a><br><a name="55553">
+An abstract base class for scale-like operations that require rectilinear backwards mapping and padding by the resampling filter dimensions.</a><br>
+<tr valign=top><td><a name="51781">
+SourcelessOpImage</a><br><td><a name="51783">
+An abstract base class for image operators that have no image sources.</a><br>
+<tr valign=top><td><a name="51849">
+StatisticsOpImage</a><br><td><a name="51856">
+An abstract base class for image operators that compute statistics on a given region of an image, and with a given sampling rate.</a><br>
+<tr valign=top><td><a name="56039">
+UntiledOpImage</a><br><td><a name="56043">
+A general class for single-source operations in which the values of all pixels in the source image contribute to the value of each pixel in the destination image.</a><br>
+<tr valign=top><td><a name="51845">
+WarpOpImage</a><br><td><a name="51867">
+A general implementation of image warping, and a superclass for other geometric image operations.</a><br>
+
+</Table>
+
+<p>All abstract methods defined in <code>OpImage</code> must be implemented by any new <code>OpImage</code> subclass. Specifically, there are two fundamental methods that must be implemented:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="51916">
+Method
+</a><th><a name="51918">
+Description
+</a>
+<tr valign=top><td><a name="51920">
+getTile</a><br><td><a name="51922">
+Gets a tile for reading. This method is called by the object that has the new operator name as its source with a rectangle as its parameter. The operation is responsible for returning a rectangle filled in with the correct values.</a><br>
+<tr valign=top><td><a name="51924">
+computeRect</a><br><td><a name="51926">
+Computes a rectangle of output, given Raster sources. The method is called by getTile to do the actual computation. The extension must override this method.</a><br>
+
+</Table>
+
+<p>First, you have to decide which of the <code>OpImage</code> subclasses to extend. To write a new statistics operation, you would most likely extend the <code>StatisticsOpImage</code> class. Each subclass has a specific purpose, as described in <a href="Extension.doc.html#51670">Table &#32;14-1</a>.
+<p><a name="51155">
+<h3>14.3.2	<img src="shared/space.gif">Extending the OperationDescriptor Interface</h3>
+</a>Operations that are to be created using one of the <code>JAI.create</code> methods must be defined in the <code>registryFile</code>, which is included in the <code>jai_core.jar</code>. Each operation has an OperationDescriptor (denoted as "<code>odesc</code>" in the <code>registryFile</code>), which provides a textual description of the operation and specifies the number and type of its sources and parameters. The OperationDescriptor also specifies whether the operation supports rendered mode, renderable mode, or both.
+<p><a href="Extension.doc.html#59124">Listing &#32;14-1</a> shows a sample of the <code>registryFile</code> contents. Note that this is not the entire <code>registryFile</code>, only a small sample showing two operators (absolute and addconst).<p>
+<caption><font size=-1><b>
+<a name="59124">
+<center><font size=-1><b><i>Listing 14-1	</i><img src="shared/sm-blank.gif" border=0> registryFile Example</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td><pre>     odesc   javax.media.jai.operator.AbsoluteDescriptor     absolute
+     odesc   javax.media.jai.operator.AddConstDescriptor     addconst
+</pre>
+<tr valign=top><td><pre>     rif com.sun.media.jai.opimage.AbsoluteCRIF
+                    com.sun.media.jai   absolute   sunabsoluterif
+     rif com.sun.media.jai.mlib.MlibAbsoluteRIF
+                    com.sun.media.jai   absolute   mlibabsoluterif
+     rif com.sun.media.jai.opimage.AddConstCRIF
+                    com.sun.media.jai   addconst   sunaddconstrif
+     rif com.sun.media.jai.mlib.MlibAddConstRIF
+                    com.sun.media.jai   addconst   mlibaddconstrif
+</pre>
+<tr valign=top><td><pre>     crif    com.sun.media.jai.opimage.AbsoluteCRIF      absolute
+     crif    com.sun.media.jai.opimage.AddConstCRIF      addconst
+</pre>
+
+<hr>
+
+<p>All high-level operation names in JAI (such as <code>Rotate</code>, <code>Convolve</code>, and <code>AddConst</code>) are mapped to instances of <code>RenderedImageFactory</code> (RIF) and/or <code>ContextualRenderedImageFactory</code> (CRIF) that are capable of instantiating <code>OpImage</code> chains to perform the named operation. The RIF is for rendered mode operations only; the CRIF is for operations that can handle renderable mode or both rendered and renderable modes.
+<p>To avoid the problems associated with directly editing the <code>registryFile</code> and then repackaging it, you can register OperationDescriptors and RIFs and CRIFs using the OperationRegistry's <code>registerOperationDescription</code>, and <code>registerRIF</code> and <code>registerCRIF</code> methods. The only drawback to this method of registration is that the new operator will not be automatically reloaded every time a JAI program is executed., since the operation is not actually present in the <code>registryFile</code>. This means that to use the new operation, the operation will always have to be invoked beforehand.<code></code>
+<p>To temporarily register a new operation:
+<p><ul>
+
+1.	 <strong>Register the operation name</strong>.<p>
+<dl>
+<a name="51505">
+<dt><dd> The high-level operation name, called an <em>operation descriptor</em>, is registered by calling the <code>registerOperationByName()</code> method or the <code>registerOperationDescriptor()</code> method. The operation descriptor name must be unique.
+</a><P><a name="59090">
+<dt><dd> Once an operation descriptor is registered, it may be obtained by name by calling the <code>getOperationDescriptor()</code> method.
+</a><P></dl>
+
+2.	 <strong>Register the set of rendered image factory objects.</strong><p>
+<dl>
+<a name="59101">
+<dt><dd> The rendered image factory (RIF) is registered using the <code>registerRIF</code> method. Each RIF is registered with a specific operation name and is given a product name. Similar methods exist for registering a contextual image factory (CRIF). 
+</a><P></dl>
+</ul>
+The <code>OperationDescriptor</code> interface provides a comprehensive description of a specific image operation. All of the information regarding the operation, such as the operation name, version, input, and property, should be listed. Any conditions placed on the operation, such as its input format and legal parameter range, should also be included, and the methods to enforce these conditions should be implemented. A set of <code>PropertyGenerator</code>s may be specified to be used as a basis for the operation's property management.
+<p>Each family of the image operation in JAI must have a descriptor that implements this interface. The following basic resource data must be provided:
+<p><ul>
+<li>GlobalName - a global operation name that is visible to all and is the same in all <code>Locale</code>s<p></ul><ul>
+<li>LocalName - a localized operation name that may be used as a synonym for the global operation name<p></ul><ul>
+<li>Vendor - the name of the vendor (company name) defining this operation<p></ul><ul>
+<li>Description - a brief description of this operation<p></ul><ul>
+<li>DocURL - a URL where additional documentation on this operation may be found (the javadoc for the operation)<p></ul><ul>
+<li>Version - the version of the operation<p></ul><ul>
+<li>arg0Desc, arg1Desc, etc. - descriptions of the arguments. There must be a property for each argument.<p></ul><ul>
+<li>hint0Desc, hint1Desc, etc. - descriptions of the rendering hints. There must be a property for each hint.<p></ul>Additional information about the operation must be provided when appropriate. It is also good idea to provide a detailed description of the operation's functionality in the class comment. When all of the above data is provided, the operation can be added to an <code>OperationRegistry</code>.
+<p><a href="Extension.doc.html#58545">Listing &#32;14-2</a> shows an example of an operation descriptor for the Clamp operation. Note that the descriptor also contains descriptions of the two required operation parameters, but no hints as these aren't required for the operation.<p>
+<caption><font size=-1><b>
+<a name="58545">
+<center><font size=-1><b><i>Listing 14-2	</i><img src="shared/sm-blank.gif" border=0> Operation Descriptor for Clamp Operation</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=16><pre>     public class ClampDescriptor extends OperationDescriptorImpl {
+     /**
+     * The resource strings that provide the general documentation
+     * and specify the parameter list for this operation.
+     */
+     private static final String[][] resources = {
+         {"GlobalName",  "Clamp"},
+         {"LocalName",   "Clamp"},
+         {"Vendor",      "com.sun.javax.media.jai"},
+         {"Description", "Clamps the pixel values of a rendered image"},
+         {"DocURL",      "http://java.sun.com/products/java-media/jai/
+forDevelopers/jaiapi/
+javax.media.jai.operator.ClampDescriptor.html"},
+         {"Version",     "Beta")},
+         {"arg0Desc",    "The lower boundary for each band."},
+         {"arg1Desc",    "The upper boundary for each band."}
+     };
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p>As described in <a href="Programming-environ.doc.html#55910">Section &#32;3.3, "Processing Graphs</a>," JAI has two image modes: Rendered and Renderable. An operation supporting the Rendered mode takes <code>RenderedImages</code> as its sources, can only be used in a Rendered op chain, and produces a <code>RenderedImage</code>. An operation supporting the Renderable mode takes <code>RenderableImage</code>s as its sources, can only be used in a Renderable op chain, and produces a <code>RenderableImage</code>. Therefore, the class types of the sources and the destination of an operation are different between the two modes, but the parameters must be the same for both modes.
+<p>All operations must support the rendered mode and implement those methods that supply the information for this mode. Those operations that support the renderable mode must specify this feature using the <code>isRenderableSupported</code> method and implement those methods that supply the additional information for the Renderable mode.
+<p><a href="Extension.doc.html#58685">Table &#32;14-2</a> lists the Rendered mode methods. <a href="Extension.doc.html#58718">Table &#32;14-3</a> lists the Renderable mode methods. <a href="Extension.doc.html#58876">Table &#32;14-4</a> lists the methods relative to operation parameters.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="58685">
+<i>Table 14-2	 </i><img src="shared/sm-blank.gif" border=0> Rendered Mode Methods &#32;
+</a></b></font></caption>
+<tr valign=top><th><a name="58689">
+Method
+</a><th><a name="58691">
+Description
+</a>
+<tr valign=top><td><a name="58693">
+isRenderedSupported</a><br><td><a name="58695">
+Returns true if the operation supports the Rendered image mode. This must be true for all operations.</a><br>
+<tr valign=top><td><a name="58697">
+isImmediate</a><br><td><a name="58749">
+Returns true if the operation should be rendered immediately during the call to JAI.create; that is, the operation is placed in immediate mode.</a><br>
+<tr valign=top><td><a name="58701">
+getSourceClasses</a><br><td><a name="58760">
+Returns an array of Classes that describe the types of sources required by this operation in the Rendered image mode.</a><br>
+<tr valign=top><td><a name="58705">
+getDestClass</a><br><td><a name="58771">
+Returns a Class that describes the type of destination this operation produces in the Rendered image mode.</a><br>
+<tr valign=top><td><a name="58709">
+validateArguments</a><br><td><a name="58785">
+Returns true if this operation is capable of handling the input rendered source(s) and/or parameter(s) specified in the ParameterBlock.</a><br>
+
+</Table>
+<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="58718">
+<i>Table 14-3	 </i><img src="shared/sm-blank.gif" border=0> Renderable Mode Methods
+</a></b></font></caption>
+<tr valign=top><th><a name="58722">
+Method
+</a><th><a name="58724">
+Description
+</a>
+<tr valign=top><td><a name="58726">
+isRenderableSupported</a><br><td><a name="58811">
+Returns true if the operation supports the Renderable image mode.</a><br>
+<tr valign=top><td><a name="58801">
+getRenderableSourceClasses</a><br><td><a name="58836">
+Returns an array of Classes that describe the types of sources required by this operation in the Renderable image mode.</a><br>
+<tr valign=top><td><a name="58803">
+getRenderableDestClass</a><br><td><a name="58847">
+Returns a Class that describes the type of destination this operation produces in the Renderable image mode.</a><br>
+<tr valign=top><td><a name="58738">
+validateRenderableArguments</a><br><td><a name="58861">
+Returns true if this operation is capable of handling the input Renderable source(s) and/or parameter(s) specified in the ParameterBlock.</a><br>
+
+</Table>
+<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b><a name="58876">
+<i>Table 14-4	 </i><img src="shared/sm-blank.gif" border=0> Parameter Methods
+</a></b></font></caption>
+<tr valign=top><th><a name="58880">
+Method
+</a><th><a name="58882">
+Description
+</a>
+<tr valign=top><td><a name="58884">
+getNumParameters</a><br><td><a name="58924">
+Returns the number of parameters (not including the sources) required by this operation.</a><br>
+<tr valign=top><td><a name="58888">
+getParamClasses</a><br><td><a name="58935">
+Returns an array of Classes that describe the types of parameters required by this operation.</a><br>
+<tr valign=top><td><a name="58892">
+getParamNames</a><br><td><a name="58946">
+Returns an array of Strings that are the localized parameter names of this operation.</a><br>
+<tr valign=top><td><a name="58896">
+getParamDefaults</a><br><td><a name="58957">
+Returns an array of Objects that define the default values of the parameters for this operation.</a><br>
+<tr valign=top><td><a name="58900">
+getParamDefaultValue</a><br><td><a name="58902">
+Returns the default value of a specified parameter.</a><br>
+<tr valign=top><td><a name="58904">
+getParamMinValue</a><br><td><a name="58972">
+Returns the minimum legal value of a specified numeric parameter for this operation.</a><br>
+<tr valign=top><td><a name="58908">
+getParamMaxValue</a><br><td><a name="58979">
+Returns the maximum legal value of a specified numeric parameter for this operation.</a><br>
+
+</Table>
+
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.OperationRegistry
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void registerOperationDescriptor(OperationDescriptor odesc, 
+       String operationName)
+<p></ul></pre><dl>
+<a name="54658">
+<dt><dd> registers an <code>OperationDescriptor</code> with the registry. Each operation must have an <code>OperationDescriptor</code> before <code>registerRIF()</code> may be called to add RIFs to the operation.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameter</em>:
+<p><td><code>odesc</code>
+<p><td>An <code>OperationDescriptor</code> containing information about the operation.
+<p>
+<tr valign=top><td><code>operationName</code>
+<p><td>The operation name as a <code>String</code>.
+<p>
+
+</Table>
+
+</a><P><a name="54665">
+<dt><dd> A <code>OperationDescriptor</code> cannot be registered under an operation name under which another <code>OperationDescriptor</code> was registered previously. If such an attempt is made, an Error will be thrown.
+</a><P></dl>
+<pre><ul>
+<li>void registerOperationByName(String odescClassName, 
+       String &#32;operationName)
+<p></ul></pre><dl>
+<a name="54612">
+<dt><dd> registers an <code>OperationDescriptor</code> by its class name.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameter</em>:<em></em>
+<p><td><code>odescClassName</code>
+<p><td>The fully-qualified class name of the <code>OperationDescriptor</code>.
+<p>
+<tr valign=top><td><code>operationName</code>
+<p><td>The operation name as a <code>String</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>void unregisterOperationDescriptor(String operationName)
+<p></ul></pre><dl>
+<a name="54714">
+<dt><dd> unregisters an <code>OperationDescriptor</code> from the registry.
+</a><P></dl>
+<pre><ul>
+<li>void registerRIF(String operationName, String productName, 
+       RenderedImageFactory RIF)
+<p></ul></pre><dl>
+<a name="54736">
+<dt><dd> registers a <code>RIF</code> with a particular product and operation.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameter</em>:<em></em>
+<p><td><code>operationName</code>
+<p><td>The operation name as a <code>String</code>.
+<p>
+<tr valign=top><td><code>productName</code>
+<p><td>The product name, as a <code>String</code>.
+<p>
+<tr valign=top><td><code>RIF</code>
+<p><td>The <code>RenderedImageFactory</code> to be registered.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>void registerRIFByClassName(String operationName, 
+       String &#32;productName, String RIFClassName)
+<p></ul></pre><dl>
+<a name="54801">
+<dt><dd> registers a <code>RIF</code> with a particular product and operation, constructing an instance using its class name.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameter</em>:<em></em>
+<p><td><code>operationName</code>
+<p><td>The operation name as a <code>String</code>.
+<p>
+<tr valign=top><td><code>productName</code>
+<p><td>The product name, as a <code>String</code>.
+<p>
+<tr valign=top><td><code>RIFClassName</code>
+<p><td>The fully-qualified class name of a <code>RenderedImageFactory</code>.
+<p>
+
+</Table>
+
+</a><P></dl>
+<a name="51261">
+<h2>14.4	<img src="shared/space.gif">Iterators</h2>
+</a>Iterators are provided to help the programmer who writes extensions to the JAI API and does not want to use any of the existing API methods for traversing pixels. Iterators define the manner in which the source image pixels are traversed for processing. Iterators may be used both in the implementation of <code>computeRect</code> methods or <code>getTile</code> methods of OpImage subclasses, and for ad-hoc pixel-by-pixel image manipulation.
+<p>Iterators provide a mechanism for avoiding the need to cobble sources, as well as to abstract away the details of source pixel formatting. An iterator is instantiated to iterate over a specified rectangular area of a source <code>RenderedImage</code> or <code>Raster</code>. The iterator returns pixel values in <code>int</code>, <code>float</code>, or <code>double</code> format, automatically promoting integral values smaller than 32 bits to <code>int</code> when reading, and performing the corresponding packing when writing.
+<p>JAI offers three different types of iterator, which should cover nearly all of a programmer's needs. However, extenders may wish to build others for more specialized needs.
+<p>The most basic iterator is <code>RectIter</code>, which provides the ability to move one line or pixel at a time to the right or downwards, and to step forward in the list of bands. <code>RookIter</code> offers slightly more functionality than <code>RectIter</code>, allowing leftward and upward movement and backwards motion through the set of bands. Both <code>RectIter</code> and <code>RookIter</code> allow jumping to an arbitrary line or pixel, and reading and writing of a random band of the current pixel. The <code>RookIter</code> also allows jumping back to the first line or pixel, and to the last line or pixel.
+<p><code>RandomIter</code> allows an unrelated set of samples to be read by specifying their <em>x</em> and <em>y</em> coordinates and band offset. The <code>RandomIter</code> will generally be slower than either the <code>RectIter</code> or <code>RookIter</code>, but remains useful for its ability to hide pixel formats and tile boundaries.
+<p><a href="Extension.doc.html#57709">Figure &#32;14-1</a> shows the Iterator package hierarchy. The classes are described in the following paragraphs.
+<p><a name="51439">
+<h3>14.4.1	<img src="shared/space.gif">RectIter</h3>
+</a>The <code>RectIter</code> interface represents an iterator for traversing a read-only image in top-to-bottom, left-to-right order (<a href="Extension.doc.html#52169">Figure &#32;14-2</a>). The RectIter traversal will generally be the fastest style of iterator, since it does not need to perform bounds checks against the top or left edges of tiles. The <code>WritableRectIter</code> interface traverses a read/write image in the same manner as the RectIter.
+<p>The iterator is initialized with a particular rectangle as its bounds. The initialization takes place in a factory method (the <code>RectIterFactory</code> class) and is not a part of the iterator interface itself. Once initialized, the iterator may be reset to its initial state by means of the <code>startLines()</code>, <code>startPixels()</code>, and <code>startBands()</code> methods. Its position may be advanced using the <code>nextLine()</code>, <code>jumpLines()</code>, <code>nextPixel()</code>, <code>jumpPixels()</code>, and <code>nextBand()</code> methods.
+<p><a name="57707">
+ <hr>
+<center><img src="Extension.doc.ancA.gif"></center><hr>
+
+</a>
+<a name="57709">
+<center><font size=-1><b><i>Figure 14-1	</i><img src="shared/sm-blank.gif" border=0> Iterator Hierarchy</b></font></center>
+</a><p><a name="52168">
+ <hr>
+<center><img src="Extension.doc.anc.gif"></center><hr>
+
+</a><a name="52169">
+<center><font size=-1><b><i>Figure 14-2	</i><img src="shared/sm-blank.gif" border=0> RectIter Traversal Pattern</b></font></center>
+</a><p>
+The <code>WritableRookIter</code> interface adds the ability to alter the source pixel values using the various <code>setSample()</code> and <code>setPixel()</code> methods.
+<p>An instance of <code>RectIter</code> may be obtained by means of the <code>RectIterFactory.create()</code> method, which returns an opaque object implementing this interface.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.iterator.RectIterFactory
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>static RectIter create(RenderedImage im, Rectangle bounds)
+<p></ul></pre><dl>
+<a name="52667">
+<dt><dd> constructs and returns an instance of <code>RectIter</code> suitable for iterating over the given bounding rectangle within the given <code>RenderedImage</code> source. If the <code>bounds</code> parameter is null, the entire image will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>im</code>
+<p><td>A read-only <code>RenderedImage</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static RectIter create(Raster ras, Rectangle bounds)
+<p></ul></pre><dl>
+<a name="52735">
+<dt><dd> constructs and returns an instance of <code>RectIter</code> suitable for iterating over the given bounding rectangle within the given <code>Raster</code> source. If the <code>bounds</code> parameter is null, the entire Raster will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>ras</code>
+<p><td>A read-only <code>Raster</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static WritableRectIter createWritable(WritableRenderedImage 
+       im, Rectangle bounds)
+<p></ul></pre><dl>
+<a name="52793">
+<dt><dd> constructs and returns an instance of <code>WritableRectIter</code> suitable for iterating over the given bounding rectangle within the given <code>WritableRenderedImage</code> source. If the <code>bounds</code> parameter is null, the entire image will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>im</code>
+<p><td>A <code>WritableRenderedImage</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static WritableRectIter createWritable(WritableRaster ras, 
+       Rectangle bounds)
+<p></ul></pre><dl>
+<a name="52845">
+<dt><dd> constructs and returns an instance of <code>WritableRectIter</code> suitable for iterating over the given bounding rectangle within the given <code>WritableRaster</code> source. If the <code>bounds</code> parameter is null, the entire <code>Raster</code> will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>ras</code>
+<p><td>A <code>WritableRaster</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.iterator.RectIter
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>void startLines()
+<p></ul></pre><dl>
+<a name="52911">
+<dt><dd> sets the iterator to the first line of its bounding rectangle. The pixel and band offsets are unchanged.
+</a><P></dl>
+<pre><ul>
+<li>void startPixels()
+<p></ul></pre><dl>
+<a name="52936">
+<dt><dd> sets the iterator to the leftmost pixel of its bounding rectangle. The line and band offsets are unchanged.
+</a><P></dl>
+<pre><ul>
+<li>void startBands()
+<p></ul></pre><dl>
+<a name="52951">
+<dt><dd> sets the iterator to the first band of the image. The pixel column and line are unchanged.
+</a><P></dl>
+<pre><ul>
+<li>void nextLine()
+<p></ul></pre><dl>
+<a name="52967">
+<dt><dd> sets the iterator to the next line of the image. The pixel and band offsets are unchanged. If the iterator passes the bottom line of the rectangles, calls to <code>get()</code> methods are not valid.
+</a><P></dl>
+<pre><ul>
+<li>void jumpLines(int num)
+<p></ul></pre><dl>
+<a name="52984">
+<dt><dd> jumps downward <code>num</code> lines from the current position. The <code>num</code> parameter may be negative. The pixel and band offsets are unchanged.
+</a><P></dl>
+<pre><ul>
+<li>void nextPixel()
+<p></ul></pre><dl>
+<a name="53001">
+<dt><dd> sets the iterator to the next pixel in the image (that is, move rightward). The line and band offsets are unchanged.
+</a><P></dl>
+<pre><ul>
+<li>void jumpPixels(int num)
+<p></ul></pre><dl>
+<a name="53018">
+<dt><dd> jumps rightward <code>num</code> pixels from the current position. The <code>num</code> parameter may be negative. The line and band offsets are unchanged.
+</a><P></dl>
+<pre><ul>
+<li>void nextBand()
+<p></ul></pre><dl>
+<a name="53037">
+<dt><dd> sets the iterator to the next band in the image. The pixel column and line are unchanged.
+</a><P></dl>
+<a name="51452">
+<h3>14.4.2	<img src="shared/space.gif">RookIter</h3>
+</a>The <code>RookIter</code> interface represents an iterator for traversing a read-only image using arbitrary up-down and left-right moves (<a href="Extension.doc.html#52483">Figure &#32;14-3</a> shows two of the possibilities for traversing the pixels). The RookIter traversal will generally be somewhat slower than a corresponding instance of <code>RectIter</code>, since it must perform bounds checks against the top and left edges of tiles in addition to their bottom and right edges. The <code>WritableRookIter</code> interface traverses a read/write image in the same manner as the RookIter.
+<p>An instance of RookIter may be obtained by means of the <code>RookIterFactory.create()</code> or <code>RookIterFactory.createWritable()</code> methods, which return an opaque object implementing this interface. The iterator is initialized with a particular rectangle as its bounds. This initialization takes place in a factory method (the <code>RookIterFactory</code> class) and is not a part of the iterator interface itself.
+<p>Once initialized, the iterator may be reset to its initial state by means of the <code>startLines()</code>, <code>startPixels()</code>, and <code>startBands()</code> methods. As with <code>RectIter</code>, its position may be advanced using the <code>nextLine()</code>, <code>jumpLines()</code>, <code>nextPixel()</code>, <code>jumpPixels()</code>, and <code>nextBand()</code> methods.
+<p><a name="52482">
+ <hr>
+<center><img src="Extension.doc.anc1.gif"></center><hr>
+
+</a>
+<a name="52483">
+<center><font size=-1><b><i>Figure 14-3	</i><img src="shared/sm-blank.gif" border=0> RookIter Traversal Patterns</b></font></center>
+</a><p>
+<table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>avax.media.jai.iterator.RookIterFactory
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>static RookIter create(RenderedImage im, Rectangle bounds)
+<p></ul></pre><dl>
+<a name="53139">
+<dt><dd> constructs and returns an instance of <code>RookIter</code> suitable for iterating over the given bounding rectangle within the given <code>RenderedImage</code> source. If the <code>bounds</code> parameter is null, the entire image will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>im</code>
+<p><td>A read-only <code>RenderedImage</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static RookIter create(Raster ras, Rectangle bounds)
+<p></ul></pre><dl>
+<a name="53181">
+<dt><dd> constructs and returns an instance of <code>RookIter</code> suitable for iterating over the given bounding rectangle within the given <code>Raster</code> source. If the bounds parameter is null, the entire <code>Raster</code> will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>ras</code>
+<p><td>A read-only <code>Raster</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static WritableRookIter createWritable(WritableRenderedImage 
+       im, Rectangle bounds)
+<p></ul></pre><dl>
+<a name="53268">
+<dt><dd> constructs and returns an instance of <code>WritableRookIter</code> suitable for iterating over the given bounding rectangle within the given <code>WritableRenderedImage</code> source. If the <code>bounds</code> parameter is null, the entire image will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>im</code>
+<p><td>A <code>WritableRenderedImage</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static WritableRookIter createWritable(WritableRaster ras, 
+       Rectangle bounds)
+<p></ul></pre><dl>
+<a name="53299">
+<dt><dd> constructs and returns an instance of <code>WritableRookIter</code> suitable for iterating over the given bounding rectangle within the given <code>WritableRaster</code> source. If the <code>bounds</code> parameter is null, the entire <code>Raster</code> will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>ras</code>
+<p><td>A <code>WritableRaster</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<a name="53284">
+<h3>14.4.3	<img src="shared/space.gif">RandomIter</h3>
+</a>The <code>RandomIter</code> interface represents an iterator that allows random access to any sample within its bounding rectangle. The flexibility afforded by this class will generally exact a corresponding price in speed and setup overhead.
+<p>The iterator is initialized with a particular rectangle as its bounds. This initialization takes place in a factory method (the <code>RandomIterFactory</code> class) and is not a part of the iterator interface itself. An instance of <code>RandomIter</code> may be obtained by means of the <code>RandomIterFactory.create()</code> method, which returns an opaque object implementing this interface.
+<p>The <code>getSample()</code>, <code>getSampleFloat()</code>, and <code>getSampleDouble()</code> methods are provided to allow read-only access to the source data. The <code>getPixel()</code> methods allow retrieval of all bands simultaneously.
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>javax.media.jai.iterator.RandomIterFactory
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>static RandomIter create(RenderedImage im, Rectangle bounds)
+<p></ul></pre><dl>
+<a name="53787">
+<dt><dd> constructs and returns an instance of <code>RandomIter</code> suitable for iterating over the given bounding rectangle within the given <code>RenderedImage</code> source. If the <code>bounds</code> parameter is null, the entire image will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>im</code>
+<p><td>A read-only <code>RenderedImage</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static RandomIter create(Raster ras, Rectangle bounds)
+<p></ul></pre><dl>
+<a name="53841">
+<dt><dd> constructs and returns an instance of <code>RandomIter</code> suitable for iterating over the given bounding rectangle within the given <code>Raster</code> source. If the <code>bounds</code> parameter is null, the entire <code>Raster</code> will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>ras</code>
+<p><td>A read-only <code>Raster</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static WritableRandomIter createWritable(WritableRenderedImage 
+       im, Rectangle bounds)
+<p></ul></pre><dl>
+<a name="53866">
+<dt><dd> constructs and returns an instance of <code>WritableRandomIter</code> suitable for iterating over the given bounding rectangle within the given <code>WritableRenderedImage</code> source. If the <code>bounds</code> parameter is null, the entire image will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>im</code>
+<p><td>A <code>WritableRenderedImage</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static WritableRandomIter createWritable(WritableRaster ras, 
+       Rectangle bounds)
+<p></ul></pre><dl>
+<a name="53891">
+<dt><dd> constructs and returns an instance of <code>WritableRandomIter</code> suitable for iterating over the given bounding rectangle within the given <code>WritableRaster</code> source. If the <code>bounds</code> parameter is null, the entire Raster will be used.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameters</em>:<em></em>
+<p><td><code>ras</code>
+<p><td>A read-only <code>Raster</code> source.
+<p>
+<tr valign=top><td><code>bounds</code>
+<p><td>The bounding <code>Rectangle</code> for the iterator, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<a name="57770">
+<h3>14.4.4	<img src="shared/space.gif">Example RectIter</h3>
+</a><a href="Extension.doc.html#57929">Listing &#32;14-3</a> shows an example of the construction of a new <code>RectIter</code>.<p>
+<caption><font size=-1><b>
+<a name="57929">
+<center><font size=-1><b><i>Listing 14-3	</i><img src="shared/sm-blank.gif" border=0> Example RectIter</b></font></center>
+</a><p>
+</b></font></caption>
+<hr>
+<tr valign=top><td colspan=1 rowspan=9><pre>     import java.awt.Rectangle;
+     import java.awt.image.ColorModel;
+     import java.awt.image.DataBuffer;
+     import java.awt.image.PixelInterleavedSampleModel;
+     import java.awt.image.SampleModel;
+     import java.util.Random;
+     import javax.media.jai.*;
+     import javax.media.jai.iterator.*;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     class RectIterTest {
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>         int width = 10;
+         int height = 10;
+         int tileWidth = 4;
+         int tileHeight = 4;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>         public static void main(String[] args) {
+             new RectIterTest();
+         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>         public RectIterTest() {
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>             Random rand = new Random(1L);
+             Rectangle rect = new Rectangle();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=8><pre>             int[] bandOffsets = { 2, 1, 0 };
+             SampleModel sampleModel =
+                 new PixelInterleavedSampleModel(DataBuffer.TYPE_BYTE,
+                                                 tileWidth, tileHeight,
+                                                 3, 3*tileWidth,
+                                                 bandOffsets);
+             ColorModel colorModel = null;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>             TiledImage im = new TiledImage(0, 0, width, height, 0, 0,
+                                            sampleModel,
+                                            colorModel);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>             int[][][] check = new int[width][height][3];
+             int x, y, b;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>             for (int i = 0; i &lt; 10; i++) {
+                 rect.x = rand.nextInt(width);
+                 rect.width = rand.nextInt(width - rect.x) + 1;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=3><pre>                 rect.y = rand.nextInt(height);
+                 rect.height = rand.nextInt(height - rect.y) + 1;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     System.out.println("Filling rect " + rect + " with " + i);
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=2><pre>     WritableRectIter witer = RectIterFactory.createWritable(im,
+                                                             rect);
+</pre>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=12><pre>                 b = 0;
+                 witer.startBands();
+                 while (!witer.finishedBands()) {
+                     y = rect.y;
+                     witer.startLines();
+                     while (!witer.finishedLines()) {
+                         x = rect.x;
+                         witer.startPixels();
+                         while (!witer.finishedPixels()) {
+                             witer.setSample(i);
+                             check[x][y][b] = i;
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>                             ++x;
+                             witer.nextPixel();
+                         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>                         ++y;
+                         witer.nextLine();
+                     }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>                     ++b;
+                     witer.nextBand();
+                 }
+             }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=6><pre>             rect.x = 0;
+             rect.y = 0;
+             rect.width = width;
+             rect.height = height;
+             RectIter iter = RectIterFactory.createWritable(im, rect);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>             b = 0;
+             iter.startBands();
+             while (!iter.finishedBands()) {
+                 System.out.println();
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>                 y = 0;
+                 iter.startLines();
+                 while (!iter.finishedLines()) {
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=6><pre>                     x = 0;
+                     iter.startPixels();
+                     while (!iter.finishedPixels()) {
+                         int val = iter.getSample();
+                         System.out.print(val);
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=6><pre>                         if (val != check[x][y][b]) {
+                         System.out.print("(" + check[x][y][b] + ")  ");
+                         } else {
+                             System.out.print("     ");
+                         }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=4><pre>                         ++x;
+                         iter.nextPixel();
+                     }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>                     ++y;
+                     iter.nextLine();
+                     System.out.println();
+                 }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top><td colspan=1 rowspan=5><pre>                 ++b;
+                 iter.nextBand();
+             }
+         }
+     }
+</pre>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+<tr valign=top>
+
+<hr>
+
+<p><a name="56033">
+<h2>14.5	<img src="shared/space.gif">Writing New Image Decoders and Encoders</h2>
+</a>The <code>sample</code> directory contains an example of how to create a new image codec. The example is of a PNM codec, but can be used as a basis for creating any codec. The PNM codec consists of three files:<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><th><a name="58309">
+File Name
+</a><th><a name="58311">
+Description
+</a>
+<tr valign=top><td><a name="58313">
+SamplePNMCodec.java</a><br><td><a name="58315">
+Defines a subclass of ImageCodec for handling the PNM family of image files.</a><br>
+<tr valign=top><td><a name="58317">
+SamplePNMImageDecoder.java</a><br><td><a name="58319">
+Defines an ImageDecoder for the PNM family of image files. Necessary for reading PNM files.</a><br>
+<tr valign=top><td><a name="58321">
+SamplePNMImageEncoder.java</a><br><td><a name="58323">
+Defines an ImageEncoder for the PNM family of image files. Necessary for writing PNM files.</a><br>
+
+</Table>
+
+<p><a name="51534">
+<h3>14.5.1	<img src="shared/space.gif">Image Codecs</h3>
+</a>
+<hr noshade><b>Note:</b> The codec classes are provided for the developer as a convenience for file IO. These classes are not part of the official Java Advanced Imaging API and are subject to change as a result of the near future File IO extension API. Until the File IO extension API is defined, these classes and functions will be supported for JAI use.
+<hr noshade>
+The <code>ImageCodec</code> class allows the creation of image decoders and encoders. Instances of <code>ImageCodec</code> may be registered by name. The <code>registerCodec</code> method associates an <code>ImageCodec</code> with the given name. Any codec previously associated with the name is discarded. Once a codec has been registered, the name associated with it may be used as the <code>name</code> parameter in the <code>createImageEncoder</code> and <code>createImageDecoder</code> methods.
+<p>The <code>ImageCodec</code> class maintains a registry of <code>FormatRecognizer</code> objects that examine an <code>InputStream</code> and determine whether it adheres to the format handled by a particular <code>ImageCodec</code>. A <code>FormatRecognizer</code> is added to the registry with the <code>registerFormatRecognizer</code> method. The unregisterFormatRecognizer method removes a previously registered <code>FormatRecognizer</code> from the registry.
+<p>The <code>getCodec</code> method returns the <code>ImageCodec</code> associated with a given name. If no codec is registered with the given name, <code>null</code> is returned.<code></code>
+<p><table border = 0>
+<tr>
+<td><img src = "shared/cistine.gif"></td>
+<td><hr>
+<b>API:</b> <code>com.sun.media.jai.codec.ImageCodec
+</code>
+<hr>
+</td>
+</table><pre><ul>
+<li>static ImageEncoder createImageEncoder(String name, 
+       OutputStream dst, ImageEncodeParam param)
+<p></ul></pre><dl>
+<a name="54386">
+<dt><dd> returns an <code>ImageEncoder</code> object suitable for encoding to the supplied <code>OutputStream</code>, using the supplied <code>ImageEncodeParam</code> object.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameter</em>:<em></em>
+<p><td><code>name</code>
+<p><td>The name associated with the codec.
+<p>
+<tr valign=top><td><code>dst</code>
+<p><td>An <code>OutputStream</code> to write to.
+<p>
+<tr valign=top><td><code>param</code>
+<p><td>An instance of ImageEncodeParam suitable for use with the named codec, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static ImageEncoder createImageEncoder(String name, 
+       OutputStream dst)
+<p></ul></pre><dl>
+<a name="54450">
+<dt><dd> returns an <code>ImageEncoder</code> object suitable for encoding to the supplied <code>OutputStream</code> object. A null <code>ImageEncodeParam</code> is used.
+</a><P></dl>
+<pre><ul>
+<li>static ImageDecoder createImageDecoder(String name, 
+       InputStream &#32;src, ImageDecodeParam param)
+<p></ul></pre><dl>
+<a name="54475">
+<dt><dd> returns an <code>ImageDecoder</code> object suitable for decoding from the supplied <code>InputStream</code>, using the supplied <code>ImageDecodeParam</code> object.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=3><em>Parameter</em>:<em></em>
+<p><td><code>name</code>
+<p><td>The name associated with the codec.
+<p>
+<tr valign=top><td><code>src</code>
+<p><td>An <code>InputStream</code> to read from.
+<p>
+<tr valign=top><td><code>param</code>
+<p><td>An instance of ImageEncodeParam suitable for use with the named codec, or null.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static ImageDecoder createImageDecoder(String name, 
+       InputStream &#32;src)
+<p></ul></pre><dl>
+<a name="54534">
+<dt><dd> returns an <code>ImageDecoder</code> object suitable for decoding from the supplied <code>InputStream</code>. A null <code>ImageDecodeParam</code> is used.
+</a><P></dl>
+<pre><ul>
+<li>static void registerCodec(String name, ImageCodec codec)
+<p></ul></pre><dl>
+<a name="54571">
+<dt><dd> associates an <code>ImageCodec</code> with the given name. Case is not significant. Any codec previously associated with the name is discarded.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td colspan=1 rowspan=2><em>Parameter</em>:<em></em>
+<p><td><code>name</code>
+<p><td>The name associated with the codec.
+<p>
+<tr valign=top><td><code>codec</code>
+<p><td>The <code>ImageCodec</code> object to be associated with the given name.
+<p>
+
+</Table>
+
+</a><P></dl>
+<pre><ul>
+<li>static void unregisterCodec(String name)
+<p></ul></pre><dl>
+<a name="54557">
+<dt><dd> removes the association between a given <code>name</code> and an <code>ImageCodec</code> object. Case is not significant.
+</a><P></dl>
+<pre><ul>
+<li>static ImageCodec getCodec(String name)
+<p></ul></pre><dl>
+<a name="55825">
+<dt><dd> returns the <code>ImageCodec</code> associated with the given name. If no codec is registered with the given name, null is returned. Case is not significant.<p> 
+<Table Border="3" cellpadding=3>
+<caption><font size=-1><b></b></font></caption>
+<tr valign=top><td><em>Parameter</em>:<em></em>
+<p><td><code>name</code>
+<p><td>The name associated with the codec.
+<p>
+
+</Table>
+
+</a><P></dl>
+
+<p>
+<hr><br>
+ 
+<center>
+<a href="JAITOC.fm.html"><img src="shared/contents.gif" alt="Contents"></a> <a href="Encode.doc.html"><img src="shared/previous.gif" alt="Previous"></a> <a href="Examples.doc.html"><img src="shared/next.gif" alt="Next"></a> <p><font size=5><i>Programming in Java Advanced Imaging</i></font>
+</center>
+<br>
+ 
+
+
+<h5><a href="copyright.html">Copyright</a> &#169; 1999, Sun Microsystems, Inc.   All rights
+reserved.</h5>
+
+
+<!-- Last updated: Tue Nov 02 18:16:00 1999 -->
+</blockquote>
+</body>
+</html>
