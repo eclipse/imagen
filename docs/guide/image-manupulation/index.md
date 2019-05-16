@@ -7,26 +7,14 @@ nav_order: 7
 
 
 
-  ----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)6
-  ----------------------------------------
 
-
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Image Manipulation                                                    |
-+-----------------------------------------------------------------------+
-
-\
-\
-\
+# Image Manipulation                                                    
 
 **T**HIS chapter describes the basics of manipulating images to
 prepare them for further processing.
 
 
-6.1 ![](shared/space.gif)Introduction
+6.1 Introduction
 -------------------------------------
 
 The JAI image manipulation objects and methods are used to enhance and
@@ -54,7 +42,7 @@ Image manipulation includes:
 -   Band copy
 
 
-6.2 ![](shared/space.gif)Region of Interest Control
+6.2 Region of Interest Control
 ---------------------------------------------------
 
 Typically, any image enhancement operation takes place over the entire
@@ -85,7 +73,7 @@ An ROI can be attached to an image as a property. See [Chapter 11,
 \"Image Properties](../properties).\"
 
 
-### 6.2.1 ![](shared/space.gif)The ROI Class
+### 6.2.1 The ROI Class
 
 The `ROI` class stores an area as a grayscale (single-banded) image.
 This class represents region information in image form, and can thus
@@ -153,7 +141,7 @@ representation of the `ROI` is not available. In this case,
 :   sets the inclusion/exclusion threshold value.
 
 
-#### 6.2.1.1 ![](shared/space.gif)Determining the ROI Bounds
+#### 6.2.1.1 Determining the ROI Bounds
 
 The `getBounds` methods in the `ROI` class read the bounds of the
 `ROI`, as either a `Rectangle` or a `Rectangle2D`.
@@ -171,7 +159,7 @@ The `getBounds` methods in the `ROI` class read the bounds of the
 :   returns the bounds of the `ROI` as a `Rectangle2D`.
 
 
-#### 6.2.1.2 ![](shared/space.gif)Determining if an Area Lies Within or Intersects the ROI
+#### 6.2.1.2 Determining if an Area Lies Within or Intersects the ROI
 
 The `contains` methods in the `ROI` class test whether a given point
 or rectangular region lie within the `ROI`. The `intersects` methods
@@ -316,7 +304,7 @@ test whether a given rectangular region intersect with the `ROI`.
     The double height of the region.
 
 
-#### 6.2.1.3 ![](shared/space.gif)Creating a New ROI from an Existing ROI
+#### 6.2.1.3 Creating a New ROI from an Existing ROI
 
 Several methods allow the creation of a new `ROI` from an existing
 `ROI`. The `add` method adds another ROI to an existing one, creating
@@ -493,7 +481,7 @@ a new ROI.
     will always succeed.
 
 
-### 6.2.2 ![](shared/space.gif)The ROIShape Class
+### 6.2.2 The ROIShape Class
 
 The `ROIShape` class is used to store a region of interest within an
 image as an instance of a `java.awt.Shape`. Such regions are binary by
@@ -527,7 +515,7 @@ image form.
       : 
 
 
-#### 6.2.2.1 ![](shared/space.gif)Determining the ROI Bounds
+#### 6.2.2.1 Determining the ROI Bounds
 
 The following methods in the `ROIShape` class read the bounds of the
 `ROI`.
@@ -544,7 +532,7 @@ The following methods in the `ROIShape` class read the bounds of the
 :   returns the bounds of the ROI as a `Rectangle2D`.
 
 
-#### 6.2.2.2 ![](shared/space.gif)Determining if an Area Lies Within or Intersects the ROIShape
+#### 6.2.2.2 Determining if an Area Lies Within or Intersects the ROIShape
 
 The `ROIShape.contains` method is used to determine if a given pixel
 lies within the region of interest. The `ROIShape.intersects` method
@@ -693,7 +681,7 @@ the ROI.``
     The height of the region.
 
 
-#### 6.2.2.3 ![](shared/space.gif)Creating a New ROIShape from an Existing ROIShape
+#### 6.2.2.3 Creating a New ROIShape from an Existing ROIShape
 
 Several methods allow the creation of a new `ROIShape` from the old
 `ROIShape`.
@@ -769,7 +757,7 @@ Several methods allow the creation of a new `ROIShape` from the old
     `ColorSpace.TYPE_GRAY` color space.
 
 
-6.3 ![](shared/space.gif)Relational Operators
+6.3 Relational Operators
 ---------------------------------------------
 
 Given two source images and a destination image, the JAI relational
@@ -800,7 +788,7 @@ and maximum pixel values for each band of an image.
 ------------------------------------------------------------------------
 
 
-### 6.3.1 ![](shared/space.gif)Finding the Maximum Values of Two Images
+### 6.3.1 Finding the Maximum Values of Two Images
 
 The `max` operation takes two rendered images, and for every pair of
 pixels, one from each source image of the corresponding position and
@@ -830,7 +818,7 @@ rendered mode.
 
 **[]{#70421}**
 
-***Listing 6-1* ![](shared/sm-blank.gif) Finding the Maximum Value of
+***Listing 6-1*  Finding the Maximum Value of
 Two Images**
 
 ------------------------------------------------------------------------
@@ -845,7 +833,7 @@ Two Images**
 ------------------------------------------------------------------------
 
 
-### 6.3.2 ![](shared/space.gif)Finding the Minimum Values of Two Images
+### 6.3.2 Finding the Minimum Values of Two Images
 
 The `min` operation takes two rendered images, and for every pair of
 pixels, one from each source image of the corresponding position and
@@ -875,7 +863,7 @@ images in the renderable mode.
 
 **[]{#70445}**
 
-***Listing 6-2* ![](shared/sm-blank.gif) Finding the Minimum Value of
+***Listing 6-2*  Finding the Minimum Value of
 Two Images**
 
 ------------------------------------------------------------------------
@@ -891,7 +879,7 @@ Two Images**
 ------------------------------------------------------------------------
 
 
-6.4 ![](shared/space.gif)Logical Operators
+6.4 Logical Operators
 ------------------------------------------
 
 JAI supports *monadic*, *dyadic*, and *unary* logical operators. The
@@ -938,7 +926,7 @@ and number of bands. The sizes of the two images (height and width),
 however, need not be the same.
 
 
-### 6.4.1 ![](shared/space.gif)ANDing Two Images
+### 6.4.1 ANDing Two Images
 
 The `And` operation takes two rendered or renderable source images,
 and performs a bit-wise logical AND on every pair of pixels, one from
@@ -983,7 +971,7 @@ sample of using the `And` operation to AND two images together.
 
 **[]{#70476}**
 
-***Listing 6-3* ![](shared/sm-blank.gif) ANDing Two Images**
+***Listing 6-3*  ANDing Two Images**
 
 ------------------------------------------------------------------------
 
@@ -998,7 +986,7 @@ sample of using the `And` operation to AND two images together.
 ------------------------------------------------------------------------
 
 
-### 6.4.2 ![](shared/space.gif)ANDing an Image with a Constant
+### 6.4.2 ANDing an Image with a Constant
 
 The `AndConst` operation takes one rendered or renderable image and an
 array of integer constants, and performs a bit-wise logical AND
@@ -1054,7 +1042,7 @@ defined constant of value 1.2.
 
 **[]{#70503}**
 
-***Listing 6-4* ![](shared/sm-blank.gif) ANDing an Image with a
+***Listing 6-4*  ANDing an Image with a
 Constant**
 
 ------------------------------------------------------------------------
@@ -1071,7 +1059,7 @@ Constant**
 ------------------------------------------------------------------------
 
 
-### 6.4.3 ![](shared/space.gif)ORing Two Images
+### 6.4.3 ORing Two Images
 
 The `Or` operation takes two rendered or renderable images, and
 performs a bit-wise logical OR on every pair of pixels, one from each
@@ -1116,7 +1104,7 @@ sample of using the `or` operation to OR two images.
 
 **[]{#70533}**
 
-***Listing 6-5* ![](shared/sm-blank.gif) ORing Two Images**
+***Listing 6-5*  ORing Two Images**
 
 ------------------------------------------------------------------------
 
@@ -1136,7 +1124,7 @@ sample of using the `or` operation to OR two images.
 ------------------------------------------------------------------------
 
 
-### 6.4.4 ![](shared/space.gif)ORing an Image with a Constant
+### 6.4.4 ORing an Image with a Constant
 
 The `OrConst` operation takes one rendered or renderable image and an
 array of integer constants, and performs a bit-wise logical OR between
@@ -1187,7 +1175,7 @@ and one parameter:
   : 
 
 
-### 6.4.5 ![](shared/space.gif)XORing Two Images
+### 6.4.5 XORing Two Images
 
 The `Xor` operation takes two rendered or renderable images, and
 performs a bit-wise logical XOR on every pair of pixels, one from each
@@ -1228,7 +1216,7 @@ The `Xor` operation takes one rendered or renderable source image and
 no parameters.
 
 
-### 6.4.6 ![](shared/space.gif)XORing an Image with a Constant
+### 6.4.6 XORing an Image with a Constant
 
 The `XorConst` operation takes one rendered or renderable image and an
 array of integer constants, and performs a bit-wise logical OR between
@@ -1279,7 +1267,7 @@ and one parameter:
   : 
 
 
-### 6.4.7 ![](shared/space.gif)Taking the Bitwise NOT of an Image
+### 6.4.7 Taking the Bitwise NOT of an Image
 
 The `Not` operation takes one rendered or renderable image, and
 performs a bit-wise logical NOT on every pixel from every band of the
@@ -1320,7 +1308,7 @@ sample of using the `Not` operation.
 
 **[]{#70578}**
 
-***Listing 6-6* ![](shared/sm-blank.gif) Taking the NOT of an Image**
+***Listing 6-6*  Taking the NOT of an Image**
 
 ------------------------------------------------------------------------
 
@@ -1335,7 +1323,7 @@ sample of using the `Not` operation.
 ------------------------------------------------------------------------
 
 
-6.5 ![](shared/space.gif)Arithmetic Operators
+6.5 Arithmetic Operators
 ---------------------------------------------
 
 JAI supports both *monadic* and *dyadic* arithmetic operators. The
@@ -1419,7 +1407,7 @@ corresponding bands in the source images. That is, band 0 of the first
 image is added to band 0 of the second image, and so on.
 
 
-### 6.5.1 ![](shared/space.gif)Adding Two Source Images
+### 6.5.1 Adding Two Source Images
 
 The `Add` operation takes two rendered or renderable source images,
 and adds every pair of pixels, one from each source image of the
@@ -1458,7 +1446,7 @@ sample of using the `Add` operation to add two images.
 
 **[]{#70605}**
 
-***Listing 6-7* ![](shared/sm-blank.gif) Adding Two Images**
+***Listing 6-7*  Adding Two Images**
 
 ------------------------------------------------------------------------
 
@@ -1482,7 +1470,7 @@ sample of using the `Add` operation to add two images.
 ------------------------------------------------------------------------
 
 
-### 6.5.2 ![](shared/space.gif)Adding a Constant Value to an Image
+### 6.5.2 Adding a Constant Value to an Image
 
 The `AddConst` operation adds one of a set of constant values to every
 pixel value of a source image on a per-band basis:
@@ -1522,7 +1510,7 @@ sample of using the `AddConst` operation.
 
 **[]{#70988}**
 
-***Listing 6-8* ![](shared/sm-blank.gif) Adding a Constant to an
+***Listing 6-8*  Adding a Constant to an
 Image**
 
 ------------------------------------------------------------------------
@@ -1547,7 +1535,7 @@ Image**
 ------------------------------------------------------------------------
 
 
-### 6.5.3 ![](shared/space.gif)Adding a Collection of Images
+### 6.5.3 Adding a Collection of Images
 
 The `AddCollection` operation takes a collection of rendered images
 and adds every set of pixels, one from each source image of the
@@ -1581,7 +1569,7 @@ The `AddCollection` operation takes a collection of source images and
 no parameters.
 
 
-### 6.5.4 ![](shared/space.gif)Adding Constants to a Collection of Rendered Images
+### 6.5.4 Adding Constants to a Collection of Rendered Images
 
 The `AddConstToCollection` operation takes a collection of rendered
 images and an array of double constants, and for each rendered image
@@ -1612,7 +1600,7 @@ the bands. Otherwise, a constant from a different entry is applied to
 each band.
 
 
-### 6.5.5 ![](shared/space.gif)Subtracting Two Source Images
+### 6.5.5 Subtracting Two Source Images
 
 The `Subtract` operation takes two rendered or renderable images, and
 for every pair of pixels, one from each source image of the
@@ -1649,7 +1637,7 @@ The `Subtract` operation takes two rendered or renderable source
 images and no parameters.
 
 
-### 6.5.6 ![](shared/space.gif)Subtracting a Constant from an Image
+### 6.5.6 Subtracting a Constant from an Image
 
 The `Subtract`Const operation takes one rendered or renderable image
 and an array of double constants, and subtracts every pixel of the
@@ -1687,7 +1675,7 @@ or maximum value supported by the destination image, the value will be
 clamped to the minimum or maximum value respectively.
 
 
-### 6.5.7 ![](shared/space.gif)Subtracting an Image from a Constant
+### 6.5.7 Subtracting an Image from a Constant
 
 The `SubtractFromConst` operation takes one rendered or renderable
 source image and an array of double constants, and subtracts a
@@ -1723,7 +1711,7 @@ or maximum value supported by the destination image, the value will be
 clamped to the minimum or maximum value respectively.
 
 
-### 6.5.8 ![](shared/space.gif)Dividing One Image by Another Image
+### 6.5.8 Dividing One Image by Another Image
 
 The `Divide` operation takes two rendered or renderable images, and
 for every pair of pixels, one from each source image of the
@@ -1759,7 +1747,7 @@ The `Divide` operation takes two rendered or renderable source images
 and no parameters.
 
 
-### 6.5.9 ![](shared/space.gif)Dividing an Image by a Constant
+### 6.5.9 Dividing an Image by a Constant
 
 The `DivideByConst` operation takes one rendered or renderable source
 image and an array of double constants, and divides every pixel of the
@@ -1799,7 +1787,7 @@ maximum value supported by the destination image, the value will be
 clamped to the minimum or maximum value, respectively.
 
 
-### 6.5.10 ![](shared/space.gif)Dividing an Image into a Constant
+### 6.5.10 Dividing an Image into a Constant
 
 The `DivideIntoConst` operation takes one rendered or renderable image
 and an array of double constants, and divides every pixel of the same
@@ -1841,7 +1829,7 @@ maximum value supported by the destination image, the value will be
 clamped to the minimum or maximum value, respectively.
 
 
-### 6.5.11 ![](shared/space.gif)Dividing Complex Images
+### 6.5.11 Dividing Complex Images
 
 The `DivideComplex` operation divides two images representing complex
 data. The source images must each contain an even number of bands with
@@ -1882,7 +1870,7 @@ The `DivideComplex` operation takes two rendered or renderable source
 images representing complex data and no parameters.
 
 
-### 6.5.12 ![](shared/space.gif)Multiplying Two Images
+### 6.5.12 Multiplying Two Images
 
 The `Multiply` operation takes two rendered or renderable images, and
 multiplies every pair of pixels, one from each source image of the
@@ -1922,7 +1910,7 @@ minimum or maximum value supported by the destination image, the value
 will be clamped to the minimum or maximum value, respectively.
 
 
-### 6.5.13 ![](shared/space.gif)Multiplying an Image by a Constant
+### 6.5.13 Multiplying an Image by a Constant
 
 The `MultiplyConst` operation takes one rendered or renderable image
 and an array of double constants, and multiplies every pixel of the
@@ -1958,7 +1946,7 @@ minimum or maximum value supported by the destination image, the value
 will be clamped to the minimum or maximum value respectively.
 
 
-### 6.5.14 ![](shared/space.gif)Multiplying Two Complex Images
+### 6.5.14 Multiplying Two Complex Images
 
 The `MultiplyComplex` operation multiplies two images representing
 complex data. The source images must each contain an even number of
@@ -1997,7 +1985,7 @@ The `MultiplyComplex` operation takes two rendered source images
 representing complex data and no parameters.
 
 
-### 6.5.15 ![](shared/space.gif)Finding the Absolute Value of Pixels
+### 6.5.15 Finding the Absolute Value of Pixels
 
 Images with signed integer pixels have an asymmetrical range of values
 from\
@@ -2021,7 +2009,7 @@ The `Absolute` operation takes one rendered or renderable source image
 and no parameters
 
 
-### 6.5.16 ![](shared/space.gif)Taking the Exponent of an Image
+### 6.5.16 Taking the Exponent of an Image
 
 The `Exp` operation takes the exponential of the pixel values of an
 image. The pixel values of the destination image are defined by the
@@ -2040,7 +2028,7 @@ sample of using the `Exp` operation to take the exponent of an image.
 
 **[]{#70720}**
 
-***Listing 6-9* ![](shared/sm-blank.gif) Taking the Exponent of an
+***Listing 6-9*  Taking the Exponent of an
 Image**
 
 ------------------------------------------------------------------------
@@ -2055,7 +2043,7 @@ Image**
 ------------------------------------------------------------------------
 
 
-6.6 ![](shared/space.gif)Dithering an Image
+6.6 Dithering an Image
 -------------------------------------------
 
 The display of a 24-bit color image on an 8-bit frame buffer requires
@@ -2080,11 +2068,11 @@ desired speed and image quality, as shown in [Table
   [Error diffusion]{#65329}\   [Slowest]{#65331}\         [Best]{#65333}\
   ------------------------------------------------------------------------------------
 
-  :  **[*Table 6-1* ![](shared/sm-blank.gif) Dithering
+  :  **[*Table 6-1*  Dithering
   Choices]{#65311}**
 
 
-### 6.6.1 ![](shared/space.gif)Ordered Dither
+### 6.6.1 Ordered Dither
 
 ``The ordered dithering operation is somewhat faster than the
 error-diffusion dither and produces a somewhat better destination
@@ -2112,7 +2100,7 @@ parameters:
   : 
 
 
-#### 6.6.1.1 ![](shared/space.gif)Color Map Parameter
+#### 6.6.1.1 Color Map Parameter
 
 The `colorMap` parameter can be either one of the predefined
 `ColorCubes`, or a custom color map can be created as a `ColorCube`
@@ -2132,7 +2120,7 @@ The predefined color maps are:
   : 
 
 
-#### 6.6.1.2 ![](shared/space.gif)Dither Mask Parameter
+#### 6.6.1.2 Dither Mask Parameter
 
 The dither mask is a three-dimensional array of floating point values,
 the depth of which equals the number of bands in the image. The dither
@@ -2168,17 +2156,17 @@ The predefined dither masks are (see [Figure
 ------------------------------------------------------------------------
 
 
-***Figure 6-1* ![](shared/sm-blank.gif) Ordered Dither Masks**
+***Figure 6-1*  Ordered Dither Masks**
 
 
-#### 6.6.1.3 ![](shared/space.gif)OrderedDither Example
+#### 6.6.1.3 OrderedDither Example
 
 [Listing 6-10](../image-manipulation) shows a partial code
 sample of using the `OrderedDither` operation.
 
 **[]{#70282}**
 
-***Listing 6-10* ![](shared/sm-blank.gif) Ordered Dither Example**
+***Listing 6-10*  Ordered Dither Example**
 
 ------------------------------------------------------------------------
 
@@ -2218,7 +2206,7 @@ sample of using the `OrderedDither` operation.
 ------------------------------------------------------------------------
 
 
-### 6.6.2 ![](shared/space.gif)Error-diffusion Dither
+### 6.6.2 Error-diffusion Dither
 
 The error-diffusion dithering operation produces the most accurate
 destination image, but is more complex and thus takes longer than the
@@ -2247,7 +2235,7 @@ parameters:
   : 
 
 
-#### 6.6.2.1 ![](shared/space.gif)Error Filter Kernel
+#### 6.6.2.1 Error Filter Kernel
 
 The `errorKernel` parameter can be one of three predefined error
 filters or you can create your own. To create your own, see [Section
@@ -2305,7 +2293,7 @@ smoother dithered image with little or no contouring.
 ------------------------------------------------------------------------
 
 
-***Figure 6-2* ![](shared/sm-blank.gif) Error Diffusion Dither
+***Figure 6-2*  Error Diffusion Dither
 Filters**
 
 
@@ -2316,17 +2304,17 @@ Filters**
 ------------------------------------------------------------------------
 
 
-***Figure 6-3* ![](shared/sm-blank.gif) Error Diffusion Operation**
+***Figure 6-3*  Error Diffusion Operation**
 
 
-#### 6.6.2.2 ![](shared/space.gif)ErrorDiffusion Example
+#### 6.6.2.2 ErrorDiffusion Example
 
 [Listing 6-11](../image-manipulation) shows a partial code
 sample of using the `ErrorDiffusion` operation.
 
 **[]{#70390}**
 
-***Listing 6-11* ![](shared/sm-blank.gif) Error Diffusion Example**
+***Listing 6-11*  Error Diffusion Example**
 
 ------------------------------------------------------------------------
 
@@ -2343,7 +2331,7 @@ sample of using the `ErrorDiffusion` operation.
 ------------------------------------------------------------------------
 
 
-6.7 ![](shared/space.gif)Clamping Pixel Values
+6.7 Clamping Pixel Values
 ----------------------------------------------
 
 The `clamp` operation restricts the range of pixel values for a source
@@ -2396,7 +2384,7 @@ between 5 and 250.
 
 **[]{#73456}**
 
-***Listing 6-12* ![](shared/sm-blank.gif) Clamp Operation**
+***Listing 6-12*  Clamp Operation**
 
 ------------------------------------------------------------------------
 
@@ -2428,7 +2416,7 @@ between 5 and 250.
 ------------------------------------------------------------------------
 
 
-6.8 ![](shared/space.gif)Band Copying
+6.8 Band Copying
 -------------------------------------
 
 The `BandSelect` operation chooses *N* bands from a rendered or
@@ -2466,7 +2454,7 @@ sample of using the `BandSelect` operation.
 
 **[]{#70887}**
 
-***Listing 6-13* ![](shared/sm-blank.gif) BandSelect Operation**
+***Listing 6-13*  BandSelect Operation**
 
 ------------------------------------------------------------------------
 
@@ -2489,7 +2477,7 @@ sample of using the `BandSelect` operation.
 ------------------------------------------------------------------------
 
 
-6.9 ![](shared/space.gif)Constructing a Kernel
+6.9 Constructing a Kernel
 ----------------------------------------------
 
 The `KernelJAI` class is an auxiliary class used with the convolve,
@@ -2547,7 +2535,7 @@ at coordinates 1,1, as shown in [Figure
 
 **[]{#70938}**
 
-***Listing 6-14* ![](shared/sm-blank.gif) Constructing a KernelJAI**
+***Listing 6-14*  Constructing a KernelJAI**
 
 ------------------------------------------------------------------------
 
@@ -2569,7 +2557,7 @@ at coordinates 1,1, as shown in [Figure
 ------------------------------------------------------------------------
 
 
-***Figure 6-4* ![](shared/sm-blank.gif) Example Kernel**
+***Figure 6-4*  Example Kernel**
 
 The Java Advanced Imaging API provides a shorthand method for creating
 several commonly-used kernels, listed in [Table
@@ -2600,7 +2588,7 @@ Dither](../image-manipulation),\" [Section 6.6.2,
   VERTICAL]{#69601}\                           
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 6-2* ![](shared/sm-blank.gif) Named Kernels]{#68076}**
+  :  **[*Table 6-2*  Named Kernels]{#68076}**
 
 The following code sample shows the format for creating a named
 kernel:
@@ -2664,4 +2652,4 @@ kernel:
 
 \
 
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+

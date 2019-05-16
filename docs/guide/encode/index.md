@@ -11,21 +11,13 @@ nav_order: 15
   -----------------------------------------
 
 
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Writing Image Files                                                   |
-+-----------------------------------------------------------------------+
-
-\
-\
-\
+# Writing Image Files                                                   
 
 **T**HIS chapter describes JAI\'s codec system for writing image data
 files.
 
 
-13.1 ![](shared/space.gif)Introduction
+13.1 Introduction
 --------------------------------------
 
 The JAI codec system supports a variety of image formats for writing
@@ -40,7 +32,7 @@ encoding parameters supplied via the `ImageEncodeParam` operation
 parameter.
 
 
-13.2 ![](shared/space.gif)Writing to a File
+13.2 Writing to a File
 -------------------------------------------
 
 The `FileStore` operation writes an image to a given file in a
@@ -84,7 +76,7 @@ formats.
   [TIFF]{#56634}\         [Tag Image File Format]{#56636}\
   ----------------------------------------------------------------------------------------------------
 
-  :  **[*Table 13-1* ![](shared/sm-blank.gif) JAI Writable File
+  :  **[*Table 13-1*  JAI Writable File
   Formats]{#56610}**
 
 The `param` parameter must either be null or an instance of an
@@ -94,7 +86,7 @@ The `param` parameter must either be null or an instance of an
 demonstrating the use of both the `Encode` and `FileStore` operations.
 
 
-13.3 ![](shared/space.gif)Writing to an Output Stream
+13.3 Writing to an Output Stream
 -----------------------------------------------------
 
 The `Encode` operation writes an image to a given `OutputStream` in a
@@ -138,7 +130,7 @@ demonstrating the use of both the `Encode` and `FileStore` operations.
 
 **[]{#58219}**
 
-***Listing 13-1* ![](shared/sm-blank.gif) Writing an OutputStream and
+***Listing 13-1*  Writing an OutputStream and
 a File**
 
 ------------------------------------------------------------------------
@@ -161,7 +153,7 @@ a File**
 ------------------------------------------------------------------------
 
 
-13.4 ![](shared/space.gif)Writing BMP Image Files
+13.4 Writing BMP Image Files
 -------------------------------------------------
 
 As described above, the encoding of BMP images requires the
@@ -176,7 +168,7 @@ these values are:
 The JAI BMP encoder does not support compression of BMP image files.
 
 
-### 13.4.1 ![](shared/space.gif)BMP Version
+### 13.4.1 BMP Version
 
 JAI currently reads and writes Version2, Version3, and some of the
 Version 4 images. The BMP version number is read and specified with
@@ -211,7 +203,7 @@ If not specifically set, `VERSION_3` is the default version.
 :   returns the BMP version to be used.
 
 
-### 13.4.2 ![](shared/space.gif)BMP Data Layout
+### 13.4.2 BMP Data Layout
 
 The scan lines in the BMP bitmap are stored from the bottom up. This
 means that the first byte in the array represents the pixels in the
@@ -231,14 +223,14 @@ class.
 :   sets the data layout to be top down.
 
 
-### 13.4.3 ![](shared/space.gif)Example Code
+### 13.4.3 Example Code
 
 [Listing 13-2](../encode) shows a code sample for encoding
 a BMP image.
 
 **[]{#56298}**
 
-***Listing 13-2* ![](shared/sm-blank.gif) Encoding a BMP Image**
+***Listing 13-2*  Encoding a BMP Image**
 
 ------------------------------------------------------------------------
 
@@ -252,7 +244,7 @@ a BMP image.
 ------------------------------------------------------------------------
 
 
-13.5 ![](shared/space.gif)Writing JPEG Image Files
+13.5 Writing JPEG Image Files
 --------------------------------------------------
 
 The JPEG standard was developed by a working group, known as the Joint
@@ -298,11 +290,11 @@ describe these settings and how to change them.
   [writeImageOnly]{#57476}\              [Controls whether encoder writes only the compressed image data. See]{#57478} [Section 13.5.7, \"Writing an Abbreviated JPEG Stream](../encode).\"\   [False]{#57480}\
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 13-2* ![](shared/sm-blank.gif) JPEG Encode
+  :  **[*Table 13-2*  JPEG Encode
   Parameters]{#57422}**
 
 
-### 13.5.1 ![](shared/space.gif)JFIF Header
+### 13.5.1 JFIF Header
 
 The JPEG File Interchange Format (JFIF) is a minimal file format that
 enables JPEG bitstreams to be exchanged between a wide variety of
@@ -348,7 +340,7 @@ encoder writes a JFIF header using the APP0 marker.``
       : 
 
 
-### 13.5.2 ![](shared/space.gif)JPEG DCT Compression Parameters
+### 13.5.2 JPEG DCT Compression Parameters
 
 JAI uses the JPEG baseline DCT coding process, shown in [Figure
 13-1](../encode).
@@ -361,7 +353,7 @@ JAI uses the JPEG baseline DCT coding process, shown in [Figure
 ------------------------------------------------------------------------
 
 
-***Figure 13-1* ![](shared/sm-blank.gif) JPEG Baseline DCT Coding**
+***Figure 13-1*  JPEG Baseline DCT Coding**
 
 For encoding, the image array is divided into 8 x 8 pixel blocks and a
 discrete cosine transform (DCT) is taken of each block, resulting in
@@ -399,7 +391,7 @@ The following are the parameters that may be specified for JPEG DCT
 compression.
 
 
-### 13.5.3 ![](shared/space.gif)Quantization Table
+### 13.5.3 Quantization Table
 
 The `setQTable` and `getQTable` methods are used to specify and
 retrieve the quantization table that will be used in encoding a
@@ -473,7 +465,7 @@ methods. Tables 2 and 3 are not normally used.
     error is thrown.
 
 
-### 13.5.4 ![](shared/space.gif)Horizontal and Vertical Subsampling
+### 13.5.4 Horizontal and Vertical Subsampling
 
 JPEG allows the image components to be subsampled to reduce their
 resolution prior to encoding. This is typically done with YCC images,
@@ -514,7 +506,7 @@ to {1, 2, 2} for both horizontal and vertical axes.
 :   returns the vertical subsampling factor for a band.
 
 
-### 13.5.5 ![](shared/space.gif)Compression Quality
+### 13.5.5 Compression Quality
 
 Compression quality specifies a factor that relates to the desired
 tradeoff between image quality and the image data compression ratio.
@@ -577,7 +569,7 @@ image quality and compression ratio. See also [Section 13.5.3,
     `JPEGEncodeParam`.
 
 
-### 13.5.6 ![](shared/space.gif)Restart Interval
+### 13.5.6 Restart Interval
 
 JPEG images use restart markers to define multiple strips or tiles.
 The restart markers are inserted periodically into the image data to
@@ -605,7 +597,7 @@ methods to set the restart interval in JPEG Minimum Coded Units
 :   returns the restart interval.
 
 
-### 13.5.7 ![](shared/space.gif)Writing an Abbreviated JPEG Stream
+### 13.5.7 Writing an Abbreviated JPEG Stream
 
 Normally, both the JPEG table data and compressed (or uncompressed)
 image data is written to the output stream. However, it is possible to
@@ -641,14 +633,14 @@ output stream.
       : 
 
 
-### 13.5.8 ![](shared/space.gif)Example Code
+### 13.5.8 Example Code
 
 [Listing 13-3](../encode) shows a code sample for encoding
 a JPEG image.
 
 **[]{#55335}**
 
-***Listing 13-3* ![](shared/sm-blank.gif) Encoding a JPEG Image**
+***Listing 13-3*  Encoding a JPEG Image**
 
 ------------------------------------------------------------------------
 
@@ -842,7 +834,7 @@ a JPEG image.
 ------------------------------------------------------------------------
 
 
-13.6 ![](shared/space.gif)Writing PNG Image Files
+13.6 Writing PNG Image Files
 -------------------------------------------------
 
 The Portable Network Graphics (PNG) format is a file standard for
@@ -854,7 +846,7 @@ information about the image. The JAI codec architecture supports PNG
 this section.
 
 
-### 13.6.1 ![](shared/space.gif)PNG Image Layout
+### 13.6.1 PNG Image Layout
 
 PNG images can be encoded in one of three pixel types, as defined by
 the subclass of `PNGEncodeParam`, as follows:
@@ -900,7 +892,7 @@ superficial analysis of the image structure.
     encoding the given image.
 
 
-### 13.6.2 ![](shared/space.gif)PNG Filtering
+### 13.6.2 PNG Filtering
 
 The PNG file definition allows the image data to be filtered before it
 is compressed, which can improve the compressibility of the data. PNG
@@ -921,7 +913,7 @@ indicates no filtering. The filtering algorithms are described below.
   [PNG\_FILTER\_PAETH]{#53188}\     [The filter computes a simple linear function of the three neighboring pixels (left, above, upper left), then chooses as predictor the neighboring pixel closest to the computed value.]{#53190}\
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 13-3* ![](shared/sm-blank.gif) PNG Filtering
+  :  **[*Table 13-3*  PNG Filtering
   Algorithms]{#53164}**
 
 The filtering can be different for each row of an image by using the
@@ -991,7 +983,7 @@ implemented (non-optimally) as follows:
     specification.
 
 
-### 13.6.3 ![](shared/space.gif)Bit Depth
+### 13.6.3 Bit Depth
 
 The PNG specification identifies the following bit depth restrictions
 for each of the color types:
@@ -1010,7 +1002,7 @@ for each of the color types:
   [6]{#53713}\           [8, 16]{#53715}\               [Truecolor (RGB) with alpha. Each pixel is an RGB triple followed by an alpha sample.]{#53717}\
   -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 13-4* ![](shared/sm-blank.gif) PNG Bit Depth
+  :  **[*Table 13-4*  PNG Bit Depth
   Restrictions]{#53677}**
 
 The bit depth is specified by the `setBithDepth` method in the class
@@ -1044,7 +1036,7 @@ type.
     8 or 16.
 
 
-### 13.6.4 ![](shared/space.gif)Interlaced Data Order
+### 13.6.4 Interlaced Data Order
 
 The interlaced data order indicates the transmission order of the
 image data. Two settings are currently allowed: no interlace and Adam7
@@ -1068,7 +1060,7 @@ of the pixels in the image.
 :   returns `true` if Adam7 interlacing will be used.
 
 
-### 13.6.5 ![](shared/space.gif)PLTE Chunk for Palette Images
+### 13.6.5 PLTE Chunk for Palette Images
 
 The PLTE chunk provides the palette information palette or
 indexed-color images. The PLTE chunk must be supplied for all palette
@@ -1125,7 +1117,7 @@ directly.
 :   returns true if a PLTE chunk will be output.
 
 
-### 13.6.6 ![](shared/space.gif)Ancillary Chunk Specifications
+### 13.6.6 Ancillary Chunk Specifications
 
 All ancillary PNG chunks are optional but are recommended. Most of the
 PNG chunks can be specified prior to encoding the image by `set`
@@ -1134,7 +1126,7 @@ the methods used to set them are described in the following
 paragraphs.
 
 
-#### 13.6.6.1 ![](shared/space.gif)Background Color (bKGD Chunk)
+#### 13.6.6.1 Background Color (bKGD Chunk)
 
 Methods are provided to set and read the suggested background color,
 which is encoded by the bKGD chunk.
@@ -1192,7 +1184,7 @@ each for red, green, and blue. Each value has the range of 0 to
 :   returns the RGB value of the suggested background color.
 
 
-#### 13.6.6.2 ![](shared/space.gif)Chromaticity (cHRM Chunk)
+#### 13.6.6.2 Chromaticity (cHRM Chunk)
 
 Applications that need device-independent specification of colors in a
 PNG file can specify the 1931 CIE (*x*,*y*) chromaticities of the red,
@@ -1226,7 +1218,7 @@ containing the white point *X* and *Y*, red *X* and *Y*, green *X* and
     (*x*,*y*) space.
 
 
-#### 13.6.6.3 ![](shared/space.gif)Gamma Correction (gAMA Chunk)
+#### 13.6.6.3 Gamma Correction (gAMA Chunk)
 
 The gamma value specifies the relationship between the image samples
 and the desired display output intensity as a power function:
@@ -1256,7 +1248,7 @@ unknown.
 :   suppresses the gAMA chunk from being output.
 
 
-#### 13.6.6.4 ![](shared/space.gif)Palette Histogram (hIST Chunk)
+#### 13.6.6.4 Palette Histogram (hIST Chunk)
 
 The palette histogram is a value that gives the approximate usage
 frequency of each color in the color palette. If the viewer is unable
@@ -1283,7 +1275,7 @@ chunk is only valid with Palette images.
 :   suppresses the hIST chunk from being output.
 
 
-#### 13.6.6.5 ![](shared/space.gif)Embedded ICC Profile Data (iCCP Chunk)
+#### 13.6.6.5 Embedded ICC Profile Data (iCCP Chunk)
 
 You can specify that RGB image samples conform to the color space
 presented by the embedded International Color Consortium profile. The
@@ -1308,7 +1300,7 @@ color space of the ICC profile must be an RGB color space.
 :   suppresses the iCCP chunk from being output.
 
 
-#### 13.6.6.6 ![](shared/space.gif)Physical Pixel Dimensions (pHYS Chunk)
+#### 13.6.6.6 Physical Pixel Dimensions (pHYS Chunk)
 
 The intended pixel size or aspect ratio for display of the image may
 be specified in the pHYS chunk. The physical pixel dimensions
@@ -1350,7 +1342,7 @@ ratio only; the actual size of the pixels remains unspecified.
 :   returns the physical pixel dimension.
 
 
-#### 13.6.6.7 ![](shared/space.gif)Significant Bits (sBIT Chunk)
+#### 13.6.6.7 Significant Bits (sBIT Chunk)
 
 For PNG data that has been converted from a lower sample depth, the
 significant bits information in the sBIT chunk stores the number of
@@ -1391,7 +1383,7 @@ the number of output bands in the image:
 :   suppresses the sBIT chunk from being output.
 
 
-#### 13.6.6.8 ![](shared/space.gif)Suggested Palette (sPLT Chunk)
+#### 13.6.6.8 Suggested Palette (sPLT Chunk)
 
 A suggested palette may be specified when the display device is not
 capable of displaying the full range of colors in the image. This
@@ -1444,7 +1436,7 @@ class, consists of the following:
 :   suppresses the sPLT chunk from being output.
 
 
-#### 13.6.6.9 ![](shared/space.gif)PNG Rendering Intent (sRGB Chunk)
+#### 13.6.6.9 PNG Rendering Intent (sRGB Chunk)
 
 If the PNG image includes an sRGB chunk, the image samples confirm to
 the sRGB color space and should be displayed using the specified
@@ -1463,7 +1455,7 @@ colorimetric accuracy. There are four rendering intents:
   [INTENT\_ABSOLUTE]{#53926}\     [The \"absolute colorimetric\" intent is for images that require absolute colorimetry.]{#53928}\
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 13-5* ![](shared/sm-blank.gif) PNG Rendering
+  :  **[*Table 13-5*  PNG Rendering
   Intent]{#53902}**
 
 **API:** 
@@ -1490,7 +1482,7 @@ colorimetric accuracy. There are four rendering intents:
 :   suppresses the sRGB chunk from being output.
 
 
-#### 13.6.6.10 ![](shared/space.gif)Textual Data (tEXt Chunk)
+#### 13.6.6.10 Textual Data (tEXt Chunk)
 
 Textual data can be encoded along with the image in the tEXt chunk.
 The information stored in this chunk can be an image description or
@@ -1531,7 +1523,7 @@ The following keywords are defined:
 :   suppresses the tEXt chunk from being output.
 
 
-#### 13.6.6.11 ![](shared/space.gif)Image Modification Timestamp (tIME Chunk)
+#### 13.6.6.11 Image Modification Timestamp (tIME Chunk)
 
 The tIME chunk provides information on the last time the image was
 modified. The tIME information is a `Date` and the internal storage
@@ -1559,7 +1551,7 @@ created.
 :   suppresses the tIME chunk from being output.
 
 
-#### 13.6.6.12 ![](shared/space.gif)Transparency (tRNS Chunk)
+#### 13.6.6.12 Transparency (tRNS Chunk)
 
 The tRNS chunk specifies that the image uses simple transparency.
 Simple transparency means either alpha values associated with palette
@@ -1628,7 +1620,7 @@ image\'s alpha channel to be ignored.
 :   returns the RGB value to be used to denote transparency.
 
 
-#### 13.6.6.13 ![](shared/space.gif)Compressed Text Data (zTXt Chunk)
+#### 13.6.6.13 Compressed Text Data (zTXt Chunk)
 
 Text data may be stored in the zTXt chunk, in addition to the text in
 the tEXt chunk. The zTXt chunk is intended for storing large blocks of
@@ -1653,7 +1645,7 @@ text, since the text is compressed.
 :   suppresses the zTXt chunk from being output.
 
 
-#### 13.6.6.14 ![](shared/space.gif)Private Chunks
+#### 13.6.6.14 Private Chunks
 
 Private chunks may be added to the output file. These private chunks
 carry information that is not understood by most other applications.
@@ -1696,7 +1688,7 @@ naming conventions.
 :   remove all private chunks associated with this parameter instance.
 
 
-13.7 ![](shared/space.gif)Writing PNM Image Files
+13.7 Writing PNM Image Files
 -------------------------------------------------
 
 The PNM format is one of the extensions of the PBM file format (PBM,
@@ -1732,7 +1724,7 @@ a PNM image.
 
 **[]{#54619}**
 
-***Listing 13-4* ![](shared/sm-blank.gif) Encoding a PNM Image**
+***Listing 13-4*  Encoding a PNM Image**
 
 ------------------------------------------------------------------------
 
@@ -1764,7 +1756,7 @@ a PNM image.
 :   retrieves the RAWBITS option flag.
 
 
-13.8 ![](shared/space.gif)Writing TIFF Image Files
+13.8 Writing TIFF Image Files
 --------------------------------------------------
 
 The TIFF file format is a tag-based file format for storing and
@@ -1776,12 +1768,12 @@ are written out in strips rather than tiles. However, JAI does support
 image compression, and the writing of tiled TIFF images.
 
 
-### 13.8.1 ![](shared/space.gif)TIFF Compression
+### 13.8.1 TIFF Compression
 
 JAI currently does not support compression of TIFF images.
 
 
-### 13.8.2 ![](shared/space.gif)TIFF Tiled Images
+### 13.8.2 TIFF Tiled Images
 
 By default, the JAI encoder organizes TIFF images into strips. For
 low- to medium-resolution images, this is adequate. However, for
@@ -1819,4 +1811,4 @@ Writing of tiled TIFF images can be enabled by calling the
 
 \
 
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+

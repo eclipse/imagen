@@ -7,27 +7,15 @@ nav_order: 10
 
 
 
-  ----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)8
-  ----------------------------------------
 
-
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Geometric Image Manipulation                                          |
-+-----------------------------------------------------------------------+
-
-\
-\
-\
+# Geometric Image Manipulation                                          
 
 **T**HIS chapter describes the basics of JAI\'s geometric image
 manipulation functions. The geometric image manipulation operators are
 all part of the `javax.media.operator` package.
 
 
-8.1 ![](shared/space.gif)Introduction
+8.1 Introduction
 -------------------------------------
 
 The JAI geometric image manipulation functions are:
@@ -53,7 +41,7 @@ Most of these geometric functions require an interpolation argument,
 so this chapter begins with a discussion of interpolation.
 
 
-8.2 ![](shared/space.gif)Interpolation
+8.2 Interpolation
 --------------------------------------
 
 Several geometric image operations, such as `Affine`, `Rotate`,
@@ -117,7 +105,7 @@ interpolation methods.
   [INTERP\_BICUBIC2]{#65037}\   [Bicubic2 interpolation. Similar to Bicubic, but uses a different polynomial function. See]{#65039} [Section 8.2.4, \"Bicubic2 Interpolation](../geom-image-manip).\"\
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 8-1* ![](shared/sm-blank.gif) Interpolation
+  :  **[*Table 8-1*  Interpolation
   Types]{#65017}**
 
 Occasionally, these four options do not provide sufficient quality for
@@ -170,7 +158,7 @@ created with the specified parameter block.
 
 **[]{#69404}**
 
-***Listing 8-1* ![](shared/sm-blank.gif) Example Using
+***Listing 8-1*  Example Using
 Nearest-neighbor Interpolation**
 
 ------------------------------------------------------------------------
@@ -212,7 +200,7 @@ enforce this constraint.
 ------------------------------------------------------------------------
 
 
-***Figure 8-1* ![](shared/sm-blank.gif) Interpolation Samples**
+***Figure 8-1*  Interpolation Samples**
 
 Another possible source of inefficiency is the specification of the
 subsample position. When interpolating integral image data, JAI uses a
@@ -327,7 +315,7 @@ greater accuracy.
     in the range of 0 to 2^(getSubsampleBitsV)^ - 1.
 
 
-### 8.2.1 ![](shared/space.gif)Nearest-neighbor Interpolation
+### 8.2.1 Nearest-neighbor Interpolation
 
 Nearest-neighbor interpolation, also known as zero-order
 interpolation, is the fastest interpolation method, though it can
@@ -354,7 +342,7 @@ the central sample is returned and the rest are ignored.
     `getSubsampleBitsH()` and `getSubsampleBitsV()` will be 0.
 
 
-### 8.2.2 ![](shared/space.gif)Bilinear Interpolation
+### 8.2.2 Bilinear Interpolation
 
 Bilinear interpolation, also known as first-order interpolation,
 linearly interpolates pixels along each row of the source image, then
@@ -392,7 +380,7 @@ given by (*u*, *v*), the resampled pixel value will be:
     subsample precision.
 
 
-### 8.2.3 ![](shared/space.gif)Bicubic Interpolation
+### 8.2.3 Bicubic Interpolation
 
 Bicubic interpolation reduces resampling artifacts even further by
 using the 16 nearest neighbors in the interpolation and by using
@@ -428,7 +416,7 @@ of and below the central sample.
       : 
 
 
-### 8.2.4 ![](shared/space.gif)Bicubic2 Interpolation
+### 8.2.4 Bicubic2 Interpolation
 
 Bicubic2 interpolation is basically the same as bicubic interpolation,
 but uses a different polynomial function. Bicubic2 interpolation uses
@@ -454,7 +442,7 @@ of and below the central sample.
       : 
 
 
-### 8.2.5 ![](shared/space.gif)Table Interpolation
+### 8.2.5 Table Interpolation
 
 The previous-described types of interpolation, nearest-neighbor,
 bilinear, bicubic, and bicubic2, base the interpolation values on a
@@ -512,7 +500,7 @@ The parameters to the constructor are described in the following
 paragraphs.
 
 
-#### 8.2.5.1 ![](shared/space.gif)Padding
+#### 8.2.5.1 Padding
 
 The `leftPadding` and `topPadding` parameters define the location of
 the central sample or key value, relative to the left and top of the
@@ -529,10 +517,10 @@ central sample, as shown in [Figure
 ------------------------------------------------------------------------
 
 
-***Figure 8-2* ![](shared/sm-blank.gif) Table Interpolation Padding**
+***Figure 8-2*  Table Interpolation Padding**
 
 
-#### 8.2.5.2 ![](shared/space.gif)Width and Height
+#### 8.2.5.2 Width and Height
 
 The `width` and `height` parameters define the size of the horizontal
 and vertical kernels, respectively. These parameters specify the
@@ -546,7 +534,7 @@ The `getWidth` and `getHeight` methods return the number of samples
 required for horizontal and vertical resampling, respectively.
 
 
-#### 8.2.5.3 ![](shared/space.gif)Subsample Bits
+#### 8.2.5.3 Subsample Bits
 
 The `subsampleBitsH` and `subsampleBitsV` parameters define the number
 of bins used to describe the horizontal and vertical subpixel
@@ -580,11 +568,11 @@ weight it carries in the kernel.
 ------------------------------------------------------------------------
 
 
-***Figure 8-3* ![](shared/sm-blank.gif) Table Interpolation Backwards
+***Figure 8-3*  Table Interpolation Backwards
 Mapping**
 
 
-#### 8.2.5.4 ![](shared/space.gif)Precision
+#### 8.2.5.4 Precision
 
 The `precisionBits` parameter defines the number of fractional bits to
 be used when resampling integral sample values. The same precision
@@ -594,7 +582,7 @@ cause overflow when accumulating the results of a convolution against
 a set of source pixels, using 32-bit integer arithmetic.
 
 
-#### 8.2.5.5 ![](shared/space.gif)Kernel Data
+#### 8.2.5.5 Kernel Data
 
 The kernel data for each table is an array of floating point numbers.
 The `dataH` and `dataV` parameters specify the floating-point data
@@ -722,7 +710,7 @@ used for vertical interpolation as well, and the `topPadding`,
     bins, fixed-point fractional precision, and int kernel entries.
 
 
-#### 8.2.5.6 ![](shared/space.gif)Additional Interpolation Table-related Methods
+#### 8.2.5.6 Additional Interpolation Table-related Methods
 
 The `InterpolationTable` class provides several methods for retrieving
 an interpolation table\'s kernel data values, subsample size, and
@@ -800,7 +788,7 @@ precision.
 :   returns the double vertical table data.
 
 
-8.3 ![](shared/space.gif)Geometric Transformation
+8.3 Geometric Transformation
 -------------------------------------------------
 
 Geometric transformations provide the ability to reposition pixels
@@ -860,7 +848,7 @@ methods may be selected:
   : 
 
 
-### 8.3.1 ![](shared/space.gif)Translation Transformation
+### 8.3.1 Translation Transformation
 
 Image translation is the spatial shifting of an image up, down, left,
 or right. The relationships between the source and destination image
@@ -890,7 +878,7 @@ subtraction, division, or compositing.
 ------------------------------------------------------------------------
 
 
-***Figure 8-4* ![](shared/sm-blank.gif) Translate Operation**
+***Figure 8-4*  Translate Operation**
 
 The `translate` operation takes one rendered or renderable source
 image and three parameters:
@@ -931,7 +919,7 @@ a translate operation using nearest-neighbor interpolation.
 
 **[]{#69434}**
 
-***Listing 8-2* ![](shared/sm-blank.gif) Example Translate Operation**
+***Listing 8-2*  Example Translate Operation**
 
 ------------------------------------------------------------------------
 
@@ -949,7 +937,7 @@ a translate operation using nearest-neighbor interpolation.
 ------------------------------------------------------------------------
 
 
-### 8.3.2 ![](shared/space.gif)Scaling Transformation
+### 8.3.2 Scaling Transformation
 
 Scaling, also known as *minification* and *magnification*, enlarges or
 shrinks an image. An *x*-value defines the amount of scaling in the
@@ -1011,7 +999,7 @@ positive, the translation is down; if negative, upward.
 ------------------------------------------------------------------------
 
 
-***Figure 8-5* ![](shared/sm-blank.gif) Scale Operation**
+***Figure 8-5*  Scale Operation**
 
 When interpolations that require padding the source such as Bilinear
 or Bicubic interpolation are specified, the boundary of the source
@@ -1035,7 +1023,7 @@ interpolation.
 
 **[]{#69465}**
 
-***Listing 8-3* ![](shared/sm-blank.gif) Example Scale Operation**
+***Listing 8-3*  Example Scale Operation**
 
 ------------------------------------------------------------------------
 
@@ -1055,7 +1043,7 @@ interpolation.
 ------------------------------------------------------------------------
 
 
-### 8.3.3 ![](shared/space.gif)Rotation Transformation
+### 8.3.3 Rotation Transformation
 
 The `rotate` operation rotates an image about a given point by a given
 angle. Specified *x* and *y* values define the coordinate of the
@@ -1074,7 +1062,7 @@ positive rotation value rotates the image clockwise.
 ------------------------------------------------------------------------
 
 
-***Figure 8-6* ![](shared/sm-blank.gif) Rotate Operation**
+***Figure 8-6*  Rotate Operation**
 
 The `rotate` operation takes one rendered or renderable source image
 and four parameters:
@@ -1111,7 +1099,7 @@ converts 45 degrees to radians.
 
 **[]{#69491}**
 
-***Listing 8-4* ![](shared/sm-blank.gif) Example Rotate Operation**
+***Listing 8-4*  Example Rotate Operation**
 
 ------------------------------------------------------------------------
 
@@ -1135,7 +1123,7 @@ converts 45 degrees to radians.
 ------------------------------------------------------------------------
 
 
-### 8.3.4 ![](shared/space.gif)Affine Transformation
+### 8.3.4 Affine Transformation
 
 An *affine transform* is a transformation of an image in which
 straight lines remain straight and parallel lines remain parallel, but
@@ -1235,7 +1223,7 @@ The following matrix will zoom an image by a factor of 2 in both the
 ------------------------------------------------------------------------
 
 
-***Figure 8-7* ![](shared/sm-blank.gif) Affine Operation**
+***Figure 8-7*  Affine Operation**
 
 When interpolations that require padding the source such as Bilinear
 or Bicubic interpolation are specified, the boundary of the source
@@ -1254,7 +1242,7 @@ rotation.
 
 **[]{#69365}**
 
-***Listing 8-5* ![](shared/sm-blank.gif) Example Affine Transform
+***Listing 8-5*  Example Affine Transform
 Operation**
 
 ------------------------------------------------------------------------
@@ -1345,7 +1333,7 @@ Operation**
     of the positive *y* axis as a factor of their *x* coordinate.
 
 
-8.4 ![](shared/space.gif)Perspective Transformation
+8.4 Perspective Transformation
 ---------------------------------------------------
 
 Perspective distortions in images are sometimes introduced when the
@@ -1424,7 +1412,7 @@ Warp](geom-image-manip).\"
     existing `AffineTransform`.
 
 
-### 8.4.1 ![](shared/space.gif)Performing the Transform
+### 8.4.1 Performing the Transform
 
 The `PerspectiveTransform` class contains methods that perform the
 perspective transform on a specified point, an array of point objects,
@@ -1432,7 +1420,7 @@ an array of floating point coordinates, or an array of double
 precision coordinates.
 
 
-### 8.4.2 ![](shared/space.gif)Mapping a Quadrilateral
+### 8.4.2 Mapping a Quadrilateral
 
 The `PerspectiveTransform` class contains methods that may be used to
 create a perspective transform that can be used to map a unit square
@@ -1513,7 +1501,7 @@ another arbitrary quadrilateral:
     quadrilateral onto another arbitrary quadrilateral.
 
 
-### 8.4.3 ![](shared/space.gif)Mapping Triangles
+### 8.4.3 Mapping Triangles
 
 The `PerspectiveTransform` class contains methods that may be used to
 create a perspective transform that can be used to map one arbitrary
@@ -1545,7 +1533,7 @@ triangle to another arbitrary triangle. This is done with one of the
         (*x*2, *y*2) ![](shared/chars/arrwrite.gif) (*x*2p, *y*2p)
 
 
-### 8.4.4 ![](shared/space.gif)Inverse Perspective Transform
+### 8.4.4 Inverse Perspective Transform
 
 The `PerspectiveTransform` class contains methods to perform an
 inverse perspective transform. One of the `inverseTransform` methods
@@ -1593,7 +1581,7 @@ double-precision coordinates.
     The number of point objects to be transformed.
 
 
-### 8.4.5 ![](shared/space.gif)Creating the Adjoint of the Current Transform
+### 8.4.5 Creating the Adjoint of the Current Transform
 
 The `PerspectiveTransform` class contains a method for creating a new
 PerspectiveTransform that is the adjoint of the current transform. The
@@ -1617,7 +1605,7 @@ inverse.
     current transform.
 
 
-8.5 ![](shared/space.gif)Transposing
+8.5 Transposing
 ------------------------------------
 
 The `Transpose` operation is a combination of flipping and rotating.
@@ -1663,7 +1651,7 @@ image and one parameter:
 ------------------------------------------------------------------------
 
 
-***Figure 8-8* ![](shared/sm-blank.gif) Transpose Operations**
+***Figure 8-8*  Transpose Operations**
 
 [Listing 8-6](../geom-image-manip) shows sample code for
 creating a `Transpose` operation. The example performs a horizontal
@@ -1671,7 +1659,7 @@ flip on the source image and creates the destination image `im2`.
 
 **[]{#71691}**
 
-***Listing 8-6* ![](shared/sm-blank.gif) Example Transpose Operation**
+***Listing 8-6*  Example Transpose Operation**
 
 ------------------------------------------------------------------------
 
@@ -1696,7 +1684,7 @@ flip on the source image and creates the destination image `im2`.
 ------------------------------------------------------------------------
 
 
-8.6 ![](shared/space.gif)Shearing
+8.6 Shearing
 ---------------------------------
 
 Shearing can be visualized by thinking of an image superimposed onto a
@@ -1713,7 +1701,7 @@ image either horizontally or vertically.
 ------------------------------------------------------------------------
 
 
-***Figure 8-9* ![](shared/sm-blank.gif) Shearing Operations**
+***Figure 8-9*  Shearing Operations**
 
 For each pixel (*x*, *y*) of the destination, the source value at the
 fractional subpixel position (*x*\', *y*\') is constructed by means of
@@ -1763,7 +1751,7 @@ a `Shear` operation.
 
 **[]{#69639}**
 
-***Listing 8-7* ![](shared/sm-blank.gif) Example Shear Operation**
+***Listing 8-7*  Example Shear Operation**
 
 ------------------------------------------------------------------------
 
@@ -1805,7 +1793,7 @@ a `Shear` operation.
 ------------------------------------------------------------------------
 
 
-8.7 ![](shared/space.gif)Warping
+8.7 Warping
 --------------------------------
 
 The linear geometric transformations described in [Section 8.3,
@@ -2009,7 +1997,7 @@ JAI supports seven warping functions:
 :   The default (superclass) implementation returns null.
 
 
-### 8.7.1 ![](shared/space.gif)Performing a Warp Operation
+### 8.7.1 Performing a Warp Operation
 
 The `Warp` operation performs general warping on an image. The `warp`
 operation takes one rendered source image and two parameters:
@@ -2081,7 +2069,7 @@ a simple second-order warp operation.
 
 **[]{#69555}**
 
-***Listing 8-8* ![](shared/sm-blank.gif) Example of a Second-order
+***Listing 8-8*  Example of a Second-order
 Warp**
 
 ------------------------------------------------------------------------
@@ -2103,7 +2091,7 @@ Warp**
 ------------------------------------------------------------------------
 
 
-### 8.7.2 ![](shared/space.gif)Polynomial Warp
+### 8.7.2 Polynomial Warp
 
 The `WarpPolynomial` class provides a polynomial-based description of
 an image warp. The mapping is defined by two bivariate polynomial
@@ -2219,7 +2207,7 @@ number of points required for each degree of warp are as follows:
       : 
 
 
-### 8.7.3 ![](shared/space.gif)General Polynomial Warp
+### 8.7.3 General Polynomial Warp
 
 The `WarpGeneralPolynomial` class provides a concrete implementation
 of `WarpPolynomial` for polynomials of a higher degree.
@@ -2318,7 +2306,7 @@ with a number of fractional bits specified by the `subsampleBitsH` and
     elements, or null. If null, a new array will be constructed.
 
 
-### 8.7.4 ![](shared/space.gif)Grid Warp
+### 8.7.4 Grid Warp
 
 If polynomial warping is impractical, the image may be warped in
 pieces using grid warping, also known as *control grid interpolation*.
@@ -2352,7 +2340,7 @@ interpolated vertically, as shown in [Figure
 ------------------------------------------------------------------------
 
 
-***Figure 8-10* ![](shared/sm-blank.gif) Warp Grid**
+***Figure 8-10*  Warp Grid**
 
 The grid is defined by a set of equal-sized cells starting at
 (`xStart`, `yStart`). The width of each cell is defined by the `xStep`
@@ -2478,7 +2466,7 @@ for a total of 2(2 + 1)(1 + 1) = 12 elements.
     : 
 
 
-### 8.7.5 ![](shared/space.gif)Quadratic Warp
+### 8.7.5 Quadratic Warp
 
 The `WarpQuadratic` class provides a quadratic-based description of an
 image warp. The source position (*x*\', *y*\') of a point (*x*, *y*)
@@ -2565,7 +2553,7 @@ is given by the following quadratic bivariate polynomial:
     : 
 
 
-### 8.7.6 ![](shared/space.gif)Cubic Warp
+### 8.7.6 Cubic Warp
 
 The `WarpCubic` class performs a cubic-based image warp. The source
 position (*x*\', *y*\') of a point (*x*, *y*) is given by the
@@ -2630,7 +2618,7 @@ following cubic polynomial:
     elements, or null. If null, a new array will be constructed.
 
 
-### 8.7.7 ![](shared/space.gif)Perspective Warp
+### 8.7.7 Perspective Warp
 
 Perspective distortions in images caused by camera-to-target viewing
 angle can be restored through perspective warping. Perspective
@@ -2712,7 +2700,7 @@ a description of the `PerspectiveTransform` class.
     : 
 
 
-### 8.7.8 ![](shared/space.gif)Affine Warp
+### 8.7.8 Affine Warp
 
 The `WarpAffine` class provides an affine-based warp. The transform is
 specified as a mapping from destination space to source space. In
@@ -2728,7 +2716,7 @@ an affine-based warp operation.
 
 **[]{#70181}**
 
-***Listing 8-9* ![](shared/sm-blank.gif) Example Affine Warp**
+***Listing 8-9*  Example Affine Warp**
 
 ------------------------------------------------------------------------
 
@@ -2896,4 +2884,4 @@ an affine-based warp operation.
 
 \
 
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+

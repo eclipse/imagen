@@ -12,21 +12,13 @@ nav_order: 12
   -----------------------------------------
 
 
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Graphics Rendering                                                    |
-+-----------------------------------------------------------------------+
-
-\
-\
-\
+# Graphics Rendering                                                    
 
 **T**HIS chapter describes the JAI presentation of rendering shapes,
 text, and images.
 
 
-10.1 ![](shared/space.gif)Introduction
+10.1 Introduction
 --------------------------------------
 
 JAI provides classes that support drawing operations beyond the
@@ -43,11 +35,11 @@ follow.
 ------------------------------------------------------------------------
 
 
-***Figure 10-1* ![](shared/sm-blank.gif) Simple Text and Line Added to
+***Figure 10-1*  Simple Text and Line Added to
 an Image**
 
 
-### 10.1.1 ![](shared/space.gif)Simple 2D Graphics
+### 10.1.1 Simple 2D Graphics
 
 The `Graphics2D` class extends the even simpler `Graphics` class to
 provide more control over geometry, coordinate transformations, color
@@ -75,7 +67,7 @@ represented by glyphs, text strings can also be stroked and filled
 like other geometric objects.
 
 
-### 10.1.2 ![](shared/space.gif)Renderable Graphics
+### 10.1.2 Renderable Graphics
 
 The `RenderableGraphics` class is an implementation of `Graphics2D`
 with `RenderableImage` semantics. This means that content may be drawn
@@ -100,7 +92,7 @@ This is the most general way to obtain a rendering of a
 `RenderableImage`.
 
 
-10.2 ![](shared/space.gif)A Review of Graphics Rendering
+10.2 A Review of Graphics Rendering
 --------------------------------------------------------
 
 To render a graphic object, you set up the `Graphics2D` context and
@@ -126,7 +118,7 @@ represents a particular attribute, such as a `Paint` or `Stroke`
 object.
 
 
-### 10.2.1 ![](shared/space.gif)Overview of the Rendering Process
+### 10.2.1 Overview of the Rendering Process
 
 When a graphic object is rendered, the geometry, image, and attribute
 information are combined to calculate which pixel values must be
@@ -142,7 +134,7 @@ glyphs from the `Font` before rendering. The attributes are described
 in more detail in the following sections.
 
 
-### 10.2.2 ![](shared/space.gif)Stroke Attributes
+### 10.2.2 Stroke Attributes
 
 The `Graphics2D` `Stroke` attribute defines the characteristics of
 strokes. The `BasicStroke` object is used to define the stroke
@@ -152,7 +144,7 @@ and pattern (solid or dashing). To change the `Stroke` attribute in
 the `Graphics2D` context, you call the `setStroke` method.
 
 
-#### 10.2.2.1 ![](shared/space.gif)Line Width
+#### 10.2.2.1 Line Width
 
 The line width is specified in *points* (there are 72 points to the
 inch). To set the stroke width, create a `BasicStroke` object with the
@@ -164,7 +156,7 @@ stroke width to 12 points.
          g2.setStroke(wideStroke);
 
 
-#### 10.2.2.2 ![](shared/space.gif)Endcap Style
+#### 10.2.2.2 Endcap Style
 
 [Table 10-1](../graphics) lists the endcap style
 attributes.
@@ -206,7 +198,7 @@ attributes.
 | \                     |                       |                       |
 +-----------------------+-----------------------+-----------------------+
 
-:  **[*Table 10-1* ![](shared/sm-blank.gif) Endcap Styles]{#51844}**
+:  **[*Table 10-1*  Endcap Styles]{#51844}**
 
 To set the endcap style, create a `BasicStroke` object with the
 desired attribute. The following example sets the stroke width to 12
@@ -217,7 +209,7 @@ points and endcap style is set to `CAP_ROUND`.
          g2.setStroke(roundStroke);
 
 
-#### 10.2.2.3 ![](shared/space.gif)Join Style
+#### 10.2.2.3 Join Style
 
 [Table 10-2](../graphics) lists the join style attributes.
 These attributes affect the appearance of line junctions.
@@ -259,7 +251,7 @@ These attributes affect the appearance of line junctions.
 | \                     |                       |                       |
 +-----------------------+-----------------------+-----------------------+
 
-:  **[*Table 10-2* ![](shared/sm-blank.gif) Join Styles]{#51903}**
+:  **[*Table 10-2*  Join Styles]{#51903}**
 
 To set the join style, create a `BasicStroke` object with the desired
 attribute. The following example sets the stroke width to 12 points,
@@ -272,7 +264,7 @@ an endcap style of `CAP_ROUND`, and a join style of `JOIN_ROUND`.
          g2.setStroke(roundStroke);
 
 
-#### 10.2.2.4 ![](shared/space.gif)Stroke Style
+#### 10.2.2.4 Stroke Style
 
 The stroke style is defined by two parameters:
 
@@ -293,7 +285,7 @@ two dash patterns are shown in [Figure 10-2](../graphics).
 
 **[]{#52134}**
 
-***Listing 10-1* ![](shared/sm-blank.gif) Example Stroke Styles**
+***Listing 10-1*  Example Stroke Styles**
 
 ------------------------------------------------------------------------
 
@@ -323,10 +315,10 @@ two dash patterns are shown in [Figure 10-2](../graphics).
 ------------------------------------------------------------------------
 
 
-***Figure 10-2* ![](shared/sm-blank.gif) Example Stroke Styles**
+***Figure 10-2*  Example Stroke Styles**
 
 
-#### 10.2.2.5 ![](shared/space.gif)Fill Styles
+#### 10.2.2.5 Fill Styles
 
 The `Paint` attribute in the `Graphics2D` context defines the fill
 color or pattern used when text and `Shape`s are rendered.
@@ -354,7 +346,7 @@ the right of P2 take the ending color.
 ------------------------------------------------------------------------
 
 
-***Figure 10-3* ![](shared/sm-blank.gif) Filling a Shape with a
+***Figure 10-3*  Filling a Shape with a
 Gradient**
 
 To fill a shape with a gradient of one color to another:
@@ -364,7 +356,7 @@ rectangle is filled with a blue-green gradient.
 
 **[]{#52145}**
 
-***Listing 10-2* ![](shared/sm-blank.gif) Example Filling a Rectangle
+***Listing 10-2*  Example Filling a Rectangle
 with a Gradient**
 
 ------------------------------------------------------------------------
@@ -391,7 +383,7 @@ shape is filled with texture.
 
 **[]{#52179}**
 
-***Listing 10-3* ![](shared/sm-blank.gif) Example Filling a Shape with
+***Listing 10-3*  Example Filling a Shape with
 Texture**
 
 ------------------------------------------------------------------------
@@ -422,7 +414,7 @@ Texture**
 ------------------------------------------------------------------------
 
 
-### 10.2.3 ![](shared/space.gif)Rendering Graphics Primitives
+### 10.2.3 Rendering Graphics Primitives
 
 The `Graphics2D` class provides methods for creating `Shape`s and
 `Text`, and for rendering `Images`. [Table
@@ -444,11 +436,11 @@ The `Graphics2D` class provides methods for creating `Shape`s and
   [drawRenderedImage]{#52282}\     [Renders the specified RenderedImage.]{#52284}\
   ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 10-3* ![](shared/sm-blank.gif) Graphics Primitives
+  :  **[*Table 10-3*  Graphics Primitives
   Methods]{#52234}**
 
 
-#### 10.2.3.1 ![](shared/space.gif)Drawing a Shape
+#### 10.2.3.1 Drawing a Shape
 
 The `Graphics2D.draw` method is used to render the outline of any
 `Shape`. The `Graphics2D` class also inherits draw methods from the
@@ -472,7 +464,7 @@ width and join attributes.
 
 **[]{#52316}**
 
-***Listing 10-4* ![](shared/sm-blank.gif) Example Drawing a Shape**
+***Listing 10-4*  Example Drawing a Shape**
 
 ------------------------------------------------------------------------
 
@@ -501,7 +493,7 @@ width and join attributes.
 ------------------------------------------------------------------------
 
 
-#### 10.2.3.2 ![](shared/space.gif)Filling a Shape
+#### 10.2.3.2 Filling a Shape
 
 The `Graphics2D.fill` method is used to fill any `Shape`. When a
 `Shape` is filled, the area within its path is rendered with the
@@ -520,7 +512,7 @@ the `setColor` method is called to define a green fill for a
 
 **[]{#52394}**
 
-***Listing 10-5* ![](shared/sm-blank.gif) Example Filling a Shape**
+***Listing 10-5*  Example Filling a Shape**
 
 ------------------------------------------------------------------------
 
@@ -536,7 +528,7 @@ the `setColor` method is called to define a green fill for a
 ------------------------------------------------------------------------
 
 
-#### 10.2.3.3 ![](shared/space.gif)Rendering Text
+#### 10.2.3.3 Rendering Text
 
 The entire subject of fonts and text layout is too extensive to try to
 describe here. In this section, we\'ll give a brief overview of the
@@ -563,7 +555,7 @@ The character outlines are filled with the `Paint` object in the
 Graphics2D context.
 
 
-10.3 ![](shared/space.gif)Graphics2D Example
+10.3 Graphics2D Example
 --------------------------------------------
 
 [Listing 10-6](../graphics) shows a code sample for a
@@ -571,7 +563,7 @@ Graphics2D example.
 
 **[]{#51518}**
 
-***Listing 10-6* ![](shared/sm-blank.gif) Graphics2D Example**
+***Listing 10-6*  Graphics2D Example**
 
 ------------------------------------------------------------------------
 
@@ -591,7 +583,7 @@ Graphics2D example.
 ------------------------------------------------------------------------
 
 
-10.4 ![](shared/space.gif)Adding Graphics and Text to an Image
+10.4 Adding Graphics and Text to an Image
 --------------------------------------------------------------
 
 The `java.awt.Graphics2D` class enables you to draw lines, geometric
@@ -607,4 +599,4 @@ shapes, images, and text. These objects can then be \"painted\" over a
 
 \
 
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+

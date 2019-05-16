@@ -11,20 +11,12 @@ nav_order: 16
   -----------------------------------------
 
 
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Extending the API                                                     |
-+-----------------------------------------------------------------------+
-
-\
-\
-\
+# Extending the API                                                     
 
 **T**HIS chapter describes how the JAI API may be extended.
 
 
-14.1 ![](shared/space.gif)Introduction
+14.1 Introduction
 --------------------------------------
 
 No image processing API can hope to capture the enormous variety of
@@ -45,7 +37,7 @@ mode and a deferred mode of execution for different types of imaging
 applications.
 
 
-14.2 ![](shared/space.gif)Package Naming Convention
+14.2 Package Naming Convention
 ---------------------------------------------------
 
 All extensions to JAI require the addition of new classes. All new
@@ -87,7 +79,7 @@ Java programming language convention of reversed internet addresses)
 to maximize the likelihood of a clean installation.
 
 
-14.3 ![](shared/space.gif)Writing New Operators
+14.3 Writing New Operators
 -----------------------------------------------
 
 To extend the JAI API by creating new operations, you will need to
@@ -121,7 +113,7 @@ classes:
     that implements `java.awt.image.renderable.RenderedImageFactory`.
 
 
-### 14.3.1 ![](shared/space.gif)Extending the OpImage Class
+### 14.3.1 Extending the OpImage Class
 
 Every new operator being written must be a subclass of `OpImage` or
 one of its subclasses. The `OpImage` class currently has the following
@@ -149,7 +141,7 @@ subclasses:
   [WarpOpImage]{#51845}\         [A general implementation of image warping, and a superclass for other geometric image operations.]{#51867}\
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 14-1* ![](shared/sm-blank.gif) OpImage
+  :  **[*Table 14-1*  OpImage
   Subclasses]{#51670}**
 
 All abstract methods defined in `OpImage` must be implemented by any
@@ -172,7 +164,7 @@ To write a new statistics operation, you would most likely extend the
 described in [Table 14-1](../extension).
 
 
-### 14.3.2 ![](shared/space.gif)Extending the OperationDescriptor Interface
+### 14.3.2 Extending the OperationDescriptor Interface
 
 Operations that are to be created using one of the `JAI.create`
 methods must be defined in the `registryFile`, which is included in
@@ -189,7 +181,7 @@ and addconst).
 
 **[]{#59124}**
 
-***Listing 14-1* ![](shared/sm-blank.gif) registryFile Example**
+***Listing 14-1*  registryFile Example**
 
 ------------------------------------------------------------------------
 
@@ -301,7 +293,7 @@ but no hints as these aren\'t required for the operation.
 
 **[]{#58545}**
 
-***Listing 14-2* ![](shared/sm-blank.gif) Operation Descriptor for
+***Listing 14-2*  Operation Descriptor for
 Clamp Operation**
 
 ------------------------------------------------------------------------
@@ -362,7 +354,7 @@ relative to operation parameters.
   [validateArguments]{#58709}\     [Returns true if this operation is capable of handling the input rendered source(s) and/or parameter(s) specified in the ParameterBlock.]{#58785}\
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 14-2* ![](shared/sm-blank.gif) Rendered Mode
+  :  **[*Table 14-2*  Rendered Mode
   Methods]{#58685}**
 
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -377,7 +369,7 @@ relative to operation parameters.
   [validateRenderableArguments]{#58738}\   [Returns true if this operation is capable of handling the input Renderable source(s) and/or parameter(s) specified in the ParameterBlock.]{#58861}\
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 14-3* ![](shared/sm-blank.gif) Renderable Mode
+  :  **[*Table 14-3*  Renderable Mode
   Methods]{#58718}**
 
   -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -398,7 +390,7 @@ relative to operation parameters.
   [getParamMaxValue]{#58908}\       [Returns the maximum legal value of a specified numeric parameter for this operation.]{#58979}\
   -----------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 14-4* ![](shared/sm-blank.gif) Parameter
+  :  **[*Table 14-4*  Parameter
   Methods]{#58876}**
 
 **API:** `org.eclipse.imagen.jai.OperationRegistr |
@@ -465,7 +457,7 @@ relative to operation parameters.
     The fully-qualified class name of a `RenderedImageFactory`.
 
 
-14.4 ![](shared/space.gif)Iterators
+14.4 Iterators
 -----------------------------------
 
 Iterators are provided to help the programmer who writes extensions to
@@ -507,7 +499,7 @@ and tile boundaries.
 hierarchy. The classes are described in the following paragraphs.
 
 
-### 14.4.1 ![](shared/space.gif)RectIter
+### 14.4.1 RectIter
 
 The `RectIter` interface represents an iterator for traversing a
 read-only image in top-to-bottom, left-to-right order ([Figure
@@ -534,7 +526,7 @@ state by means of the `startLines()`, `startPixels()`, and
 ------------------------------------------------------------------------
 
 
-***Figure 14-1* ![](shared/sm-blank.gif) Iterator Hierarchy**
+***Figure 14-1*  Iterator Hierarchy**
 
 
 ------------------------------------------------------------------------
@@ -544,7 +536,7 @@ state by means of the `startLines()`, `startPixels()`, and
 ------------------------------------------------------------------------
 
 
-***Figure 14-2* ![](shared/sm-blank.gif) RectIter Traversal Pattern**
+***Figure 14-2*  RectIter Traversal Pattern**
 
 The `WritableRookIter` interface adds the ability to alter the source
 pixel values using the various `setSample()` and `setPixel()` methods.
@@ -663,7 +655,7 @@ implementing this interface.
     and line are unchanged.
 
 
-### 14.4.2 ![](shared/space.gif)RookIter
+### 14.4.2 RookIter
 
 The `RookIter` interface represents an iterator for traversing a
 read-only image using arbitrary up-down and left-right moves ([Figure
@@ -697,7 +689,7 @@ methods. As with `RectIter`, its position may be advanced using the
 ------------------------------------------------------------------------
 
 
-***Figure 14-3* ![](shared/sm-blank.gif) RookIter Traversal Patterns**
+***Figure 14-3*  RookIter Traversal Patterns**
 
 **API:** 
 |                                   | `avax.media.jai.iterator.RookIter |
@@ -757,7 +749,7 @@ methods. As with `RectIter`, its position may be advanced using the
     The bounding `Rectangle` for the iterator, or null.
 
 
-### 14.4.3 ![](shared/space.gif)RandomIter
+### 14.4.3 RandomIter
 
 The `RandomIter` interface represents an iterator that allows random
 access to any sample within its bounding rectangle. The flexibility
@@ -832,14 +824,14 @@ are provided to allow read-only access to the source data. The
     The bounding `Rectangle` for the iterator, or null.
 
 
-### 14.4.4 ![](shared/space.gif)Example RectIter
+### 14.4.4 Example RectIter
 
 [Listing 14-3](../extension) shows an example of the
 construction of a new `RectIter`.
 
 **[]{#57929}**
 
-***Listing 14-3* ![](shared/sm-blank.gif) Example RectIter**
+***Listing 14-3*  Example RectIter**
 
 ------------------------------------------------------------------------
 
@@ -965,7 +957,7 @@ construction of a new `RectIter`.
 ------------------------------------------------------------------------
 
 
-14.5 ![](shared/space.gif)Writing New Image Decoders and Encoders
+14.5 Writing New Image Decoders and Encoders
 -----------------------------------------------------------------
 
 The `sample` directory contains an example of how to create a new
@@ -985,7 +977,7 @@ for creating any codec. The PNM codec consists of three files:
   : 
 
 
-### 14.5.1 ![](shared/space.gif)Image Codecs
+### 14.5.1 Image Codecs
 
 ------------------------------------------------------------------------
 
@@ -1105,4 +1097,4 @@ returned.``
 
 \
 
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+

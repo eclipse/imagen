@@ -5,43 +5,27 @@ parent: Programming Guide
 nav_order: 4
 ---
 
-  ----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)3
-  ----------------------------------------
 
+# Programming Environment for ImageN
 
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Programming in Java Advanced Imaging                                  |
-+-----------------------------------------------------------------------+
+This chapter describes how to get started programming with Eclipse ImageN.
 
-\
-\
-\
-
-**T**HIS chapter describes how to get started programming with the
-Java Advanced Imaging (JAI) API.
-
-
-3.1 ![](shared/space.gif)Introduction
+3.1 Introduction
 -------------------------------------
 
-An imaging operation within JAI is summarized in the following four
+An imaging operation within ImageN is summarized in the following four
 steps:
 
-1\. Obtain the source image or images. Images may be obtained in one of
-three ways (see [Chapter 4, \"Image Acquisition and
-Display](../acquisition)\"):
+1. Obtain the source image or images. Images may be obtained in one of three ways (see [Chapter 4, \"Image Acquisition and Display](../acquisition)\"):
 
-2\. Define the imaging graph. This is a two part process:
+2. Define the imaging graph. This is a two part process:
 
-3\. Evaluate the graph using one of three execution models:
+3. Evaluate the graph using one of three execution models:
 
-4\. Process the result. There are four possible destinations:
+4. Process the result. There are four possible destinations:
 
 
-3.2 ![](shared/space.gif)An Overview of Graphs
+3.2 An Overview of Graphs
 ----------------------------------------------
 
 In JAI, any operation is defined as an object. An operator object is
@@ -66,10 +50,10 @@ known as a *directed acyclic graph* (DAG), where each object is a
 ------------------------------------------------------------------------
 
 
-***Figure 3-1* ![](shared/sm-blank.gif) An Example DAG**
+***Figure 3-1*  An Example DAG**
 
 Most APIs simply leave the DAG structure of images and operators
-implicit. However, JAI makes the notion of a *processing graph*
+implicit. However, ImageN makes the notion of a *processing graph*
 explicit and allows such graphs to be considered as entities in their
 own right. Rather than thinking only of performing a series of
 operations in sequence, you can consider the graph structure produced
@@ -83,7 +67,7 @@ one at a time, cycles are easily avoided. However, when reconfiguring
 a graph, you must be careful not to introduce cycles into the graph.
 
 
-3.3 ![](shared/space.gif)Processing Graphs
+3.3 Processing Graphs
 ------------------------------------------
 
 JAI extends rendering independence, which was introduced in the Java
@@ -110,7 +94,7 @@ matter what the resolution of the output device is.
 JAI has a \"renderable\" mode in which it treats all image sources as
 rendering independent. You can set up a graph (or chain) of renderable
 operations without any concern for the source image resolution or
-size; JAI takes care of the details of the operations.
+size; ImageN takes care of the details of the operations.
 
 JAI introduces two different types of graphs: rendered and renderable.
 
@@ -125,7 +109,7 @@ really need to know about the Renderable mode.
 ------------------------------------------------------------------------
 
 
-### 3.3.1 ![](shared/space.gif)Rendered Graphs
+### 3.3.1 Rendered Graphs
 
 Rendered graphs are the simplest form of rendering in JAI. Although
 Renderable graphs have the advantage of rendering-independence,
@@ -153,7 +137,7 @@ constant images and then adds them together.
 
 **[]{#61982}**
 
-***Listing 3-1* ![](shared/sm-blank.gif) Rendered Chain Example**
+***Listing 3-1*  Rendered Chain Example**
 
 ------------------------------------------------------------------------
 
@@ -250,10 +234,10 @@ them.
 ------------------------------------------------------------------------
 
 
-***Figure 3-2* ![](shared/sm-blank.gif) Rendered Chain Example**
+***Figure 3-2*  Rendered Chain Example**
 
 
-### 3.3.2 ![](shared/space.gif)Renderable Graphs
+### 3.3.2 Renderable Graphs
 
 A *renderable graph* is a graph that is not evaluated at the time it
 is specified. The evaluation is deferred until there is a specific
@@ -281,7 +265,7 @@ entire class definition.
 
 **[]{#62194}**
 
-***Listing 3-2* ![](shared/sm-blank.gif) Renderable Chain Example**
+***Listing 3-2*  Renderable Chain Example**
 
 ------------------------------------------------------------------------
 
@@ -386,7 +370,7 @@ After `Op2` is created, the renderable chain thus far is shown in
 ------------------------------------------------------------------------
 
 
-***Figure 3-3* ![](shared/sm-blank.gif) Renderable Chain Example**
+***Figure 3-3*  Renderable Chain Example**
 
 Next, a `RenderContext` is created using an `AffineTransform` that
 will produce a screen-size rendering.
@@ -446,7 +430,7 @@ Rendered chains look like [Figure
 ------------------------------------------------------------------------
 
 
-***Figure 3-4* ![](shared/sm-blank.gif) Renderable and Rendered Graphs
+***Figure 3-4*  Renderable and Rendered Graphs
 after the getImage Call**
 
 At this point in the chain, no pixels have been processed and no
@@ -458,14 +442,14 @@ chain, as done in the final line of code.
          imagePanel1 = new ScrollingImagePanel(rndImg1, 100, 100);
 
 
-### 3.3.3 ![](shared/space.gif)Reusing Graphs
+### 3.3.3 Reusing Graphs
 
 Many times, it is more desirable to make changes to an existing graph
 and reuse it than to create another nearly identical graph. Both
 Rendered and Renderable graphs are editable, with certain limitations.
 
 
-#### 3.3.3.1 ![](shared/space.gif)Editing Rendered Graphs
+#### 3.3.3.1 Editing Rendered Graphs
 
 Initially, a node in a Rendered graph is mutable; it may be assigned
 new sources, which are considered to be evaluated as soon as they are
@@ -486,7 +470,7 @@ be used to change the operation name. The `setParameterBlock` method
 can be used to change the nodes\'s `ParameterBlock`.
 
 
-#### 3.3.3.2 ![](shared/space.gif)Editing Renderable Graphs
+#### 3.3.3.2 Editing Renderable Graphs
 
 Since Renderable graphs are not evaluated until there is a specific
 request for a rendering, the nodes may be edited at any time. The main
@@ -502,11 +486,11 @@ method can be used to change a node\'s local property. The `setSource`
 method can be used to set one of the node\'s sources to an `Object`.
 
 
-3.4 ![](shared/space.gif)Remote Execution
+3.4 Remote Execution
 -----------------------------------------
 
 Up to this point, we have been talking about standalone image
-processing. JAI also provides for client-server image processing
+processing. ImageN also provides for client-server image processing
 through what is called the *Remote Execution* model.
 
 Remote execution is based on Java RMI (remote method invocation). Java
@@ -524,12 +508,12 @@ more information, see [Chapter 12, \"Client-Server
 Imaging](../client-server).\"
 
 
-3.5 ![](shared/space.gif)Basic JAI API Classes
+3.5 Basic ImageN API Classes
 ----------------------------------------------
 
 JAI consists of several classes grouped into five packages:
 
--   `javax.media.jai` - contains the \"core\" JAI interfaces and
+-   `javax.media.jai` - contains the \"core\" ImageN interfaces and
     classes
 
 
@@ -545,11 +529,11 @@ JAI consists of several classes grouped into five packages:
     creating simple image canvases and scrolling windows for image
     display
 
-Now, let\'s take a look at the most common classes in the JAI class
+Now, let\'s take a look at the most common classes in the ImageN class
 hierarchy.
 
 
-### 3.5.1 ![](shared/space.gif)The JAI Class
+### 3.5.1 The JAI Class
 
 The `JAI` class cannot be instantiated; it is simply a placeholder for
 static methods that provide a simple syntax for creating Renderable
@@ -564,7 +548,7 @@ sources and parameters directly and construct a `ParameterBlock`
 automatically.
 
 
-### 3.5.2 ![](shared/space.gif)The PlanarImage Class
+### 3.5.2 The PlanarImage Class
 
 The `PlanarImage` class is the main class for describing
 two-dimensional images in JAI. `PlanarImage` implements the
@@ -589,7 +573,7 @@ an instance of `PlanarImage`. This allows the API to make use of the
 extra functionality of `PlanarImage` for all images.
 
 
-### 3.5.3 ![](shared/space.gif)The CollectionImage Class
+### 3.5.3 The CollectionImage Class
 
 `CollectionImage` is the abstract superclass for four classes
 representing collections of `PlanarImage`s:
@@ -613,7 +597,7 @@ representing collections of `PlanarImage`s:
     operational relationship between adjacent slices.
 
 
-### 3.5.4 ![](shared/space.gif)The TiledImage Class
+### 3.5.4 The TiledImage Class
 
 The `TiledImage` class represents images containing multiple tiles
 arranged into a grid. The tiles form a regular grid, which may occupy
@@ -641,7 +625,7 @@ the image. For more on the TiledImage class, see [Section 4.2.2,
 \"Tiled Image](../acquisition).\"
 
 
-### 3.5.5 ![](shared/space.gif)The OpImage Class
+### 3.5.5 The OpImage Class
 
 The OpImage class is the parent class for all imaging operations, such
 as:
@@ -702,7 +686,7 @@ for operations that are implemented using *iterators* (see [Section
 the notion of tile boundaries.
 
 
-### 3.5.6 ![](shared/space.gif)The RenderableOp Class
+### 3.5.6 The RenderableOp Class
 
 The `RenderableOp` class provides a lightweight representation of an
 operation in the Renderable space (see [Section 3.3.2, \"Renderable
@@ -719,7 +703,7 @@ When a `RenderableOp` is to be rendered, it makes use of the
 the Renderable space into a `RenderedImage`.
 
 
-### 3.5.7 ![](shared/space.gif)The RenderedOp Class
+### 3.5.7 The RenderedOp Class
 
 The `RenderedOp` is a lightweight object similar to `RenderableOp`
 that stores an operation name, `ParameterBlock`, and `RenderingHints`,
@@ -751,10 +735,10 @@ parameters altered. Sources are considered evaluated as soon as they
 are connected to a `RenderedOp`.
 
 
-3.6 ![](shared/space.gif)JAI API Operators
+3.6 Operators
 ------------------------------------------
 
-The JAI API specifies a core set of image processing operators. These
+Eclipse ImageN specifies a core set of image processing operators. These
 operators provide a common ground for applications programmers, since
 they can then make assumptions about what operators are guaranteed to
 be present on all platforms.
@@ -788,13 +772,13 @@ include:
 
 -   [Miscellaneous Operators](../programming-environ)
 
-The JAI API also supports abstractions for many common types of image
+ImageN also supports abstractions for many common types of image
 collections, such as time-sequential data and image pyramids. These
 are intended to simplify operations on image collections and allow the
 development of operators that work directly on these abstractions.
 
 
-### 3.6.1 ![](shared/space.gif)Point Operators
+### 3.6.1 Point Operators
 
 Point operators allow you to modify the way in which the image data
 fills the available range of gray levels. This affects the image\'s
@@ -803,7 +787,7 @@ into an output image in such a way that each output pixel depends only
 on the corresponding input pixel. Point operations do not modify the
 spatial relationships within an image.
 
-[Table 3-1](../programming-environ) lists the JAI point
+[Table 3-1](../programming-environ) lists the point
 operators.
 
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -890,11 +874,11 @@ operators.
   [XorConst]{#64953}\              [Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical XOR between every pixel in the same band of the source and the constant from the corresponding array entry.]{#65304}\                                                               []{#64960} [page 163](../image-manipulation)\
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-1* ![](shared/sm-blank.gif) Point
+  :  **[*Table 3-1*  Point
   Operators]{#64590}**
 
 
-### 3.6.2 ![](shared/space.gif)Area Operators
+### 3.6.2 Area Operators
 
 The area operators perform geometric transformations, which result in
 the repositioning of pixels within an image. Using a mathematical
@@ -906,7 +890,7 @@ Linear operations include translation, rotation, and scaling.
 Non-linear operations, also known as *warping transformations*,
 introduce curvatures and bends to the processed image.
 
-[Table 3-2](../programming-environ) lists the JAI area
+[Table 3-2](../programming-environ) lists the area
 operators.
 
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -923,14 +907,14 @@ operators.
   [MedianFilter]{#55538}   [Takes a rendered source image and passes it through a non-linear filter that is useful for removing isolated lines or pixels while preserving the overall appearance of the image.]{#65346}\               []{#55545} [page 226](../image-enhance)\
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-2* ![](shared/sm-blank.gif) Area Operators]{#55481}**
+  :  **[*Table 3-2*  Area Operators]{#55481}**
 
 
-### 3.6.3 ![](shared/space.gif)Geometric Operators
+### 3.6.3 Geometric Operators
 
 Geometric operators allow you to modify the orientation, size, and
 shape of an image. [Table 3-3](../programming-environ)
-lists the JAI geometric operators.
+lists the geometric operators.
 
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#60640}     [Description]{#60642}                                                                                                                        [Reference]{#60644}
@@ -950,17 +934,17 @@ lists the JAI geometric operators.
   [Warp]{#60712}\        [Takes one rendered source image and performs (possibly filtered) general warping on the image.]{#65405}\                                    []{#60719} [page 285](../geom-image-manip)\
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-3* ![](shared/sm-blank.gif) Geometric
+  :  **[*Table 3-3*  Geometric
   Operators]{#60622}**
 
 
-### 3.6.4 ![](shared/space.gif)Color Quantization Operators
+### 3.6.4 Color Quantization Operators
 
 Color quantization, also known as *dithering*, is often used to reduce
 the appearance of amplitude contouring on monochrome frame buffers
 with fewer than eight bits of depth or color frame buffers with fewer
 than 24 bits of depth. [Table 3-4](../programming-environ)
-lists the JAI color quantization operators.
+lists the color quantization operators.
 
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#60744}          [Description]{#60746}                                                                                                                                                                                                                                                     [Reference]{#60748}
@@ -970,14 +954,14 @@ lists the JAI color quantization operators.
   [OrderedDither]{#60784}\    [Takes one rendered source image and performs color quantization by finding the nearest color to each pixel in a supplied color cube and \"shifting\" the resulting index value by a pseudo-random amount determined by the values of a supplied dither mask.]{#65421}\   []{#60788} [page 178](../image-manipulation)\
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-4* ![](shared/sm-blank.gif) Color Quantization
+  :  **[*Table 3-4*  Color Quantization
   Operators]{#60726}**
 
 
-### 3.6.5 ![](shared/space.gif)File Operators
+### 3.6.5 File Operators
 
 The file operators are used to read or write image files. [Table
-3-5](../programming-environ) lists the JAI file operators.
+3-5](../programming-environ) lists the file operators.
 
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#55632}         [Description]{#55634}                                                                                                                                                                                                                                                                             [Reference]{#55636}
@@ -1015,10 +999,10 @@ The file operators are used to read or write image files. [Table
   [URL]{#61372}\             [Creates an output image whose source is specified by a Uniform Resource Locator (URL).]{#65537}\                                                                                                                                                                                                 []{#61376} [page 119](../acquisition)\
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-5* ![](shared/sm-blank.gif) File Operators]{#55626}**
+  :  **[*Table 3-5*  File Operators]{#55626}**
 
 
-### 3.6.6 ![](shared/space.gif)Frequency Operators
+### 3.6.6 Frequency Operators
 
 Frequency operators are used to decompose an image from its
 spatial-domain form into a frequency-domain form of fundamental
@@ -1027,10 +1011,10 @@ inverse frequency transform, in which the image is converted from the
 frequency form back into the spatial form.
 
 JAI supports several frequency transform types. The most common
-frequency transform type is the *Fourier* *transform*. JAI uses the
+frequency transform type is the *Fourier* *transform*. Eclipse ImageN uses the
 discrete form known as the *discrete Fourier transform*. The *inverse
 discrete Fourier transform* can be used to convert the image back to a
-spatial image. JAI also supports the *discrete cosine transform* and
+spatial image. Eclipse ImageN also supports the *discrete cosine transform* and
 its opposite, the *inverse discrete cosine transform*.
 
 [Table 3-6](../programming-environ) lists the JAI
@@ -1062,11 +1046,11 @@ frequency operators.
   [PolarToComplex]{#61430}\     [Takes two rendered or renderable source images and creates an image with complex-valued pixels from the two images the respective pixel values of which represent the magnitude (modulus) and phase of the corresponding complex pixel in the destination image.]{#65623}\                                                                  []{#61434} [page 237](../image-enhance)\
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-6* ![](shared/sm-blank.gif) Frequency
+  :  **[*Table 3-6*  Frequency
   Operators]{#55709}**
 
 
-### 3.6.7 ![](shared/space.gif)Statistical Operators
+### 3.6.7 Statistical Operators
 
 Statistical operators provide the means to analyze the content of an
 image. [Table 3-7](../programming-environ) lists the JAI
@@ -1082,11 +1066,11 @@ statistical operators.
   [Mean]{#55817}\        [Takes a rendered source image, scans a specific region, and computes the mean pixel value for each band within that region of the image. The image data pass through this operation unchanged.]{#65645}\                                                                                                                                                                                                                                                                                        []{#55824} [page 307](../analysis)\
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-7* ![](shared/sm-blank.gif) Statistical
+  :  **[*Table 3-7*  Statistical
   Operators]{#55787}**
 
 
-### 3.6.8 ![](shared/space.gif)Edge Extraction Operators
+### 3.6.8 Edge Extraction Operators
 
 The edge extraction operators allow image edge enhancement. Edge
 enhancement reduces an image to show only its edge details. Edge
@@ -1094,7 +1078,7 @@ enhancement is implemented through spatial filters that detect a
 specific *pixel brightness slope* within a group of pixels in an
 image. A steep brightness slope indicates the presence of an edge.
 
-[Table 3-8](../programming-environ) lists the JAI edge
+[Table 3-8](../programming-environ) lists the edge
 extraction operators.
 
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1104,15 +1088,15 @@ extraction operators.
 
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-8* ![](shared/sm-blank.gif) Edge Extraction
+  :  **[*Table 3-8*  Edge Extraction
   Operators]{#55835}**
 
 
-### 3.6.9 ![](shared/space.gif)Miscellaneous Operators
+### 3.6.9 Miscellaneous Operators
 
 The miscellaneous operators do not fall conveniently into any of the
 previous categories. [Table 3-9](../programming-environ)
-lists the JAI miscellaneous operators.
+lists the miscellaneous operators.
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#63146}      [Description]{#63148}                                                                                                                                         [Reference]{#63150}
@@ -1121,11 +1105,11 @@ lists the JAI miscellaneous operators.
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-9* ![](shared/sm-blank.gif) Miscellaneous
+  :  **[*Table 3-9*  Miscellaneous
   Operators]{#63128}**
 
 
-3.7 ![](shared/space.gif)Creating Operations
+3.7 Creating Operations
 --------------------------------------------
 
 Most image operation objects are created with some variation on the
@@ -1154,7 +1138,7 @@ Renderable mode, as listed in [Table
                                              [parameterBlock]{#63881}\   
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-10* ![](shared/sm-blank.gif) JAI Class Renderable
+  :  **[*Table 3-10*  JAI Class Renderable
   Mode Methods]{#63845}**
 
 For example:
@@ -1283,7 +1267,7 @@ numbers of sources and parameters directly.
                                   [parameterBlock]{#64101}\   
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 3-11* ![](shared/sm-blank.gif) JAI Class Rendered Mode
+  :  **[*Table 3-11*  JAI Class Rendered Mode
   Methods]{#63905}**
 
 Two versions of the `create` method are non-static and are identified
@@ -1306,7 +1290,7 @@ keys will be the union of the keys from the instance\'s hints and the
 hints parameter. If the same key exists in both places, the value from
 the hints parameter will be used.
 
-Many of the JAI operations have default values for some of the
+Many of the operations have default values for some of the
 parameters. If you wish to use any of the default values in an
 operation, you do not have to specify that particular parameter in the
 `ParameterBlock`. The default value is automatically used in the
@@ -1315,7 +1299,7 @@ failure to supply a required parameter results in a
 `NullPointerException`.
 
 
-### 3.7.1 ![](shared/space.gif)Operation Name
+### 3.7.1 Operation Name
 
 The operation name describes the operator to be created. The operation
 name is a string, such as `"add"` for the operation to add two images.
@@ -1339,7 +1323,7 @@ variations are legal:
          "orconst"
 
 
-### 3.7.2 ![](shared/space.gif)Parameter Blocks
+### 3.7.2 Parameter Blocks
 
 The parameter block contains the source of the operation and a set
 parameters used by the operation. The contents of the parameter block
@@ -1384,7 +1368,7 @@ operations, default parameter values are not available and must be
 supplied.
 
 
-#### 3.7.2.1 ![](shared/space.gif)Adding Sources to a Parameter Block
+#### 3.7.2.1 Adding Sources to a Parameter Block
 
 Sources are added to a parameter block with the `addSource()` method.
 The following example creates a new `ParameterBlock` named `pb` and
@@ -1410,7 +1394,7 @@ methods.
 ------------------------------------------------------------------------
 
 
-#### 3.7.2.2 ![](shared/space.gif)Adding or Setting Parameters
+#### 3.7.2.2 Adding or Setting Parameters
 
 As described before, there are two separate classes for specifying
 parameter blocks: `ParameterBlock` and `ParameterBlockJAI`. Both
@@ -1499,7 +1483,7 @@ specified.
 
 **[]{#61952}**
 
-***Listing 3-3* ![](shared/sm-blank.gif) Example ParameterBlockJAI**
+***Listing 3-3*  Example ParameterBlockJAI**
 
 ------------------------------------------------------------------------
 
@@ -1557,7 +1541,7 @@ specified.
 :   sets a named parameter to an Object value.``
 
 
-### 3.7.3 ![](shared/space.gif)Rendering Hints
+### 3.7.3 Rendering Hints
 
 The rendering hints contain a set of hints that describe how objects
 are to be rendered. The rendering hints are always optional in any
@@ -1580,12 +1564,12 @@ There are two separate classes for specifying rendering hints:
     RenderingHints keys specific to JAI.
 
 
-#### 3.7.3.1 ![](shared/space.gif)Java AWT Rendering Hints
+#### 3.7.3.1 Java AWT Rendering Hints
 
 [Table 3-12](../programming-environ) lists the rendering
 hints inherited from `java.awt.RenderingHints`.
 
-**[*Table 3-12* ![](shared/sm-blank.gif) Java AWT Rendering
+**[*Table 3-12*  Java AWT Rendering
 Hints]{#60917}**
 
 [Key]{#60923}
@@ -1738,7 +1722,7 @@ Now that a `RenderingHints` object, `qualityHints`, has been created,
 the hints can be used in an operation using a `JAI.create` method.
 
 
-#### 3.7.3.2 ![](shared/space.gif)JAI Rendering Hints
+#### 3.7.3.2 JAI Rendering Hints
 
 Each instance of a `JAI` object contains a set of rendering hints that
 will be used for all image or collection creations. These hints are
@@ -1753,7 +1737,7 @@ methods. As a convenience, `getRenderingHint`, `setRenderingHint`, and
 to be manipulated. [Table 3-13](../programming-environ)
 lists the JAI rendering hints.
 
-**[*Table 3-13* ![](shared/sm-blank.gif) JAI Rendering
+**[*Table 3-13*  JAI Rendering
 hints]{#61091}**
 
 [Key]{#61097}
@@ -1909,7 +1893,7 @@ destination opimage is set to 200 x 200.
 
 **[]{#62534}**
 
-***Listing 3-4* ![](shared/sm-blank.gif) Example of JAI Rendering
+***Listing 3-4*  Example of JAI Rendering
 Hints**
 
 ------------------------------------------------------------------------
@@ -1934,12 +1918,3 @@ Hints**
 ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.

@@ -9,21 +9,13 @@
   -----------------------------------------
 
 
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Image Data Compression                                                |
-+-----------------------------------------------------------------------+
-
-\
-\
-\
+# Image Data Compression                                                
 
 **T**his chapter describes the Java Advanced Imaging image data
 compression coders and decoders (codecs).
 
 
-11.1 ![](shared/space.gif)Introduction
+11.1 Introduction
 --------------------------------------
 
 The `javax.media.jai.codec` package provides a set of interfaces and
@@ -69,7 +61,7 @@ presented here, see [\"Related
 Documentation](Preface)\" in the Preface.
 
 
-11.2 ![](shared/space.gif)Interfaces and Classes
+11.2 Interfaces and Classes
 ------------------------------------------------
 
 The following tables list the interfaces and classes used for image
@@ -83,7 +75,7 @@ all part of the `javax.media.jai.codec` package.
   [ImageDecodeParam]{#52141}   [Extends: java.lang.Cloneable]{#52143} [An empty (marker) interface to be implemented by all image decoder parameter classes.]{#52144}
   [ImageEncodeParam]{#52078}   [Extends: ImageDecodeParam, java.lang.Cloneable]{#52080} [An empty (marker) interface to be implemented by all image encoder parameter classes.]{#52113}
 
-  :  **[*Table 11-1* ![](shared/sm-blank.gif) Codec
+  :  **[*Table 11-1*  Codec
   Interfaces]{#52062}**
 
   [Class]{#52159}              [Description]{#52161}
@@ -95,10 +87,10 @@ all part of the `javax.media.jai.codec` package.
   [JPEGEncodeParam]{#52179}    [Extends: java.lang.Object]{#52276} [Implements: ImageEncodeParam, com.sun.image.codec.jpeg.JPEGEncodeParam]{#52181} [Specifies parameters for encoding JPEG format image files.]{#52284}
   [PNMEncodeParam]{#52183}     [Extends: java.lang.Object]{#52288} [Implements: ImageEncodeParam]{#52185} [Specifies parameters for encoding PNM format image files.]{#52296}
 
-  :  **[*Table 11-2* ![](shared/sm-blank.gif) Codec Classes]{#52155}**
+  :  **[*Table 11-2*  Codec Classes]{#52155}**
 
 
-11.3 ![](shared/space.gif)Encoding a Compressed Image File
+11.3 Encoding a Compressed Image File
 ----------------------------------------------------------
 
 The encoding operation is usually performed at the sink end of a
@@ -196,7 +188,7 @@ The following sample code is an example of encoding a BMP file.
     `OutputStream` associated with this `ImageEncoder`.
 
 
-11.4 ![](shared/space.gif)Decoding a Compressed Image File
+11.4 Decoding a Compressed Image File
 ----------------------------------------------------------
 
 The decoding operation is usually performed at the source end of a
@@ -271,7 +263,7 @@ The following sample code is an example of decoding a JPEG file.
     the `InputStream` associated with this `ImageDecoder`.
 
 
-11.5 ![](shared/space.gif)Standard Image Compression Schemes
+11.5 Standard Image Compression Schemes
 ------------------------------------------------------------
 
 Several standardized image compression techniques have evolved to
@@ -284,7 +276,7 @@ and decoders to support special needs. See [Chapter 12, \"Extending
 the API](../extension),\" for more information.
 
 
-### 11.5.1 ![](shared/space.gif)BMP Coding
+### 11.5.1 BMP Coding
 
 The BMP (Microsoft Windows bitmap image file) file format is a
 commonly-used file format on IBM PC-compatible computers. BMP files
@@ -350,14 +342,14 @@ following values:
   : 
 
 
-#### 11.5.1.1 ![](shared/space.gif)BMP Coding Parameters
+#### 11.5.1.1 BMP Coding Parameters
 
 Java Advanced Imaging provides four parameters for defining BMP
 coding: version, compression type, data layout, and the number of bits
 per pixel.
 
 
-#### 11.5.1.2 ![](shared/space.gif)BMP Version
+#### 11.5.1.2 BMP Version
 
 Java Advanced Imaging currently reads and writes Version2, Version3,
 and some of the Version 4 images. The BMP version number is read and
@@ -387,7 +379,7 @@ If not specifically set, `VERSION_3` is the default version.
 :   sets the BMP version to be used.
 
 
-#### 11.5.1.3 ![](shared/space.gif)BMP Compression Type
+#### 11.5.1.3 BMP Compression Type
 
 The BMP compression type is read and specified with `getCompression`
 and `setCompression` methods in the `BMPEncodeParam` class. Java
@@ -418,7 +410,7 @@ compression).
 :   sets the compression type to be used.
 
 
-#### 11.5.1.4 ![](shared/space.gif)BMP Data Layout
+#### 11.5.1.4 BMP Data Layout
 
 The scan lines in the BPM bitmap are stored from the bottom up. This
 means that the first byte in the array represents the pixels in the
@@ -449,7 +441,7 @@ layout is one of the following:
 :   sets the data layout to be used.
 
 
-#### 11.5.1.5 ![](shared/space.gif)BMP Bits Per Pixel
+#### 11.5.1.5 BMP Bits Per Pixel
 
 The number of bits per pixel is specified with `getBitsPerPixel` and
 `setBitsPerPixel` methods in the `BMPEncodeParam` class. Valid values
@@ -470,7 +462,7 @@ very common.
 :   sets the bit depth to be used.
 
 
-### 11.5.2 ![](shared/space.gif)FPX (FlashPix) Coding
+### 11.5.2 FPX (FlashPix) Coding
 
 The FlashPix standard was developed by the Digital Imaging Group
 (DIG), a not-for-profit consortium of several companies whose purpose
@@ -510,7 +502,7 @@ and IIP does the rest. If a problem should occur, IIP returns an error
 message.
 
 
-### 11.5.3 ![](shared/space.gif)JPEG Coding
+### 11.5.3 JPEG Coding
 
 The JPEG standard was developed by a working group, known as the Joint
 Photographic Experts Group (JPEG). The JPEG image data compression
@@ -562,7 +554,7 @@ pixel aspect ratio (derived from *x* and *y* pixel density), and
 thumbnail.
 
 
-#### 11.5.3.1 ![](shared/space.gif)JPEG Encoding Overview
+#### 11.5.3.1 JPEG Encoding Overview
 
 Java Advanced Imaging uses the JPEG baseline DCT coding process, shown
 in [Figure 11-2](../Compression).
@@ -603,7 +595,7 @@ with the quantizer table values. Finally, an inverse DCT is performed
 and the reconstructed image array is produced.
 
 
-#### 11.5.3.2 ![](shared/space.gif)JPEG Coding Parameters
+#### 11.5.3.2 JPEG Coding Parameters
 
 The following are the parameters that may be specified for JPEG DCT
 compression.
@@ -673,7 +665,7 @@ tables for the AC discrete cosine transform coefficients, as listed in
   [2]{#53191}       [Not used.]{#53193}
   [3]{#53195}       [Not used.]{#53197}
 
-  :  **[*Table 11-3* ![](shared/sm-blank.gif) AC Huffman
+  :  **[*Table 11-3*  AC Huffman
   Tables]{#53175}**
 
 **API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
@@ -715,7 +707,7 @@ tables for the DC discrete cosine transform coefficients, as listed in
   [2]{#53248}       [Not used.]{#53250}
   [3]{#53252}       [Not used.]{#53254}
 
-  :  **[*Table 11-4* ![](shared/sm-blank.gif) DC Huffman
+  :  **[*Table 11-4*  DC Huffman
   Tables]{#53232}**
 
 **API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
@@ -840,7 +832,7 @@ parameters.
   [Ythumbnail]{#53518}    [1 byte]{#53520}     [The thumbnail vertical pixel count.]{#53522}
   [(RGB)n]{#53524}        [3n bytes]{#53526}   [Packed (24-bit) RGB values for thumbnail pixels, n = Xthumbnail \* Ythumbnail.]{#53649}
 
-  :  **[*Table 11-5* ![](shared/sm-blank.gif) Marker Data]{#53464}**
+  :  **[*Table 11-5*  Marker Data]{#53464}**
 
 **API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
 |                                   | Param`
@@ -1018,7 +1010,7 @@ with them.
 :   
 
 
-### 11.5.4 ![](shared/space.gif)PNG Coding
+### 11.5.4 PNG Coding
 
 The PNG (Portable Network Graphics) is an extensible file format for
 the lossless, portable, compressed storage of raster images. PNG was
@@ -1028,7 +1020,7 @@ images are supported, plus an optional alpha channel. Sample depths
 range from 1 to 16 bits.
 
 
-#### 11.5.4.1 ![](shared/space.gif)PNG Hints
+#### 11.5.4.1 PNG Hints
 
 [Table 11-6](../Compression) lists the PNG hints.
 
@@ -1038,7 +1030,7 @@ range from 1 to 16 bits.
   [KEY\_PNG\_EMIT\_16BITS]{#56577}           [Boolean]{#56579}   [Boolean.FALSE]{#56581}
   [KEY\_PNG\_EMIT\_SQUARE\_PIXELS]{#56583}   [Boolean]{#56585}   [Boolean.FALSE]{#56587}
 
-  :  **[*Table 11-6* ![](shared/sm-blank.gif) PNG Hints]{#56559}**
+  :  **[*Table 11-6*  PNG Hints]{#56559}**
 
 PNG images stored with a bit depth of 16 are truncated to eight bits
 of output unless the `KEY_PNG_EMIT_16BITS` hint is set to
@@ -1053,7 +1045,7 @@ may be retrieved by means of the `pixel_aspect_ratio` property.
 Will there be a PNGEncodeParam class?
 
 
-### 11.5.5 ![](shared/space.gif)PNM Coding
+### 11.5.5 PNM Coding
 
 The PNM format is one of the extensions of the PBM file format (PBM,
 PGM, and PPM). The portable bitmap format is a
@@ -1094,7 +1086,7 @@ The PNM fotmat comes in six variants:
 :   retrieves the RAWBITS option flag.
 
 
-### 11.5.6 ![](shared/space.gif)TIFF Coding
+### 11.5.6 TIFF Coding
 
 Note: TIFF image compression and decompression is not yet implemented.
 
@@ -1159,7 +1151,7 @@ The Image file directory contains the following:
     field data, relative to the start of the file.
 
 
-#### 11.5.6.1 ![](shared/space.gif)Image Tags
+#### 11.5.6.1 Image Tags
 
 The tags listed in [Table 11-7](../Compression) define the
 parameters and data of the image stored in the TIFF file. The
@@ -1252,7 +1244,7 @@ coding, Lempel-Ziv-Welch (LZW), or JPEG.
   [TIFF\_GeoDoubleParamsTag]{#56324}           [34736]{#56326}
   [TIFF\_GeoAsciiParamsTag]{#56328}            [34737]{#56330}
 
-  :  **[*Table 11-7* ![](shared/sm-blank.gif) Standard TIFF Image
+  :  **[*Table 11-7*  Standard TIFF Image
   Tags]{#56004}**
 
 The `TIFF_PhotometricInterpretation` tag defines the image type. For
@@ -1269,7 +1261,7 @@ tags to be decoded into first-class tags by adding suitable
 `PropertyGenerator` objects.
 
 
-#### 11.5.6.2 ![](shared/space.gif)Data Types
+#### 11.5.6.2 Data Types
 
 Java Advanced Imaging supports all of the TIFF 6.0 standard data types
 listed in [Table 11-8](../Compression).
@@ -1289,11 +1281,11 @@ listed in [Table 11-8](../Compression).
   [TIFF\_SRATIONAL]{#56512}   [int\[2\]]{#56514}         [Pairs of 32-bit signed integers]{#56516}
   [TIFF\_UNDEFINED]{#56518}   [byte]{#56520}             [8-bit uninterpreted bytes]{#56522}
 
-  :  **[*Table 11-8* ![](shared/sm-blank.gif) TIFF Data
+  :  **[*Table 11-8*  TIFF Data
   Types]{#56440}**
 
 
-11.6 ![](shared/space.gif)Transform Coding
+11.6 Transform Coding
 ------------------------------------------
 
 Transform coding is a form of lossy block coding that transforms
@@ -1328,7 +1320,7 @@ Like the discrete Fourier transform (DFT), the DCT also has an inverse
 operation, the *inverse discrete cosine transform* (IDCT).
 
 
-### 11.6.1 ![](shared/space.gif)Discrete Cosine Transform (DCT)
+### 11.6.1 Discrete Cosine Transform (DCT)
 
 The `DCT` operation computes the even discrete cosine transform of an
 image. Each band of the destination image is derived by performing a
@@ -1353,7 +1345,7 @@ The `DCT` operation does not take any parameters.
     operation to a tuple (source, parameters, hints).
 
 
-### 11.6.2 ![](shared/space.gif)Inverse Discrete Cosine Transform (IDCT)
+### 11.6.2 Inverse Discrete Cosine Transform (IDCT)
 
 The `IDCT` operation computes the inverse even discrete cosine
 transform of an image. Each band of the destination image is derived
@@ -1387,4 +1379,4 @@ The `IDCT` operation does not take any parameters.
 
 \
 
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+

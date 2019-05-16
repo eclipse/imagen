@@ -1281,7 +1281,7 @@ progressively lower resolution.
 :   returns a rendering with a given width, height, and rendering
     hints. If a JAI rendering hint named `JAI.KEY_INTERPOLATION` is
     provided, its corresponding `Interpolation` object is used as an
-    argument to the JAI operator used to scale the image. If no such
+    argument to the operator used to scale the image. If no such
     hint is present, an instance of `InterpolationNearest` is used.
     *Parameters*:
     `width`
@@ -1299,7 +1299,7 @@ progressively lower resolution.
 
 :   returns a rendering based on a `RenderContext`. If a JAI rendering
     hint named `JAI.KEY_INTERPOLATION` is provided, its corresponding
-    `Interpolation` object is used as an argument to the JAI operator
+    `Interpolation` object is used as an argument to the operator
     used to scale the image. If no such hint is present, an instance
     of `InterpolationNearest` is used.
       --------------- ------------------ -----------------------------------------------------------------

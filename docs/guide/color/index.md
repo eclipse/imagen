@@ -6,26 +6,14 @@ nav_order: 6
 ---
 
 
-  ----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)5
-  ----------------------------------------
 
-
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Color Space                                                           |
-+-----------------------------------------------------------------------+
-
-\
-\
-\
+# Color Space                                                           
 
 **T**HIS chapter describes the JAI color space, transparency, and the
 color conversion operators. JAI follows the Java AWT color model.
 
 
-5.1 ![](shared/space.gif)Introduction
+5.1 Introduction
 -------------------------------------
 
 Digital images, specifically digital color images, come in several
@@ -74,7 +62,7 @@ Commission Internationale de l\'Éclairage (CIE). The CIEXYZ standard
 is based on color-matching experiments on human observers.
 
 
-5.2 ![](shared/space.gif)Color Management
+5.2 Color Management
 -----------------------------------------
 
 JAI uses three primary classes for the management of color:
@@ -98,7 +86,7 @@ JAI uses three primary classes for the management of color:
     package.
 
 
-### 5.2.1 ![](shared/space.gif)Color Models
+### 5.2.1 Color Models
 
 A `ColorModel` is used to interpret pixel data in an image. This
 includes:
@@ -246,7 +234,7 @@ The following sample code shows the construction of a
     `DataBuffer.TYPE_DOUBLE`.
 
 
-### 5.2.2 ![](shared/space.gif)Color Space
+### 5.2.2 Color Space
 
 The `ColorSpace` class represents a system for measuring colors,
 typically using three or more separate numeric values. For example,
@@ -329,7 +317,7 @@ types (such as `TYPE_RGB` and `TYPE_CMYK`).
   [TYPE\_Yxy]{#51449}\         [Any of the family of Yxy color spaces.]{#51451}\
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 5-1* ![](shared/sm-blank.gif) Color Space
+  :  **[*Table 5-1*  Color Space
   Types]{#51319}**
 
 Conversion between Java color spaces is simplified by a set of methods
@@ -425,7 +413,7 @@ color at a time.
     `TYPE_RGB`, `TYPE_XYZ`, etc.).
 
 
-### 5.2.3 ![](shared/space.gif)ICC Profile and ICC Color Space
+### 5.2.3 ICC Profile and ICC Color Space
 
 The `ColorSpace` class is an abstract class. It is expected that
 particular implementations of subclasses of `ColorSpace` will support
@@ -456,7 +444,7 @@ specific color types:
 -   `ICC_ProfileGray`, which represents `TYPE_GRAY` color spaces
 
 
-5.3 ![](shared/space.gif)Transparency
+5.3 Transparency
 -------------------------------------
 
 Just as images can have color, they can also have transparency.
@@ -486,13 +474,13 @@ lists the variables used to specify transparency.
   [TRANSLUCENT]{#51547}\   [Represents image data that contains or might contain arbitrary alpha values between and including 0.0 and 1.0.]{#51549}\
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 5-2* ![](shared/sm-blank.gif) Transparency]{#51528}**
+  :  **[*Table 5-2*  Transparency]{#51528}**
 
 Transparency is specified as part of the color model (see [Section
 5.2.1, \"Color Models](../color)\").
 
 
-5.4 ![](shared/space.gif)Color Conversion
+5.4 Color Conversion
 -----------------------------------------
 
 The `ColorConvert` operation performs a pixel-by-pixel color
@@ -532,7 +520,7 @@ Space](../color).\"
 
 **[]{#51792}**
 
-***Listing 5-1* ![](shared/sm-blank.gif) Example ColorConvert
+***Listing 5-1*  Example ColorConvert
 Operation**
 
 ------------------------------------------------------------------------
@@ -550,7 +538,7 @@ Operation**
 ------------------------------------------------------------------------
 
 
-5.5 ![](shared/space.gif)Non-standard Linear Color Conversion (BandCombine)
+5.5 Non-standard Linear Color Conversion (BandCombine)
 ---------------------------------------------------------------------------
 
 In JAI, the `BandCombine` operation performs a linear color conversion
@@ -586,7 +574,7 @@ value of the destination pixel in this example would be:
     ------------------------------------------------------------------------
 
 
-***Figure 5-1* ![](shared/sm-blank.gif) Band Combine Example**
+***Figure 5-1*  Band Combine Example**
 
 In this example, the number of columns in the matrix is equal to the
 number of bands in the source image. The number of rows in the matrix
@@ -605,7 +593,7 @@ clamped to the minimum or maximum value, respectively.
 
 **[]{#51816}**
 
-***Listing 5-2* ![](shared/sm-blank.gif) Example BandCombine
+***Listing 5-2*  Example BandCombine
 Operation**
 
 ------------------------------------------------------------------------
@@ -656,4 +644,4 @@ Operation**
 
 \
 
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+
