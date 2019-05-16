@@ -329,67 +329,22 @@ returned from methods as `PlanarImages`, even though incoming
 
 **API:** `javax.media.jai.PlanarImage`
 
-> 
-> `PlanarImage()`
-> : creates a `PlanarImage`.
-> 
-> `static PlanarImage wrapRenderedImage(RenderedImage im)`
-> :   wraps an arbitrary `RenderedImage` to produce a `PlanarImage`.
->     `PlanarImage` adds various properties to an image, such as source
->     and sink vectors and the ability to produce snapshots, that are
->     necessary for JAI. If the image is not a `PlanarImage`, it is
->     wrapped in a `RenderedImageAdapter`. If the image implements
->     `WritableRenderedImage`, a snapshot is taken.
->     
->     * `im` a `RenderedImage` to be used as a synchronous source.
-> 
-> `PlanarImage createSnapshot()`
-> :   creates a snapshot, that is, a virtual copy of the image\'s
->     current contents.
-> 
-> `Raster getData(Rectangle region)`
-> :   returns a specified region of this image in a `Raster`.
-> 
->     *  `region` the rectangular region of this image to be returned.
-> 
-> `int getWidth()`
-> :   returns the width of the image.
-> 
-> `int getHeight()`
-> :   returns the height of the image.
-> 
-> `int getMinXCoord()`
-> :   returns the X coordinate of the leftmost column of the image.
-> 
-> `int getMaxXCoord()`
-> :   returns the X coordinate of the rightmost column of the image.
-> 
-> `int getMinYCoord()`
-> :   returns the X coordinate of the uppermost row of the image.
-> 
-> `int getMaxYCoord()`
-> :   returns the X coordinate of the bottom row of the image.
-> 
-> `Rectangle getBounds()`
-> :   returns a Rectangle indicating the image bounds.
-> 
-> `int getTileWidth()`
-> :   returns the width of a tile.
-> 
-> `int getTileHeight()`
-> :   returns the height of a tile.
-> 
-> `int tilesAcross()`
-> :   returns the number of tiles along the tile grid in the horizontal
->     direction. Equivalent to `getMaxTileX() - getMinTileX() + 1`.
-> 
-> `int tilesDown()`
-> :   returns the number of tiles along the tile grid in the vertical
->     direction. Equivalent to `getMaxTileY() - getMinTileY() + 1`.
+* `PlanarImage()`
+* `PlanarImage createSnapshot()`
+* `Raster getData(Rectangle region)`
+* `int getWidth()`
+* `int getHeight()`
+* `int getMinXCoord()`
+* `int getMaxXCoord()`
+* `int getMinYCoord()`
+* `int getMaxYCoord()`
+* `Rectangle getBounds()`
+* `int getTileWidth()`
+* `int getTileHeight()`
+* `int tilesAcross()`
+* `int tilesDown()`
 
 There are lots more methods.
-
-
 
 ### 4.2.2 Tiled Image
 
@@ -452,130 +407,19 @@ a tile to be computed and maintained for the lifetime of the
 
 **API:** `javax.media.jai.TiledImage`
 
-`TiledImage(Point origin, SampleModel sampleModel, int  tileWidth, int tileHeight)`
-:   constructs a `TiledImage` with a `SampleModel` that is compatible
-    with a given `SampleModel`, and given tile dimensions. The width
-    and height are taken from the `SampleModel`, and the image begins
-    at a specified point.
-    
-    * `origin` A Point indicating the image\'s upper left corner.
-    * `sampleModel` A SampleModel with which to be compatible.
-    * `tileWidth` The desired tile width.
-    * `tileHeight` The desired tile height.
-
-`TiledImage(SampleModel sampleModel, int tileWidth, int  tileHeight)`
-:   constructs a `TiledImage` starting at the global coordinate
-    origin.
-    
-    * `sampleModel` A `SampleModel` with which to be compatible.
-    * `tileWidth` The desired tile width.
-    * `tileHeight` The desired tile height.
-
-`TiledImage(int minX, int minY, int width, int height, int  tileGridXOffset, int tileGridYOffset, SampleModel  sampleModel, ColorModel colorModel)`
-:   constructs a `TiledImage` of a specified width and height.
-
-    * `minX` The index of the leftmost column of tiles.
-    * `minY` The index of the uppermost row of tiles.
-    * `width` The width of the `TiledImage`.
-    * `height` The height of the `TiledImage`.
-    * `tileGridX-Offset` The *x* coordinate of the upper-left pixel of tile (0, 0).
-    * `tileGridY-Offset` The *y* coordinate of the upper-left pixel of tile (0, 0).
-    * `sampleModel` a `SampleModel` with which to be compatible.
-    * `colorModel` A `ColorModel` to associate with the image.
-
-`void setData(Raster r)`
-:   sets a region of a `TiledImage` to be a copy of a supplied
-    `Raster`. The `Raster`\'s coordinate system is used to position it
-    within the image. The computation of all overlapping tiles will be
-    forced prior to modification of the data of the affected area.
-    
-    * `r` A `Raster` containing pixels to be copied into the `TiledImage`.
-
-`void setData(Raster r, ROI roi)`
-:   sets a region of a `TiledImage` to be a copy of a supplied
-    `Raster`. The `Raster`\'s coordinate system is used to position it
-    within the image. The computation of all overlapping tiles will be
-    forced prior to modification of the data of the affected area.
-
-`WritableRaster getWritableTile(int tileX, int tileY)`
-
-:   retrieves a particular tile from the image for reading and
-    writing. The tile will be computed if it hasn\'t been previously.
-    Writes to the tile will become visible to readers of this image in
-    the normal Java manner.
-    *Parameters*:
-    `tileX`
-    The *x* index of the tile.
-    `tileY`
-    The *y* index of the tile.
-
-    Raster getTile(int tileX, int tileY)
-
-:   retrieves a particular tile from the image for reading only. The
-    tile will be computed if it hasn\'t been previously. Any attempt
-    to write to the tile will produce undefined results.
-    *Parameters*:
-    `tileX`
-    The *x* index of the tile.
-    `tileY`
-    The *y* index of the tile.
-
-    boolean isTileWritable(int tileX, int tileY)
-
-:   returns true if a tile has writers.
-    *Parameters*:
-    `tileX`
-    The *x* index of the tile.
-    `tileY`
-    The *y* index of the tile.
-
-    boolean hasTileWriters()
-
-:   returns true if any tile is being held by a writer, false
-    otherwise. This provides a quick way to check whether it is
-    necessary to make copies of tiles - if there are no writers, it is
-    safe to use the tiles directly, while registering to learn of
-    future writers.
-
-    void releaseWritableTile(int tileX, int tileY)
-
-:   indicates that a writer is done updating a tile. The effects of
-    attempting to release a tile that has not been grabbed, or
-    releasing a tile more than once are undefined.
-    *Parameters*:
-    `tileX`
-    The *x* index of the tile.
-    `tileY`
-    The *y* index of the tile.
-
-    void set(RenderedImage im)
-
-:   overlays a given `RenderedImage` on top of the current contents of
-    the `TiledImage`. The source image must have a `SampleModel`
-    compatible with that of this image.
-      --------------- ------ ---------------------------------------------------------
-      *Parameters*:   `im`   A `RenderedImage` source to replace the current source.
-      --------------- ------ ---------------------------------------------------------
-
-      : 
-
-    void set(RenderedImage im, ROI roi)
-
-:   overlays a given `RenderedImage` on top of the current contents of
-    the `TiledImage`. The source image must have a `SampleModel`
-    compatible with that of this image.
-    *Parameters*:
-    `im`
-    A `RenderedImage` source to replace the current source.
-    `roi`
-    The region of interest.
-
-    Graphics2D createGraphics()
-
-:   creates a `Graphics2D` object that can be used to paint text and
-    graphics onto the `TiledImage`.
-
-
+* `TiledImage(Point origin, SampleModel sampleModel, int  tileWidth, int tileHeight)`
+* `TiledImage(SampleModel sampleModel, int tileWidth, int  tileHeight)`
+* `TiledImage(int minX, int minY, int width, int height, int  tileGridXOffset, int tileGridYOffset, SampleModel  sampleModel, ColorModel colorModel)`
+* `void setData(Raster r)`
+* `void setData(Raster r, ROI roi)`
+* `WritableRaster getWritableTile(int tileX, int tileY)`
+* `Raster getTile(int tileX, int tileY)`
+* `boolean isTileWritable(int tileX, int tileY)`
+* `boolean hasTileWriters()`
+* `void releaseWritableTile(int tileX, int tileY)`
+* `void set(RenderedImage im)`
+* `void set(RenderedImage im, ROI roi)`
+* `Graphics2D createGraphics()`
 
 #### 4.2.2.1 Tile Cache
 
@@ -595,47 +439,13 @@ computation. In various implementations, tile computation may make use
 of multithreading and multiple simultaneous network connections for
 improved performance.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:** `javax.media.jai`        |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
-
-    static TileCache createTileCache(int tileCapacity, 
-           long  memCapacity)
-
-:   constructs a `TileCache` with the given tile capacity in tiles and
-    memory capacity in bytes. Users may supply an instance of
-    `TileCache` to an operation by supplying a `RenderingHint` with a
-    `JAI.KEY_TILE_CACHE` key and the desired `TileCache` instance as
-    its value. Note that the absence of a tile cache hint will result
-    in the use of the `TileCache` belonging to the default `JAI`
-    instance. To force an operation not to perform caching, a
-    `TileCache` instance with a tile capacity of 0 may be used.
-    *Parameters*
-    `tileCapacity`
-    The tile capacity, in tiles.
-    `memCapacity`
-    The memory capacity, in bytes.
-
-    static TileCache createTileCache()
-
-:   constructs a `TileCache` with the default tile capacity in tiles
-    and memory capacity in bytes.
-
-    void setTileCache(TileCache tileCache)
-
-:   sets the `TileCache` to be used by this `JAI` instance. The
-    `tileCache` parameter will be added to the `RenderingHints` of
-    this JAI instance.
-
-    TileCache getTileCache()
-
-:   returns the `TileCache` being used by this `JAI` instance.
+**API:** `javax.media.jai.JAI`
 
 
+* `static TileCache createTileCache(int tileCapacity, long  memCapacity)`
+* `static TileCache createTileCache()`
+* `void setTileCache(TileCache tileCache)`
+* `TileCache getTileCache()`
 
 #### 4.2.2.2 Pattern Tiles
 
@@ -3568,11 +3378,8 @@ Manipulation](Geom-image-manip.doc.html#51140).\"
 
 \
 
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](Programming-environ.doc.html)
-[![Next](shared/next.gif)](Color.doc.html)
 
-*Programming in Java Advanced Imaging*
+
 
 \
 ^1^ [Burt, P.J. and Adelson, E.H., \"The Laplacian pyramid as a
