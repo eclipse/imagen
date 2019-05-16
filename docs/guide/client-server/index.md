@@ -154,7 +154,7 @@ This section contains two examples of remote imaging programs.
 
 ### 12.4.1 ![](shared/space.gif)Simple Remote Imaging Example
 
-[Listing 12-1](client-server/index.html) shows a complete code
+[Listing 12-1](../client-server) shows a complete code
 example of a `RemoteImaging` test. This example displays a 2 x 2 grid
 of `ScrollingImagePanel`s, with each window displaying the sum of two
 byte images that were rescaled to the range \[0,127\] prior to
@@ -358,7 +358,7 @@ Program (Sheet 1 of 4)**
 
 ### 12.4.2 ![](shared/space.gif)RemoteImaging Example Across Two Nodes
 
-[Listing 12-2](client-server/index.html) shows an example of a
+[Listing 12-2](../client-server) shows an example of a
 RemoteImaging chain spread across two remote nodes, and displays the
 results locally.
 
@@ -764,7 +764,7 @@ range \[0,100\] and `JPEGTable` in \[1,255\].
 
 There is no source image associated with this operation.
 
-[Listing 12-3](client-server/index.html) shows a code sample for
+[Listing 12-3](../client-server) shows a code sample for
 an `IIP` operation.
 
 **[]{#56227}**
@@ -973,7 +973,7 @@ specification for information on each of these properties.
 
   : 
 
-[Listing 12-4](client-server/index.html) shows a code sample for
+[Listing 12-4](../client-server) shows a code sample for
 an `IIPResolution` operation.
 
 **[]{#56497}**

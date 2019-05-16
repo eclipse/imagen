@@ -31,10 +31,10 @@ files.
 The JAI codec system supports a variety of image formats for writing
 an image to a file or to an `OutputStream` for further manipulation.
 For writing an image to a file, the `FileStore` operation (see
-[Section 13.2, \"Writing to a File](encode/index.html)\") writes
+[Section 13.2, \"Writing to a File](../encode)\") writes
 an image to a specified file in the specified format. For encoding an
 image to an `OutputStream`, the `Encode` operation (see [Section 13.3,
-\"Writing to an Output Stream](encode/index.html)\") writes an
+\"Writing to an Output Stream](../encode)\") writes an
 image to a given `OutputStream` in a specified format using the
 encoding parameters supplied via the `ImageEncodeParam` operation
 parameter.
@@ -67,7 +67,7 @@ The `filename` parameter must be supplied or the operation will not be
 performed. Also, the specified file path must be writable.
 
 The `format` parameter defaults to `tiff` if no value is provided.
-[Table 13-1](encode/index.html) lists the recognized JAI file
+[Table 13-1](../encode) lists the recognized JAI file
 formats.
 
   ----------------------------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ formats.
 The `param` parameter must either be null or an instance of an
 `ImageEncodeParam` subclass appropriate to the format.
 
-[Listing 13-1](encode/index.html) shows a code sample
+[Listing 13-1](../encode) shows a code sample
 demonstrating the use of both the `Encode` and `FileStore` operations.
 
 
@@ -131,9 +131,9 @@ format requires two parameter values, as described in the
 -   Data layout - One of two values: `TOP_DOWN` or `BOTTOM_UP`.
 
 These parameters are described in detail in [Section 13.4, \"Writing
-BMP Image Files](encode/index.html).\"
+BMP Image Files](../encode).\"
 
-[Listing 13-1](encode/index.html) shows a code sample
+[Listing 13-1](../encode) shows a code sample
 demonstrating the use of both the `Encode` and `FileStore` operations.
 
 **[]{#58219}**
@@ -233,7 +233,7 @@ class.
 
 ### 13.4.3 ![](shared/space.gif)Example Code
 
-[Listing 13-2](encode/index.html) shows a code sample for encoding
+[Listing 13-2](../encode) shows a code sample for encoding
 a BMP image.
 
 **[]{#56298}**
@@ -272,30 +272,30 @@ when compressing the image. The lower the quality, the smaller the
 image file size, but the more different it will appear than the
 original.
 
-[Table 13-2](encode/index.html) lists the JPEG encode parameters
+[Table 13-2](../encode) lists the JPEG encode parameters
 that may be set and the default values. The remaining sections
 describe these settings and how to change them.
 
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#57428}                    [Description]{#57430}                                                                                                                                             [Default Value]{#57432}
   -------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------
-  [writeJFIFHeader]{#58085}\             [Controls whether the encoder writes a JFIF header using the APP0 marker. See]{#58087} [Section 13.5.1, \"JFIF Header](encode/index.html).\"\                 [True]{#58092}\
+  [writeJFIFHeader]{#58085}\             [Controls whether the encoder writes a JFIF header using the APP0 marker. See]{#58087} [Section 13.5.1, \"JFIF Header](../encode).\"\                 [True]{#58092}\
 
-  [qTabSlot\[0\],\[1\],\[2\]]{#58098}\   [Quantization tables. See]{#58102} [Section 13.5.3, \"Quantization Table](encode/index.html).\"\                                                              [0 for Y channel, 1 for Cb and Cr channels]{#58105}\
+  [qTabSlot\[0\],\[1\],\[2\]]{#58098}\   [Quantization tables. See]{#58102} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                              [0 for Y channel, 1 for Cb and Cr channels]{#58105}\
 
-  [qTab\[0\],\[1\],\[2\]]{#58107}\       [Quantization table contents. See]{#58111} [Section 13.5.3, \"Quantization Table](encode/index.html).\"\                                                      [Null for all three channels]{#58114}\
+  [qTab\[0\],\[1\],\[2\]]{#58107}\       [Quantization table contents. See]{#58111} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                      [Null for all three channels]{#58114}\
 
-  [qTabSet\[0\],\[1\],\[2\]]{#58116}\    [Quantization table usage. See]{#58120} [Section 13.5.3, \"Quantization Table](encode/index.html).\"\                                                         [False for all three channels]{#58123}\
+  [qTabSet\[0\],\[1\],\[2\]]{#58116}\    [Quantization table usage. See]{#58120} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                         [False for all three channels]{#58123}\
 
-  [hSamp\[0\],\[1\],\[2\]]{#57434}\      [Horizontal subsampling. See]{#57436} [Section 13.5.4, \"Horizontal and Vertical Subsampling](encode/index.html).\"\                                          [1 for Y channel, 2 for Cb and Cr channels]{#57438}\
+  [hSamp\[0\],\[1\],\[2\]]{#57434}\      [Horizontal subsampling. See]{#57436} [Section 13.5.4, \"Horizontal and Vertical Subsampling](../encode).\"\                                          [1 for Y channel, 2 for Cb and Cr channels]{#57438}\
 
-  [vSamp\[0\],\[1\],\[2\]]{#57440}\      [Vertical subsampling. See]{#57574} [Section 13.5.4, \"Horizontal and Vertical Subsampling](encode/index.html).\"\                                            [1 for Y channel, 2 for Cb and Cr channels]{#57528}\
+  [vSamp\[0\],\[1\],\[2\]]{#57440}\      [Vertical subsampling. See]{#57574} [Section 13.5.4, \"Horizontal and Vertical Subsampling](../encode).\"\                                            [1 for Y channel, 2 for Cb and Cr channels]{#57528}\
 
-  [qual]{#57464}\                        [Quality setting. See]{#57466} [Section 13.5.5, \"Compression Quality](encode/index.html).\"\                                                                 [0.75F]{#57468}\
+  [qual]{#57464}\                        [Quality setting. See]{#57466} [Section 13.5.5, \"Compression Quality](../encode).\"\                                                                 [0.75F]{#57468}\
 
-  [rstInterval]{#57470}\                 [Restart interval.]{#57472} [Section 13.5.6, \"Restart Interval](encode/index.html).\"\                                                                       [0]{#57474}\
+  [rstInterval]{#57470}\                 [Restart interval.]{#57472} [Section 13.5.6, \"Restart Interval](../encode).\"\                                                                       [0]{#57474}\
 
-  [writeImageOnly]{#57476}\              [Controls whether encoder writes only the compressed image data. See]{#57478} [Section 13.5.7, \"Writing an Abbreviated JPEG Stream](encode/index.html).\"\   [False]{#57480}\
+  [writeImageOnly]{#57476}\              [Controls whether encoder writes only the compressed image data. See]{#57478} [Section 13.5.7, \"Writing an Abbreviated JPEG Stream](../encode).\"\   [False]{#57480}\
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 13-2* ![](shared/sm-blank.gif) JPEG Encode
@@ -351,7 +351,7 @@ encoder writes a JFIF header using the APP0 marker.``
 ### 13.5.2 ![](shared/space.gif)JPEG DCT Compression Parameters
 
 JAI uses the JPEG baseline DCT coding process, shown in [Figure
-13-1](encode/index.html).
+13-1](../encode).
 
 
 ------------------------------------------------------------------------
@@ -546,7 +546,7 @@ scaled versions of the quantization tables. Some guidelines:
 
 **Note:** The values stored in the quantization table also affect
 image quality and compression ratio. See also [Section 13.5.3,
-\"Quantization Table](encode/index.html).\"
+\"Quantization Table](../encode).\"
 
 ------------------------------------------------------------------------
 
@@ -643,7 +643,7 @@ output stream.
 
 ### 13.5.8 ![](shared/space.gif)Example Code
 
-[Listing 13-3](encode/index.html) shows a code sample for encoding
+[Listing 13-3](../encode) shows a code sample for encoding
 a JPEG image.
 
 **[]{#55335}**
@@ -873,7 +873,7 @@ the subclass of `PNGEncodeParam`, as follows:
 
 Optionally, grayscale and RGB pixels can also include an alpha sample
 (see [Section 13.6.6.12, \"Transparency (tRNS
-Chunk)](encode/index.html)\").
+Chunk)](../encode)\").
 
 A call to the `getDefaultEncodeParam` method returns an instance of:
 
@@ -1727,7 +1727,7 @@ The PNM format comes in six variants:
 
 The parameter values, then are `RAW` and `ASCII`.
 
-[Listing 13-4](encode/index.html) shows a code sample for encoding
+[Listing 13-4](../encode) shows a code sample for encoding
 a PNM image.
 
 **[]{#54619}**

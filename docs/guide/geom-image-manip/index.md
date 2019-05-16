@@ -102,19 +102,19 @@ source image.
 
 For most geometric transformations, you must specify the interpolation
 method to be used in calculating destination pixel values. [Table
-8-1](geom-image-manip/index.html) lists the names used to call the
+8-1](../geom-image-manip) lists the names used to call the
 interpolation methods.
 
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Name]{#65021}                [Description]{#65023}
   ----------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [INTERP\_NEAREST]{#65025}\    [Nearest-neighbor interpolation. Assigns to point D in the destination image the value of the pixel nearest S in the source image. See]{#65027} [Section 8.2.1, \"Nearest-neighbor Interpolation](geom-image-manip/index.html).\"\
+  [INTERP\_NEAREST]{#65025}\    [Nearest-neighbor interpolation. Assigns to point D in the destination image the value of the pixel nearest S in the source image. See]{#65027} [Section 8.2.1, \"Nearest-neighbor Interpolation](../geom-image-manip).\"\
 
-  [INTERP\_BILINEAR]{#65029}\   [Bilinear interpolation. Assigns to Point D in the destination a value that is a bilinear function of the four pixels nearest S in the source image. See]{#65031} [Section 8.2.2, \"Bilinear Interpolation](geom-image-manip/index.html).\"\
+  [INTERP\_BILINEAR]{#65029}\   [Bilinear interpolation. Assigns to Point D in the destination a value that is a bilinear function of the four pixels nearest S in the source image. See]{#65031} [Section 8.2.2, \"Bilinear Interpolation](../geom-image-manip).\"\
 
-  [INTERP\_BICUBIC]{#65033}\    [Bicubic interpolation. Assigns to point D in the destination image a value that is a bicubic function of the 16 pixels nearest S in the source image.]{#65035}[Section 8.2.3, \"Bicubic Interpolation](geom-image-manip/index.html).\"\
+  [INTERP\_BICUBIC]{#65033}\    [Bicubic interpolation. Assigns to point D in the destination image a value that is a bicubic function of the 16 pixels nearest S in the source image.]{#65035}[Section 8.2.3, \"Bicubic Interpolation](../geom-image-manip).\"\
 
-  [INTERP\_BICUBIC2]{#65037}\   [Bicubic2 interpolation. Similar to Bicubic, but uses a different polynomial function. See]{#65039} [Section 8.2.4, \"Bicubic2 Interpolation](geom-image-manip/index.html).\"\
+  [INTERP\_BICUBIC2]{#65037}\   [Bicubic2 interpolation. Similar to Bicubic, but uses a different polynomial function. See]{#65039} [Section 8.2.4, \"Bicubic2 Interpolation](../geom-image-manip).\"\
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 8-1* ![](shared/sm-blank.gif) Interpolation
@@ -125,7 +125,7 @@ a specific operation and a more general form of interpolation is
 called for. The more general form of interpolation, called *table
 interpolation* uses tables to store the interpolation kernels. See
 [Section 8.2.5, \"Table
-Interpolation](geom-image-manip/index.html).\"
+Interpolation](../geom-image-manip).\"
 
 Other interpolation functions may be required to solve problems other
 than the resampling of band-limited image data. When shrinking an
@@ -158,9 +158,9 @@ specified as a `RenderingHint` to the `JAI.create` method. If no
 border extension type is provided, a default extension of
 `BorderExtender.BORDER_COPY` will be used to perform the extension.
 See [Section 3.7.3, \"Rendering
-Hints](programming-environ/index.html).\"
+Hints](../programming-environ).\"
 
-[Listing 8-1](geom-image-manip/index.html) shows a code sample for
+[Listing 8-1](../geom-image-manip) shows a code sample for
 a `rotate` operation. First, the type of interpolation is specified
 (`INTERP_NEAREST` in this example) using the `Interpolation.create`
 method. Next, a parameter block is created and the interpolation
@@ -194,7 +194,7 @@ Nearest-neighbor Interpolation**
 
 The `Interpolation` class provides methods for the most common cases
 of 2 x 1, 1 x 2, 4 x 1, 1 x 4, 2 x 2, and 4 x 4 input grids, some of
-which are shown in [Figure 8-1](geom-image-manip/index.html).
+which are shown in [Figure 8-1](../geom-image-manip).
 These methods are defined in the superclass (`Interpolation`) to
 package their arguments into arrays and forward the call to the array
 versions, to simplify implementation. These methods should be called
@@ -272,7 +272,7 @@ greater accuracy.
     
 :   The `s00`, `s01`, `s10`, and `s11` parameters are the sample
     values (see the 2 x 2 grid illustration in [Figure
-    8-1](geom-image-manip/index.html)).
+    8-1](../geom-image-manip)).
 
 
     float interpolate(float s00, float s01, float s10, float s11, 
@@ -300,7 +300,7 @@ greater accuracy.
     
 :   The `s__`, `through` `s22` parameters are the sample values (see
     the 4 x 4 grid illustration in [Figure
-    8-1](geom-image-manip/index.html)).
+    8-1](../geom-image-manip)).
 
 
     float interpolate(float s__, float s_0, float s_1, float s_2, 
@@ -519,7 +519,7 @@ the central sample or key value, relative to the left and top of the
 horizontal and vertical kernels, respectively. These parameters
 actually define the number of samples to the left of or above the
 central sample, as shown in [Figure
-8-2](geom-image-manip/index.html).
+8-2](../geom-image-manip).
 
 
 ------------------------------------------------------------------------
@@ -539,7 +539,7 @@ and vertical kernels, respectively. These parameters specify the
 number of data elements in each subsample of the kernel. The
 horizontal and vertical tables can have different kernel sizes. For
 the two examples shown in [Figure
-8-2](geom-image-manip/index.html), the `width` parameter would be
+8-2](../geom-image-manip), the `width` parameter would be
 7, the `height` parameter would be 5.
 
 The `getWidth` and `getHeight` methods return the number of samples
@@ -562,7 +562,7 @@ subsample location\'s proximity to the pixels used in the calculation.
 The closer a pixel is to the subsample location, the more weight it
 carries in the kernel.
 
-[Figure 8-3](geom-image-manip/index.html) shows how the
+[Figure 8-3](../geom-image-manip) shows how the
 interpolation tables are used to determine which kernel applies to a
 particular subsample location. The figure shows a subsample of 4 in
 both the horizontal and vertical directions.
@@ -809,7 +809,7 @@ coordinates in the source image to new coordinates in the destination.
 Geometric transformations are used, for example, to move (translate),
 rotate, and scale the geometry of an image. A general type of
 geometric transformation, warp, is discussed later in this chapter
-(see [Section 8.7, \"Warping](geom-image-manip/index.html)\").
+(see [Section 8.7, \"Warping](../geom-image-manip)\").
 
 Geometric transformations are used to register multiple images,
 correct geometric distortions introduced in the image acquisition
@@ -842,7 +842,7 @@ there. The missed locations will be devoid of any pixel values and
 result in a black hole in the destination image. To overcome this
 problem, intermediate pixel values are estimated through interpolation
 (See [\"Interpolation\" on page
-249](geom-image-manip/index.html)). One of four `interpolation`
+249](../geom-image-manip)). One of four `interpolation`
 methods may be selected:
 
   ----------------------------------------------------------------------------------------------------------------
@@ -909,7 +909,7 @@ image and three parameters:
 
 The `xTrans` parameter corresponds to *t*~x~ and the `yTrans`
 parameter corresponds to *t*~y~ in [equation
-8.1](geom-image-manip/index.html). If `xTrans` is positive, the
+8.1](../geom-image-manip). If `xTrans` is positive, the
 translation is to the right; if negative, to the left. If `yTrans` is
 positive, the translation is down; if negative, upward. If both
 `xTrans` and `yTrans` are integral, the operation simply *wraps* its
@@ -924,9 +924,9 @@ specified as a `RenderingHint` to the `JAI.create` method. If no
 border extension type is provided, a default extension of
 `BorderExtender.BORDER_COPY` will be used to perform the extension.
 See [Section 3.7.3, \"Rendering
-Hints](programming-environ/index.html).\"
+Hints](../programming-environ).\"
 
-[Listing 8-2](geom-image-manip/index.html) shows a code sample for
+[Listing 8-2](../geom-image-manip) shows a code sample for
 a translate operation using nearest-neighbor interpolation.
 
 **[]{#69434}**
@@ -961,14 +961,14 @@ to performing a combination operation, such as image addition,
 subtraction, division, or compositing. Scaling can also be used to
 correct geometric distortions introduced in the image acquisition
 process, although the `Affine` operation ([\"Affine Transformation\"
-on page 272](geom-image-manip/index.html)) would be more suitable
+on page 272](../geom-image-manip)) would be more suitable
 for this.
 
 For each pixel (*x*, *y*) of the destination, the source value at the
 fractional subpixel position is constructed by means of an
 `Interpolation` object and written to the destination.
 
-:   ![](Geom-image-manip.doc.anc6.gif)
+:   ![](../Geom-image-manip.doc.anc6.gif)
 
 The `scale` operation takes one rendered or renderable source image
 and five parameters:
@@ -999,7 +999,7 @@ image is defined to have the following dimensions:
 Scale factors greater than 1.0 magnify the image; less than 1.0 minify
 the image. The `xTrans` parameter corresponds to *t*~x~ and the
 `yTrans` parameter corresponds to *t*~y~ in [equation
-8.1](geom-image-manip/index.html). If `xTrans` is positive, the
+8.1](geom-image-manip). If `xTrans` is positive, the
 translation is to the right; if negative, to the left. If `yTrans` is
 positive, the translation is down; if negative, upward.
 
@@ -1020,7 +1020,7 @@ compute all the destination pixels. This extension is performed via
 the `BorderExtender` class. The type of border extension can be
 specified as a `RenderingHint` to the `JAI.create` method. See
 [Section 3.7.3, \"Rendering
-Hints](programming-environ/index.html).\"
+Hints](../programming-environ).\"
 
 If no Border Extension is specified, the source will not be extended.
 The scaled image size is still calculated according to the equation
@@ -1029,7 +1029,7 @@ all the destination pixels, only that subset of the destination
 image\'s pixels that can be computed will be written in the
 destination. The rest of the destination will not be written.
 
-[Listing 8-3](geom-image-manip/index.html) shows a code sample for
+[Listing 8-3](../geom-image-manip) shows a code sample for
 a `Scale` operation using a scale factor of 1.2 and nearest-neighbor
 interpolation.
 
@@ -1102,9 +1102,9 @@ specified as a `RenderingHint` to the `JAI.create` method. If no
 border extension type is provided, a default extension of
 `BorderExtender.BORDER_COPY` will be used to perform the extension.
 See [Section 3.7.3, \"Rendering
-Hints](programming-environ/index.html).\"
+Hints](../programming-environ).\"
 
-[Listing 8-4](geom-image-manip/index.html) shows a code sample for
+[Listing 8-4](../geom-image-manip) shows a code sample for
 a `Rotate` operation for a rotation angle of 45 degrees. Since the
 rotation angle must be specified in radians, the example first
 converts 45 degrees to radians.
@@ -1246,9 +1246,9 @@ specified as a `RenderingHint` to the `JAI.create` method. If no
 border extension type is provided, a default extension of
 `BorderExtender.BORDER_COPY` will be used to perform the extension.
 See [Section 3.7.3, \"Rendering
-Hints](programming-environ/index.html).\"
+Hints](../programming-environ).\"
 
-[Listing 8-5](geom-image-manip/index.html) shows a code sample for
+[Listing 8-5](../geom-image-manip) shows a code sample for
 an `Affine` operation that performs a 45 degree counterclockwise
 rotation.
 
@@ -1371,11 +1371,11 @@ transforms homogenous source coordinates (*x*, *y*, 1) into
 destination coordinates (*x*\', *y*\', *w*). To convert back into
 non-homogenous coordinates, *x*\' and *y*\' are divided by *w*.
 
-:   ![](Geom-image-manip.doc.anc5.gif)
+:   ![](../Geom-image-manip.doc.anc5.gif)
 
 The perspective transform is used with the perspective warp operation.
 See [Section 8.7.7, \"Perspective
-Warp](geom-image-manip/index.html).\"
+Warp](geom-image-manip).\"
 
 **API:** `org.eclipse.imagen.jai.PerspectiveTrans |
 |                                   | form`
@@ -1622,7 +1622,7 @@ inverse.
 
 The `Transpose` operation is a combination of flipping and rotating.
 With a `Transpose` operation, you can (see [Figure
-8-8](geom-image-manip/index.html)):
+8-8](../geom-image-manip)):
 
 -   Flip an image vertically across an imaginary horizontal axis that
     runs through the center of the image (`FLIP_VERTICAL`).
@@ -1665,7 +1665,7 @@ image and one parameter:
 
 ***Figure 8-8* ![](shared/sm-blank.gif) Transpose Operations**
 
-[Listing 8-6](geom-image-manip/index.html) shows sample code for
+[Listing 8-6](../geom-image-manip) shows sample code for
 creating a `Transpose` operation. The example performs a horizontal
 flip on the source image and creates the destination image `im2`.
 
@@ -1718,7 +1718,7 @@ image either horizontally or vertically.
 For each pixel (*x*, *y*) of the destination, the source value at the
 fractional subpixel position (*x*\', *y*\') is constructed by means of
 an `Interpolation` object and written to the destination (see
-[\"Interpolation\" on page 249](geom-image-manip/index.html)).
+[\"Interpolation\" on page 249](../geom-image-manip)).
 
 The `shear` operation takes one rendered source image and five
 parameters:
@@ -1741,7 +1741,7 @@ parameters:
 
 For a `shearDir` parameter of `SHEAR_HORIZONTAL`:
 
-:   ![](Geom-image-manip.doc.anc16.gif)
+:   ![](../Geom-image-manip.doc.anc16.gif)
 
 For a `shearDir` parameter of `SHEAR_VERTICAL`:
 
@@ -1756,9 +1756,9 @@ specified as a `RenderingHint` to the `JAI.create` method. If no
 border extension type is provided, a default extension of
 `BorderExtender.BORDER_COPY` will be used to perform the extension.
 See [Section 3.7.3, \"Rendering
-Hints](programming-environ/index.html).\"
+Hints](programming-environ).\"
 
-[Listing 8-7](geom-image-manip/index.html) shows a code sample for
+[Listing 8-7](../geom-image-manip) shows a code sample for
 a `Shear` operation.
 
 **[]{#69639}**
@@ -1809,7 +1809,7 @@ a `Shear` operation.
 --------------------------------
 
 The linear geometric transformations described in [Section 8.3,
-\"Geometric Transformation](geom-image-manip/index.html),\" cannot
+\"Geometric Transformation](../geom-image-manip),\" cannot
 introduce curvature in the mapping process. Image warping is a type of
 geometric transformation that introduces curvature into the mapping
 process. The introduction of curvature is important when an image has
@@ -1824,7 +1824,7 @@ destination coordinates.
 JAI provides a transformation class, `Warp`, that is used for
 non-linear image coordinate transformation. As in the `Interpolation`
 class (see [Section 8.2,
-\"Interpolation](geom-image-manip/index.html)\"), pixel positions
+\"Interpolation](../geom-image-manip)\"), pixel positions
 in the `Warp` class are represented using fixed-point coordinates,
 yielding subpixel accuracy but still allowing the use of integer
 arithmetic. The degree of precision is set by means of the
@@ -2033,19 +2033,19 @@ The warp object will be one of the following:
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Object]{#66940}                   [Description]{#66942}
   ---------------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [WarpAffine]{#66944}\              [An affine-based image warp. See]{#66946} [Section 8.7.8, \"Affine Warp](geom-image-manip/index.html).\"\
+  [WarpAffine]{#66944}\              [An affine-based image warp. See]{#66946} [Section 8.7.8, \"Affine Warp](../geom-image-manip).\"\
 
-  [WarpCubic]{#66948}\               [A cubic-based image warp. See]{#66950} [Section 8.7.6, \"Cubic Warp](geom-image-manip/index.html).\"\
+  [WarpCubic]{#66948}\               [A cubic-based image warp. See]{#66950} [Section 8.7.6, \"Cubic Warp](../geom-image-manip).\"\
 
-  [WarpGeneralPolynomial]{#66952}\   [A polynomial-based image warp for polynomials of a higher degree. See]{#66954} [Section 8.7.3, \"General Polynomial Warp](geom-image-manip/index.html).\"\
+  [WarpGeneralPolynomial]{#66952}\   [A polynomial-based image warp for polynomials of a higher degree. See]{#66954} [Section 8.7.3, \"General Polynomial Warp](../geom-image-manip).\"\
 
-  [WarpGrid]{#66956}\                [A grid-based image warp where the image may be warped in pieces. See]{#66958} [Section 8.7.4, \"Grid Warp](geom-image-manip/index.html).\"\
+  [WarpGrid]{#66956}\                [A grid-based image warp where the image may be warped in pieces. See]{#66958} [Section 8.7.4, \"Grid Warp](../geom-image-manip).\"\
 
-  [WarpPerspective]{#66960}\         [A perspective or projective image warp. See]{#66962} [Section 8.7.7, \"Perspective Warp](geom-image-manip/index.html).\"\
+  [WarpPerspective]{#66960}\         [A perspective or projective image warp. See]{#66962} [Section 8.7.7, \"Perspective Warp](../geom-image-manip).\"\
 
-  [WarpPolynomial]{#66964}\          [A polynomial-based description of an image warp. See]{#66966} [Section 8.7.2, \"Polynomial Warp](geom-image-manip/index.html).\"\
+  [WarpPolynomial]{#66964}\          [A polynomial-based description of an image warp. See]{#66966} [Section 8.7.2, \"Polynomial Warp](../geom-image-manip).\"\
 
-  [WarpQuadratic]{#66968}\           [A quadratic-based description of an image warp. See]{#66970} [Section 8.7.5, \"Quadratic Warp](geom-image-manip/index.html).\"\
+  [WarpQuadratic]{#66968}\           [A quadratic-based description of an image warp. See]{#66970} [Section 8.7.5, \"Quadratic Warp](../geom-image-manip).\"\
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2072,11 +2072,11 @@ necessary parameters to it. The `Warp` operation takes two parameters:
     `JAI.create` method. If no border extension type is provided, a
     default extension of `BorderExtender.BORDER_COPY` will be used to
     perform the extension. See [Section 3.7.3, \"Rendering
-    Hints](programming-environ/index.html).\"
+    Hints](../programming-environ).\"
 
 3\. Create the warp operation with the `JAI.create` method.
 
-[Listing 8-8](geom-image-manip/index.html) shows a sample code for
+[Listing 8-8](../geom-image-manip) shows a sample code for
 a simple second-order warp operation.
 
 **[]{#69555}**
@@ -2342,7 +2342,7 @@ corner equal to (*sx*0, *sy*0), (*sx*1, *sy*1), (*sx*2, *sy*2), and
 The source *x* and *y* values are interpolated horizontally along the
 top and bottom edges of the grid cell, and the results are
 interpolated vertically, as shown in [Figure
-8-10](geom-image-manip/index.html).
+8-10](../geom-image-manip).
 
 
 ------------------------------------------------------------------------
@@ -2641,7 +2641,7 @@ The `WarpPerspective` class provides a perspective (projective) warp.
 The transform is specified as a mapping from destination space to
 source space. In other words, it is the inverse of the normal
 specification of a perspective image transformation. See [Section 8.4,
-\"Perspective Transformation](geom-image-manip/index.html),\" for
+\"Perspective Transformation](../geom-image-manip),\" for
 a description of the `PerspectiveTransform` class.
 
 **API:** `org.eclipse.imagen.jai.WarpPerspective`
@@ -2723,7 +2723,7 @@ The source position (*x*\', *y*\') of a point (*x*, *y*) is given by
 the quadratic bivariate polynomial:
 
 
-[Listing 8-9](geom-image-manip/index.html) shows a code sample for
+[Listing 8-9](../geom-image-manip) shows a code sample for
 an affine-based warp operation.
 
 **[]{#70181}**

@@ -82,7 +82,7 @@ define an area as a geometrical description of its outline. The `ROI`
 class stores an area as a single-banded image.
 
 An ROI can be attached to an image as a property. See [Chapter 11,
-\"Image Properties](properties/index.html).\"
+\"Image Properties](../properties).\"
 
 
 ### 6.2.1 ![](shared/space.gif)The ROI Class
@@ -794,7 +794,7 @@ performs a band-by-band comparison.
 
 **Note:** Don\'t confuse the relational Min and Max operators with the
 Extrema operation (see [Section 9.3, \"Finding the Extrema of an
-Image](analysis/index.html)\"), which finds the image-wise minimum
+Image](../analysis)\"), which finds the image-wise minimum
 and maximum pixel values for each band of an image.
 
 ------------------------------------------------------------------------
@@ -824,7 +824,7 @@ pseudocode:
          }
 
 The `max` operation takes two source images and no parameters.
-[Listing 6-1](image-manipulation/index.html) shows a partial code
+[Listing 6-1](../image-manipulation) shows a partial code
 sample of computing the pixelwise maximum value of two images in the
 rendered mode.
 
@@ -869,7 +869,7 @@ pseudocode:
          }
 
 The `min` operation takes two rendered source images and no
-parameters. [Listing 6-2](image-manipulation/index.html) shows a
+parameters. [Listing 6-2](../image-manipulation) shows a
 partial code sample of computing the pixelwise minimum value of two
 images in the renderable mode.
 
@@ -978,7 +978,7 @@ The destination pixel values are defined by the following pseudocode:
 The `And` operation takes two rendered or renderable source images and
 no parameters.
 
-[Listing 6-3](image-manipulation/index.html) shows a partial code
+[Listing 6-3](../image-manipulation) shows a partial code
 sample of using the `And` operation to AND two images together.
 
 **[]{#70476}**
@@ -1048,7 +1048,7 @@ and one parameter:
 
   : 
 
-[Listing 6-4](image-manipulation/index.html) shows a partial code
+[Listing 6-4](../image-manipulation) shows a partial code
 sample of using the `AndConst` operation to AND a source image with a
 defined constant of value 1.2.
 
@@ -1111,7 +1111,7 @@ The destination pixel values are defined by the following pseudocode:
 The `Or` operation takes two rendered or renderable source images and
 no parameters.
 
-[Listing 6-5](image-manipulation/index.html) shows a partial code
+[Listing 6-5](../image-manipulation) shows a partial code
 sample of using the `or` operation to OR two images.
 
 **[]{#70533}**
@@ -1315,7 +1315,7 @@ pseudocode:
 The `Not` operation takes one rendered or renderable source image and
 no parameters.
 
-[Listing 6-6](image-manipulation/index.html) shows a partial code
+[Listing 6-6](../image-manipulation) shows a partial code
 sample of using the `Not` operation.
 
 **[]{#70578}**
@@ -1453,7 +1453,7 @@ clamped to the minimum or maximum value, respectively.
 The `Add` operation two rendered or renderable source images and no
 parameters.
 
-[Listing 6-7](image-manipulation/index.html) shows a partial code
+[Listing 6-7](../image-manipulation) shows a partial code
 sample of using the `Add` operation to add two images.
 
 **[]{#70605}**
@@ -1517,7 +1517,7 @@ If the result of the addition underflows or overflows the minimum or
 maximum value supported by the destination image, the value will be
 clamped to the minimum or maximum value, respectively.
 
-[Listing 6-8](image-manipulation/index.html) shows a partial code
+[Listing 6-8](../image-manipulation) shows a partial code
 sample of using the `AddConst` operation.
 
 **[]{#70988}**
@@ -2035,7 +2035,7 @@ as needed.
 The `Exp` operation takes one rendered or renderable source image and
 no parameters.
 
-[Listing 6-9](image-manipulation/index.html) shows a partial code
+[Listing 6-9](../image-manipulation) shows a partial code
 sample of using the `Exp` operation to take the exponent of an image.
 
 **[]{#70720}**
@@ -2070,7 +2070,7 @@ images to pseudo-color (single-band byte) images.
 JAI offers two operations for dithering an image: ordered dither and
 error-diffusion dither. The choice of dithering operation depends on
 desired speed and image quality, as shown in [Table
-6-1](image-manipulation/index.html).
+6-1](../image-manipulation).
 
   ------------------------------------------------------------------------------------
   [Dither Type]{#65317}        [Relative Speed]{#65319}   [Relative Quality]{#65321}
@@ -2104,9 +2104,9 @@ parameters:
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#63972}     [Type]{#63974}             [Description]{#63976}
   ----------------------- -------------------------- ------------------------------------------------------------------------------------------------------------------
-  [colorMap]{#63978}\     [ColorCube]{#63980}\       [The color cube. See]{#63982} [Section 6.6.1.1, \"Color Map Parameter](image-manipulation/index.html).\"\
+  [colorMap]{#63978}\     [ColorCube]{#63980}\       [The color cube. See]{#63982} [Section 6.6.1.1, \"Color Map Parameter](../image-manipulation).\"\
 
-  [ditherMask]{#63984}\   [KernelJAI\[\]]{#63986}\   [The dither mask. See]{#63988} [Section 6.6.1.2, \"Dither Mask Parameter](image-manipulation/index.html).\"\
+  [ditherMask]{#63984}\   [KernelJAI\[\]]{#63986}\   [The dither mask. See]{#63988} [Section 6.6.1.2, \"Dither Mask Parameter](../image-manipulation).\"\
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2117,7 +2117,7 @@ parameters:
 The `colorMap` parameter can be either one of the predefined
 `ColorCubes`, or a custom color map can be created as a `ColorCube`
 object. To create a custom color map, see [Section 7.6.1.3, \"Creating
-a Color-cube Lookup Table](image-enhance/index.html).\"
+a Color-cube Lookup Table](../image-enhance).\"
 
 The predefined color maps are:
 
@@ -2145,10 +2145,10 @@ greater than or equal to 0.0 and less than or equal to 1.0.
 The `ditherMask` parameter may either be one of the predefined dither
 masks or a custom mask may be created. To create a custom dither mask,
 see [Section 6.9, \"Constructing a
-Kernel](image-manipulation/index.html).\"
+Kernel](../image-manipulation).\"
 
 The predefined dither masks are (see [Figure
-6-1](image-manipulation/index.html)):
+6-1](../image-manipulation)):
 
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [ditherMask]{#66117}           [Description]{#66119}
@@ -2173,7 +2173,7 @@ The predefined dither masks are (see [Figure
 
 #### 6.6.1.3 ![](shared/space.gif)OrderedDither Example
 
-[Listing 6-10](image-manipulation/index.html) shows a partial code
+[Listing 6-10](../image-manipulation) shows a partial code
 sample of using the `OrderedDither` operation.
 
 **[]{#70282}**
@@ -2239,9 +2239,9 @@ parameters:
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#63569}      [Type]{#63587}              [Description]{#63589}
   ------------------------ --------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [colorMap]{#63575}\      [LookupTableJAI]{#63577}\   [The color map. A LookupTableJAI (see]{#63579} [Section 7.6.1, \"Creating the Lookup Table](image-enhance/index.html)\") or a ColorCube (see [Section 6.6.1.1, \"Color Map Parameter](image-manipulation/index.html)\").\
+  [colorMap]{#63575}\      [LookupTableJAI]{#63577}\   [The color map. A LookupTableJAI (see]{#63579} [Section 7.6.1, \"Creating the Lookup Table](../image-enhance)\") or a ColorCube (see [Section 6.6.1.1, \"Color Map Parameter](../image-manipulation)\").\
 
-  [errorKernel]{#63581}\   [KernelJAI]{#63583}\        [The error filter kernel. See]{#63585} [Section 6.6.2.1, \"Error Filter Kernel](image-manipulation/index.html).\"\
+  [errorKernel]{#63581}\   [KernelJAI]{#63583}\        [The error filter kernel. See]{#63585} [Section 6.6.2.1, \"Error Filter Kernel](../image-manipulation).\"\
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2251,10 +2251,10 @@ parameters:
 
 The `errorKernel` parameter can be one of three predefined error
 filters or you can create your own. To create your own, see [Section
-6.9, \"Constructing a Kernel](image-manipulation/index.html).\"
+6.9, \"Constructing a Kernel](../image-manipulation).\"
 
 The predefined kernels are (see [Figure
-6-2](image-manipulation/index.html)):
+6-2](../image-manipulation)):
 
   ---------------------------------------------------------------------------------------------------------------------------------------
   [errorKernel]{#66174}                        [Description]{#66176}
@@ -2278,7 +2278,7 @@ ignored.
 
 In operation, the filter is laid on top of the source image so that
 its origin aligns with the pixel to be passed through the lookup
-table. [Figure 6-3](image-manipulation/index.html) shows an
+table. [Figure 6-3](../image-manipulation) shows an
 example using the Floyd-Steinberg filter. The diffusion operation
 then:
 
@@ -2321,7 +2321,7 @@ Filters**
 
 #### 6.6.2.2 ![](shared/space.gif)ErrorDiffusion Example
 
-[Listing 6-11](image-manipulation/index.html) shows a partial code
+[Listing 6-11](../image-manipulation) shows a partial code
 sample of using the `ErrorDiffusion` operation.
 
 **[]{#70390}**
@@ -2390,7 +2390,7 @@ and two parameters:
 
   : 
 
-[Listing 6-12](image-manipulation/index.html) shows a partial code
+[Listing 6-12](../image-manipulation) shows a partial code
 sample of using the `Clamp` operation to clamp pixels values to
 between 5 and 250.
 
@@ -2461,7 +2461,7 @@ image and one parameter:
 
   : 
 
-[Listing 6-13](image-manipulation/index.html) shows a partial code
+[Listing 6-13](../image-manipulation) shows a partial code
 sample of using the `BandSelect` operation.
 
 **[]{#70887}**
@@ -2499,7 +2499,7 @@ A `KernelJAI` is characterized by its width, height, and key element
 the current source pixel to perform convolution or error diffusion.
 
 For the `OrderedDither` operation (see [Section 6.6.1, \"Ordered
-Dither](image-manipulation/index.html)\"), an array of `KernelJAI`
+Dither](../image-manipulation)\"), an array of `KernelJAI`
 objects is actually required with there being one `KernelJAI` per band
 of the image to be dithered. The location of the key element is in
 fact irrelevant to the `OrderedDither` operation.
@@ -2513,7 +2513,7 @@ The `width` and `height` parameters determine the kernel size. The
 `data` parameter is a pointer to the floating point values stored in a
 data array. The key element is set to
 
-:   ![](Image-manipulation.doc.anc7.gif)
+:   ![](../Image-manipulation.doc.anc7.gif)
 
 The following constructor constructs a `KernelJAI` object with the
 given parameters.
@@ -2540,10 +2540,10 @@ The following constructor constructs a `KernelJAI` object from a
 
          KernelJAI(java.awt.image.Kernel k)
 
-[Listing 6-14](image-manipulation/index.html) shows a partial code
+[Listing 6-14](image-manipulation) shows a partial code
 sample for creating a simple 3 x 3 kernel with the key element located
 at coordinates 1,1, as shown in [Figure
-6-4](image-manipulation/index.html).
+6-4](../image-manipulation).
 
 **[]{#70938}**
 
@@ -2573,12 +2573,12 @@ at coordinates 1,1, as shown in [Figure
 
 The Java Advanced Imaging API provides a shorthand method for creating
 several commonly-used kernels, listed in [Table
-6-2](image-manipulation/index.html), which can simply be called by
+6-2](../image-manipulation), which can simply be called by
 name. These kernels and their use are described in more detail in
 [Section 6.6.1, \"Ordered
-Dither](image-manipulation/index.html),\" [Section 6.6.2,
-\"Error-diffusion Dither](image-manipulation/index.html),\" and
-[Section 9.5, \"Edge Detection](analysis/index.html).\"
+Dither](../image-manipulation),\" [Section 6.6.2,
+\"Error-diffusion Dither](../image-manipulation),\" and
+[Section 9.5, \"Edge Detection](../analysis).\"
 
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Kernel Name]{#68080}                        [Description and Use]{#68082}

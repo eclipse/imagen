@@ -166,7 +166,7 @@ stroke width to 12 points.
 
 #### 10.2.2.2 ![](shared/space.gif)Endcap Style
 
-[Table 10-1](graphics/index.html) lists the endcap style
+[Table 10-1](../graphics) lists the endcap style
 attributes.
 
 +-----------------------+-----------------------+-----------------------+
@@ -219,7 +219,7 @@ points and endcap style is set to `CAP_ROUND`.
 
 #### 10.2.2.3 ![](shared/space.gif)Join Style
 
-[Table 10-2](graphics/index.html) lists the join style attributes.
+[Table 10-2](../graphics) lists the join style attributes.
 These attributes affect the appearance of line junctions.
 
 +-----------------------+-----------------------+-----------------------+
@@ -285,11 +285,11 @@ The stroke style is defined by two parameters:
 -   `dash_phase` - an offset that defines where the dashing pattern
     starts.
 
-[Listing 10-1](graphics/index.html) shows a code sample in which
+[Listing 10-1](../graphics) shows a code sample in which
 two different dashing patterns are created. In the first pattern, the
 size of the dashes and the space between them is constant. The second
 pattern uses a six-element array to define the dashing pattern. The
-two dash patterns are shown in [Figure 10-2](graphics/index.html).
+two dash patterns are shown in [Figure 10-2](../graphics).
 
 **[]{#52134}**
 
@@ -339,7 +339,7 @@ of one color to another. When creating a `GradientPaint` object, you
 specify a beginning position and color, and an ending position and
 color. The fill color changes proportionally from one color to the
 other along the line connecting the two positions, as shown in [Figure
-10-3](graphics/index.html).
+10-3](../graphics).
 
 In all three stars, the gradient line extends from point P1 to point
 P2. In the middle star, all of the points along the gradient line
@@ -359,7 +359,7 @@ Gradient**
 
 To fill a shape with a gradient of one color to another:
 
-[Listing 10-2](graphics/index.html) shows sample code in which a
+[Listing 10-2](../graphics) shows sample code in which a
 rectangle is filled with a blue-green gradient.
 
 **[]{#52145}**
@@ -386,7 +386,7 @@ rectangle to define the repetition frequency of the pattern.
 
 To fill a shape with a texture:
 
-[Listing 10-3](graphics/index.html) shows sample code in which a
+[Listing 10-3](../graphics) shows sample code in which a
 shape is filled with texture.
 
 **[]{#52179}**
@@ -426,7 +426,7 @@ Texture**
 
 The `Graphics2D` class provides methods for creating `Shape`s and
 `Text`, and for rendering `Images`. [Table
-10-3](graphics/index.html) lists these methods.
+10-3](../graphics) lists these methods.
 
   ---------------------------------------------------------------------------------------------------------------------------------------------------
   [Method]{#52238}                 [Description]{#52240}
@@ -458,14 +458,14 @@ The `Graphics2D.draw` method is used to render the outline of any
 
 When a `Shape` is drawn, its path is stroked with the `Stroke` object
 in the `Graphics2D` context. (See [Section 10.2.2, \"Stroke
-Attributes](graphics/index.html),\" for more information.) By
+Attributes](../graphics),\" for more information.) By
 setting an appropriate `BasicStroke` object in the `Graphics2D`
 context, you can draw lines of any width or pattern. The `BasicStroke`
 object also defines the line\'s endcap and join attributes.
 
 To render a `Shape`\'s outline:
 
-[Listing 10-4](graphics/index.html) shows a code example in which
+[Listing 10-4](../graphics) shows a code example in which
 a `GeneralPath` object is used to define a star and a `BasicStroke`
 object is added to the `Graphics2D` context to define the star\'s line
 width and join attributes.
@@ -514,7 +514,7 @@ class, such as `fillRect`, `fill3DRect`, `fillRoundRect`, `FillOval`,
 
 To fill a `Shape`:
 
-[Listing 10-5](graphics/index.html) shows a code example in which
+[Listing 10-5](../graphics) shows a code example in which
 the `setColor` method is called to define a green fill for a
 `Rectangle2D`.
 
@@ -566,7 +566,7 @@ Graphics2D context.
 10.3 ![](shared/space.gif)Graphics2D Example
 --------------------------------------------
 
-[Listing 10-6](graphics/index.html) shows a code sample for a
+[Listing 10-6](../graphics) shows a code sample for a
 Graphics2D example.
 
 **[]{#51518}**

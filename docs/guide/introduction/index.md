@@ -231,7 +231,7 @@ image tiling, regions of interest, and deferred execution. The API
 also implements a set of core image processing operators, including
 many common point, area, and frequency-domain operations. For a list
 of the available operators, see [Section 3.6, \"JAI API
-Operators](programming-environ/index.html).\"
+Operators](../programming-environ).\"
 
 
 ### 1.3.7 ![](shared/space.gif)High Performance
@@ -261,7 +261,7 @@ classes in most cases.
 
 Before proceeding any further, let\'s take a look at an example JAI
 program to get an idea of what it looks like. [Listing
-1-1](Introduction/index.html) shows a simple example of a complete
+1-1](../Introduction) shows a simple example of a complete
 JAI program. This example reads an image, passed to the program as a
 command line argument, scales the image by 2x with bilinear
 interpolation, then displays the result.
