@@ -30,14 +30,14 @@ appear in this book.
 **bicubic interpolation** []{#49199} 
 :   Two-dimensional cubic interpolation of pixel values based on the
     16 pixels in a 4 x 4 pixel neighborhood. See also [*bilinear
-    interpolation*](Glossary.doc.html#49200), [*nearest-neighbor
-    interpolation*](Glossary.doc.html#49221).
+    interpolation*](glossary/index.html), [*nearest-neighbor
+    interpolation*](glossary/index.html).
     
 **bilinear interpolation** []{#49201} 
 :   Two-dimensional linear interpolation of pixel values based on the
     four pixels in a 2 x 2 pixel neighborhood. See also [*bicubic
-    interpolation*](Glossary.doc.html#49198), [*nearest-neighbor
-    interpolation*](Glossary.doc.html#49221).
+    interpolation*](glossary/index.html), [*nearest-neighbor
+    interpolation*](glossary/index.html).
     
 **binary image** []{#49303} 
 :   An image that consists of only two brightness levels: black and
@@ -68,20 +68,20 @@ appear in this book.
     
 **directed graph (digraph)** []{#49282} 
 :   A graph with one-way edges. See also [*directed acyclic graph
-    (DAG)*](Glossary.doc.html#49269).
+    (DAG)*](glossary/index.html).
     
 **directed acyclic graph (DAG)** []{#49287} 
 :   A directed graph containing no cycles. This means that if there is
     a route from node A to node B then there is no way back.
     
 **first-order interpolation** []{#49335} 
-:   See [*bilinear interpolation*](Glossary.doc.html#49200).
+:   See [*bilinear interpolation*](glossary/index.html).
     
 **high-pass filter** []{#49344} 
 :   A spatial filter that accentuates an image\'s high-frequency
     detail or attenuates the low-frequency detail. Contrast with
-    [*low-pass filter*](Glossary.doc.html#49345), [*median
-    filter*](Glossary.doc.html#49355).
+    [*low-pass filter*](glossary/index.html), [*median
+    filter*](glossary/index.html).
     
 **histogram** []{#49317} 
 :   A measure of the amplitude distribution of pixels within an image.
@@ -94,8 +94,8 @@ appear in this book.
 **low-pass filter** []{#49350} 
 :   A spatial filter that attenuates an image\'s high-frequency detail
     or accentuates the low-frequency detail. Contrast with [*high-pass
-    filter*](Glossary.doc.html#49343), [*median
-    filter*](Glossary.doc.html#49355).
+    filter*](glossary/index.html), [*median
+    filter*](glossary/index.html).
     
 **median filter** []{#49356} 
 :   A non-linear spatial filter used to remove noise spikes from an
@@ -105,15 +105,15 @@ appear in this book.
 :   Two-dimensional interpolation of pixel values in which the
     amplitude of the interpolated sample is the amplitude of its
     nearest neighbor. See also [*bicubic
-    interpolation*](Glossary.doc.html#49198), [*bilinear
-    interpolation*](Glossary.doc.html#49200).
+    interpolation*](glossary/index.html), [*bilinear
+    interpolation*](glossary/index.html).
     
 **perspective warp** []{#49365} 
 :   An image distortion in which objects appear trapezoidal due to
     foreshortening.
     
 **projective warp** []{#49367} 
-:   See [*perspective warp*](Glossary.doc.html#49364).
+:   See [*perspective warp*](glossary/index.html).
     
 **quantization** []{#49375} 
 :   The conversion of discrete image samples to digital quantities.
@@ -152,7 +152,7 @@ appear in this book.
     filter.
     
 **zero-order interpolation** []{#49421} 
-:   See [*nearest-neighbor interpolation*](Glossary.doc.html#49221).
+:   See [*nearest-neighbor interpolation*](glossary/index.html).
 
 ------------------------------------------------------------------------
 

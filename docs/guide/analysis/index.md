@@ -86,7 +86,7 @@ nav_order: 11
  calling the `getProperty` method with `"mean"` as the property name.
  The return value has type `java.lang.Number[#bands]`.
 
- [Listing 9-1](Analysis.doc.html#56522) shows a partial code sample of
+ [Listing 9-1](analysis/index.html) shows a partial code sample of
  finding the image-wise mean pixel value of an image in the rendered
  mode.
 
@@ -125,7 +125,7 @@ nav_order: 11
  through the operation unchanged. The `extrema` operation can be used
  to obtain information to compute the scale and offset factors for the
  amplitude rescaling operation (see [Section 7.4, \"Amplitude
- Rescaling](Image-enhance.doc.html#76502)\").
+ Rescaling](image-enhance/index.html)\").
 
  The region-wise maximum and minimum pixel values may be obtained as
  properties. Calling the `getProperty` method on this operation with
@@ -163,7 +163,7 @@ nav_order: 11
  may be `null`, in which case the sampling rate is set to 1; that is,
  every pixel in the ROI is processed.
 
- [Listing 9-2](Analysis.doc.html#56559) shows a partial code sample of
+ [Listing 9-2](analysis/index.html) shows a partial code sample of
  using the `extrema` operation to obtain both the image-wise maximum
  and minimum pixel values of the source image.
 
@@ -284,7 +284,7 @@ nav_order: 11
    : 
 
  For an example histogram, see [Listing 9-3 on page
- 315](Analysis.doc.html#56595).
+ 315](analysis/index.html).
 
  +-----------------------------------+-----------------------------------+
  | ![](shared/cistine.gif)           | -------------------------------   |
@@ -338,9 +338,9 @@ nav_order: 11
    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    [Parameter]{#52625}        [Type]{#52627}         [Description]{#52629}
    -------------------------- ---------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------
-   [specification]{#52631}\   [Histogram]{#52633}\   [The specification for the type of histogram to be generated. See]{#52635} [Section 9.4.1, \"Specifying the Histogram](Analysis.doc.html#55111).\"\
+   [specification]{#52631}\   [Histogram]{#52633}\   [The specification for the type of histogram to be generated. See]{#52635} [Section 9.4.1, \"Specifying the Histogram](analysis/index.html).\"\
 
-   [roi]{#52637}\             [ROI]{#52639}\         [The region of the image to scan. See]{#52641} [Section 6.2, \"Region of Interest Control](Image-manipulation.doc.html#51458).\"\
+   [roi]{#52637}\             [ROI]{#52639}\         [The region of the image to scan. See]{#52641} [Section 6.2, \"Region of Interest Control](image-manipulation/index.html).\"\
 
    [xPeriod]{#52643}\         [Integer]{#52645}\     [The horizontal sampling rate. May not be less than 1.]{#52647}\
 
@@ -469,7 +469,7 @@ nav_order: 11
 
  ### 9.4.4 Histogram Operation Example
 
- [Listing 9-3](Analysis.doc.html#56595) shows a sample listing for a
+ [Listing 9-3](analysis/index.html) shows a sample listing for a
  histogram operation on a three-banded source image.
 
  **[]{#56595}**
@@ -571,7 +571,7 @@ nav_order: 11
 
  -   `KernelJAI.GRADIENT_MASK_SOBEL_VERTICAL`
 
- These masks, shown in [Figure 9-2](Analysis.doc.html#51239) perform
+ These masks, shown in [Figure 9-2](analysis/index.html) perform
  the Sobel edge enhancement operation. The Sobel operation extracts all
  of the edges in an image, regardless of the direction. The resulting
  image appears as an omnidirectional outline of the objects in the
@@ -590,7 +590,7 @@ nav_order: 11
  ***Figure 9-2* ![](shared/sm-blank.gif) Sobel Edge Enhancement Masks**
 
  The Roberts\' cross edge enhancement operation uses the two masks
- shown in [Figure 9-3](Analysis.doc.html#57055). This operation
+ shown in [Figure 9-3](analysis/index.html). This operation
  extracts edges in an image by taking the combined differences of
  directions at right angles to each other to determine the gradient.
  The resulting image appears as a fairly-coarse directional outline of
@@ -628,7 +628,7 @@ nav_order: 11
  Enhancement Masks**
 
  The Prewitt gradient edge enhancement operation uses the two masks
- shown in [Figure 9-4](Analysis.doc.html#57129). This operation
+ shown in [Figure 9-4](analysis/index.html). This operation
  extracts the north, northeast, east, southeast, south, southwest,
  west, or northwest edges in an image. The resulting image appears as a
  directional outline of the objects within the image. Constant
@@ -666,7 +666,7 @@ nav_order: 11
  Masks**
 
  The Frei and Chen edge enhancement operation uses the two masks shown
- in [Figure 9-5](Analysis.doc.html#57203). This operation, when
+ in [Figure 9-5](analysis/index.html). This operation, when
  compared to the other edge enhancement, operations, is more sensitive
  to a configuration of relative pixel values independent of the
  brightness magnitude. The following is a listing of how the two masks
@@ -702,9 +702,9 @@ nav_order: 11
  Masks**
 
  To use a different mask, see [Section 6.9, \"Constructing a
- Kernel](Image-manipulation.doc.html#70882).\"
+ Kernel](image-manipulation/index.html).\"
 
- [Listing 9-4](Analysis.doc.html#56654) shows a sample listing for a
+ [Listing 9-4](analysis/index.html) shows a sample listing for a
  `GradientMagnitude` operation, using the Frei and Chen edge detection
  kernel.
 
@@ -754,7 +754,7 @@ nav_order: 11
  through unchanged from its parent image. However, the desired
  statistics are available as a property or set of properties on the
  image (see [Chapter 11, \"Image
- Properties](Properties.doc.html#47285)\").
+ Properties](properties/index.html)\").
 
  All instances of `StatisticsOpImage` make use of a region of interest,
  specified as an `ROI` object. Additionally, they may perform spatial

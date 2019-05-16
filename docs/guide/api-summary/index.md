@@ -27,7 +27,7 @@ nav_order: 18
  B.1 Java AWT Imaging
  -----------------------------------------
 
- [Table B-1](API-summary.doc.html#75399) lists and describes the
+ [Table B-1](api-summary/index.html) lists and describes the
  `java.awt` imaging classes.
 
    ----------------------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ nav_order: 18
  
  ### B.2.1 Java 2D Imaging Interfaces
 
- [Table B-2](API-summary.doc.html#73751) lists and briefly describes
+ [Table B-2](api-summary/index.html) lists and briefly describes
  the imaging interfaces defined in the `java.awt.image `(Java 2D) API.
 
    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ nav_order: 18
  
  ### B.2.2 Java 2D Imaging Classes
 
- [Table B-3](API-summary.doc.html#74246) lists and briefly describes
+ [Table B-3](api-summary/index.html) lists and briefly describes
  the imaging classes defined in the `java.awt.image `(Java 2D) API.
 
    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -264,7 +264,7 @@ nav_order: 18
  
  ### B.3.1 JAI Interfaces
 
- [Table B-4](API-summary.doc.html#72483) lists and briefly describes
+ [Table B-4](api-summary/index.html) lists and briefly describes
  the interfaces defined in the Java Advanced Imaging API
  (`javax.media.jai`).
 
@@ -294,7 +294,7 @@ nav_order: 18
  
  ### B.3.2 JAI Classes
 
- [Table B-5](API-summary.doc.html#72571) lists and briefly describes
+ [Table B-5](api-summary/index.html) lists and briefly describes
  the classes defined in the Java Advanced Imaging API
  (`javax.media.jai`).
 
@@ -534,7 +534,7 @@ nav_order: 18
  
  ### B.3.3 JAI Iterator Interfaces
 
- [Table B-6](API-summary.doc.html#77306) lists the JAI iterator classes
+ [Table B-6](api-summary/index.html) lists the JAI iterator classes
  (`javax.media.jai.iterator`).
 
    ------------------------------------------------------------------------------------------------------------------------------------------
@@ -561,7 +561,7 @@ nav_order: 18
  
  ### B.3.4 JAI Iterator Classes
 
- [Table B-7](API-summary.doc.html#77427) lists the JAI iterator classes
+ [Table B-7](api-summary/index.html) lists the JAI iterator classes
  (`javax.media.jai.iterator`).
 
    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -584,7 +584,7 @@ nav_order: 18
  
  ### B.3.5 JAI Operator Classes
 
- [Table B-8](API-summary.doc.html#73482) lists the JAI operator classes
+ [Table B-8](api-summary/index.html) lists the JAI operator classes
  (`javax.jai.operator`). These classes extend the JAI
  OperationDescriptor class.
 
@@ -855,7 +855,7 @@ nav_order: 18
  
  ### B.3.6 JAI Widget Interfaces
 
- [Table B-9](API-summary.doc.html#79156) lists the JAI widget
+ [Table B-9](api-summary/index.html) lists the JAI widget
  interfaces (`javax.media.jai.widget`).
 
    -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -872,7 +872,7 @@ nav_order: 18
  
  ### B.3.7 JAI Widget Classes
 
- [Table B-10](API-summary.doc.html#73685) lists the JAI widget classes
+ [Table B-10](api-summary/index.html) lists the JAI widget classes
  (`javax.media.jai.widget`).
 
    -------------------------------------------------------------------------------------------------------------------------------------------------------------
