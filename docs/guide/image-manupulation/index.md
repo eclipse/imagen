@@ -505,8 +505,7 @@ produce an `ROIShape` representing the region, it should call the
 `getAsImage()` method on its sources and produce its output `ROI` in
 image form.
 
-**API:** 
-|                                   | `javax.media.jai.ROIShape`        |
+**API:** `org.eclipse.imagen.jai.ROIShape`
 
     ROIShape(Shape s)
 
@@ -533,8 +532,7 @@ image form.
 The following methods in the `ROIShape` class read the bounds of the
 `ROI`.
 
-**API:** 
-|                                   | `javax.media.jai.ROIShape`        |
+**API:** `org.eclipse.imagen.jai.ROIShape`
 
     Rectangle getBounds()
 
@@ -553,8 +551,7 @@ lies within the region of interest. The `ROIShape.intersects` method
 is used to determine if a rectangular region of the image intersects
 the ROI.``
 
-**API:** 
-|                                   | `javax.media.jai.ROIShape`        |
+**API:** `org.eclipse.imagen.jai.ROIShape`
 
     boolean contains(Point p)
 
@@ -701,8 +698,7 @@ the ROI.``
 Several methods allow the creation of a new `ROIShape` from the old
 `ROIShape`.
 
-**API:** 
-|                                   | `javax.media.jai.ROIShape`        |
+**API:** `org.eclipse.imagen.jai.ROIShape`
 
     ROI add(ROI im)
 
@@ -2611,8 +2607,7 @@ kernel:
 
          KernelJAI kernel = KernelJAI.ERROR_FILTER_FLOYD_STEINBERG;
 
-**API:** 
-|                                   | `javax.media.jai.KernelJAI`       |
+**API:** `org.eclipse.imagen.jai.KernelJAI`
 
     public KernelJAI(int width, int height, int xOrigin, 
            int  yOrigin, float[] data)

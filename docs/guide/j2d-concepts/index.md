@@ -761,8 +761,7 @@ JAI introduces two new data classes, which extend the Java 2D
 
 #### 2.5.2.1 ![](shared/space.gif)The DataBufferFloat Class
 
-**API:** 
-|                                   | `javax.media.jai.DataBufferFloat` |
+**API:** `org.eclipse.imagen.jai.DataBufferFloat`
 
     DataBufferFloat(int size)
 
@@ -847,9 +846,8 @@ JAI introduces two new data classes, which extend the Java 2D
 
 #### 2.5.2.2 ![](shared/space.gif)The DataBufferDouble Class
 
-**API:** 
-|                                   | `javax.media.jai.DataBufferDouble |
-|                                   | `                                 |
+**API:** `org.eclipse.imagen.jai.DataBufferDouble |
+|                                   | `
 
     DataBufferDouble(int size)
 

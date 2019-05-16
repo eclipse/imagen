@@ -1514,9 +1514,8 @@ specified.
 
 ------------------------------------------------------------------------
 
-**API:** 
-|                                   | `javax.media.jai.ParameterBlockJA |
-|                                   | I`                                |
+**API:** `org.eclipse.imagen.jai.ParameterBlockJA |
+|                                   | I`
 
     ParameterBlock set(byte b, String paramName)
 
