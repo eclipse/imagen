@@ -9,7 +9,6 @@ nav_order: 18
     A P P E N D I X ![](shared/sm-space.gif)B
   -------------------------------------------
 
-[]{#72446}
 
 +----------------------------------------------------------------------:+
 | -------------------------------------------------------------------   |
@@ -24,8 +23,7 @@ nav_order: 18
  **T**HIS appendix summarizes the imaging interfaces and classes for
  Java AWT, Java 2D, and Java Advanced Imaging API.
 
- []{#75376}
-
+ 
  B.1 Java AWT Imaging
  -----------------------------------------
 
@@ -42,8 +40,7 @@ nav_order: 18
 
    :  **[Table B-1 **java.awt** Imaging Classes]{#75399}**
 
- []{#73746}
-
+ 
  B.2 Java 2D Imaging
  ----------------------------------------
 
@@ -57,8 +54,7 @@ nav_order: 18
  The Java 2D classes are provided as additions to the `java.awt` and
  `java.awt.image` packages (rather than as a separate package).
 
- []{#73747}
-
+ 
  ### B.2.1 Java 2D Imaging Interfaces
 
  [Table B-2](API-summary.doc.html#73751) lists and briefly describes
@@ -93,8 +89,7 @@ nav_order: 18
 
    :  **[Table B-2 **java.awt.image** Interfaces]{#73751}**
 
- []{#74224}
-
+ 
  ### B.2.2 Java 2D Imaging Classes
 
  [Table B-3](API-summary.doc.html#74246) lists and briefly describes
@@ -241,8 +236,7 @@ nav_order: 18
 
    :  **[Table B-3 **java.awt.image** Classes]{#74246}**
 
- []{#75368}
-
+ 
  B.3 Java Advanced Imaging
  ----------------------------------------------
 
@@ -251,24 +245,23 @@ nav_order: 18
  -   `javax.media.jai` - contains the \"core\" JAI interfaces and
      classes
 
- <!-- -->
+ <!-- --
 
  -   `javax.media.jai.iterator` - contains special iterator interfaces
      and classes, which are useful for writing extension operations
 
- <!-- -->
+ <!-- --
 
  -   `javax.media.jai.operator` - contains classes that describe all of
      the image operators
 
- <!-- -->
+ <!-- --
 
  -   `javax.media.jai.widget` - contains interfaces and classes for
      creating simple image canvases and scrolling windows for image
      display
 
- []{#75504}
-
+ 
  ### B.3.1 JAI Interfaces
 
  [Table B-4](API-summary.doc.html#72483) lists and briefly describes
@@ -298,8 +291,7 @@ nav_order: 18
 
    :  **[Table B-4 **Summary of jai Interfaces**]{#72483}**
 
- []{#72561}
-
+ 
  ### B.3.2 JAI Classes
 
  [Table B-5](API-summary.doc.html#72571) lists and briefly describes
@@ -539,8 +531,7 @@ nav_order: 18
 
    :  **[Table B-5 Summary of jai Classes]{#72571}**
 
- []{#77302}
-
+ 
  ### B.3.3 JAI Iterator Interfaces
 
  [Table B-6](API-summary.doc.html#77306) lists the JAI iterator classes
@@ -567,8 +558,7 @@ nav_order: 18
 
    :  **[Table B-6 JAI Iterator Interfaces]{#77306}**
 
- []{#77419}
-
+ 
  ### B.3.4 JAI Iterator Classes
 
  [Table B-7](API-summary.doc.html#77427) lists the JAI iterator classes
@@ -591,8 +581,7 @@ nav_order: 18
 
  ``
 
- []{#73476}
-
+ 
  ### B.3.5 JAI Operator Classes
 
  [Table B-8](API-summary.doc.html#73482) lists the JAI operator classes
@@ -863,8 +852,7 @@ nav_order: 18
 
    :  **[Table B-8 JAI Operator Classes]{#73482}**
 
- []{#79150}
-
+ 
  ### B.3.6 JAI Widget Interfaces
 
  [Table B-9](API-summary.doc.html#79156) lists the JAI widget
@@ -881,8 +869,7 @@ nav_order: 18
 
  ``
 
- []{#73681}
-
+ 
  ### B.3.7 JAI Widget Classes
 
  [Table B-10](API-summary.doc.html#73685) lists the JAI widget classes

@@ -39,7 +39,7 @@ FileLoad Operation](Acquisition.doc.html#69930).\" The
 `ScrollingImagePanel` is described in [Section 4.8, \"Image
 Display](Acquisition.doc.html#73265).\"
 
-<a name="listing-4-1"></a>
+<a name="listing-4-1"></a
 
 ------------------------------------------------------------------------
 {% highlight java linenos%}
@@ -120,7 +120,7 @@ the following subclasses, each representing a different data type:
 
 [Table 4-1](index#table-4-1) lists the `DataBuffer` type elements.
 
-<a name="table-4-1"></a>
+<a name="table-4-1"></a
 
 ------------------------------------------------------------------------
 
@@ -217,7 +217,7 @@ defines methods for turning an image\'s pixel data into a color value
 in its associated `ColorSpace`. See [Section 5.2.1, \"Color
 Models](Color.doc.html#51226).\"
 
-<a name="figure-4-1"></a>
+<a name="figure-4-1"></a
 
 ------------------------------------------------------------------------
 
@@ -234,7 +234,7 @@ mode imaging.
 The `BufferedImage` class supports the following predefined image
 types:
 
-<a name="table-4-2"></a>
+<a name="table-4-2"></a
 
 ------------------------------------------------------------------------
 
@@ -291,7 +291,7 @@ The API provides a set of classes for describing image data of
 various kinds. These classes are organized into a class hierarchy, as
 shown in [Figure 4-3](Acquisition.doc.html#53019).
 
-<a name="table-4-4"></a>
+<a name="table-4-4"></a
 
 ------------------------------------------------------------------------
 
@@ -564,14 +564,8 @@ request onto its successor. This process continues until the latest
 Snapshot is reached; if it does not contain a copy of the tile, the
 tile is requested from the real source image.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.SnapShotImage`   |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     SnapshotImage(PlanarImage source)
 
@@ -631,14 +625,8 @@ discarded.
 Disposing of the `Snapshot` allows tile data held by the Snapshot that
 is not needed by any other `Snapshot` to be disposed of as well.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.PlanarImage`     |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     void dispose()
 
@@ -668,14 +656,8 @@ representing groups of images. Examples of groups of images include
 pyramids (`ImagePyramid`), time sequences (`ImageSequence`), and
 planar slices stacked to form a volume (`ImageStack`).
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.CollectionImage` |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     CollectionImage()
 
@@ -704,14 +686,8 @@ The images are of the type `ImageJAI`. The timestamps are of the type
 (image, time stamp, camera position) is represented by class
 `SequentialImage`.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.ImageSequence`   |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     ImageSequence(Collection images)
 
@@ -731,14 +707,8 @@ coordinates are of the type `javax.media.jai.Coordinate`. The tuple
 (image, coordinate) is represented by class
 `javax.media.jai.CoordinateImage`.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.ImageStack`      |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     ImageStack(Collection images)
 
@@ -934,14 +904,8 @@ example of the use of `ImageMIPMap`.
 
 ------------------------------------------------------------------------
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.ImageMIPMap`     |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     int getCurrentLevel()
 
@@ -1224,14 +1188,8 @@ example of the use of `ImagePyramid`.
 
 ------------------------------------------------------------------------
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.ImagePyramid`    |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     ImagePyramid(RenderedImage image, RenderedOp downsampler, 
            RenderedOp upSampler, RenderedOp differencer, 
@@ -1305,15 +1263,9 @@ dimension (height; the width is derived by the source image aspect
 ratio and is not specified) and a vector of renderedImages of
 progressively lower resolution.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.MultiResolutionR |
 |                                   | enderableImage`                   |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     public MultiResolutionRenderableImage(Vector renderedSources, 
            float minX, float minY, float height)
@@ -1854,7 +1806,7 @@ needs to be dithered. The method has the following implementation:
          byte b;
          short s;
          s = s & 0xffff;
-         b = (byte)((s >> 8) & 0xff);
+         b = (byte)((s >8) & 0xff);
 
 If a different algorithm is to be used for the dithering, the
 `TIFFDecodeParam` class should be subclassed and an appropriate
@@ -1865,15 +1817,9 @@ If it is desired that the Palette be decoded such that the output
 image is of short data type and no dithering is performed, use the
 `setDecodePaletteAsShorts` method.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `com.sun.media.jai.codec.TIFFDeco |
 |                                   | deParam`                          |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     void setDecodePaletteAsShorts(boolean decodePaletteAsShorts)
 
@@ -1904,15 +1850,9 @@ IFD defines a *subfile*, which may be used to describe related images.
 To determine the number of images in a TIFF file, use the
 `TIFFDirectory.getNumDirectories()` method.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `com.sun.media.jai.codec.TIFFDire |
 |                                   | ctory`                            |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     static int getNumDirectories(SeekableStream stream)
 
@@ -1977,15 +1917,9 @@ TIFF 6.0 file, the value will be one of those defined in [Table
 number of elements in the IFD. The count (also known as *length* in
 earlier TIFF specifications) is the number of values.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `com.sun.media.jai.codec.TIFFFiel |
 |                                   | d`                                |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     int getTag()
 
@@ -2013,15 +1947,9 @@ The `TIFFDecodeParam` class allows the index of the TIFF directory
 first image, index 1 to the second, and so on. The index defaults to
 0.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `com.sun.media.jai.codec.TIFFDire |
 |                                   | ctory`                            |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     TIFFDirectory(SeekableStream stream, int directory)
 
@@ -2246,15 +2174,9 @@ Image**
 
 ------------------------------------------------------------------------
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `com.sun.media.jai.codec.Seekable |
 |                                   | Stream`                           |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     static SeekableStream wrapInputStream(java.io.InputStream is, 
     boolean canSeekBackwards)
@@ -2367,15 +2289,9 @@ of the decode process:
     (GA) images to be output as full-color (GGGA) images, which may
     simplify further processing and display.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `com.sun.media.jai.codec.PNGDecod |
 |                                   | eParam`                           |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     public void setSuppressAlpha(boolean suppressAlpha)
 
@@ -2467,15 +2383,9 @@ If a file has a stored gamma of *X*, but the decoder believes that the
 true file gamma is *Y*, setting a user exponent of *Y*/*X* will
 produce the same result as changing the file gamma.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `com.sun.media.jai.codec.PNGDecod |
 |                                   | eParam`                           |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     boolean getPerformGammaCorrection()
 
@@ -2517,15 +2427,9 @@ format. If this type of expansion is desired, use the
 type 4 (explicit alpha) and images of color type 0 (grayscale) that
 contain transparency information.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `com.sun.media.jai.codec.PNGDecod |
 |                                   | eParam`                           |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     void setExpandGrayAlpha(boolean expandGrayAlpha)
 
@@ -2550,15 +2454,9 @@ The PNG rendering hints are:
 
 To read the hints, use the `OperationDescriptorImpl.getHint` method.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.OperationDescrip |
 |                                   | torImpl`                          |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     Object getHint(RenderingHints.Key key, 
            RenderingHints  renderHints)
@@ -2674,14 +2572,8 @@ Image**
 
 ------------------------------------------------------------------------
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.PlanarImage`     |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     void setImageParameters(ImageLayout layout, RenderedImage im)
 
@@ -2916,7 +2808,7 @@ The `clamp` function may be defined as:
 ------------------------------------------------------------------------
 
          int clamp(int x, int low, int high) {
-             return (x < low) ? low : ((x > high) ? high : x);
+             return (x < low) ? low : ((x high) ? high : x);
          }
 
 ------------------------------------------------------------------------
@@ -3196,14 +3088,8 @@ shown in [Figure 4-5](Acquisition.doc.html#79732).
 
 ***Figure 4-5*  Grid Layout of Four Images**
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.RenderedOp`      |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     int getWidth()
 
@@ -3213,15 +3099,9 @@ shown in [Figure 4-5](Acquisition.doc.html#79732).
 
 :   returns the height of the rendered image.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.widget.Scrolling |
 |                                   | ImagePanel`                       |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     ScrollingImagePanel(RenderedImage im, int width, int height)
 
@@ -3246,15 +3126,9 @@ origin of the image to a given (*x*, *y*) position within the
 `ScrollingImagePanel`. The `setCenter` method sets the image center to
 a given (*x*, *y*) position within the `ScrollingImagePanel`.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.widget.Scrolling |
 |                                   | ImagePanel`                       |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     void setOrigin(int x, int y)
 
@@ -3297,15 +3171,9 @@ Use the constructor or the `set` method to include a `RenderedImage`
 in the canvas, then use the `setOrigin` method to set the position of
 the image within the canvas.
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.widget.ImageCanv |
 |                                   | as`                               |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     ImageCanvas(RenderedImage im, boolean drawBorder)
 
@@ -3352,15 +3220,9 @@ Geometric operators are treated differently with respect to image
 origin control. See [Chapter 8, \"Geometric Image
 Manipulation](Geom-image-manip.doc.html#51140).\"
 
-+-----------------------------------+-----------------------------------+
-| ![](shared/cistine.gif)           | -------------------------------   |
-|                                   |                                   |
-|                                   | **API:**                          |
+**API:** 
 |                                   | `javax.media.jai.widget.ImageCanv |
 |                                   | as`                               |
-|                                   |                                   |
-|                                   | -------------------------------   |
-+-----------------------------------+-----------------------------------+
 
     void setOrigin(int x, int y)
 
