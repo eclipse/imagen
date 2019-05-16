@@ -42,7 +42,7 @@ Advanced Imaging currently supports the following codecs:
 
 The `javax.media.jai.codec` package also enables you to create your
 own additional codecs if those listed above are not sufficient. See
-[Chapter 12, \"Extending the API](extension/index.html),\" for
+[Chapter 12, \"Extending the API](../extension),\" for
 more information.
 
 The Java Advanced Imaging codecs are used to both read (decode) and
@@ -52,7 +52,7 @@ original image data into a compressed data form. These are often
 called *image coding* operations, because they use data coding methods
 to make the conversion to and from the compressed form.
 
-As shown in [Figure 11-1](Compression/index.html), the image
+As shown in [Figure 11-1](../Compression), the image
 decode operations transform an `InputStream` into a `BufferedImage` or
 `Raster` object. The image encode operations transform a
 `BufferedImage` or `Raster` into an `OutputStream`. Various parameters
@@ -61,12 +61,12 @@ different for each codec, but include such things as the bit depth,
 choice of conversion tables, and factors that affect image quality and
 compression ratio.
 
-![](Compression.doc.anc.gif)
+![](../Compression.doc.anc.gif)
 
 
 If you need to know more about image data compression than is
 presented here, see [\"Related
-Documentation](Preface/index.html)\" in the Preface.
+Documentation](Preface)\" in the Preface.
 
 
 11.2 ![](shared/space.gif)Interfaces and Classes
@@ -281,7 +281,7 @@ standards. Due to the great variety of standards available, it is not
 possible for any imaging API to support them all. However, Java
 Advanced Imaging makes it possible to add any number of image coders
 and decoders to support special needs. See [Chapter 12, \"Extending
-the API](extension/index.html),\" for more information.
+the API](../extension),\" for more information.
 
 
 ### 11.5.1 ![](shared/space.gif)BMP Coding
@@ -565,7 +565,7 @@ thumbnail.
 #### 11.5.3.1 ![](shared/space.gif)JPEG Encoding Overview
 
 Java Advanced Imaging uses the JPEG baseline DCT coding process, shown
-in [Figure 11-2](Compression/index.html).
+in [Figure 11-2](../Compression).
 
 ![](Compression.doc.anc1.gif)
 
@@ -664,7 +664,7 @@ of eight-bit YCC images. Tables 2 and 3 are not normally used.
 Parameters enable you to associate a particular AC Huffman table with
 a particular band of the image. The JPEG compressor supports four
 tables for the AC discrete cosine transform coefficients, as listed in
-[Table 11-3](Compression/index.html).
+[Table 11-3](../Compression).
 
   [Table]{#53179}   [Band]{#53181}
   ----------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -706,7 +706,7 @@ tables for the AC discrete cosine transform coefficients, as listed in
 Parameters enable you to associate a particular DC Huffman table with
 a particular band of the image. The JPEG compressor supports four
 tables for the DC discrete cosine transform coefficients, as listed in
-[Table 11-4](Compression/index.html).
+[Table 11-4](../Compression).
 
   [Table]{#53260}   [Band]{#53262}
   ----------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -825,7 +825,7 @@ in the frame header as defined below.
 
          YDensity, Xthumbnail, Ythumbnail, (RGB)n
 
-[Table 11-5](Compression/index.html) describes the marker
+[Table 11-5](../Compression) describes the marker
 parameters.
 
   [Parameter]{#53470}     [Size]{#53472}       [Description]{#53474}
@@ -946,7 +946,7 @@ quality value greater than 1 produces a scaling factor less than 1.
 
 **Note:** The values stored in the quantization table also affect
 image quality and compression ratio. See also [\"Quantization
-Table](Compression/index.html).\"
+Table](../Compression).\"
 
 ------------------------------------------------------------------------
 
@@ -1030,7 +1030,7 @@ range from 1 to 16 bits.
 
 #### 11.5.4.1 ![](shared/space.gif)PNG Hints
 
-[Table 11-6](Compression/index.html) lists the PNG hints.
+[Table 11-6](../Compression) lists the PNG hints.
 
   [Hint Key]{#56565}                         [Class]{#56567}     [Default Value]{#56569}
   ------------------------------------------ ------------------- -------------------------
@@ -1103,7 +1103,7 @@ and some associated data. The tag indicates the purpose of the
 associated data. The tags and data define the image\'s format, size,
 and other parameters, including the image data itself.
 
-As shown in [Figure 11-3](Compression/index.html), a TIFF image
+As shown in [Figure 11-3](../Compression), a TIFF image
 file is divided into a header, one or more Image File Directories
 (IFD), IFD entries, and data.
 
@@ -1128,7 +1128,7 @@ following information:
     relative to the beginning of the file. A TIFF image file generally
     includes a single IFD, but may contain more.
 
-![](Compression.doc.anc2.gif)
+![](../Compression.doc.anc2.gif)
 
 
 The Image file directory contains the following:
@@ -1143,12 +1143,12 @@ The Image file directory contains the following:
 
 -   Tag number - a tag that indicates the meaning of the following
     data. The Java Advanced Imaging TIFF reader reads all the tags
-    listed in [Table 11-7](Compression/index.html).
+    listed in [Table 11-7](Compression).
 
 
 -   Field type - defines the type of data. Java Advanced Imaging
     supports all 12 of the TIFF 6.0 standard data types listed in
-    [Table 11-8](Compression/index.html).
+    [Table 11-8](../Compression).
 
 
 -   Field length - four bytes that indicate the number of data items
@@ -1161,7 +1161,7 @@ The Image file directory contains the following:
 
 #### 11.5.6.1 ![](shared/space.gif)Image Tags
 
-The tags listed in [Table 11-7](Compression/index.html) define the
+The tags listed in [Table 11-7](../Compression) define the
 parameters and data of the image stored in the TIFF file. The
 `TIFF_ImageWidth`, `TIFF_ImageLength`, and `TIFF_BitsPerSample` tags
 define the number of pixels in the image, the number of lines, and the
@@ -1272,7 +1272,7 @@ tags to be decoded into first-class tags by adding suitable
 #### 11.5.6.2 ![](shared/space.gif)Data Types
 
 Java Advanced Imaging supports all of the TIFF 6.0 standard data types
-listed in [Table 11-8](Compression/index.html).
+listed in [Table 11-8](../Compression).
 
   [TIFF Data Type]{#56446}    [Java Data Type]{#56448}   [Description]{#56450}
   --------------------------- -------------------------- -------------------------------------------------------------
@@ -1309,7 +1309,7 @@ arbitrary image types. It produces the fewest number of frequency
 components and, thus, the smallest compressed image file size.
 
 The DCT is similar to the discrete Fourier transform (see [Section
-6.6.1, \"Discrete Fourier Transform](image-enhance/index.html)\").
+6.6.1, \"Discrete Fourier Transform](../image-enhance)\").
 However, the DCT is better at compactly representing very small
 images. The drawback is that the DCT requires more computational power
 than the discrete Fourier transform.

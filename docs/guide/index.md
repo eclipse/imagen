@@ -8,7 +8,7 @@ permalink: /guide/
 ---
 # Eclipse ImageN Programming Guide
 
-* [Preface](preface/index.html)
+* [Preface](preface)
 
 Contents:
 

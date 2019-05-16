@@ -15,17 +15,17 @@ in the Java programming language and some experience with imaging. In
 addition, you will need a working knowledge of other Java APIs,
 depending on your intended application:
 
-- Java ImageIO for image encoding and decoding
+- *Java ImageIO* for image encoding and decoding
 
-- Java 2D for simple graphics, text, and fundamental image manipulation
+- *Java 2D* for simple graphics, text, and fundamental image manipulation
 
-This library is an Apache License v 2.0 release of the former Java Advanced Imaging API
+This library is an Apache License v 2.0 release of the former *Java Advanced Imaging API*
 codebase. Method compatibility has been maintained using new packages and library name.
 
 Disclaimer
 ----------
 
-This version of is based on release {{ version }} of the Eclipse ImageN API.
+This version of is based on release {{site.imagen_version}} of the Eclipse ImageN API.
 
 If any discrepancies between this guide and the javadocs are noted, always
 consider the javadocs to be the most accurate, since they are
@@ -35,74 +35,44 @@ date.
 About This Book
 ---------------
 
-**[Chapter 1, \"Introduction to Java Advanced
-Imaging\"](../introduction/index.html),** gives an overview of the
-Java Advanced Imaging API, how it evolved from the original Java
-Advanced Windowing Toolkit (AWT), some of its features, and introduces
-the imaging operations.
+**[Chapter 1, \"Introduction to Eclipse ImageN\"](../introduction),** gives an overview of the Eclipse ImageN API, how it evolved from the original Java Advanced Windowing Toolkit (AWT), previous Java Advanced Imaging API (JAI), some of its features, and introduces the imaging operations.
 
-**[Chapter 2, \"Java AWT Imaging\"](j2d-concepts/index.html),"**
-reviews the imaging portions of the Java AWT and examines the imaging
-features of the Java 2D API.
+**[Chapter 2, \"Java AWT Imaging\"](../j2d-concepts),"** reviews the imaging portions of the Java AWT and examines the imaging features of the Java 2D API.
 
-**[Chapter 3, \"Programming in Java Advanced
-Imaging\"](programming-environ/index.html),** describes how to get
-started programming with the Java Advanced Imaging API.
+**[Chapter 3, \"Programming Environment\"](../programming-environ),** describes how to get started programming with the Eclipse ImageN.
 
 **[Chapter 4, \"Image Acquisition and
-Display\"](acquisition/index.html),** describes the Java Advanced
-Imaging API image data types and the API constructors and methods for
-image acquisition and display.
+Display\"](../acquisition),** describes the image data types and the API constructors and methods for image acquisition and display.
 
-**[Chapter 5, \"Color Space\"](color/index.html),** describes the
- color space, transparency, and the color conversion operators.
+**[Chapter 5, \"Color Space\"](../color),** describes the color space, transparency, and the color conversion operators.
 
 **[Chapter 6, \"Image
-Manipulation\"](image-manipulation/index.html),** describes the
-basics of manipulating images to prepare them for processing and
-display.
+Manipulation\"](../image-manipulation),** describes the basics of manipulating images to prepare them for processing and display.
 
-**[Chapter 7, \"Image Enhancement\"](image-enhance/index.html),**
-describes the basics of improving the visual appearance of images
-through enhancement techniques.
+**[Chapter 7, \"Image Enhancement\"](../image-enhance),** describes the basics of improving the visual appearance of images through enhancement techniques.
 
 **[Chapter 8, \"Geometric Image
-Manipulation\"](geom-image-manip/index.html),** describes the
-basics of Java Advanced Imaging\'s geometric image manipulation
-functions.
+Manipulation\"](../geom-image-manip),** describes the basics of geometric image manipulation functions.
 
-**[Chapter 9, \"Image Analysis\"](analysis/index.html),**
-describes the Java Advanced Imaging API image analysis operators.
+**[Chapter 9, \"Image Analysis\"](../analysis),** describes the image analysis operators.
 
-**[Chapter 10, \"Graphics Rendering\"](graphics/index.html),**
-describes the Java Advanced Imaging presentation of shapes and text.
+**[Chapter 10, \"Graphics Rendering\"](../graphics),** describes the presentation of shapes and text.
 
-**[Chapter 11, \"Image Properties\"](properties/index.html),**
-describes the tools that allow a programmer to add a simple database
-of arbitrary data that can be attached to images.
+**[Chapter 11, \"Image Properties\"](../properties),** describes the tools that allow a programmer to add a simple database of arbitrary data that can be attached to images.
 
 **[Chapter 12, \"Client-Server
-Imaging\"](client-server/index.html),** describes Java Advanced
-Imaging\'s client-server imaging system.
+Imaging\"](../client-server),** describes client-server imaging system.
 
-**[Chapter 13, \"Writing Image Files\"](encode/index.html),**
-describes Java Advanced Imaging\'s codec system for encoding image
-data files.
+**[Chapter 13, \"Writing Image Files\"](../encode),** describes Eclipse ImageN\'s codec system for encoding image data files.
 
-**[Chapter 14, \"Extending the API\"](extension/index.html),**
-describes how the Java Advanced Imaging API is extended.
+**[Chapter 14, \"Extending the API\"](../extension),** describes Eclipse ImageN API is extended.
 
-**[Appendix A, \"Program Examples\"](Examples/index.html),**
-contains fully-operational Java Advanced Imaging program examples.
+**[Appendix A, \"Program Examples\"](../Examples),** contains fully-operational Eclipse ImageN program examples.
 
 **[Appendix B, \"API
-Summary\"](api-summary/index.html),** summarizes the imaging
-interfaces, and classes, including the `java.awt`, `java.awt.Image`,
-and `javax.media.jai` classes.
+Summary\"](../api-summary),** summarizes the imaging interfaces, and classes, including the `java.awt`, `java.awt.Image`, and `org.eclipse.imagen` classes.
 
-The **[Glossary](glossary/index.html)** contains descriptions of
-significant terms that appear in this book.
-
+The **[Glossary](../glossary)** contains descriptions of significant terms that appear in this book.
 
 Related Documentation
 ---------------------
@@ -146,7 +116,7 @@ The following style conventions are used in this document:
 
 Throughout the book, we introduce many API calls with the following format:
 
-**API:** `org.eclipse.imagen.jai.TiledImage`
+**API:** `org.eclipse.imagen.TiledImage`
 
 When introducing an API call for the first time, we add a short
 list of the methods, tagged with the API heading.
