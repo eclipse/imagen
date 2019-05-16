@@ -208,7 +208,7 @@ The following sample code shows the construction of a
 
       : 
 
-**API:** `org.eclipse.imagen.jai.FloatDoubleColor |
+**API:** `org.eclipse.imagen.FloatDoubleColor |
 |                                   | Model`
 
     FloatDoubleColorModel(ColorSpace colorSpace, boolean hasAlpha, 
@@ -256,65 +256,65 @@ types (such as `TYPE_RGB` and `TYPE_CMYK`).
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Name]{#51323}               [Description]{#51325}
   ---------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [CS\_CIEXYZ]{#51328}\        [A widely-used, device-independent color standard developed by the Commission Internationale de Eclairage (CIE), based on color-matching experiments on human observers.]{#51330}\
+  CS\_CIEXYZ        A widely-used, device-independent color standard developed by the Commission Internationale de Eclairage (CIE), based on color-matching experiments on human observers.
 
-  [CS\_GRAY]{#51333}\          [Grayscale color space.]{#51335}\
+  CS\_GRAY          Grayscale color space.
 
-  [CS\_LINEAR\_RGB]{#51338}\   [Linear RGB. Images that have not been previously color-corrected.]{#51340}\
+  CS\_LINEAR\_RGB   Linear RGB. Images that have not been previously color-corrected.
 
-  [CS\_PYCC]{#51343}\          [PhotoCD YCC conversion color space. A luminance/chrominance standard for Kodak PhotoCD images.]{#51345}\
+  CS\_PYCC          PhotoCD YCC conversion color space. A luminance/chrominance standard for Kodak PhotoCD images.
 
-  [CS\_sRGB]{#51348}\          [A proposed default \"standard RGB\" color standard for use over the Internet.]{#51351}\
+  CS\_sRGB          A proposed default \"standard RGB\" color standard for use over the Internet.
 
-  [TYPE\_2CLR]{#51353}\        [A generic two-component color space.]{#51355}\
+  TYPE\_2CLR        A generic two-component color space.
 
-  [TYPE\_3CLR]{#51357}\        [A generic three-component color space.]{#51359}\
+  TYPE\_3CLR        A generic three-component color space.
 
-  [TYPE\_4CLR]{#51361}\        [A generic four-component color space.]{#51363}\
+  TYPE\_4CLR        A generic four-component color space.
 
-  [TYPE\_5CLR]{#51365}\        [A generic five-component color space.]{#51367}\
+  TYPE\_5CLR        A generic five-component color space.
 
-  [TYPE\_6CLR]{#51369}\        [A generic six-component color space.]{#51371}\
+  TYPE\_6CLR        A generic six-component color space.
 
-  [TYPE\_7CLR]{#51373}\        [A generic seven-component color space.]{#51375}\
+  TYPE\_7CLR        A generic seven-component color space.
 
-  [TYPE\_8CLR]{#51377}\        [A generic eight-component color space.]{#51379}\
+  TYPE\_8CLR        A generic eight-component color space.
 
-  [TYPE\_9CLR]{#51381}\        [A generic nine-component color space.]{#51383}\
+  TYPE\_9CLR        A generic nine-component color space.
 
-  [TYPE\_ACLR]{#51385}\        [A generic 10-component color space.]{#51387}\
+  TYPE\_ACLR        A generic 10-component color space.
 
-  [TYPE\_BCLR]{#51389}\        [A generic 11-component color space.]{#51391}\
+  TYPE\_BCLR        A generic 11-component color space.
 
-  [TYPE\_CCLR]{#51393}\        [A generic 12-component color space.]{#51395}\
+  TYPE\_CCLR        A generic 12-component color space.
 
-  [TYPE\_CMY]{#51397}\         [Any of the family of CMY color spaces.]{#51399}\
+  TYPE\_CMY         Any of the family of CMY color spaces.
 
-  [TYPE\_CMYK]{#51401}\        [Any of the family of CMYK color spaces.]{#51403}\
+  TYPE\_CMYK        Any of the family of CMYK color spaces.
 
-  [TYPE\_DCLR]{#51405}\        [Generic 13-component color spaces.]{#51407}\
+  TYPE\_DCLR        Generic 13-component color spaces.
 
-  [TYPE\_ECLR]{#51409}\        [Generic 14-component color spaces.]{#51411}\
+  TYPE\_ECLR        Generic 14-component color spaces.
 
-  [TYPE\_FCLR]{#51413}\        [Generic 15-component color spaces.]{#51415}\
+  TYPE\_FCLR        Generic 15-component color spaces.
 
-  [TYPE\_GRAY]{#51417}\        [Any of the family of GRAY color spaces.]{#51419}\
+  TYPE\_GRAY        Any of the family of GRAY color spaces.
 
-  [TYPE\_HLS]{#51421}\         [Any of the family of HLS color spaces.]{#51423}\
+  TYPE\_HLS         Any of the family of HLS color spaces.
 
-  [TYPE\_HSV]{#51425}\         [Any of the family of HSV color spaces.]{#51427}\
+  TYPE\_HSV         Any of the family of HSV color spaces.
 
-  [TYPE\_Lab]{#51429}\         [Any of the family of Lab color spaces.]{#51431}\
+  TYPE\_Lab         Any of the family of Lab color spaces.
 
-  [TYPE\_Luv]{#51433}\         [Any of the family of Luv color spaces.]{#51435}\
+  TYPE\_Luv         Any of the family of Luv color spaces.
 
-  [TYPE\_RGB]{#51437}\         [Any of the family of RGB color spaces.]{#51439}\
+  TYPE\_RGB         Any of the family of RGB color spaces.
 
-  [TYPE\_XYZ]{#51441}\         [Any of the family of XYZ color spaces.]{#51443}\
+  TYPE\_XYZ         Any of the family of XYZ color spaces.
 
-  [TYPE\_YCbCr]{#51445}\       [Any of the family of YCbCr color spaces.]{#51447}\
+  TYPE\_YCbCr       Any of the family of YCbCr color spaces.
 
-  [TYPE\_Yxy]{#51449}\         [Any of the family of Yxy color spaces.]{#51451}\
+  TYPE\_Yxy         Any of the family of Yxy color spaces.
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 5-1*  Color Space
@@ -467,11 +467,11 @@ lists the variables used to specify transparency.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Name]{#51532}           [Description]{#51534}
   ------------------------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [BITMASK]{#51537}\       [Represents image data that is guaranteed to be either completely opaque, with an alpha value of 1.0, or completely transparent, with an alpha value of 0.0.]{#51539}\
+  BITMASK       Represents image data that is guaranteed to be either completely opaque, with an alpha value of 1.0, or completely transparent, with an alpha value of 0.0.
 
-  [OPAQUE]{#51542}\        [Represents image data that is guaranteed to be completely opaque, meaning that all pixels have an alpha value of 1.0.]{#51544}\
+  OPAQUE        Represents image data that is guaranteed to be completely opaque, meaning that all pixels have an alpha value of 1.0.
 
-  [TRANSLUCENT]{#51547}\   [Represents image data that contains or might contain arbitrary alpha values between and including 0.0 and 1.0.]{#51549}\
+  TRANSLUCENT   Represents image data that contains or might contain arbitrary alpha values between and including 0.0 and 1.0.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 5-2*  Transparency]{#51528}**
@@ -506,7 +506,7 @@ The `ColorConvert` operation takes one parameter:
   -----------------------------------------------------------------------------------------
   [Parameters]{#51557}    [Type]{#51559}          [Description]{#51561}
   ----------------------- ----------------------- -----------------------------------------
-  [colorSpace]{#51563}\   [ColorSpace]{#51565}\   [The destination color space.]{#51567}\
+  colorSpace   ColorSpace   The destination color space.
 
   -----------------------------------------------------------------------------------------
 
@@ -554,7 +554,7 @@ The `BandCombine` operation takes one parameter:
   --------------------------------------------------------------------------------------------------
   [Parameter]{#51599}   [Type]{#51601}      [Description]{#51603}
   --------------------- ------------------- --------------------------------------------------------
-  [matrix]{#51605}\     [double]{#51607}\   [The matrix specifying the band combination.]{#51609}\
+  matrix     double   The matrix specifying the band combination.
 
   --------------------------------------------------------------------------------------------------
 

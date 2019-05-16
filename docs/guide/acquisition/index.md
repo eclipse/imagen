@@ -460,11 +460,11 @@ The `pattern` operation takes three parameters:
   ------------------------------------------------------------------------------------------
   [Parameter]{#60563}   [Type]{#60565}       [Description]{#60567}
   --------------------- -------------------- -----------------------------------------------
-  [width]{#60581}\      [Integer]{#60583}\   [The width of the image in pixels.]{#60585}\
+  width      Integer   The width of the image in pixels.
 
-  [height]{#60587}\     [Integer]{#60589}\   [The height of the image in pixels.]{#60591}\
+  height     Integer   The height of the image in pixels.
 
-  [pattern]{#60599}\    [Raster]{#60601}\    [The Pattern pixel band values.]{#60603}\
+  pattern    Raster    The Pattern pixel band values.
   ------------------------------------------------------------------------------------------
 
   : 
@@ -564,7 +564,7 @@ request onto its successor. This process continues until the latest
 Snapshot is reached; if it does not contain a copy of the tile, the
 tile is requested from the real source image.
 
-**API:** `org.eclipse.imagen.jai.SnapShotImage`
+**API:** `org.eclipse.imagen.SnapShotImage`
 
     SnapshotImage(PlanarImage source)
 
@@ -624,7 +624,7 @@ discarded.
 Disposing of the `Snapshot` allows tile data held by the Snapshot that
 is not needed by any other `Snapshot` to be disposed of as well.
 
-**API:** `org.eclipse.imagen.jai.PlanarImage`
+**API:** `org.eclipse.imagen.PlanarImage`
 
     void dispose()
 
@@ -654,7 +654,7 @@ representing groups of images. Examples of groups of images include
 pyramids (`ImagePyramid`), time sequences (`ImageSequence`), and
 planar slices stacked to form a volume (`ImageStack`).
 
-**API:** `org.eclipse.imagen.jai.CollectionImage`
+**API:** `org.eclipse.imagen.CollectionImage`
 
     CollectionImage()
 
@@ -683,7 +683,7 @@ The images are of the type `ImageJAI`. The timestamps are of the type
 (image, time stamp, camera position) is represented by class
 `SequentialImage`.
 
-**API:** `org.eclipse.imagen.jai.ImageSequence`
+**API:** `org.eclipse.imagen.ImageSequence`
 
     ImageSequence(Collection images)
 
@@ -703,7 +703,7 @@ coordinates are of the type `javax.media.jai.Coordinate`. The tuple
 (image, coordinate) is represented by class
 `javax.media.jai.CoordinateImage`.
 
-**API:** `org.eclipse.imagen.jai.ImageStack`
+**API:** `org.eclipse.imagen.ImageStack`
 
     ImageStack(Collection images)
 
@@ -899,7 +899,7 @@ example of the use of `ImageMIPMap`.
 
 ------------------------------------------------------------------------
 
-**API:** `org.eclipse.imagen.jai.ImageMIPMap`
+**API:** `org.eclipse.imagen.ImageMIPMap`
 
     int getCurrentLevel()
 
@@ -949,13 +949,13 @@ class:
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#82663}      [Description]{#82665}
   ------------------------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [downSampler]{#82734}\   [A RenderedOp chain used to derive the lower resolution images. The first operation in the chain must take only one source. See]{#82736} [Section 4.2.9.1, \"The Down Sampler](../acquisition).\"\
+  downSampler   [A RenderedOp chain used to derive the lower resolution images. The first operation in the chain must take only one source. See]{#82736} [Section 4.2.9.1, \"The Down Sampler](../acquisition).\"\
 
-  [upSampler]{#82667}\     [A RenderedOp chain that derives the image at a resolution level higher than the current level. The first operation in the chain must take only one source. See]{#82669} [Section 4.2.9.2, \"The Up Sampler](../acquisition).\"\
+  upSampler     [A RenderedOp chain that derives the image at a resolution level higher than the current level. The first operation in the chain must take only one source. See]{#82669} [Section 4.2.9.2, \"The Up Sampler](../acquisition).\"\
 
-  [differencer]{#82671}\   [A RenderedOp chain that finds the difference of two images. The first operation in the chain must take exactly two sources. See]{#82673} [Section 4.2.9.3, \"The Differencer](../acquisition).\"\
+  differencer   [A RenderedOp chain that finds the difference of two images. The first operation in the chain must take exactly two sources. See]{#82673} [Section 4.2.9.3, \"The Differencer](../acquisition).\"\
 
-  [combiner]{#82675}\      [A RenderedOp chain that combines two images. The first operation in the chain must take exactly two sources. See]{#82677} [Section 4.2.9.4, \"The Combiner](../acquisition).\"\
+  combiner      [A RenderedOp chain that combines two images. The first operation in the chain must take exactly two sources. See]{#82677} [Section 4.2.9.4, \"The Combiner](../acquisition).\"\
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -1182,7 +1182,7 @@ example of the use of `ImagePyramid`.
 
 ------------------------------------------------------------------------
 
-**API:** `org.eclipse.imagen.jai.ImagePyramid`
+**API:** `org.eclipse.imagen.ImagePyramid`
 
     ImagePyramid(RenderedImage image, RenderedOp downsampler, 
            RenderedOp upSampler, RenderedOp differencer, 
@@ -1256,7 +1256,7 @@ dimension (height; the width is derived by the source image aspect
 ratio and is not specified) and a vector of renderedImages of
 progressively lower resolution.
 
-**API:** `org.eclipse.imagen.jai.MultiResolutionR |
+**API:** `org.eclipse.imagen.MultiResolutionR |
 |                                   | enderableImage`
 
     public MultiResolutionRenderableImage(Vector renderedSources, 
@@ -1383,27 +1383,27 @@ re-read to locate important information.
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Class]{#68246}                        [Description]{#68248}
   -------------------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [SeekableStream]{#68250}\              [Extends: InputStream]{#68252}\
-                                         [Implements: DataInput]{#68289}\
-                                         [An abstract class that combines the functionality of InputStream and RandomAccessFile, along with the ability to read primitive data types in little-endian format.]{#68288}\
+  SeekableStream              Extends: InputStream
+                                         Implements: DataInput
+                                         An abstract class that combines the functionality of InputStream and RandomAccessFile, along with the ability to read primitive data types in little-endian format.
 
-  [FileSeekableStream]{#68254}\          [Extends: SeekableStream]{#70829}\
-                                         [Implements SeekableStream functionality on data stored in a File.]{#70830}\
+  FileSeekableStream          Extends: SeekableStream
+                                         Implements SeekableStream functionality on data stored in a File.
 
-  [ByteArraySeekableStream]{#68258}\     [Extends: SeekableStream]{#68333}\
-                                         [Implements SeekableStream functionality on data stored in an array of bytes.]{#70792}\
+  ByteArraySeekableStream     Extends: SeekableStream
+                                         Implements SeekableStream functionality on data stored in an array of bytes.
 
-  [SegmentedSeekableStream]{#68262}\     [Extends: SeekableStream]{#68380}\
-                                         [Provides a view of a subset of another SeekableStream consisting of a series of segments with given starting positions in the source stream and lengths. The resulting stream behaves like an ordinary SeekableStream.]{#68371}\
+  SegmentedSeekableStream     Extends: SeekableStream
+                                         Provides a view of a subset of another SeekableStream consisting of a series of segments with given starting positions in the source stream and lengths. The resulting stream behaves like an ordinary SeekableStream.
 
-  [ForwardSeekableStream]{#68266}\       [Extends: SeekableStream]{#68388}\
-                                         [Provides SeekableStream functionality on data from an InputStream with minimal overhead, but does not allow seeking backwards. ForwardSeekableStream may be used with input formats that support streaming, avoiding the need to cache the input data.]{#70836}\
+  ForwardSeekableStream       Extends: SeekableStream
+                                         Provides SeekableStream functionality on data from an InputStream with minimal overhead, but does not allow seeking backwards. ForwardSeekableStream may be used with input formats that support streaming, avoiding the need to cache the input data.
 
-  [FileCacheSeekableStream]{#68270}\     [Extends: SeekableStream]{#68410}\
-                                         [Provides SeekableStream functionality on data from an InputStream with minimal overhead, but does not allow seeking backwards. ForwardSeekableStream may be used with input formats that support streaming, avoiding the need to cache the input data. In circumstances that do not allow the creation of a temporary file (for example, due to security consideration or the absence of local disk), the MemoryCacheSeekableStream class may be used.]{#70856}\
+  FileCacheSeekableStream     Extends: SeekableStream
+                                         Provides SeekableStream functionality on data from an InputStream with minimal overhead, but does not allow seeking backwards. ForwardSeekableStream may be used with input formats that support streaming, avoiding the need to cache the input data. In circumstances that do not allow the creation of a temporary file (for example, due to security consideration or the absence of local disk), the MemoryCacheSeekableStream class may be used.
 
-  [MemoryCacheSeekableStream]{#68274}\   [Extends: SeekableStream]{#68452}\
-                                         [Provides SeekableStream functionality on data from an InputStream, using an in-memory cache to allow seeking backwards. MemoryCacheSeekableStream should be used when security or lack of access to local disk precludes the use of FileCacheSeekableStream.]{#70876}\
+  MemoryCacheSeekableStream   Extends: SeekableStream
+                                         Provides SeekableStream functionality on data from an InputStream, using an in-memory cache to allow seeking backwards. MemoryCacheSeekableStream should be used when security or lack of access to local disk precludes the use of FileCacheSeekableStream.
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 4-3*  JAI Stream
@@ -1436,51 +1436,51 @@ read data:
   -----------------------------------------------------------------------------------------------------------------------
   [Method]{#68924}                 [Description]{#68926}
   -------------------------------- --------------------------------------------------------------------------------------
-  [readInt]{#68638}\               [Reads a signed 32-bit integer]{#68640}\
+  readInt               Reads a signed 32-bit integer
 
-  [readIntLE]{#68642}\             [Reads a signed 32-bit integer in little-endian order]{#68644}\
+  readIntLE             Reads a signed 32-bit integer in little-endian order
 
-  [readShort]{#68646}\             [Reads a signed 16-bit number]{#68648}\
+  readShort             Reads a signed 16-bit number
 
-  [readShortLE]{#68650}\           [Reads a 16-bit number in little-endian order]{#68652}\
+  readShortLE           Reads a 16-bit number in little-endian order
 
-  [readLong]{#68654}\              [Reads a signed 64-bit integer]{#68656}\
+  readLong              Reads a signed 64-bit integer
 
-  [readLongLE]{#68658}\            [Reads a signed 64-bit integer in little-endian order]{#68660}\
+  readLongLE            Reads a signed 64-bit integer in little-endian order
 
-  [readFloat]{#68662}\             [Reads a 32-bit float]{#68664}\
+  readFloat             Reads a 32-bit float
 
-  [readFloatLE]{#68666}\           [Reads a 32-bit float in little-endian order]{#68668}\
+  readFloatLE           Reads a 32-bit float in little-endian order
 
-  [readDouble]{#68670}\            [Reads a 64-bit double]{#68672}\
+  readDouble            Reads a 64-bit double
 
-  [readDoubleLE]{#68674}\          [Reads a 64-bit double in little-endian order]{#68676}\
+  readDoubleLE          Reads a 64-bit double in little-endian order
 
-  [readChar]{#68714}\              [Reads a 16-bit Unicode character]{#68712}\
+  readChar              Reads a 16-bit Unicode character
 
-  [readCharLE]{#68716}\            [Reads a 16-bit Unicode character in little-endian order]{#68708}\
+  readCharLE            Reads a 16-bit Unicode character in little-endian order
 
-  [readByte]{#68812}\              [Reads an signed 8-bit byte]{#68814}\
+  readByte              Reads an signed 8-bit byte
 
-  [readBoolean]{#68718}\           [Reads a Boolean value]{#68704}\
+  readBoolean           Reads a Boolean value
 
-  [readUTF]{#68720}\               [Reads a string of characters in UTF (Unicode Text Format)]{#68700}\
+  readUTF               Reads a string of characters in UTF (Unicode Text Format)
 
-  [readUnsignedShort]{#68722}\     [Reads an unsigned 16-bit short integer]{#68696}\
+  readUnsignedShort     Reads an unsigned 16-bit short integer
 
-  [readUnsignedShortLE]{#68724}\   [Reads an unsigned 16-bit short integer in little-endian order]{#68692}\
+  readUnsignedShortLE   Reads an unsigned 16-bit short integer in little-endian order
 
-  [readUnsignedInt]{#68726}\       [Reads an unsigned 32-bit integer]{#68688}\
+  readUnsignedInt       Reads an unsigned 32-bit integer
 
-  [readUnsignedIntLE]{#68728}\     [Reads an unsigned 32-bit integer in little-endian order]{#68684}\
+  readUnsignedIntLE     Reads an unsigned 32-bit integer in little-endian order
 
-  [readUnsignedByte]{#68730}\      [Reads an unsigned 8-bit byte]{#68680}\
+  readUnsignedByte      Reads an unsigned 8-bit byte
 
-  [readLine]{#68830}\              [Reads in a line that has been terminated by a line-termination character.]{#68832}\
+  readLine              Reads in a line that has been terminated by a line-termination character.
 
-  [readFully]{#68838}\             [Reads a specified number of bytes, starting at the current stream pointer]{#68840}\
+  readFully             Reads a specified number of bytes, starting at the current stream pointer
 
-  [read()]{#68842}\                [Reads the next byte of data from the input stream.]{#68844}\
+  read()                Reads the next byte of data from the input stream.
   -----------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 4-4*  Read Data
@@ -1548,19 +1548,19 @@ from a third party developer.
   ---------------------------------------------------------------------------------------------------------
   [File Format Name]{#74219}   [Description]{#74221}
   ---------------------------- ----------------------------------------------------------------------------
-  [BMP]{#74223}\               [Microsoft Windows bitmap image file]{#74225}\
+  BMP               Microsoft Windows bitmap image file
 
-  [FPX]{#74227}\               [FlashPix format]{#74229}\
+  FPX               FlashPix format
 
-  [GIF]{#74231}\               [Compuserve\'s Graphics Interchange Format]{#74233}\
+  GIF               Compuserve\'s Graphics Interchange Format
 
-  [JPEG]{#74239}\              [A file format developed by the Joint Photographic Experts Group]{#74241}\
+  JPEG              A file format developed by the Joint Photographic Experts Group
 
-  [PNG]{#74243}\               [Portable Network Graphics]{#74245}\
+  PNG               Portable Network Graphics
 
-  [PNM]{#74247}\               [Portable aNy Map file format. Includes PBM, PGM, and PPM.]{#74249}\
+  PNM               Portable aNy Map file format. Includes PBM, PGM, and PPM.
 
-  [TIFF]{#74251}\              [Tag Image File Format]{#74253}\
+  TIFF              Tag Image File Format
   ---------------------------------------------------------------------------------------------------------
 
   :  **[*Table 4-5*  Image File
@@ -1600,29 +1600,29 @@ listed in [Table 4-6](../acquisition).
   -------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#66431}    [Description]{#66433}
   --------------------- ---------------------------------------------------------------------------------------------------------
-  [AWTImage]{#66365}\   [Imports a standard AWT image into JAI.]{#66367}\
+  AWTImage   Imports a standard AWT image into JAI.
 
-  [BMP]{#66369}\        [Reads BMP data from an input stream.]{#66371}\
+  BMP        Reads BMP data from an input stream.
 
-  [FileLoad]{#69735}\   [Reads an image from a file.]{#69739}\
+  FileLoad   Reads an image from a file.
 
-  [FPX]{#66381}\        [Reads FlashPix data from an input stream.]{#66383}\
+  FPX        Reads FlashPix data from an input stream.
 
-  [FPXFile]{#66385}\    [Reads a standard FlashPix file.]{#66387}\
+  FPXFile    Reads a standard FlashPix file.
 
-  [GIF]{#66389}\        [Reads GIF data from an input stream.]{#66391}\
+  GIF        Reads GIF data from an input stream.
 
-  [JPEG]{#66401}\       [Reads a standard JPEG (JFIF) file.]{#66403}\
+  JPEG       Reads a standard JPEG (JFIF) file.
 
-  [PNG]{#66405}\        [Reads a PNG input stream.]{#66407}\
+  PNG        Reads a PNG input stream.
 
-  [PNM]{#66409}\        [Reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats.]{#66411}\
+  PNM        Reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats.
 
-  [Stream]{#66413}\     [Reads java.io.InputStream files.]{#66415}\
+  Stream     Reads java.io.InputStream files.
 
-  [TIFF]{#66417}\       [Reads TIFF 6.0 data from an input stream.]{#66419}\
+  TIFF       Reads TIFF 6.0 data from an input stream.
 
-  [URL]{#71514}\        [Creates an image the source of which is specified by a Uniform Resource Locator (URL).]{#71518}\
+  URL        Creates an image the source of which is specified by a Uniform Resource Locator (URL).
   -------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 4-6*  Image File
@@ -1671,7 +1671,7 @@ The `Stream` operation takes a single parameter:
   -----------------------------------------------------------------------------------------------
   [Parameter]{#65589}   [Type]{#65591}              [Description]{#65593}
   --------------------- --------------------------- ---------------------------------------------
-  [stream]{#65595}\     [SeekableStream]{#65597}\   [The SeekableStream to read from.]{#65599}\
+  stream     SeekableStream   The SeekableStream to read from.
 
   -----------------------------------------------------------------------------------------------
 
@@ -1707,7 +1707,7 @@ The `FileLoad` operation takes a single parameter:
   -----------------------------------------------------------------------------------------
   [Parameter]{#69974}   [Type]{#69976}      [Description]{#69978}
   --------------------- ------------------- -----------------------------------------------
-  [filename]{#69980}\   [String]{#69982}\   [The path of the file to read from.]{#69984}\
+  filename   String   The path of the file to read from.
 
   -----------------------------------------------------------------------------------------
 
@@ -1746,7 +1746,7 @@ The `TIFF` operation reads TIFF data from a TIFF `SeekableStream`. The
   -----------------------------------------------------------------------------------------------
   [Parameter]{#65154}   [Type]{#65156}              [Description]{#65158}
   --------------------- --------------------------- ---------------------------------------------
-  [file]{#65160}\       [SeekableStream]{#65162}\   [The SeekableStream to read from.]{#65164}\
+  file       SeekableStream   The SeekableStream to read from.
 
   -----------------------------------------------------------------------------------------------
 
@@ -1867,29 +1867,29 @@ into the Java data types, as described in [Table
   -------------------------------------------------------------------------------------------------------
   [TIFF Field Type]{#76564}    [Java Data Type]{#76566}   [Description]{#76619}
   ---------------------------- -------------------------- -----------------------------------------------
-  [TIFF\_BYTE]{#76568}\        [byte]{#76570}\            [8-bit unsigned integer]{#76621}\
+  TIFF\_BYTE        byte            8-bit unsigned integer
 
-  [TIFF\_ASCII]{#76572}\       [String]{#76574}\          [Null-terminated ASCII strings.]{#76623}\
+  TIFF\_ASCII       String          Null-terminated ASCII strings.
 
-  [TIFF\_SHORT]{#76576}\       [char]{#76578}\            [16-bit unsigned integers.]{#76625}\
+  TIFF\_SHORT       char            16-bit unsigned integers.
 
-  [TIFF\_LONG]{#76580}\        [long]{#76582}\            [32-bit unsigned integers.]{#76627}\
+  TIFF\_LONG        long            32-bit unsigned integers.
 
-  [TIFF\_RATIONAL]{#76584}\    [long\[2\]]{#76586}\       [Pairs of 32-bit unsigned integers.]{#76629}\
+  TIFF\_RATIONAL    [long\[2\]]{#76586}\       Pairs of 32-bit unsigned integers.
 
-  [TIFF\_SBYTE]{#76588}\       [byte]{#76590}\            [8-bit signed integers.]{#76631}\
+  TIFF\_SBYTE       byte            8-bit signed integers.
 
-  [TIFF\_UNDEFINED]{#76592}\   [byte]{#76594}\            [16-bit signed integers.]{#76633}\
+  TIFF\_UNDEFINED   byte            16-bit signed integers.
 
-  [TIFF\_SSHORT]{#76596}\      [short]{#76598}\           [1-bit signed integers.]{#76635}\
+  TIFF\_SSHORT      short           1-bit signed integers.
 
-  [TIFF\_SLONG]{#76600}\       [int]{#76602}\             [32-bit signed integers.]{#76637}\
+  TIFF\_SLONG       int             32-bit signed integers.
 
-  [TIFF\_SRATIONAL]{#76604}\   [int\[2\]]{#76606}\        [Pairs of 32-bit signed integers.]{#76639}\
+  TIFF\_SRATIONAL   [int\[2\]]{#76606}\        Pairs of 32-bit signed integers.
 
-  [TIFF\_FLOAT]{#76608}\       [float]{#76610}\           [32-bit IEEE floats.]{#76641}\
+  TIFF\_FLOAT       float           32-bit IEEE floats.
 
-  [TIFF\_DOUBLE]{#76612}\      [double]{#76614}\          [64-bit IEEE doubles.]{#76643}\
+  TIFF\_DOUBLE      double          64-bit IEEE doubles.
   -------------------------------------------------------------------------------------------------------
 
   :  **[*Table 4-7*  TIFF Data
@@ -2037,7 +2037,7 @@ operation takes one parameter:
   -----------------------------------------------------------------------------------------------
   [Parameter]{#75869}   [Type]{#75871}              [Description]{#75873}
   --------------------- --------------------------- ---------------------------------------------
-  [stream]{#75875}\     [SeekableStream]{#75877}\   [The SeekableStream to read from.]{#75879}\
+  stream     SeekableStream   The SeekableStream to read from.
 
   -----------------------------------------------------------------------------------------------
 
@@ -2086,7 +2086,7 @@ The `JPEG` operation takes a single parameter:
   -----------------------------------------------------------------------------------------------
   [Parameter]{#61971}   [Type]{#61973}              [Description]{#61975}
   --------------------- --------------------------- ---------------------------------------------
-  [file]{#61977}\       [SeekableStream]{#61979}\   [The SeekableStream to read from.]{#61981}\
+  file       SeekableStream   The SeekableStream to read from.
 
   -----------------------------------------------------------------------------------------------
 
@@ -2106,7 +2106,7 @@ operation takes a single parameter:
   -----------------------------------------------------------------------------------------------
   [Parameter]{#64943}   [Type]{#64945}              [Description]{#64947}
   --------------------- --------------------------- ---------------------------------------------
-  [stream]{#64949}\     [SeekableStream]{#64951}\   [The SeekableStream to read from.]{#64953}\
+  stream     SeekableStream   The SeekableStream to read from.
 
   -----------------------------------------------------------------------------------------------
 
@@ -2137,7 +2137,7 @@ The `BMP` operation takes a single parameter:
   -----------------------------------------------------------------------------------------------
   [Parameter]{#64041}   [Type]{#64043}              [Description]{#64045}
   --------------------- --------------------------- ---------------------------------------------
-  [stream]{#64047}\     [SeekableStream]{#64049}\   [The SeekableStream to read from.]{#64051}\
+  stream     SeekableStream   The SeekableStream to read from.
 
   -----------------------------------------------------------------------------------------------
 
@@ -2213,7 +2213,7 @@ The `PNG` operation takes a single parameter:
   -----------------------------------------------------------------------------------------------
   [Parameter]{#62925}   [Type]{#62927}              [Description]{#62917}
   --------------------- --------------------------- ---------------------------------------------
-  [stream]{#62919}\     [SeekableStream]{#62921}\   [The SeekableStream to read from.]{#62923}\
+  stream     SeekableStream   The SeekableStream to read from.
 
   -----------------------------------------------------------------------------------------------
 
@@ -2437,16 +2437,16 @@ The PNG rendering hints are:
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Hints]{#75796}                     [Description]{#75798}
   ----------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [KEY\_PNG\_EMIT\_ALPHA]{#75800}\    [The alpha channel is set. The alpha channel, representing transparency information on a per-pixel basis, can be included in grayscale and truecolor PNG images.]{#75802}\
+  KEY\_PNG\_EMIT\_ALPHA    The alpha channel is set. The alpha channel, representing transparency information on a per-pixel basis, can be included in grayscale and truecolor PNG images.
 
-  [KEY\_PNG\_EMIT\_16BITS]{#75804}\   [Defines a bit depth of 16 bits.]{#75806}\
+  KEY\_PNG\_EMIT\_16BITS   Defines a bit depth of 16 bits.
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
 
 To read the hints, use the `OperationDescriptorImpl.getHint` method.
 
-**API:** `org.eclipse.imagen.jai.OperationDescrip |
+**API:** `org.eclipse.imagen.OperationDescrip |
 |                                   | torImpl`
 
     Object getHint(RenderingHints.Key key, 
@@ -2474,17 +2474,17 @@ that identifies the file type variant, as follows:
   ----------------------------------------------------------------------------------------
   [Magic Number]{#70741}   [File Type]{#70743}    [SampleModel Type]{#77433}
   ------------------------ ---------------------- ----------------------------------------
-  [P1]{#70745}\            [PBM ASCII]{#70747}\   [MultiPixelPackedSampleModel]{#77435}\
+  P1            PBM ASCII   MultiPixelPackedSampleModel
 
-  [P2]{#70749}\            [PGM ASCII]{#70751}\   [PixelInterleavedSampleModel]{#77437}\
+  P2            PGM ASCII   PixelInterleavedSampleModel
 
-  [P3]{#70753}\            [PPM ASCII]{#70755}\   [PixelInterleavedSampleModel]{#77439}\
+  P3            PPM ASCII   PixelInterleavedSampleModel
 
-  [P4]{#70768}\            [PBM raw]{#70770}\     [MultiPixelPackedSampleModel]{#77441}\
+  P4            PBM raw     MultiPixelPackedSampleModel
 
-  [P5]{#70764}\            [PGM raw]{#70766}\     [PixelInterleavedSampleModel]{#77443}\
+  P5            PGM raw     PixelInterleavedSampleModel
 
-  [P6]{#70760}\            [PPM raw]{#70762}\     [PixelInterleavedSampleModel]{#77445}\
+  P6            PPM raw     PixelInterleavedSampleModel
   ----------------------------------------------------------------------------------------
 
   : 
@@ -2496,7 +2496,7 @@ then stores the image data into an appropriate `SampleModel`. The
   -----------------------------------------------------------------------------------------------
   [Parameter]{#65015}   [Type]{#65017}              [Description]{#65019}
   --------------------- --------------------------- ---------------------------------------------
-  [stream]{#65021}\     [SeekableStream]{#65023}\   [The SeekableStream to read from.]{#65025}\
+  stream     SeekableStream   The SeekableStream to read from.
 
   -----------------------------------------------------------------------------------------------
 
@@ -2538,7 +2538,7 @@ The `AWTImage` operation takes one parameter.
   --------------------------------------------------------------------------------------------------
   [Parameter]{#69105}   [Type]{#69107}     [Description]{#69109}
   --------------------- ------------------ ---------------------------------------------------------
-  [awtImage]{#69111}\   [Image]{#69113}\   [The standard Java AWT image to be converted.]{#69115}\
+  awtImage   Image   The standard Java AWT image to be converted.
 
   --------------------------------------------------------------------------------------------------
 
@@ -2563,7 +2563,7 @@ Image**
 
 ------------------------------------------------------------------------
 
-**API:** `org.eclipse.imagen.jai.PlanarImage`
+**API:** `org.eclipse.imagen.PlanarImage`
 
     void setImageParameters(ImageLayout layout, RenderedImage im)
 
@@ -2588,7 +2588,7 @@ parameter.
   ---------------------------------------------------------------------------------------
   [Parameter]{#71567}   [Type]{#71569}    [Description]{#71571}
   --------------------- ----------------- -----------------------------------------------
-  [URL]{#71573}\        [java.net.URL.\   [The path of the file to read from.]{#71577}\
+  URL        java.net.URL.\   [The path of the file to read from.
                         class]{#71575}\   
 
   ---------------------------------------------------------------------------------------
@@ -2661,137 +2661,137 @@ operators when handed source images having different datatypes.
 
 [Action]{#64389}
 
-[BYTE]{#64391}\
+BYTE
 
-[SHORT]{#64393}\
+SHORT
 
-[(short)(x & 0xff)]{#64395}\
+(short)(x & 0xff)
 
-[USHORT]{#64399}\
+USHORT
 
-[(short)(x & 0xff)]{#64401}\
+(short)(x & 0xff)
 
-[INT]{#64405}\
+INT
 
-[(int)(x & 0xff)]{#64407}\
+(int)(x & 0xff)
 
-[FLOAT]{#64411}\
+FLOAT
 
-[(float)(x & 0xff)]{#64413}\
+(float)(x & 0xff)
 
-[DOUBLE]{#64417}\
+DOUBLE
 
-[(double)(x & 0xff)]{#64419}\
+(double)(x & 0xff)
 
-[SHORT]{#64421}\
+SHORT
 
-[BYTE]{#64423}\
+BYTE
 
-[(byte)clamp((int)x, 0, 255)]{#64425}\
+(byte)clamp((int)x, 0, 255)
 
-[USHORT]{#64596}\
+USHORT
 
-[(short)clamp((int)x, 0, 32767)]{#64431}\
+(short)clamp((int)x, 0, 32767)
 
-[INT]{#64598}\
+INT
 
-[(int)x]{#64437}\
+(int)x
 
-[FLOAT]{#64600}\
+FLOAT
 
-[(float)x]{#64443}\
+(float)x
 
-[DOUBLE]{#64602}\
+DOUBLE
 
-[(double)x]{#64449}\
+(double)x
 
-[USHORT]{#64451}\
+USHORT
 
-[BYTE]{#64453}\
+BYTE
 
-[(byte)clamp((int)x & 0xffff, 0, 255)]{#64455}\
+(byte)clamp((int)x & 0xffff, 0, 255)
 
-[SHORT]{#64459}\
+SHORT
 
-[(short)clamp((int)x & 0xffff, 0, 32767)]{#64461}\
+(short)clamp((int)x & 0xffff, 0, 32767)
 
-[INT]{#64632}\
+INT
 
-[(int)(x & 0xffff)]{#64467}\
+(int)(x & 0xffff)
 
-[FLOAT]{#64634}\
+FLOAT
 
-[(float)(x & 0xffff)]{#64473}\
+(float)(x & 0xffff)
 
-[DOUBLE]{#64636}\
+DOUBLE
 
-[(double)(x & 0xffff)]{#64479}\
+(double)(x & 0xffff)
 
-[INT]{#64481}\
+INT
 
-[BYTE]{#64483}\
+BYTE
 
-[(byte)clamp(x, 0, 255)]{#64485}\
+(byte)clamp(x, 0, 255)
 
-[SHORT]{#64489}\
+SHORT
 
-[(short)x]{#64491}\
+(short)x
 
-[USHORT]{#64495}\
+USHORT
 
-[(short)clamp(x, 0, 65535)]{#64497}\
+(short)clamp(x, 0, 65535)
 
-[FLOAT]{#64666}\
+FLOAT
 
-[(float)x]{#64503}\
+(float)x
 
-[DOUBLE]{#64668}\
+DOUBLE
 
-[(double)x]{#64509}\
+(double)x
 
-[FLOAT]{#64511}\
+FLOAT
 
-[BYTE]{#64698}\
+BYTE
 
-[(byte)clamp((int)x, 0, 255)]{#64515}\
+(byte)clamp((int)x, 0, 255)
 
-[SHORT]{#64700}\
+SHORT
 
-[(short)x]{#64521}\
+(short)x
 
-[USHORT]{#64702}\
+USHORT
 
-[(short)clamp((int)x, 0, 65535)]{#64527}\
+(short)clamp((int)x, 0, 65535)
 
-[INT]{#64531}\
+INT
 
-[(int)x]{#64533}\
+(int)x
 
-[DOUBLE]{#64537}\
+DOUBLE
 
-[(double)x]{#64539}\
+(double)x
 
-[DOUBLE]{#64541}\
+DOUBLE
 
-[BYTE]{#64728}\
+BYTE
 
-[(byte)clamp((int)x, 0, 255)]{#64545}\
+(byte)clamp((int)x, 0, 255)
 
-[SHORT]{#64730}\
+SHORT
 
-[(short)x]{#64551}\
+(short)x
 
-[USHORT]{#64732}\
+USHORT
 
-[(short)clamp((int)x, 0, 65535)]{#64557}\
+(short)clamp((int)x, 0, 65535)
 
-[INT]{#64734}\
+INT
 
-[(int)x]{#64563}\
+(int)x
 
-[FLOAT]{#64567}\
+FLOAT
 
-[(float)x]{#64569}\
+(float)x
 
 The `clamp` function may be defined as:
 
@@ -2808,7 +2808,7 @@ The `Format` operation takes a single parameter:
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#64778}   [Type]{#64780}       [Description]{#64782}
   --------------------- -------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
-  [dataType]{#64784}\   [Integer]{#64786}\   [The output data type (from java.awt.image.DataBuffer). One of TYPE\_BYTE, TYPE\_SHORT, TYPE\_USHORT, TYPE\_INT, TYPE\_FLOAT, or TYPE\_DOUBLE.]{#64788}\
+  dataType   Integer   The output data type (from java.awt.image.DataBuffer). One of TYPE\_BYTE, TYPE\_SHORT, TYPE\_USHORT, TYPE\_INT, TYPE\_FLOAT, or TYPE\_DOUBLE.
 
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2869,15 +2869,15 @@ The `Renderable` operation takes five parameters, as follows:
   -----------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#81678}       [Type]{#81680}          [Description]{#81682}
   ------------------------- ----------------------- ---------------------------------------------------------------------------------
-  [downSamples]{#81648}\    [RenderedOp]{#81650}\   [The operation chain used to derive the lower resolution images.]{#81688}\
+  downSamples    RenderedOp   The operation chain used to derive the lower resolution images.
 
-  [maxLowResDim]{#81654}\   [Integer]{#81656}\      [The maximum dimension of the lowest resolution pyramid level.]{#81699}\
+  maxLowResDim   Integer      The maximum dimension of the lowest resolution pyramid level.
 
-  [minX]{#81660}\           [Float]{#81662}\        [The minimum rendering-independent *x* coordinate of the destination.]{#81724}\
+  minX           Float        The minimum rendering-independent *x* coordinate of the destination.
 
-  [minY]{#81666}\           [Float]{#81668}\        [The minimum rendering-independent *y* coordinate of the destination.]{#81733}\
+  minY           Float        The minimum rendering-independent *y* coordinate of the destination.
 
-  [height]{#81672}\         [Float]{#81674}\        [The rendering-independent height.]{#81676}\
+  height         Float        The rendering-independent height.
   -----------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2932,11 +2932,11 @@ The `constant` operation takes three parameters, as follows:
   -------------------------------------------------------------------------------------------
   [Parameter]{#81110}     [Type]{#81112}      [Description]{#81114}
   ----------------------- ------------------- -----------------------------------------------
-  [width]{#81116}\        [Float]{#81118}\    [The width of the image in pixels.]{#81120}\
+  width        Float    The width of the image in pixels.
 
-  [height]{#81122}\       [Float]{#81124}\    [The height of the image in pixels.]{#81126}\
+  height       Float    The height of the image in pixels.
 
-  [bandValues]{#81128}\   [Number]{#81130}\   [The constant pixel band values.]{#81132}\
+  bandValues   Number   The constant pixel band values.
   -------------------------------------------------------------------------------------------
 
   : 
@@ -3078,7 +3078,7 @@ shown in [Figure 4-5](../acquisition).
 
 ***Figure 4-5*  Grid Layout of Four Images**
 
-**API:** `org.eclipse.imagen.jai.RenderedOp`
+**API:** `org.eclipse.imagen.RenderedOp`
 
     int getWidth()
 
@@ -3088,7 +3088,7 @@ shown in [Figure 4-5](../acquisition).
 
 :   returns the height of the rendered image.
 
-**API:** `org.eclipse.imagen.jai.widget.Scrolling |
+**API:** `org.eclipse.imagen.widget.Scrolling |
 |                                   | ImagePanel`
 
     ScrollingImagePanel(RenderedImage im, int width, int height)
@@ -3114,7 +3114,7 @@ origin of the image to a given (*x*, *y*) position within the
 `ScrollingImagePanel`. The `setCenter` method sets the image center to
 a given (*x*, *y*) position within the `ScrollingImagePanel`.
 
-**API:** `org.eclipse.imagen.jai.widget.Scrolling |
+**API:** `org.eclipse.imagen.widget.Scrolling |
 |                                   | ImagePanel`
 
     void setOrigin(int x, int y)
@@ -3158,7 +3158,7 @@ Use the constructor or the `set` method to include a `RenderedImage`
 in the canvas, then use the `setOrigin` method to set the position of
 the image within the canvas.
 
-**API:** `org.eclipse.imagen.jai.widget.ImageCanv |
+**API:** `org.eclipse.imagen.widget.ImageCanv |
 |                                   | as`
 
     ImageCanvas(RenderedImage im, boolean drawBorder)
@@ -3206,7 +3206,7 @@ Geometric operators are treated differently with respect to image
 origin control. See [Chapter 8, \"Geometric Image
 Manipulation](geom-image-manip).\"
 
-**API:** `org.eclipse.imagen.jai.widget.ImageCanv |
+**API:** `org.eclipse.imagen.widget.ImageCanv |
 |                                   | as`
 
     void setOrigin(int x, int y)

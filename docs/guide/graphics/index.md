@@ -164,10 +164,10 @@ attributes.
 +-----------------------+-----------------------+-----------------------+
 | [Appearance]{#51850}  | [Attribute]{#51852}   | [Description]{#51854} |
 +=======================+=======================+=======================+
-| []{#51856}            | [CAP\_BUTT]{#51858}\  | [Ends unclosed        |
+| []{#51856}            | CAP\_BUTT  | Ends unclosed        |
 |                       |                       | subpaths with no      |
 | -------------------   |                       | added                 |
-|                       |                       | decoration.]{#51860}\ |
+|                       |                       | decoration. |
 | ![](Graphics.doc.anc1 |                       |                       |
 | .gif)                 |                       |                       |
 |                       |                       |                       |
@@ -175,7 +175,7 @@ attributes.
 |                       |                       |                       |
 | \                     |                       |                       |
 +-----------------------+-----------------------+-----------------------+
-| []{#51862}            | [CAP\_ROUND]{#51864}\ | [Ends unclosed        |
+| []{#51862}            | CAP\_ROUND | [Ends unclosed        |
 |                       |                       | subpaths with a round |
 | -------------------   |                       | end cap that has a    |
 |                       |                       | radius equal to half  |
@@ -239,10 +239,10 @@ These attributes affect the appearance of line junctions.
 |                       |                       |                       |
 | \                     |                       |                       |
 +-----------------------+-----------------------+-----------------------+
-| []{#51927}            | [JOIN\_MITER]{#51929} | [Joins path segments  |
+| []{#51927}            | [JOIN\_MITER]{#51929} | Joins path segments  |
 |                       | \                     | by extending their    |
 | -------------------   |                       | outside edges until   |
-|                       |                       | they meet.]{#51985}\  |
+|                       |                       | they meet.  |
 | ![](Graphics.doc.anc6 |                       |                       |
 | .gif)                 |                       |                       |
 |                       |                       |                       |
@@ -423,17 +423,17 @@ The `Graphics2D` class provides methods for creating `Shape`s and
   ---------------------------------------------------------------------------------------------------------------------------------------------------
   [Method]{#52238}                 [Description]{#52240}
   -------------------------------- ------------------------------------------------------------------------------------------------------------------
-  [draw]{#52242}\                  [Strokes the outline of a Shape using the Stroke and Paint settings of the current Graphics2D context.]{#52262}\
+  draw                  Strokes the outline of a Shape using the Stroke and Paint settings of the current Graphics2D context.
 
-  [fill]{#52246}\                  [Fills the interior of a Shape using the Paint settings of the Graphics2D context.]{#52269}\
+  fill                  Fills the interior of a Shape using the Paint settings of the Graphics2D context.
 
-  [drawString]{#52250}\            [Renders the specified text string using the Paint setting of the Graphics2D context.]{#52252}\
+  drawString            Renders the specified text string using the Paint setting of the Graphics2D context.
 
-  [drawImage]{#52254}\             [Renders the specified Image.]{#52256}\
+  drawImage             Renders the specified Image.
 
-  [drawRenderableImage]{#52286}\   [Renders the specified RenderableImage.]{#52288}\
+  drawRenderableImage   Renders the specified RenderableImage.
 
-  [drawRenderedImage]{#52282}\     [Renders the specified RenderedImage.]{#52284}\
+  drawRenderedImage     Renders the specified RenderedImage.
   ---------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 10-3*  Graphics Primitives

@@ -46,11 +46,11 @@ parameters:
   --------------------------------------------------------------------------------------------------
   [Parameter]{#56518}   [Type]{#56520}                [Description]{#56522}
   --------------------- ----------------------------- ----------------------------------------------
-  [filename]{#56500}\   [String]{#56502}\             [The path of the file to write to.]{#56504}\
+  filename   String             The path of the file to write to.
 
-  [format]{#56506}\     [String]{#56508}\             [The format of the file.]{#56510}\
+  format     String             The format of the file.
 
-  [param]{#57052}\      [ImageEncodeParam]{#57054}\   [The encoding parameters.]{#57056}\
+  param      ImageEncodeParam   The encoding parameters.
   --------------------------------------------------------------------------------------------------
 
   : 
@@ -65,15 +65,15 @@ formats.
   ----------------------------------------------------------------------------------------------------
   [File Format]{#56614}   [Description]{#56616}
   ----------------------- ----------------------------------------------------------------------------
-  [BMP]{#56618}\          [Microsoft Windows bitmap image file]{#56620}\
+  BMP          Microsoft Windows bitmap image file
 
-  [JPEG]{#56622}\         [A file format developed by the Joint Photographic Experts Group]{#56648}\
+  JPEG         A file format developed by the Joint Photographic Experts Group
 
-  [PNG]{#56626}\          [Portable Network Graphics]{#56628}\
+  PNG          Portable Network Graphics
 
-  [PNM]{#56630}\          [Portable aNy Map file format. Includes PBM, PGM, and PPM]{#56632}\
+  PNM          Portable aNy Map file format. Includes PBM, PGM, and PPM
 
-  [TIFF]{#56634}\         [Tag Image File Format]{#56636}\
+  TIFF         Tag Image File Format
   ----------------------------------------------------------------------------------------------------
 
   :  **[*Table 13-1*  JAI Writable File
@@ -99,11 +99,11 @@ parameters:
   ------------------------------------------------------------------------------------------------
   [Parameter]{#51210}   [Type]{#51212}                [Description]{#51214}
   --------------------- ----------------------------- --------------------------------------------
-  [stream]{#51222}\     [OutputStream]{#51224}\       [The OutputStream to write to.]{#51226}\
+  stream     OutputStream       The OutputStream to write to.
 
-  [format]{#57025}\     [String]{#57027}\             [The format of the created file.]{#57029}\
+  format     String             The format of the created file.
 
-  [param]{#51228}\      [ImageEncodeParam]{#51230}\   [The encoding parameters.]{#51232}\
+  param      ImageEncodeParam   The encoding parameters.
   ------------------------------------------------------------------------------------------------
 
   : 
@@ -178,11 +178,11 @@ The BMP version parameters are as follows:
   ------------------------------------------------------------
   [Parameter]{#51265}     [Description]{#51267}
   ----------------------- ------------------------------------
-  [VERSION\_2]{#51269}\   [Specifies BMP Version 2]{#51271}\
+  VERSION\_2   Specifies BMP Version 2
 
-  [VERSION\_3]{#51273}\   [Specifies BMP Version 3]{#51275}\
+  VERSION\_3   Specifies BMP Version 3
 
-  [VERSION\_4]{#51277}\   [Specifies BMP Version 4]{#51279}\
+  VERSION\_4   Specifies BMP Version 4
   ------------------------------------------------------------
 
   : 
@@ -271,23 +271,23 @@ describe these settings and how to change them.
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#57428}                    [Description]{#57430}                                                                                                                                             [Default Value]{#57432}
   -------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------
-  [writeJFIFHeader]{#58085}\             [Controls whether the encoder writes a JFIF header using the APP0 marker. See]{#58087} [Section 13.5.1, \"JFIF Header](../encode).\"\                 [True]{#58092}\
+  writeJFIFHeader             [Controls whether the encoder writes a JFIF header using the APP0 marker. See]{#58087} [Section 13.5.1, \"JFIF Header](../encode).\"\                 True
 
-  [qTabSlot\[0\],\[1\],\[2\]]{#58098}\   [Quantization tables. See]{#58102} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                              [0 for Y channel, 1 for Cb and Cr channels]{#58105}\
+  [qTabSlot\[0\],\[1\],\[2\]]{#58098}\   [Quantization tables. See]{#58102} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                              0 for Y channel, 1 for Cb and Cr channels
 
-  [qTab\[0\],\[1\],\[2\]]{#58107}\       [Quantization table contents. See]{#58111} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                      [Null for all three channels]{#58114}\
+  [qTab\[0\],\[1\],\[2\]]{#58107}\       [Quantization table contents. See]{#58111} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                      Null for all three channels
 
-  [qTabSet\[0\],\[1\],\[2\]]{#58116}\    [Quantization table usage. See]{#58120} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                         [False for all three channels]{#58123}\
+  [qTabSet\[0\],\[1\],\[2\]]{#58116}\    [Quantization table usage. See]{#58120} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                         False for all three channels
 
-  [hSamp\[0\],\[1\],\[2\]]{#57434}\      [Horizontal subsampling. See]{#57436} [Section 13.5.4, \"Horizontal and Vertical Subsampling](../encode).\"\                                          [1 for Y channel, 2 for Cb and Cr channels]{#57438}\
+  [hSamp\[0\],\[1\],\[2\]]{#57434}\      [Horizontal subsampling. See]{#57436} [Section 13.5.4, \"Horizontal and Vertical Subsampling](../encode).\"\                                          1 for Y channel, 2 for Cb and Cr channels
 
-  [vSamp\[0\],\[1\],\[2\]]{#57440}\      [Vertical subsampling. See]{#57574} [Section 13.5.4, \"Horizontal and Vertical Subsampling](../encode).\"\                                            [1 for Y channel, 2 for Cb and Cr channels]{#57528}\
+  [vSamp\[0\],\[1\],\[2\]]{#57440}\      [Vertical subsampling. See]{#57574} [Section 13.5.4, \"Horizontal and Vertical Subsampling](../encode).\"\                                            1 for Y channel, 2 for Cb and Cr channels
 
-  [qual]{#57464}\                        [Quality setting. See]{#57466} [Section 13.5.5, \"Compression Quality](../encode).\"\                                                                 [0.75F]{#57468}\
+  qual                        [Quality setting. See]{#57466} [Section 13.5.5, \"Compression Quality](../encode).\"\                                                                 0.75F
 
-  [rstInterval]{#57470}\                 [Restart interval.]{#57472} [Section 13.5.6, \"Restart Interval](../encode).\"\                                                                       [0]{#57474}\
+  rstInterval                 [Restart interval.]{#57472} [Section 13.5.6, \"Restart Interval](../encode).\"\                                                                       0
 
-  [writeImageOnly]{#57476}\              [Controls whether encoder writes only the compressed image data. See]{#57478} [Section 13.5.7, \"Writing an Abbreviated JPEG Stream](../encode).\"\   [False]{#57480}\
+  writeImageOnly              [Controls whether encoder writes only the compressed image data. See]{#57478} [Section 13.5.7, \"Writing an Abbreviated JPEG Stream](../encode).\"\   False
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 13-2*  JPEG Encode
@@ -401,9 +401,9 @@ tables:
   ----------------------------------------------
   [Table]{#51439}   [Band]{#51441}
   ----------------- ----------------------------
-  [0]{#51443}\      [Band 0]{#51445}\
+  0      Band 0
 
-  [1]{#51447}\      [All other bands]{#51449}\
+  1      All other bands
   ----------------------------------------------
 
   : 
@@ -523,13 +523,13 @@ scaled versions of the quantization tables. Some guidelines:
   -------------------------------------------------------------------------------
   [Quality Value]{#56086}   [Meaning]{#56088}
   ------------------------- -----------------------------------------------------
-  [1.0]{#56104}\            [Highest quality, no compression]{#56106}\
+  1.0            Highest quality, no compression
 
-  [0.75]{#56090}\           [High quality, good compression ratio]{#56092}\
+  0.75           High quality, good compression ratio
 
-  [0.5]{#56094}\            [Medium quality, medium compression ratio]{#56096}\
+  0.5            Medium quality, medium compression ratio
 
-  [0.25]{#56098}\           [Low quality, high compression ratio]{#56100}\
+  0.25           Low quality, high compression ratio
   -------------------------------------------------------------------------------
 
   : 
@@ -854,11 +854,11 @@ the subclass of `PNGEncodeParam`, as follows:
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Pixel Type]{#51717}                [Description]{#51719}
   ----------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [PNGEncodeParam.Palette]{#51721}\   [Also known as *indexed-color*, where each pixel is represented by a single sample that is an index into a supplied color palette. The com.sun.media.jai.codec.PNGEncodeParam.Palette class supports the encoding of palette pixel images.]{#51723}\
+  PNGEncodeParam.Palette   Also known as *indexed-color*, where each pixel is represented by a single sample that is an index into a supplied color palette. The com.sun.media.jai.codec.PNGEncodeParam.Palette class supports the encoding of palette pixel images.
 
-  [PNGEncodeParam.Gray]{#51725}\      [Each pixel is represented by a single sample that is a grayscale level. The com.sun.media.jai.codec.PNGEncodeParam.Gray class supports the encoding of grayscale pixel images.]{#51727}\
+  PNGEncodeParam.Gray      Each pixel is represented by a single sample that is a grayscale level. The com.sun.media.jai.codec.PNGEncodeParam.Gray class supports the encoding of grayscale pixel images.
 
-  [PNGEncodeParam.RGB]{#51729}\       [Also known as *truecolor*, where each pixel is represented by three samples: red, green, and blue. The com.sun.media.jai.codec.PNGEncodeParam.RGB class supports the encoding of RGB pixel images.]{#51731}\
+  PNGEncodeParam.RGB       Also known as *truecolor*, where each pixel is represented by three samples: red, green, and blue. The com.sun.media.jai.codec.PNGEncodeParam.RGB class supports the encoding of RGB pixel images.
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -902,15 +902,15 @@ indicates no filtering. The filtering algorithms are described below.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#53168}               [Description]{#53170}
   --------------------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [PNG\_FILTER\_NONE]{#53172}\      [No filtering - the scanline is transmitted unaltered.]{#53174}\
+  PNG\_FILTER\_NONE      No filtering - the scanline is transmitted unaltered.
 
-  [PNG\_FILTER\_SUB]{#53176}\       [The filter transmits the difference between each byte and the value of the corresponding byte of the prior pixel.]{#53178}\
+  PNG\_FILTER\_SUB       The filter transmits the difference between each byte and the value of the corresponding byte of the prior pixel.
 
-  [PNG\_FILTER\_UP]{#53180}\        [Similar to the Sub filter, except that the pixel immediately above the current pixel, rather than just to its left, is used as the predictor.]{#53182}\
+  PNG\_FILTER\_UP        Similar to the Sub filter, except that the pixel immediately above the current pixel, rather than just to its left, is used as the predictor.
 
-  [PNG\_FILTER\_AVERAGE]{#53184}\   [The filter uses the average of the two neighboring pixels (left and above) to predict the value of a pixel.]{#53186}\
+  PNG\_FILTER\_AVERAGE   The filter uses the average of the two neighboring pixels (left and above) to predict the value of a pixel.
 
-  [PNG\_FILTER\_PAETH]{#53188}\     [The filter computes a simple linear function of the three neighboring pixels (left, above, upper left), then chooses as predictor the neighboring pixel closest to the computed value.]{#53190}\
+  PNG\_FILTER\_PAETH     The filter computes a simple linear function of the three neighboring pixels (left, above, upper left), then chooses as predictor the neighboring pixel closest to the computed value.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 13-3*  PNG Filtering
@@ -991,15 +991,15 @@ for each of the color types:
   -------------------------------------------------------------------------------------------------------------------------------------------------------
   [Color Type]{#53683}   [Allowed Bit Depths]{#53685}   [Description]{#53687}
   ---------------------- ------------------------------ -------------------------------------------------------------------------------------------------
-  [0]{#53689}\           [1, 2, 4, 8, 16]{#53691}\      [Grayscale. Each pixel is a grayscale sample.]{#53693}\
+  0           1, 2, 4, 8, 16      Grayscale. Each pixel is a grayscale sample.
 
-  [2]{#53695}\           [8, 16]{#53697}\               [Truecolor (RGB) without alpha. Each pixel is an RGB triple.]{#53699}\
+  2           8, 16               Truecolor (RGB) without alpha. Each pixel is an RGB triple.
 
-  [3]{#53701}\           [1, 2, 4, 8]{#53703}\          [Indexed color (Palette). Each pixel is a palette index.]{#53705}\
+  3           1, 2, 4, 8          Indexed color (Palette). Each pixel is a palette index.
 
-  [4]{#53707}\           [8, 16]{#53709}\               [Grayscale with alpha. Each pixel is a grayscale sample followed by an alpha sample.]{#53711}\
+  4           8, 16               Grayscale with alpha. Each pixel is a grayscale sample followed by an alpha sample.
 
-  [6]{#53713}\           [8, 16]{#53715}\               [Truecolor (RGB) with alpha. Each pixel is an RGB triple followed by an alpha sample.]{#53717}\
+  6           8, 16               Truecolor (RGB) with alpha. Each pixel is an RGB triple followed by an alpha sample.
   -------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 13-4*  PNG Bit Depth
@@ -1446,13 +1446,13 @@ colorimetric accuracy. There are four rendering intents:
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#53906}             [Description]{#53908}
   ------------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [INTENT\_PERCEPTUAL]{#53911}\   [The \"perceptual\" intent is for images that prefer good adaptation to the output device gamut at the expense of colorimetric accuracy, such as photographs.]{#53913}\
+  INTENT\_PERCEPTUAL   The \"perceptual\" intent is for images that prefer good adaptation to the output device gamut at the expense of colorimetric accuracy, such as photographs.
 
-  [INTENT\_RELATIVE]{#53916}\     [The \"relative colorimetric\" intent is for images that require color appearance matching.]{#53918}\
+  INTENT\_RELATIVE     The \"relative colorimetric\" intent is for images that require color appearance matching.
 
-  [INTENT\_SATURATION]{#53921}\   [The \"saturation\" intent is for images that prefer preservation of saturation at the expense of hue and lightness.]{#53923}\
+  INTENT\_SATURATION   The \"saturation\" intent is for images that prefer preservation of saturation at the expense of hue and lightness.
 
-  [INTENT\_ABSOLUTE]{#53926}\     [The \"absolute colorimetric\" intent is for images that require absolute colorimetry.]{#53928}\
+  INTENT\_ABSOLUTE     The \"absolute colorimetric\" intent is for images that require absolute colorimetry.
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 13-5*  PNG Rendering

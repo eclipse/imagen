@@ -122,23 +122,23 @@ subclasses:
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Class]{#51674}                [Description]{#51676}
   ------------------------------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [AreaOpImage]{#51678}\         [An abstract base class for image operators that require only a fixed rectangular source region around a source pixel in order to compute each destination pixel.]{#51702}\
+  AreaOpImage         An abstract base class for image operators that require only a fixed rectangular source region around a source pixel in order to compute each destination pixel.
 
-  [NullOpImage]{#55534}\         [Extends: PointOpImage]{#55536}\
-                                 [A trivial OpImage subclass that simply transmits its source unchanged. Potentially useful when an interface requires an OpImage but another sort of RenderedImage (such as a TiledImage) is to be used.]{#55537}\
+  NullOpImage         Extends: PointOpImage
+                                 A trivial OpImage subclass that simply transmits its source unchanged. Potentially useful when an interface requires an OpImage but another sort of RenderedImage (such as a TiledImage) is to be used.
 
-  [PointOpImage]{#51690}\        [An abstract base class for image operators that require only a single source pixel in order to compute each destination pixel.]{#51723}\
+  PointOpImage        An abstract base class for image operators that require only a single source pixel in order to compute each destination pixel.
 
-  [ScaleOpImage]{#55550}\        [Extends: WarpOpImage]{#55552}\
-                                 [An abstract base class for scale-like operations that require rectilinear backwards mapping and padding by the resampling filter dimensions.]{#55553}\
+  ScaleOpImage        Extends: WarpOpImage
+                                 An abstract base class for scale-like operations that require rectilinear backwards mapping and padding by the resampling filter dimensions.
 
-  [SourcelessOpImage]{#51781}\   [An abstract base class for image operators that have no image sources.]{#51783}\
+  SourcelessOpImage   An abstract base class for image operators that have no image sources.
 
-  [StatisticsOpImage]{#51849}\   [An abstract base class for image operators that compute statistics on a given region of an image, and with a given sampling rate.]{#51856}\
+  StatisticsOpImage   An abstract base class for image operators that compute statistics on a given region of an image, and with a given sampling rate.
 
-  [UntiledOpImage]{#56039}\      [A general class for single-source operations in which the values of all pixels in the source image contribute to the value of each pixel in the destination image.]{#56043}\
+  UntiledOpImage      A general class for single-source operations in which the values of all pixels in the source image contribute to the value of each pixel in the destination image.
 
-  [WarpOpImage]{#51845}\         [A general implementation of image warping, and a superclass for other geometric image operations.]{#51867}\
+  WarpOpImage         A general implementation of image warping, and a superclass for other geometric image operations.
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 14-1*  OpImage
@@ -151,9 +151,9 @@ methods that must be implemented:
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Method]{#51916}         [Description]{#51918}
   ------------------------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [getTile]{#51920}\       [Gets a tile for reading. This method is called by the object that has the new operator name as its source with a rectangle as its parameter. The operation is responsible for returning a rectangle filled in with the correct values.]{#51922}\
+  getTile       Gets a tile for reading. This method is called by the object that has the new operator name as its source with a rectangle as its parameter. The operation is responsible for returning a rectangle filled in with the correct values.
 
-  [computeRect]{#51924}\   [Computes a rectangle of output, given Raster sources. The method is called by getTile to do the actual computation. The extension must override this method.]{#51926}\
+  computeRect   Computes a rectangle of output, given Raster sources. The method is called by getTile to do the actual computation. The extension must override this method.
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -343,15 +343,15 @@ relative to operation parameters.
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Method]{#58689}                 [Description]{#58691}
   -------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [isRenderedSupported]{#58693}\   [Returns true if the operation supports the Rendered image mode. This must be true for all operations.]{#58695}\
+  isRenderedSupported   Returns true if the operation supports the Rendered image mode. This must be true for all operations.
 
-  [isImmediate]{#58697}\           [Returns true if the operation should be rendered immediately during the call to JAI.create; that is, the operation is placed in immediate mode.]{#58749}\
+  isImmediate           Returns true if the operation should be rendered immediately during the call to JAI.create; that is, the operation is placed in immediate mode.
 
-  [getSourceClasses]{#58701}\      [Returns an array of Classes that describe the types of sources required by this operation in the Rendered image mode.]{#58760}\
+  getSourceClasses      Returns an array of Classes that describe the types of sources required by this operation in the Rendered image mode.
 
-  [getDestClass]{#58705}\          [Returns a Class that describes the type of destination this operation produces in the Rendered image mode.]{#58771}\
+  getDestClass          Returns a Class that describes the type of destination this operation produces in the Rendered image mode.
 
-  [validateArguments]{#58709}\     [Returns true if this operation is capable of handling the input rendered source(s) and/or parameter(s) specified in the ParameterBlock.]{#58785}\
+  validateArguments     Returns true if this operation is capable of handling the input rendered source(s) and/or parameter(s) specified in the ParameterBlock.
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 14-2*  Rendered Mode
@@ -360,13 +360,13 @@ relative to operation parameters.
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Method]{#58722}                         [Description]{#58724}
   ---------------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------
-  [isRenderableSupported]{#58726}\         [Returns true if the operation supports the Renderable image mode.]{#58811}\
+  isRenderableSupported         Returns true if the operation supports the Renderable image mode.
 
-  [getRenderableSourceClasses]{#58801}\    [Returns an array of Classes that describe the types of sources required by this operation in the Renderable image mode.]{#58836}\
+  getRenderableSourceClasses    Returns an array of Classes that describe the types of sources required by this operation in the Renderable image mode.
 
-  [getRenderableDestClass]{#58803}\        [Returns a Class that describes the type of destination this operation produces in the Renderable image mode.]{#58847}\
+  getRenderableDestClass        Returns a Class that describes the type of destination this operation produces in the Renderable image mode.
 
-  [validateRenderableArguments]{#58738}\   [Returns true if this operation is capable of handling the input Renderable source(s) and/or parameter(s) specified in the ParameterBlock.]{#58861}\
+  validateRenderableArguments   Returns true if this operation is capable of handling the input Renderable source(s) and/or parameter(s) specified in the ParameterBlock.
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 14-3*  Renderable Mode
@@ -375,25 +375,25 @@ relative to operation parameters.
   -----------------------------------------------------------------------------------------------------------------------------------------------
   [Method]{#58880}                  [Description]{#58882}
   --------------------------------- -------------------------------------------------------------------------------------------------------------
-  [getNumParameters]{#58884}\       [Returns the number of parameters (not including the sources) required by this operation.]{#58924}\
+  getNumParameters       Returns the number of parameters (not including the sources) required by this operation.
 
-  [getParamClasses]{#58888}\        [Returns an array of Classes that describe the types of parameters required by this operation.]{#58935}\
+  getParamClasses        Returns an array of Classes that describe the types of parameters required by this operation.
 
-  [getParamNames]{#58892}\          [Returns an array of Strings that are the localized parameter names of this operation.]{#58946}\
+  getParamNames          Returns an array of Strings that are the localized parameter names of this operation.
 
-  [getParamDefaults]{#58896}\       [Returns an array of Objects that define the default values of the parameters for this operation.]{#58957}\
+  getParamDefaults       Returns an array of Objects that define the default values of the parameters for this operation.
 
-  [getParamDefaultValue]{#58900}\   [Returns the default value of a specified parameter.]{#58902}\
+  getParamDefaultValue   Returns the default value of a specified parameter.
 
-  [getParamMinValue]{#58904}\       [Returns the minimum legal value of a specified numeric parameter for this operation.]{#58972}\
+  getParamMinValue       Returns the minimum legal value of a specified numeric parameter for this operation.
 
-  [getParamMaxValue]{#58908}\       [Returns the maximum legal value of a specified numeric parameter for this operation.]{#58979}\
+  getParamMaxValue       Returns the maximum legal value of a specified numeric parameter for this operation.
   -----------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 14-4*  Parameter
   Methods]{#58876}**
 
-**API:** `org.eclipse.imagen.jai.OperationRegistr |
+**API:** `org.eclipse.imagen.OperationRegistr |
 |                                   | y`
 
     void registerOperationDescriptor(OperationDescriptor odesc, 
@@ -545,7 +545,7 @@ An instance of `RectIter` may be obtained by means of the
 `RectIterFactory.create()` method, which returns an opaque object
 implementing this interface.
 
-**API:** `org.eclipse.imagen.jai.iterator.RectIte |
+**API:** `org.eclipse.imagen.iterator.RectIte |
 |                                   | rFactory`
 
     static RectIter create(RenderedImage im, Rectangle bounds)
@@ -601,7 +601,7 @@ implementing this interface.
     `bounds`
     The bounding `Rectangle` for the iterator, or null.
 
-**API:** `org.eclipse.imagen.jai.iterator.RectIte |
+**API:** `org.eclipse.imagen.iterator.RectIte |
 |                                   | r`
 
     void startLines()
@@ -767,7 +767,7 @@ The `getSample()`, `getSampleFloat()`, and `getSampleDouble()` methods
 are provided to allow read-only access to the source data. The
 `getPixel()` methods allow retrieval of all bands simultaneously.
 
-**API:** `org.eclipse.imagen.jai.iterator.RandomI |
+**API:** `org.eclipse.imagen.iterator.RandomI |
 |                                   | terFactory`
 
     static RandomIter create(RenderedImage im, Rectangle bounds)
@@ -967,11 +967,11 @@ for creating any codec. The PNM codec consists of three files:
   ------------------------------------------------------------------------------------------------------------------------------------------------
   [File Name]{#58309}                     [Description]{#58311}
   --------------------------------------- --------------------------------------------------------------------------------------------------------
-  [SamplePNMCodec.java]{#58313}\          [Defines a subclass of ImageCodec for handling the PNM family of image files.]{#58315}\
+  SamplePNMCodec.java          Defines a subclass of ImageCodec for handling the PNM family of image files.
 
-  [SamplePNMImageDecoder.java]{#58317}\   [Defines an ImageDecoder for the PNM family of image files. Necessary for reading PNM files.]{#58319}\
+  SamplePNMImageDecoder.java   Defines an ImageDecoder for the PNM family of image files. Necessary for reading PNM files.
 
-  [SamplePNMImageEncoder.java]{#58321}\   [Defines an ImageEncoder for the PNM family of image files. Necessary for writing PNM files.]{#58323}\
+  SamplePNMImageEncoder.java   Defines an ImageEncoder for the PNM family of image files. Necessary for writing PNM files.
   ------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 

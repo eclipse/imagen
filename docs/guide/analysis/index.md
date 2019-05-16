@@ -63,11 +63,11 @@ nav_order: 11
    ----------------------------------------------------------------------------------------------------------------------------
    [Parameter]{#54846}   [Type]{#54848}       [Description]{#54850}
    --------------------- -------------------- ---------------------------------------------------------------------------------
-   [roi]{#54852}\        [ROI]{#54854}\       [The region of the image to scan. A null value means the whole image.]{#54856}\
+   roi        ROI       The region of the image to scan. A null value means the whole image.
 
-   [xPeriod]{#54858}\    [Integer]{#54860}\   [The horizontal sampling rate. May not be less than 1.]{#54862}\
+   xPeriod    Integer   The horizontal sampling rate. May not be less than 1.
 
-   [yPeriod]{#54864}\    [Integer]{#54866}\   [The vertical sampling rate. May not be less than 1.]{#54868}\
+   yPeriod    Integer   The vertical sampling rate. May not be less than 1.
    ----------------------------------------------------------------------------------------------------------------------------
 
    : 
@@ -148,11 +148,11 @@ nav_order: 11
    --------------------------------------------------------------------------------------------------------------
    [Parameter]{#54912}   [Type]{#54914}       [Description]{#54916}
    --------------------- -------------------- -------------------------------------------------------------------
-   [roi]{#54918}\        [ROI]{#54920}\       [The region of the image to scan.]{#54922}\
+   roi        ROI       The region of the image to scan.
 
-   [xPeriod]{#54924}\    [Integer]{#54926}\   [The horizontal sampling rate (may not be less than 1).]{#54928}\
+   xPeriod    Integer   The horizontal sampling rate (may not be less than 1).
 
-   [yPeriod]{#54930}\    [Integer]{#54932}\   [The vertical sampling rate (may not be less than 1).]{#54934}\
+   yPeriod    Integer   The vertical sampling rate (may not be less than 1).
    --------------------------------------------------------------------------------------------------------------
 
    : 
@@ -274,11 +274,11 @@ nav_order: 11
    -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    [Parameter]{#55182}    [Description]{#55184}
    ---------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   [numBins]{#55186}\     [An array of ints, each element of which specifies the number of bins to be used for one band of the image. The number of elements in the array must match the number of bands in the image.]{#55188}\
+   numBins     An array of ints, each element of which specifies the number of bins to be used for one band of the image. The number of elements in the array must match the number of bands in the image.
 
-   [lowValue]{#55190}\    [An array of floats, each element of which specifies the lowest gray or color level that will be checked for in one band of the image. The number of elements in the array must match the number of bands in the image.]{#55192}\
+   lowValue    An array of floats, each element of which specifies the lowest gray or color level that will be checked for in one band of the image. The number of elements in the array must match the number of bands in the image.
 
-   [highValue]{#55194}\   [An array of floats, each element of which specifies the highest gray or color level that will be checked for in one band of the image. The number of elements in the array must match the number of bands in the image.]{#55196}\
+   highValue   An array of floats, each element of which specifies the highest gray or color level that will be checked for in one band of the image. The number of elements in the array must match the number of bands in the image.
    -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
    : 
@@ -338,13 +338,13 @@ nav_order: 11
    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    [Parameter]{#52625}        [Type]{#52627}         [Description]{#52629}
    -------------------------- ---------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------
-   [specification]{#52631}\   [Histogram]{#52633}\   [The specification for the type of histogram to be generated. See]{#52635} [Section 9.4.1, \"Specifying the Histogram](analysis/index.html).\"\
+   specification   Histogram   [The specification for the type of histogram to be generated. See]{#52635} [Section 9.4.1, \"Specifying the Histogram](analysis/index.html).\"\
 
-   [roi]{#52637}\             [ROI]{#52639}\         [The region of the image to scan. See]{#52641} [Section 6.2, \"Region of Interest Control](image-manipulation/index.html).\"\
+   roi             ROI         [The region of the image to scan. See]{#52641} [Section 6.2, \"Region of Interest Control](image-manipulation/index.html).\"\
 
-   [xPeriod]{#52643}\         [Integer]{#52645}\     [The horizontal sampling rate. May not be less than 1.]{#52647}\
+   xPeriod         Integer     The horizontal sampling rate. May not be less than 1.
 
-   [yPeriod]{#52649}\         [Integer]{#52651}\     [The vertical sampling rate. May not be less than 1.]{#52653}\
+   yPeriod         Integer     The vertical sampling rate. May not be less than 1.
    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
    : 
@@ -557,9 +557,9 @@ nav_order: 11
    ------------------------------------------------------------------------------------------------------
    [Parameter]{#56095}   [Type]{#56097}         [Description]{#56099}
    --------------------- ---------------------- ---------------------------------------------------------
-   [mask1]{#56101}\      [KernelJAI]{#56103}\   [A gradient mask.]{#56105}\
+   mask1      KernelJAI   A gradient mask.
 
-   [mask2]{#56107}\      [KernelJAI]{#56109}\   [A gradient mask orthogonal to the first one.]{#56111}\
+   mask2      KernelJAI   A gradient mask orthogonal to the first one.
    ------------------------------------------------------------------------------------------------------
 
    : 
