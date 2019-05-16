@@ -108,13 +108,13 @@ classes:
 
 -   A class that extends the `OpImage` class or any of its subclasses.
     This new class does the actual processing. See [Section 14.3.1,
-    \"Extending the OpImage Class](Extension.doc.html#51621).\"
+    \"Extending the OpImage Class](extension/index.html).\"
 
 
 -   A class that extends the `OperationDescriptor` class. This new
     class describes the operation such as name, parameter list, and so
     on. See [Section 14.3.2, \"Extending the OperationDescriptor
-    Interface](Extension.doc.html#51155).\"
+    Interface](extension/index.html).\"
 
 
 -   If the operator will function in the Rendered mode only, a class
@@ -169,7 +169,7 @@ methods that must be implemented:
 First, you have to decide which of the `OpImage` subclasses to extend.
 To write a new statistics operation, you would most likely extend the
 `StatisticsOpImage` class. Each subclass has a specific purpose, as
-described in [Table 14-1](Extension.doc.html#51670).
+described in [Table 14-1](extension/index.html).
 
 
 ### 14.3.2 ![](shared/space.gif)Extending the OperationDescriptor Interface
@@ -182,7 +182,7 @@ description of the operation and specifies the number and type of its
 sources and parameters. The OperationDescriptor also specifies whether
 the operation supports rendered mode, renderable mode, or both.
 
-[Listing 14-1](Extension.doc.html#59124) shows a sample of the
+[Listing 14-1](extension/index.html) shows a sample of the
 `registryFile` contents. Note that this is not the entire
 `registryFile`, only a small sample showing two operators (absolute
 and addconst).
@@ -294,7 +294,7 @@ the operation\'s functionality in the class comment. When all of the
 above data is provided, the operation can be added to an
 `OperationRegistry`.
 
-[Listing 14-2](Extension.doc.html#58545) shows an example of an
+[Listing 14-2](extension/index.html) shows an example of an
 operation descriptor for the Clamp operation. Note that the descriptor
 also contains descriptions of the two required operation parameters,
 but no hints as these aren\'t required for the operation.
@@ -327,7 +327,7 @@ Clamp Operation**
 ------------------------------------------------------------------------
 
 As described in [Section 3.3, \"Processing
-Graphs](Programming-environ.doc.html#55910),\" JAI has two image
+Graphs](programming-environ/index.html),\" JAI has two image
 modes: Rendered and Renderable. An operation supporting the Rendered
 mode takes `RenderedImages` as its sources, can only be used in a
 Rendered op chain, and produces a `RenderedImage`. An operation
@@ -343,9 +343,9 @@ that support the renderable mode must specify this feature using the
 `isRenderableSupported` method and implement those methods that supply
 the additional information for the Renderable mode.
 
-[Table 14-2](Extension.doc.html#58685) lists the Rendered mode
-methods. [Table 14-3](Extension.doc.html#58718) lists the Renderable
-mode methods. [Table 14-4](Extension.doc.html#58876) lists the methods
+[Table 14-2](extension/index.html) lists the Rendered mode
+methods. [Table 14-3](extension/index.html) lists the Renderable
+mode methods. [Table 14-4](extension/index.html) lists the methods
 relative to operation parameters.
 
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -503,7 +503,7 @@ specifying their *x* and *y* coordinates and band offset. The
 `RookIter`, but remains useful for its ability to hide pixel formats
 and tile boundaries.
 
-[Figure 14-1](Extension.doc.html#57709) shows the Iterator package
+[Figure 14-1](extension/index.html) shows the Iterator package
 hierarchy. The classes are described in the following paragraphs.
 
 
@@ -511,7 +511,7 @@ hierarchy. The classes are described in the following paragraphs.
 
 The `RectIter` interface represents an iterator for traversing a
 read-only image in top-to-bottom, left-to-right order ([Figure
-14-2](Extension.doc.html#52169)). The RectIter traversal will
+14-2](extension/index.html)). The RectIter traversal will
 generally be the fastest style of iterator, since it does not need to
 perform bounds checks against the top or left edges of tiles. The
 `WritableRectIter` interface traverses a read/write image in the same
@@ -667,7 +667,7 @@ implementing this interface.
 
 The `RookIter` interface represents an iterator for traversing a
 read-only image using arbitrary up-down and left-right moves ([Figure
-14-3](Extension.doc.html#52483) shows two of the possibilities for
+14-3](extension/index.html) shows two of the possibilities for
 traversing the pixels). The RookIter traversal will generally be
 somewhat slower than a corresponding instance of `RectIter`, since it
 must perform bounds checks against the top and left edges of tiles in
@@ -834,7 +834,7 @@ are provided to allow read-only access to the source data. The
 
 ### 14.4.4 ![](shared/space.gif)Example RectIter
 
-[Listing 14-3](Extension.doc.html#57929) shows an example of the
+[Listing 14-3](extension/index.html) shows an example of the
 construction of a new `RectIter`.
 
 **[]{#57929}**

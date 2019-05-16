@@ -41,107 +41,83 @@ Java Advanced Imaging API, how it evolved from the original Java
 Advanced Windowing Toolkit (AWT), some of its features, and introduces
 the imaging operations.
 
-**[Chapter 2, \"Java AWT Imaging\"](J2D-concepts.doc.html#47285),"**
+**[Chapter 2, \"Java AWT Imaging\"](j2d-concepts/index.html),"**
 reviews the imaging portions of the Java AWT and examines the imaging
 features of the Java 2D API.
 
 **[Chapter 3, \"Programming in Java Advanced
-Imaging\"](Programming-environ.doc.html#47285),** describes how to get
+Imaging\"](programming-environ/index.html),** describes how to get
 started programming with the Java Advanced Imaging API.
 
 **[Chapter 4, \"Image Acquisition and
-Display\"](Acquisition.doc.html#81550),** describes the Java Advanced
+Display\"](acquisition/index.html),** describes the Java Advanced
 Imaging API image data types and the API constructors and methods for
 image acquisition and display.
 
-**[Chapter 5, \"Color Space\"](Color.doc.html#47285),** describes the
+**[Chapter 5, \"Color Space\"](color/index.html),** describes the
  color space, transparency, and the color conversion operators.
 
 **[Chapter 6, \"Image
-Manipulation\"](Image-manipulation.doc.html#47285),** describes the
+Manipulation\"](image-manipulation/index.html),** describes the
 basics of manipulating images to prepare them for processing and
 display.
 
-**[Chapter 7, \"Image Enhancement\"](Image-enhance.doc.html#47285),**
+**[Chapter 7, \"Image Enhancement\"](image-enhance/index.html),**
 describes the basics of improving the visual appearance of images
 through enhancement techniques.
 
 **[Chapter 8, \"Geometric Image
-Manipulation\"](Geom-image-manip.doc.html#51140),** describes the
+Manipulation\"](geom-image-manip/index.html),** describes the
 basics of Java Advanced Imaging\'s geometric image manipulation
 functions.
 
-**[Chapter 9, \"Image Analysis\"](Analysis.doc.html#55366),**
+**[Chapter 9, \"Image Analysis\"](analysis/index.html),**
 describes the Java Advanced Imaging API image analysis operators.
 
-**[Chapter 10, \"Graphics Rendering\"](Graphics.doc.html#51143),**
+**[Chapter 10, \"Graphics Rendering\"](graphics/index.html),**
 describes the Java Advanced Imaging presentation of shapes and text.
 
-**[Chapter 11, \"Image Properties\"](Properties.doc.html#47285),**
+**[Chapter 11, \"Image Properties\"](properties/index.html),**
 describes the tools that allow a programmer to add a simple database
 of arbitrary data that can be attached to images.
 
 **[Chapter 12, \"Client-Server
-Imaging\"](Client-server.doc.html#47285),** describes Java Advanced
+Imaging\"](client-server/index.html),** describes Java Advanced
 Imaging\'s client-server imaging system.
 
-**[Chapter 13, \"Writing Image Files\"](Encode.doc.html#47285),**
+**[Chapter 13, \"Writing Image Files\"](encode/index.html),**
 describes Java Advanced Imaging\'s codec system for encoding image
 data files.
 
-**[Chapter 14, \"Extending the API\"](Extension.doc.html#47285),**
+**[Chapter 14, \"Extending the API\"](extension/index.html),**
 describes how the Java Advanced Imaging API is extended.
 
-**[Appendix A, \"Program Examples\"](Examples.doc.html#72446),**
+**[Appendix A, \"Program Examples\"](Examples/index.html),**
 contains fully-operational Java Advanced Imaging program examples.
 
 **[Appendix B, \"API
-Summary\"](API-summary.doc.html#72446),** summarizes the imaging
+Summary\"](api-summary/index.html),** summarizes the imaging
 interfaces, and classes, including the `java.awt`, `java.awt.Image`,
 and `javax.media.jai` classes.
 
-The **[Glossary](Glossary.doc.html#47771)** contains descriptions of
+The **[Glossary](glossary/index.html)** contains descriptions of
 significant terms that appear in this book.
 
 
 Related Documentation
 ---------------------
 
-To obtain a good understanding of the Java programming language, we
-suggest you start with the SunSoft Press series of books:
-
--   *Instant Java*, by John A. Pew
-
-
--   *Java in a Nutchell: A Desktop Quick Reference*, by David Flanagan
-
-
--   *Java by Example*, by Jerry R. Jackson and Alan L. McClellan
-
-
--   *Just Java*, by Peter van der Linden
-
-
--   *Core Java*, by Gary Cornell and Gay S. Horstmann
-
-
--   *Java Distributed Computing*, by Jim Farley
-
 For more information on digital imaging, we suggest you refer to the
 following books:
 
 -   *Fundamentals of Digital Image Processing*, by Anil K. Jain
 
-
 -   *Digital Image Processing: Principles and Applications*, by
     Gregory A. Baxes
 
-
 -   *Digital Image Processing*, by Kenneth R. Castleman
 
-
 -   *Digital Image Processing*, 2nd. ed., by William K. Pratt
-
 
 Additional Information
 ----------------------
@@ -161,17 +137,14 @@ Style Conventions
 
 The following style conventions are used in this document:
 
--   `Lucida type` is used to represent computer code and the names of
+-   `Monspace` is used to represent computer code and the names of
     files and directories.
 
-
--   **Bold Lucida type** is used for Java 3D API declarations.
-
+-   **Bold** is used for API declarations.
 
 -   *Italic type* is used for emphasis and for equations.
 
-Throughout the book, we introduce many API calls with the following
-format:
+Throughout the book, we introduce many API calls with the following format:
 
 **API:** `org.eclipse.imagen.jai.TiledImage`
 

@@ -42,7 +42,7 @@ The Java Advanced Imaging (JAI) API supports three imaging models:
 
 -   The pipeline (pull) model - The JAI model
 
-[Table 2-1](J2D-concepts.doc.html#52516) lists the interfaces and
+[Table 2-1](j2d-concepts/index.html) lists the interfaces and
 classes for each of the three models.
 
   --------------------------------------------------------------------------------------------------
@@ -301,7 +301,7 @@ layers is housed in a single class. This simplifies the task of
 writing new operators and makes extension of the architecture
 manageable.
 
-[Figure 2-1](J2D-concepts.doc.html#51378) shows a renderable chain.
+[Figure 2-1](j2d-concepts/index.html) shows a renderable chain.
 The chain has a sink attached (a Graphics2D object), but no pixels
 flow through the chain yet.
 
@@ -488,7 +488,7 @@ much the same manner as those of the Renderable layer. A sequence of
 `RenderedImage`s is instantiated, each taking the last `RenderedImage`
 as a source.
 
-In [Figure 2-2](J2D-concepts.doc.html#51937), when the user calls
+In [Figure 2-2](j2d-concepts/index.html), when the user calls
 `Graphics2D.drawImage()`, a render context is constructed and used to
 call the `getImage()` method of the renderable operator. A rendered
 operator to actually do the pixel processing is constructed and

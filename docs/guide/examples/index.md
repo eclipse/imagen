@@ -33,7 +33,7 @@ are pretty simple and would not be particularly interesting, visually.
 A.1 ![](shared/space.gif)Lookup Operation Example
 -------------------------------------------------
 
-[Listing A-1](Examples.doc.html#73865) shows an example of the
+[Listing A-1](Examples/index.html) shows an example of the
 `Lookup` operation. This example program decodes a TIFF image file
 into a `RenderedImage`. If the TIFF image is an unsigned short type
 image, the program performs a `Lookup` operation to convert the image
@@ -146,9 +146,9 @@ into a byte type image. Finally, the program displays the byte image.
 A.2 ![](shared/space.gif)Adding an OperationDescriptor Example
 --------------------------------------------------------------
 
-[Chapter 14, \"Extending the API](Extension.doc.html#47285),\"
+[Chapter 14, \"Extending the API](extension/index.html),\"
 describes how to extend the API by writing custom
-OperationDescriptors. [Listing A-2](Examples.doc.html#74163) shows the
+OperationDescriptors. [Listing A-2](Examples/index.html) shows the
 construction of an `OperationDescriptor`, called `SampleDescriptor`,
 that is both an `OperationDescriptor` and a `RenderedImageFactory`.
 The operation created here is called `Sample` and takes two parameters

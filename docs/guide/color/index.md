@@ -210,11 +210,11 @@ The following sample code shows the construction of a
 
 :   constructs a `ComponentColorModel` from the specified parameters.
       --------------- ------------------------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-      *Parameters*:   `colorSpace`             The `ColorSpace` associated with this color model. See [Section 5.2.2, \"Color Space](Color.doc.html#51305).\"
+      *Parameters*:   `colorSpace`             The `ColorSpace` associated with this color model. See [Section 5.2.2, \"Color Space](color/index.html).\"
                       `bits`                   The number of significant bits per component.
                       `hasAlpha`               If true, this color model supports alpha.
                       `isAlphaPremultiplied`   If true, alpha is premultiplied.
-                      `transparency`           Specifies what alpha values can be represented by this color model. See [Section 5.3, \"Transparency](Color.doc.html#51516).\"
+                      `transparency`           Specifies what alpha values can be represented by this color model. See [Section 5.3, \"Transparency](color/index.html).\"
                       `transferType`           Specifies the type of primitive array used to represent pixel values. One of `DataBuffer.TYPE_BYTE`, `DataBuffer.TYPE_INT`, `DataBuffer.TYPE_SHORT`, `DataBuffer.TYPE_USHORT`, `DataBuffer.TYPE_DOUBLE`, or `DataBuffer.TYPE_FLOAT`
       --------------- ------------------------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -232,14 +232,14 @@ The following sample code shows the construction of a
     *Parameters*:
     `colorSpace`
     The `ColorSpace` associated with this color model. See [Section
-    5.2.2, \"Color Space](Color.doc.html#51305).\"
+    5.2.2, \"Color Space](color/index.html).\"
     `hasAlpha`
     If true, this color model supports alpha.
     `isAlphaPremultiplied`
     If true, alpha is premultiplied.
     `transparency`
     Specifies what alpha values can be represented by this color
-    model. See [Section 5.3, \"Transparency](Color.doc.html#51516).\"
+    model. See [Section 5.3, \"Transparency](color/index.html).\"
     `transferType`
     Specifies the type of primitive array used to represent pixel
     values. One of `DataBuffer.TYPE_FLOAT` or
@@ -261,7 +261,7 @@ color space. All `ColorSpace` objects must be able to map a color from
 the represented color space into `sRGB` and transform an `sRGB` color
 into the represented color space.
 
-[Table 5-1](Color.doc.html#51319) lists the variables used to refer to
+[Table 5-1](color/index.html) lists the variables used to refer to
 color spaces (such as `CS_sRGB` and `CS_CIEXYZ`) and to color space
 types (such as `TYPE_RGB` and `TYPE_CMYK`).
 
@@ -473,7 +473,7 @@ when colors overlap. The alpha value specifies how much of the
 previously-rendered color should show through.
 
 The Java `Transparency` interface defines the common transparency
-modes for implementing classes. [Table 5-2](Color.doc.html#51528)
+modes for implementing classes. [Table 5-2](color/index.html)
 lists the variables used to specify transparency.
 
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -489,7 +489,7 @@ lists the variables used to specify transparency.
   :  **[*Table 5-2* ![](shared/sm-blank.gif) Transparency]{#51528}**
 
 Transparency is specified as part of the color model (see [Section
-5.2.1, \"Color Models](Color.doc.html#51226)\").
+5.2.1, \"Color Models](color/index.html)\").
 
 
 5.4 ![](shared/space.gif)Color Conversion
@@ -506,7 +506,7 @@ JAI does not attempt to verify that the `ColorModel` of the
 destination image is consistent with the `ColorSpace` parameter. To
 ensure that this is the case, a compatible `ColorModel` must be
 provided via an `ImageLayout` in the `RenderingHints` (see [Section
-3.7.3, \"Rendering Hints](Programming-environ.doc.html#55991)\").
+3.7.3, \"Rendering Hints](programming-environ/index.html)\").
 
 Integral data are assumed to occupy the full range of the respective
 data type; floating point data are assumed to be normalized to the
@@ -525,9 +525,9 @@ The `ColorConvert` operation takes one parameter:
   : 
 
 For information on color space, see [Section 5.2.2, \"Color
-Space](Color.doc.html#51305).\"
+Space](color/index.html).\"
 
-[Listing 5-1](Color.doc.html#51792) shows a code sample for a
+[Listing 5-1](color/index.html) shows a code sample for a
 `ColorConvert` operation.
 
 **[]{#51792}**
@@ -555,7 +555,7 @@ Operation**
 
 In JAI, the `BandCombine` operation performs a linear color conversion
 between color spaces other than those listed in [Table
-5-1](Color.doc.html#51319). The `BandCombine` operation computes a set
+5-1](color/index.html). The `BandCombine` operation computes a set
 of arbitrary linear combinations of the bands of a rendered or
 renderable source image, using a specified matrix. The matrix must
 have dimension (\# of source bands plus one) by (\# of desired
@@ -573,7 +573,7 @@ The `BandCombine` operation takes one parameter:
   : 
 
 As an example, assume the three-band source image and the matrix shown
-in [Figure 5-1](Color.doc.html#51639). The equation to calculate the
+in [Figure 5-1](color/index.html). The equation to calculate the
 value of the destination pixel in this example would be:
 
 :   *dst* = (255 \* 0.25) + (157 \* 0.5) + (28 \* 0.75)
@@ -600,7 +600,7 @@ If the result of the computation underflows or overflows the minimum
 or maximum value supported by the destination image, it will be
 clamped to the minimum or maximum value, respectively.
 
-[Listing 5-2](Color.doc.html#51816) shows a code sample for a
+[Listing 5-2](color/index.html) shows a code sample for a
 `BandCombine` operation.
 
 **[]{#51816}**

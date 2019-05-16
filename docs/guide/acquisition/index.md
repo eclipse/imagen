@@ -22,7 +22,7 @@ from many sources, including a disk file, the network, a CD, and so
 on. Images may be acquired, processed, and immediately displayed, or
 written to a disk file for display at a later time.
 
-As described in [Chapter 3](Programming-environ.doc.html#47227), JAI
+As described in [Chapter 3](programming-environ/index.html), JAI
 offers the programmer the flexibility to render and display an image
 immediately or to defer the display of the rendered image until there
 is a specific request for it.
@@ -30,14 +30,14 @@ is a specific request for it.
 Image acquisition and display are relatively easy in JAI, in spite of
 all the high-level information presented in the next several sections.
 Take for example, the sample code in [Listing
-4-1](Acquisition.doc.html#82325). This is a complete code example for
+4-1](acquisition/index.html). This is a complete code example for
 a simple application called `FileTest`, which takes a single argument;
 the path and name of the file to read. `FileTest` reads the named file
 and displays it in a `ScrollingImagePanel`. The operator that reads
 the image file, `FileLoad`, is described in [Section 4.4.1.2, \"The
-FileLoad Operation](Acquisition.doc.html#69930).\" The
+FileLoad Operation](acquisition/index.html).\" The
 `ScrollingImagePanel` is described in [Section 4.8, \"Image
-Display](Acquisition.doc.html#73265).\"
+Display](acquisition/index.html).\"
 
 <a name="listing-4-1"></a
 
@@ -52,7 +52,7 @@ Display](Acquisition.doc.html#73265).\"
 ### 4.1.1 Image Data
 
 Image data is, conceptually, a three-dimensional array of pixels, as
-shown in [Figure 4-1](Acquisition.doc.html#51833). Each of the three
+shown in [Figure 4-1](acquisition/index.html). Each of the three
 arrays in the example is called a *band*. The number of rows specifies
 the image height of a band, and the number of columns specifies the
 image width of a band.
@@ -215,7 +215,7 @@ A `ColorModel` class provides a color interpretation of pixel data
 provided by the image\'s sample model. The abstract `ColorModel` class
 defines methods for turning an image\'s pixel data into a color value
 in its associated `ColorSpace`. See [Section 5.2.1, \"Color
-Models](Color.doc.html#51226).\"
+Models](color/index.html).\"
 
 <a name="figure-4-1"></a
 
@@ -289,7 +289,7 @@ TYPE_USHORT_GRAY
 
 The API provides a set of classes for describing image data of
 various kinds. These classes are organized into a class hierarchy, as
-shown in [Figure 4-3](Acquisition.doc.html#53019).
+shown in [Figure 4-3](acquisition/index.html).
 
 <a name="table-4-4"></a
 
@@ -469,7 +469,7 @@ The `pattern` operation takes three parameters:
 
   : 
 
-[Listing 4-2](Acquisition.doc.html#79244) shows a code sample for a
+[Listing 4-2](acquisition/index.html) shows a code sample for a
 `pattern` operation.
 
 ****
@@ -643,7 +643,7 @@ A `RemoteImage` is a sub-class of `PlanarImage` which represents an
 image on a remote server. A `RemoteImage` may be constructed from a
 `RenderedImage` or from an imaging chain in either the rendered or
 renderable modes. For more information, see [Chapter 12,
-\"Client-Server Imaging](Client-server.doc.html#47285).\"
+\"Client-Server Imaging](client-server/index.html).\"
 
 
 
@@ -764,7 +764,7 @@ There are three `ImageMIPMap` constructors:
     affine transform representing the geometric relationship between
     levels of the MIP map. The affine transform may include
     translation, scaling, and rotation (see [\"Affine Transformation\"
-    on page 272](Geom-image-manip.doc.html#51275)).
+    on page 272](geom-image-manip/index.html)).
 
     ImageMIPMap(RenderedImage image, RenderedOp downSampler)
 
@@ -796,7 +796,7 @@ sources. When traversing back up the chain, if a node has more than
 one source, the first source, `source0`, is used to move up the chain.
 This parameter is saved by reference.
 
-[Listing 4-3](Acquisition.doc.html#82858) shows a complete code
+[Listing 4-3](acquisition/index.html) shows a complete code
 example of the use of `ImageMIPMap`.
 
 ****
@@ -949,13 +949,13 @@ class:
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#82663}      [Description]{#82665}
   ------------------------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [downSampler]{#82734}\   [A RenderedOp chain used to derive the lower resolution images. The first operation in the chain must take only one source. See]{#82736} [Section 4.2.9.1, \"The Down Sampler](Acquisition.doc.html#73387).\"\
+  [downSampler]{#82734}\   [A RenderedOp chain used to derive the lower resolution images. The first operation in the chain must take only one source. See]{#82736} [Section 4.2.9.1, \"The Down Sampler](acquisition/index.html).\"\
 
-  [upSampler]{#82667}\     [A RenderedOp chain that derives the image at a resolution level higher than the current level. The first operation in the chain must take only one source. See]{#82669} [Section 4.2.9.2, \"The Up Sampler](Acquisition.doc.html#73446).\"\
+  [upSampler]{#82667}\     [A RenderedOp chain that derives the image at a resolution level higher than the current level. The first operation in the chain must take only one source. See]{#82669} [Section 4.2.9.2, \"The Up Sampler](acquisition/index.html).\"\
 
-  [differencer]{#82671}\   [A RenderedOp chain that finds the difference of two images. The first operation in the chain must take exactly two sources. See]{#82673} [Section 4.2.9.3, \"The Differencer](Acquisition.doc.html#73492).\"\
+  [differencer]{#82671}\   [A RenderedOp chain that finds the difference of two images. The first operation in the chain must take exactly two sources. See]{#82673} [Section 4.2.9.3, \"The Differencer](acquisition/index.html).\"\
 
-  [combiner]{#82675}\      [A RenderedOp chain that combines two images. The first operation in the chain must take exactly two sources. See]{#82677} [Section 4.2.9.4, \"The Combiner](Acquisition.doc.html#73554).\"\
+  [combiner]{#82675}\      [A RenderedOp chain that combines two images. The first operation in the chain must take exactly two sources. See]{#82677} [Section 4.2.9.4, \"The Combiner](acquisition/index.html).\"\
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -1019,7 +1019,7 @@ current image is returned without further up sampling. The
 down-sampled image is obtained by first up sampling the current image,
 then combining the resulting image with the previously-saved different
 image using the `combiner` op chain (see [Section 4.2.9.4, \"The
-Combiner](Acquisition.doc.html#73554)\").
+Combiner](acquisition/index.html)\").
 
 
 
@@ -1056,7 +1056,7 @@ parameter.
 
 #### 4.2.9.5 Example
 
-[Listing 4-4](Acquisition.doc.html#83311) shows a complete code
+[Listing 4-4](acquisition/index.html) shows a complete code
 example of the use of `ImagePyramid`.
 
 ****
@@ -1358,8 +1358,8 @@ progressively lower resolution.
 
 The Java Advanced Imaging API extends the Java family of stream types
 with the addition of seven \"seekable\" stream classes, as shown in
-[Figure 4-4](Acquisition.doc.html#68036). [Table
-4-3](Acquisition.doc.html#68242) briefly describes each of the new
+[Figure 4-4](acquisition/index.html). [Table
+4-3](acquisition/index.html) briefly describes each of the new
 classes.
 
 
@@ -1430,7 +1430,7 @@ data in little-endian (LE) order. In Java, all values are written in
 big-endian fashion. However, JAI needs methods for reading data that
 is not produced by Java; data that is produced on other platforms that
 produce data in the little-endian fashion. [Table
-4-4](Acquisition.doc.html#68920) is a complete list of the methods to
+4-4](acquisition/index.html) is a complete list of the methods to
 read data:
 
   -----------------------------------------------------------------------------------------------------------------------
@@ -1530,7 +1530,7 @@ The JAI codec architecture consists of encoders and decoders capable
 of writing and reading several different raster image file formats.
 This chapter describes reading image files. For information on writing
 image files, see [Chapter 13, \"Writing Image
-Files](Encode.doc.html#47285).\"
+Files](encode/index.html).\"
 
 There are many raster image file formats, most of which have been
 created to support both image storage and interchange. Some formats
@@ -1539,10 +1539,10 @@ formats, although very important to individual software vendors, are
 less widely used.
 
 JAI directly supports several of the most common image file formats,
-listed in [Table 4-5](Acquisition.doc.html#74215). If your favorite
-file format is not listed in [Table 4-5](Acquisition.doc.html#74215),
+listed in [Table 4-5](acquisition/index.html). If your favorite
+file format is not listed in [Table 4-5](acquisition/index.html),
 you may either be able to create your own file codec (see [Chapter 14,
-\"Extending the API](Extension.doc.html#47285)\") or use one obtained
+\"Extending the API](extension/index.html)\") or use one obtained
 from a third party developer.
 
   ---------------------------------------------------------------------------------------------------------
@@ -1595,7 +1595,7 @@ file as a `java.io.File` object or as one of the subclasses of
 `java.io.InputStream`.
 
 JAI offers several file operators for reading image data files, as
-listed in [Table 4-6](Acquisition.doc.html#66297).
+listed in [Table 4-6](acquisition/index.html).
 
   -------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#66431}    [Description]{#66433}
@@ -1650,7 +1650,7 @@ definitively recognized by examining the initial portion of the data
 stream. A new `FormatRecognizer` may be added to the
 `OperationRegistry` by means of the `registerFormatRecognizer` method
 (see [Section 14.5, \"Writing New Image Decoders and
-Encoders](Extension.doc.html#56033)\").
+Encoders](extension/index.html)\").
 
 
 
@@ -1677,7 +1677,7 @@ The `Stream` operation takes a single parameter:
 
   : 
 
-[Listing 4-5](Acquisition.doc.html#79311) shows a code sample for a
+[Listing 4-5](acquisition/index.html) shows a code sample for a
 `Stream` operation.
 
 ****
@@ -1713,7 +1713,7 @@ The `FileLoad` operation takes a single parameter:
 
   : 
 
-[Listing 4-6](Acquisition.doc.html#79334) shows a code sample for a
+[Listing 4-6](acquisition/index.html) shows a code sample for a
 `FileLoad` operation.
 
 ****
@@ -1782,7 +1782,7 @@ The `TIFF` operation supports the following compression types:
     facsimile)
 
 For an example of reading a TIFF file, see [Listing A-1 on page
-417](Examples.doc.html#73865).
+417](Examples/index.html).
 
 
 
@@ -1862,7 +1862,7 @@ entries identified by a tag that identifies the field. A field is
 identified as a sequence of values of identical data type. The TIFF
 6.0 specification defines 12 data types, which are mapped internally
 into the Java data types, as described in [Table
-4-7](Acquisition.doc.html#76720).
+4-7](acquisition/index.html).
 
   -------------------------------------------------------------------------------------------------------
   [TIFF Field Type]{#76564}    [Java Data Type]{#76566}   [Description]{#76619}
@@ -1905,7 +1905,7 @@ The `getTag` method returns the tag number. The tag number identifies
 the field. The tag number is an `int` value between 0 and 65,535. The
 `getType` method returns the type of data stored in the IFD. For a
 TIFF 6.0 file, the value will be one of those defined in [Table
-4-7](Acquisition.doc.html#76720). The `getCount` method returns the
+4-7](acquisition/index.html). The `getCount` method returns the
 number of elements in the IFD. The count (also known as *length* in
 earlier TIFF specifications) is the number of values.
 
@@ -2043,7 +2043,7 @@ operation takes one parameter:
 
   : 
 
-[Listing 4-7](Acquisition.doc.html#79361) shows a code sample for a
+[Listing 4-7](acquisition/index.html) shows a code sample for a
 `FPX` operation.
 
 ****
@@ -2143,7 +2143,7 @@ The `BMP` operation takes a single parameter:
 
   : 
 
-[Listing 4-8](Acquisition.doc.html#79427) shows a code sample for a
+[Listing 4-8](acquisition/index.html) shows a code sample for a
 `GIF` operation.
 
 ****
@@ -2206,7 +2206,7 @@ stored with a bit depth of 16 will be truncated to 8 bits of output
 unless the `KEY_PNG_EMIT_16BITS` hint is set to `Boolean.TRUE`.
 Similarly, the output image will not have an alpha channel unless the
 `KEY_PNG_EMIT_ALPHA` hint is set. See [Section 4.4.7.3, \"Rendering
-Hints](Acquisition.doc.html#75792).\"
+Hints](acquisition/index.html).\"
 
 The `PNG` operation takes a single parameter:
 
@@ -2219,7 +2219,7 @@ The `PNG` operation takes a single parameter:
 
   : 
 
-[Listing 4-9](Acquisition.doc.html#79461) shows a code sample for a
+[Listing 4-9](acquisition/index.html) shows a code sample for a
 `PNG` operation.
 
 ****
@@ -2502,7 +2502,7 @@ then stores the image data into an appropriate `SampleModel`. The
 
   : 
 
-[Listing 4-10](Acquisition.doc.html#79487) shows a code sample for a
+[Listing 4-10](acquisition/index.html) shows a code sample for a
 `PNM` operation.
 
 ****
@@ -2544,7 +2544,7 @@ The `AWTImage` operation takes one parameter.
 
   : 
 
-[Listing 4-11](Acquisition.doc.html#79513) shows a code sample for an
+[Listing 4-11](acquisition/index.html) shows a code sample for an
 `AWTImage` operation.
 
 ****
@@ -2595,7 +2595,7 @@ parameter.
 
   : 
 
-[Listing 4-12](Acquisition.doc.html#79538) shows a code sample for a
+[Listing 4-12](acquisition/index.html) shows a code sample for a
 `URL` operation.
 
 ****
@@ -2643,7 +2643,7 @@ The `ImageLayout` may also specify a tile grid origin and size which
 will be respected.
 
 The typecasting performed by the `Format` operation is defined by the
-set of expressions listed in [Table 4-8](Acquisition.doc.html#64379),
+set of expressions listed in [Table 4-8](acquisition/index.html),
 depending on the data types of the source and destination. Casting an
 image to its current data type is a no-op. See *The Java Language
 Specification* for the definition of type conversions between
@@ -2834,7 +2834,7 @@ image at the next higher resolution level of the pyramid. The
 `downSampler` operation chain must adhere to the specifications
 described for the constructors of the `ImageMIPMap` class, which
 accept this type of parameter (see [Section 4.2.9.1, \"The Down
-Sampler](Acquisition.doc.html#73387)\").
+Sampler](acquisition/index.html)\").
 
 The `downSampler` operation chain must reduce the image width and
 height at each level of the pyramid. The default operation chain for
@@ -2885,7 +2885,7 @@ The `Renderable` operation takes five parameters, as follows:
 The default values for these parameters are:
 
 -   `downSampler` - a low-pass filter (see [Section 4.2.9.1, \"The
-    Down Sampler](Acquisition.doc.html#73387)\")
+    Down Sampler](acquisition/index.html)\")
 
 -   `maxLowResDim` - 64
 
@@ -2895,7 +2895,7 @@ The default values for these parameters are:
 
 -   `height` - 1.0F``
 
-[Listing 4-13](Acquisition.doc.html#81812) shows a code sample for a
+[Listing 4-13](acquisition/index.html) shows a code sample for a
 `Renderable` operation. The default parameters are used for all five
 parameters. The output of the `Renderable` operation (`ren`) can be
 passed to the next renderable operation in the graph.
@@ -2946,7 +2946,7 @@ image is determined by the number of constant pixel values supplied in
 the `bandValues` parameter. The data type is determined by the type of
 the constant from the first entry.
 
-[Listing 4-14](Acquisition.doc.html#81146) shows a code sample for a
+[Listing 4-14](acquisition/index.html) shows a code sample for a
 `Constant` operation.
 
 ****
@@ -3005,7 +3005,7 @@ smaller than the image.
 
 Once the `ScrollingImagePanel` is created, it can be placed anywhere
 in a `Frame`, just like any other AWT panel. [Listing
-4-15](Acquisition.doc.html#79578) shows a code sample demonstrating
+4-15](acquisition/index.html) shows a code sample demonstrating
 the use of a scrolling image panel.
 
 ****
@@ -3033,7 +3033,7 @@ Panel**
 
 For a little more interesting example, consider the display of four
 images in a grid layout. The code sample in [Listing
-4-16](Acquisition.doc.html#79615) arranges four images into a 2 x 2
+4-16](acquisition/index.html) arranges four images into a 2 x 2
 grid. This example uses the `java.awt.Panel` and the
 `java.awt.GridLayout` objects. These objects are not described in this
 document. See the Java Platform documentation for more information.
@@ -3064,7 +3064,7 @@ The constructor for the `GridLayout` object specifies the number of
 rows and columns in the display (2 x 2 in this example). The four
 images (`im1`, `im2`, `im3`, and `im4`) are then added to the panel in
 separate `ScrollingImagePanel`s. The resulting image is arranged as
-shown in [Figure 4-5](Acquisition.doc.html#79732).
+shown in [Figure 4-5](acquisition/index.html).
 
 
 
@@ -3204,7 +3204,7 @@ The origin of an image is obtained with the `getXOrigin` and
 
 Geometric operators are treated differently with respect to image
 origin control. See [Chapter 8, \"Geometric Image
-Manipulation](Geom-image-manip.doc.html#51140).\"
+Manipulation](geom-image-manip/index.html).\"
 
 **API:** `org.eclipse.imagen.jai.widget.ImageCanv |
 |                                   | as`
