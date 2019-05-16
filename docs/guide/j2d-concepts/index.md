@@ -5,45 +5,29 @@ parent: Programming Guide
 nav_order: 3
 ---
 
-\
+# Java AWT Imaging                                                      
 
-
-  ----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)2
-  ----------------------------------------
-
-
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Java AWT Imaging                                                      |
-+-----------------------------------------------------------------------+
-
-\
-\
-\
-
-**D**IGITAL imaging in Java has been supported since its first
+Digital imaging in Java has been supported since its first
 release, through the **java.awt** and **java.awt.image** class
 packages. The image-oriented part of these class packages is referred
 to as *AWT Imaging* throughout this guide.
 
-
-2.1 ![](shared/space.gif)Introduction
+2.1 Introduction
 -------------------------------------
 
-The Java Advanced Imaging (JAI) API supports three imaging models:
+The Eclipse ImageN API supports three imaging models:
 
 -   The producer/consumer (push) model - the basic AWT imaging model
 
-
 -   The immediate mode model - an advanced AWT imaging model
 
+-   The pipeline (pull) model - The ImageN model
 
--   The pipeline (pull) model - The JAI model
-
-[Table 2-1](../j2d-concepts) lists the interfaces and
+[Table 2-1](../j2d-concepts#table-2-1) lists the interfaces and
 classes for each of the three models.
+
+
+
 
   --------------------------------------------------------------------------------------------------
   [AWT Push Model]{#52522}   [Java 2D Immediate Mode Model]{#52524}   [Pull Model]{#52526}
@@ -56,11 +40,11 @@ classes for each of the three models.
 
   --------------------------------------------------------------------------------------------------
 
-  :  **[*Table 2-1* ![](shared/sm-blank.gif) Imaging Model Interfaces
+  :  **[*Table 2-1*  Imaging Model Interfaces
   and Classes]{#52516}**
 
 
-### 2.1.1 ![](shared/space.gif)The AWT Push Model
+### 2.1.1 The AWT Push Model
 
 The AWT push model, supported through the `java.awt` class package, is
 a simple filter model of image producers and consumers for image
@@ -118,7 +102,7 @@ are often used in image processing, such as operations performed on a
 region of interest in an image.
 
 
-### 2.1.2 ![](shared/space.gif)AWT Push Model Interfaces and Classes
+### 2.1.2 AWT Push Model Interfaces and Classes
 
 The following are the Java interfaces and classes associated with the
 AWT push model of imaging.
@@ -131,7 +115,7 @@ AWT push model of imaging.
 
   -------------------------------------------------------------------------------------------------
 
-  :  **[*Table 2-2* ![](shared/sm-blank.gif) Push Model Imaging
+  :  **[*Table 2-2*  Push Model Imaging
   Interfaces]{#52555}**
 
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -148,11 +132,11 @@ AWT push model of imaging.
   [ImageObserver]{#52610}\         [An asynchronous update interface for receiving notifications about Image information as the Image is constructed.]{#52653}\
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  :  **[*Table 2-3* ![](shared/sm-blank.gif) Push Model Imaging
+  :  **[*Table 2-3*  Push Model Imaging
   Classes]{#52594}**
 
 
-2.2 ![](shared/space.gif)The Immediate Mode Model
+2.2 The Immediate Mode Model
 -------------------------------------------------
 
 To alleviate some of the restrictions of the original AWT imaging
@@ -186,7 +170,7 @@ found in *The Java 2D API Specification* and the *Java 2D API White
 Paper*.
 
 
-### 2.2.1 ![](shared/space.gif)Rendering Independence
+### 2.2.1 Rendering Independence
 
 Rendering independence for images is a poorly understood topic because
 it is poorly named. The more general problem is \"resolution
@@ -227,7 +211,7 @@ the same visual description can be routed to any display context with
 an optimal result.
 
 
-### 2.2.2 ![](shared/space.gif)Rendering-independent Imaging in Java AWT
+### 2.2.2 Rendering-independent Imaging in Java AWT
 
 The Java AWT API architecture integrates a model of rendering
 independence with a parallel, device-dependent (rendered) model. The
@@ -249,13 +233,13 @@ it is not well suited to notions of progressive rendering or network
 resources. These issues are addressed in JAI.
 
 
-### 2.2.3 ![](shared/space.gif)The Renderable Layer vs. the Rendered Layer
+### 2.2.3 The Renderable Layer vs. the Rendered Layer
 
 The Java AWT API architecture provides for two integrated imaging
 layers: renderable and rendered.
 
 
-#### 2.2.3.1 ![](shared/space.gif)Renderable Layer
+#### 2.2.3.1 Renderable Layer
 
 The renderable layer is a rendering-independent layer. All the
 interfaces and classes in the Java AWT API have `renderable` in their
@@ -274,7 +258,7 @@ and the chain adapts to the context. Only the data required for the
 context is produced.
 
 
-#### 2.2.3.2 ![](shared/space.gif)Rendered Layer
+#### 2.2.3.2 Rendered Layer
 
 Image sources and operators in the parallel *Rendered layer* (the
 interfaces and classes have `rendered` in their names) are
@@ -285,7 +269,7 @@ parameters. Like the Renderable layer, the Rendered layer implements a
 synchronous \"pull\" model.
 
 
-#### 2.2.3.3 ![](shared/space.gif)Using the Layers
+#### 2.2.3.3 Using the Layers
 
 Structurally, the Renderable layer is lightweight. It does not
 directly handle pixel processing. Rather, it makes use of operator
@@ -313,7 +297,7 @@ flow through the chain yet.
 ------------------------------------------------------------------------
 
 
-***Figure 2-1* ![](shared/sm-blank.gif) A Renderable Chain**
+***Figure 2-1*  A Renderable Chain**
 
 You may use either the Renderable or Rendered layer to construct an
 application. Many programmers will directly employ the Rendered layer,
@@ -326,7 +310,7 @@ specific rendition obtained from a `RenderableImage` by passing it
 defined *render contexts*.
 
 
-### 2.2.4 ![](shared/space.gif)The Render Context
+### 2.2.4 The Render Context
 
 The renderable layer allows for the construction of a chain of
 operators (`RenderableImageOps`) connected to a `RenderableImage`
@@ -359,7 +343,7 @@ the specific context, the `RenderedImage` object at the end of the
 chain being returned to the user.
 
 
-2.3 ![](shared/space.gif)Renderable and Rendered Classes
+2.3 Renderable and Rendered Classes
 --------------------------------------------------------
 
 Many users will be able to employ the Renderable layer, with the
@@ -375,7 +359,7 @@ Extending the model by writing new operators or algorithms in the Java
 internally within the Renderable layer are also covered.
 
 
-### 2.3.1 ![](shared/space.gif)The Renderable Layer
+### 2.3.1 The Renderable Layer
 
 The renderable layer is primarily defined by the `RenderableImage`
 interface. Any class implementing this interface is a renderable image
@@ -398,7 +382,7 @@ instantiation of `RenderableImageOp` derives its specific
 functionality from the named class. In this way, the Renderable layer
 is heavily dependent on the Rendered layer.
 
-**[*Table 2-4* ![](shared/sm-blank.gif) The Renderable Layer
+**[*Table 2-4*  The Renderable Layer
 Interfaces and Classes]{#53782}**
 
 [Type]{#53788}
@@ -474,7 +458,7 @@ from the Renderable chain are immutable and completely independent
 from the chain from which they were derived.
 
 
-### 2.3.2 ![](shared/space.gif)The Rendered Layer
+### 2.3.2 The Rendered Layer
 
 The Rendered layer is designed to work in concert with the Renderable
 layer. The Rendered layer is comprised of sources and operations for
@@ -506,10 +490,10 @@ whenever its `getImage()` method is called.
 ------------------------------------------------------------------------
 
 
-***Figure 2-2* ![](shared/sm-blank.gif) Deriving a Rendering from a
+***Figure 2-2*  Deriving a Rendering from a
 Renderable Chain**
 
-**[*Table 2-5* ![](shared/sm-blank.gif) The Rendered Layer Interfaces
+**[*Table 2-5*  The Rendered Layer Interfaces
 and Classes]{#52034}**
 
 [Type]{#52082}
@@ -549,7 +533,7 @@ page buffer that can be accessed and written to. Data can be accessed
 in a variety of ways, each with different properties.
 
 
-2.4 ![](shared/space.gif)Java Image Data Representation
+2.4 Java Image Data Representation
 -------------------------------------------------------
 
 In the Java AWT API, a sample is the most basic unit of image data.
@@ -564,7 +548,7 @@ cyan, magenta, and yellow (CMY). A four-color subtractive image
 contains four bands; one each for cyan, magenta, yellow, and black
 (CMYK).
 
-**[*Table 2-6* ![](shared/sm-blank.gif) Java 2D Image Data
+**[*Table 2-6*  Java 2D Image Data
 Classes]{#52193}**
 
 [Type]{#52241}
@@ -648,7 +632,7 @@ which is different from the `SampleModel`. The `ColorModel` determines
 how the bands are interpreted in a colorimetric sense.
 
 
-2.5 ![](shared/space.gif)Introducing the Java Advanced Imaging API
+2.5 Introducing the Java Advanced Imaging API
 ------------------------------------------------------------------
 
 The JAI API builds on the foundation of the Java 2D API to allow more
@@ -697,7 +681,7 @@ directly as a source. It is, however, possible to instantiate an
 AWT applications.
 
 
-### 2.5.1 ![](shared/space.gif)Similarities with the Java 2D API
+### 2.5.1 Similarities with the Java 2D API
 
 The JAI API is heavily dependent on the abstractions defined in the
 Java 2D API. In general, the entire mechanism for handling Renderable
@@ -718,7 +702,7 @@ into JAI. Here are some of the major points of congruity between Java
     for photometric interpretation of its image data be present.
 
 
--   The JAI operator objects are considerably more sophisticated than
+-   The operator objects are considerably more sophisticated than
     in the Java 2D API. The `OpImage`, the fundamental operator
     object, provides considerable support for extensibility to new
     operators beyone that in the Java 2D API. JAI has a registry
@@ -733,12 +717,12 @@ into JAI. Here are some of the major points of congruity between Java
     data types.
 
 
-### 2.5.2 ![](shared/space.gif)JAI Data Classes
+### 2.5.2 JAI Data Classes
 
 JAI introduces two new data classes, which extend the Java 2D
 `DataBuffer` image data class.
 
-**[*Table 2-7* ![](shared/sm-blank.gif) JAI Data Classes]{#52723}**
+**[*Table 2-7*  JAI Data Classes]{#52723}**
 
 [Type]{#52747}
 
@@ -759,7 +743,7 @@ JAI introduces two new data classes, which extend the Java 2D
 [Stores data internally in double form.]{#52807}\
 
 
-#### 2.5.2.1 ![](shared/space.gif)The DataBufferFloat Class
+#### 2.5.2.1 The DataBufferFloat Class
 
 **API:** `org.eclipse.imagen.jai.DataBufferFloat`
 
@@ -844,7 +828,7 @@ JAI introduces two new data classes, which extend the Java 2D
     An array of integer offsets, one for each bank.
 
 
-#### 2.5.2.2 ![](shared/space.gif)The DataBufferDouble Class
+#### 2.5.2.2 The DataBufferDouble Class
 
 **API:** `org.eclipse.imagen.jai.DataBufferDouble |
 |                                   | `
@@ -938,4 +922,4 @@ JAI introduces two new data classes, which extend the Java 2D
 
 \
 
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+

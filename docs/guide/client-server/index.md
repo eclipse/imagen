@@ -12,20 +12,12 @@ nav_order: 14
   -----------------------------------------
 
 
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Client-Server Imaging                                                 |
-+-----------------------------------------------------------------------+
-
-\
-\
-\
+# Client-Server Imaging                                                 
 
 **T**HIS chapter describes JAI\'s client-server imaging system.
 
 
-12.1 ![](shared/space.gif)Introduction
+12.1 Introduction
 --------------------------------------
 
 Client-server imaging provides the ability to distribute computation
@@ -55,7 +47,7 @@ server serializes its return values and returns them in the same
 manner.
 
 
-12.2 ![](shared/space.gif)Server Name and Port Number
+12.2 Server Name and Port Number
 -----------------------------------------------------
 
 The `RemoteImage` constructor requires a `serverName` parameter that
@@ -101,7 +93,7 @@ search for the RMIImage service on the local host at the default
     be those of the `RenderableOp` node and not of its rendering.
 
 
-12.3 ![](shared/space.gif)Setting the Timeout Period and Number of Retries
+12.3 Setting the Timeout Period and Number of Retries
 --------------------------------------------------------------------------
 
 A network error or a delay caused by the server failing to respond to
@@ -146,13 +138,13 @@ method is used to set the maximum number of retries.
       : 
 
 
-12.4 ![](shared/space.gif)Remote Imaging Test Example
+12.4 Remote Imaging Test Example
 -----------------------------------------------------
 
 This section contains two examples of remote imaging programs.
 
 
-### 12.4.1 ![](shared/space.gif)Simple Remote Imaging Example
+### 12.4.1 Simple Remote Imaging Example
 
 [Listing 12-1](../client-server) shows a complete code
 example of a `RemoteImaging` test. This example displays a 2 x 2 grid
@@ -177,7 +169,7 @@ from the other three images, which should be identical.
 
 **[]{#54012}**
 
-***Listing 12-1* ![](shared/sm-blank.gif) Remote Imaging Example
+***Listing 12-1*  Remote Imaging Example
 Program (Sheet 1 of 4)**
 
 ------------------------------------------------------------------------
@@ -356,7 +348,7 @@ Program (Sheet 1 of 4)**
 ------------------------------------------------------------------------
 
 
-### 12.4.2 ![](shared/space.gif)RemoteImaging Example Across Two Nodes
+### 12.4.2 RemoteImaging Example Across Two Nodes
 
 [Listing 12-2](../client-server) shows an example of a
 RemoteImaging chain spread across two remote nodes, and displays the
@@ -364,7 +356,7 @@ results locally.
 
 **[]{#52766}**
 
-***Listing 12-2* ![](shared/sm-blank.gif) RemoteImaging Example
+***Listing 12-2*  RemoteImaging Example
 Program Using Two Nodes (Sheet 1 of 2)**
 
 ------------------------------------------------------------------------
@@ -479,7 +471,7 @@ Program Using Two Nodes (Sheet 1 of 2)**
     The *y* index of the requested tile in the tile array
 
 
-12.5 ![](shared/space.gif)Running Remote Imaging
+12.5 Running Remote Imaging
 ------------------------------------------------
 
 To run remote imaging in JAI, you have to do the following:
@@ -488,7 +480,7 @@ These four steps are explained in more detail in the following
 sections.
 
 
-### 12.5.1 ![](shared/space.gif)Step 1: Create a Security Policy File
+### 12.5.1 Step 1: Create a Security Policy File
 
 The default RMI security policy implementation is specified within one
 or more policy configuration files. These configuration files specify
@@ -514,7 +506,7 @@ text file named `$JAI/policy` containing the following:
 Note that this policy file is for testing purposes only.
 
 
-### 12.5.2 ![](shared/space.gif)Step 2: Start the RMI Registry
+### 12.5.2 Step 2: Start the RMI Registry
 
 The RMI registry is a simple server-side name server that allows
 remote clients to get a reference to a remote object. Typically, the
@@ -552,7 +544,7 @@ For example, on **Windows 95** or **Windows NT**:
 If the `start` command is not available, use `javaw`.
 
 
-### 12.5.3 ![](shared/space.gif)Step 3: Start the Remote Image Server
+### 12.5.3 Step 3: Start the Remote Image Server
 
 While still logged in to the remote server system, set the `CLASSPATH`
 and `LD_LIBRARY_PATH` environment variables as required for JAI (see
@@ -580,7 +572,7 @@ address 123.456.78.90 the following is printed:
            the registry.
 
 
-### 12.5.4 ![](shared/space.gif)Step 4: Run the Local Application
+### 12.5.4 Step 4: Run the Local Application
 
 After completing steps 1 through 3, you are ready to run the local
 application. When running the local application, make sure that the
@@ -591,7 +583,7 @@ if the machine with IP address 123.456.78.90 above is named
 constructors should be `"myserver"`.
 
 
-12.6 ![](shared/space.gif)Internet Imaging Protocol (IIP)
+12.6 Internet Imaging Protocol (IIP)
 ---------------------------------------------------------
 
 There are two JAI operations that support Internet Imaging Protocol
@@ -601,7 +593,7 @@ of the Internet Imaging Protocol. These operations, `IIP` and
 either a RenderedImage or a RenderableImage.
 
 
-### 12.6.1 ![](shared/space.gif)IIP Operation
+### 12.6.1 IIP Operation
 
 The `IIP` operation provides client-side support of the Internet
 Imaging Protocol (IIP) in both the rendered and renderable modes. It
@@ -769,7 +761,7 @@ an `IIP` operation.
 
 **[]{#56227}**
 
-***Listing 12-3* ![](shared/sm-blank.gif) IIP Operation Example**
+***Listing 12-3*  IIP Operation Example**
 
 ------------------------------------------------------------------------
 
@@ -851,7 +843,7 @@ an `IIP` operation.
 ------------------------------------------------------------------------
 
 
-### 12.6.2 ![](shared/space.gif)IIPResolution Operation
+### 12.6.2 IIPResolution Operation
 
 The `IIPResolution` operation provides client-side support of the
 Internet Imaging Protocol (IIP) in the rendered mode. It is
@@ -978,7 +970,7 @@ an `IIPResolution` operation.
 
 **[]{#56497}**
 
-***Listing 12-4* ![](shared/sm-blank.gif) IIPResolution Operation
+***Listing 12-4*  IIPResolution Operation
 Example**
 
 ------------------------------------------------------------------------
@@ -1024,4 +1016,4 @@ Example**
 
 \
 
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+

@@ -12,17 +12,9 @@ nav_order: 17
   -------------------------------------------
 
 
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Program Examples                                                      |
-+-----------------------------------------------------------------------+
+# Program Examples                                                      
 
-\
-\
-\
-
-**T**HIS appendix contains fully-operational JAI program examples.
+**T**HIS appendix contains fully-operational ImageN program examples.
 
 The examples in this appendix are provided to demonstrate how to
 create simple programs using JAI. Although these examples can be
@@ -30,7 +22,7 @@ compiled and run, they are not intended to be used that way since they
 are pretty simple and would not be particularly interesting, visually.
 
 
-A.1 ![](shared/space.gif)Lookup Operation Example
+A.1 Lookup Operation Example
 -------------------------------------------------
 
 [Listing A-1](../Examples) shows an example of the
@@ -41,7 +33,7 @@ into a byte type image. Finally, the program displays the byte image.
 
 **[]{#73865}**
 
-***Listing A-1* ![](shared/sm-blank.gif) **Example Lookup Program****
+***Listing A-1* **Example Lookup Program****
 
 ------------------------------------------------------------------------
 
@@ -143,7 +135,7 @@ into a byte type image. Finally, the program displays the byte image.
 ------------------------------------------------------------------------
 
 
-A.2 ![](shared/space.gif)Adding an OperationDescriptor Example
+A.2 Adding an OperationDescriptor Example
 --------------------------------------------------------------
 
 [Chapter 14, \"Extending the API](../extension),\"
@@ -156,7 +148,7 @@ for the operation.
 
 **[]{#74163}**
 
-***Listing A-2* ![](shared/sm-blank.gif) Example OperationDescriptor**
+***Listing A-2*  Example OperationDescriptor**
 
 ------------------------------------------------------------------------
 
@@ -474,4 +466,4 @@ for the operation.
 
 \
 
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+

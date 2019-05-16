@@ -584,7 +584,7 @@ nav_order: 18
  
  ### B.3.5 JAI Operator Classes
 
- [Table B-8](api-summary/index.html) lists the JAI operator classes
+ [Table B-8](api-summary/index.html) lists the operator classes
  (`javax.jai.operator`). These classes extend the JAI
  OperationDescriptor class.
 
