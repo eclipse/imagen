@@ -146,7 +146,7 @@ The following sample code is an example of encoding a BMP file.
 
 ------------------------------------------------------------------------
 
-**API:** `org.eclipse.imagen.jai.codec.ImageCodec |
+**API:** `org.eclipse.imagen.codec.ImageCodec |
 |                                   | `
 
     static ImageEncoder createImageEncoder(java.lang.String name, 
@@ -173,7 +173,7 @@ The following sample code is an example of encoding a BMP file.
     supplied `OutputStream` object. A null `ImageEncoderParam` is
     used.
 
-**API:** `org.eclipse.imagen.jai.codec.ImageEncod |
+**API:** `org.eclipse.imagen.codec.ImageEncod |
 |                                   | er`
 
     void encode(java.awt.image.Raster ras)
@@ -222,7 +222,7 @@ The following sample code is an example of decoding a JPEG file.
 
 ------------------------------------------------------------------------
 
-**API:** `org.eclipse.imagen.jai.codec.ImageCodec |
+**API:** `org.eclipse.imagen.codec.ImageCodec |
 |                                   | `
 
     static ImageDecoder createImageDecoder(java.lang.String name, 
@@ -248,7 +248,7 @@ The following sample code is an example of decoding a JPEG file.
 :   returns an `ImageDecoder` object suitable for decoding from the
     supplied `InputStream`. A null `ImageDecodeParam` is used.
 
-**API:** `org.eclipse.imagen.jai.codec.ImageDecod |
+**API:** `org.eclipse.imagen.codec.ImageDecod |
 |                                   | er`
 
     java.awt.image.Raster decodeAsRaster()
@@ -366,7 +366,7 @@ specified with `getVersion` and `setVersion` methods in the
 
 If not specifically set, `VERSION_3` is the default version.
 
-**API:** `org.eclipse.imagen.jai.codec.BMPEncodeP |
+**API:** `org.eclipse.imagen.codec.BMPEncodeP |
 |                                   | aram`
 
     int getVersion()
@@ -397,7 +397,7 @@ Advanced Imaging currently supports four compression types:
 If not specifically set, `BI_RGB` is the default type (no
 compression).
 
-**API:** `org.eclipse.imagen.jai.codec.BMPEncodeP |
+**API:** `org.eclipse.imagen.codec.BMPEncodeP |
 |                                   | aram`
 
     int getCompression()
@@ -428,7 +428,7 @@ layout is one of the following:
 
   : 
 
-**API:** `org.eclipse.imagen.jai.codec.BMPEncodeP |
+**API:** `org.eclipse.imagen.codec.BMPEncodeP |
 |                                   | aram`
 
     int getDataLayout()
@@ -449,7 +449,7 @@ are 1, 4, 8, and 24. Support for 16- and 32-bit images has also been
 implemented in Java Advanced imaging, though such BMP images are not
 very common.
 
-**API:** `org.eclipse.imagen.jai.codec.BMPEncodeP |
+**API:** `org.eclipse.imagen.codec.BMPEncodeP |
 |                                   | aram`
 
     int getBitsPerPixel()
@@ -621,7 +621,7 @@ Table 0 is designed to be used with the luminance band of eight-bit
 YCC images. Table 1 is designed to be used with the chrominance bands
 of eight-bit YCC images. Tables 2 and 3 are not normally used.
 
-**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+**API:** `org.eclipse.imagen.codec.JPEGEncode |
 |                                   | Param`
 
     void setQTable(int tableNum, 
@@ -668,7 +668,7 @@ tables for the AC discrete cosine transform coefficients, as listed in
   :  **[*Table 11-3*  AC Huffman
   Tables]{#53175}**
 
-**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+**API:** `org.eclipse.imagen.codec.JPEGEncode |
 |                                   | Param`
 
     void setACHuffmanTable(int tableNum, 
@@ -710,7 +710,7 @@ tables for the DC discrete cosine transform coefficients, as listed in
   :  **[*Table 11-4*  DC Huffman
   Tables]{#53232}**
 
-**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+**API:** `org.eclipse.imagen.codec.JPEGEncode |
 |                                   | Param`
 
     void setDCHuffmanTable(int tableNum, 
@@ -778,7 +778,7 @@ Subsampling can easily be accomplished using a symmetrical digital
 filter with an even number of taps (coefficients). A commonly used
 filter for 2:1 subsampling uses two taps (1/2, 1/2).
 
-**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+**API:** `org.eclipse.imagen.codec.JPEGEncode |
 |                                   | Param`
 
     void setHorizontalSubsampling(int component, int subsample)
@@ -834,7 +834,7 @@ parameters.
 
   :  **[*Table 11-5*  Marker Data]{#53464}**
 
-**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+**API:** `org.eclipse.imagen.codec.JPEGEncode |
 |                                   | Param`
 
     void setMarkerData(int marker, byte[][] data)
@@ -884,7 +884,7 @@ desired aspect ratio. For example, set `XDensity` = 1 and `YDensity` =
 1 to specify a 1:1 aspect ratio. The values for `XDensity` and
 `YDensity` should always be non-zero.
 
-**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+**API:** `org.eclipse.imagen.codec.JPEGEncode |
 |                                   | Param`
 
     void setDensityUnit(int unit)
@@ -942,7 +942,7 @@ Table](../Compression).\"
 
 ------------------------------------------------------------------------
 
-**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+**API:** `org.eclipse.imagen.codec.JPEGEncode |
 |                                   | Param`
 
     void setQuality(float quality, boolean forceBaseline)
@@ -957,7 +957,7 @@ What does forceBaseline do - set to the baseline process?
 These methods don\'t currently have a home. I\'m not sure what to do
 with them.
 
-**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+**API:** `org.eclipse.imagen.codec.JPEGEncode |
 |                                   | Param`
 
     void setImageInfoValid(boolean flag)
@@ -1073,7 +1073,7 @@ The PNM fotmat comes in six variants:
 
 -   PPM raw - single-banded images
 
-**API:** `org.eclipse.imagen.jai.codec.PNMEncodeP |
+**API:** `org.eclipse.imagen.codec.PNMEncodeP |
 |                                   | aram`
 
     void setRaw(boolean raw)

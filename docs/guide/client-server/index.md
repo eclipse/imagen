@@ -64,7 +64,7 @@ is supplied. If the `serverName` parameter is null, the default is to
 search for the RMIImage service on the local host at the default
 *rmiregistry* port (1099.
 
-**API:** `org.eclipse.imagen.jai.RemoteImage`
+**API:** `org.eclipse.imagen.RemoteImage`
 
     RemoteImage(String serverName, RenderedImage source)
 
@@ -111,7 +111,7 @@ The number of times the program will attempt to read the remote image
 may be read with the `getNumRetries` method. The `setNumRetries`
 method is used to set the maximum number of retries.
 
-**API:** `org.eclipse.imagen.jai.RemoteImage`
+**API:** `org.eclipse.imagen.RemoteImage`
 
     void setTimeout(int timeout)
 
@@ -409,7 +409,7 @@ Program Using Two Nodes (Sheet 1 of 2)**
 
 ------------------------------------------------------------------------
 
-**API:** `org.eclipse.imagen.jai.RemoteImage`
+**API:** `org.eclipse.imagen.RemoteImage`
 
     int getWidth()
 
@@ -646,33 +646,33 @@ The `IIP` operation takes 14 parameters.
   -------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#55324}      [Type]{#55326}                  [Description]{#55328}
   ------------------------ ------------------------------- ----------------------------------------------------------------------------------------
-  [URL]{#55330}\           [String]{#55332}\               [The URL of the IIP image]{#55334}\
+  URL           String               The URL of the IIP image
 
-  [subImages]{#55336}\     [int\[\]]{#55338}\              [The sub-images to be used by the server for images at each resolution level]{#55340}\
+  subImages     [int\[\]]{#55338}\              The sub-images to be used by the server for images at each resolution level
 
-  [filter]{#55342}\        [Float]{#55344}\                [The filtering value]{#55346}\
+  filter        Float                The filtering value
 
-  [colorTwist]{#55424}\    [float\[\]]{#55426}\            [The color twist matrix]{#55428}\
+  colorTwist    [float\[\]]{#55426}\            The color twist matrix
 
-  [contrast]{#55418}\      [Float]{#55420}\                [The contrast value]{#55422}\
+  contrast      Float                The contrast value
 
-  [sourceROI]{#55412}\     [Rectangle2D.Float]{#55414}\    [The source rectangle of interest in rendering-independent coordinates]{#55416}\
+  sourceROI     Rectangle2D.Float    The source rectangle of interest in rendering-independent coordinates
 
-  [transform]{#55406}\     [AffineTransform]{#55408}\      [The rendering-independent spatial orientation transform]{#55410}\
+  transform     AffineTransform      The rendering-independent spatial orientation transform
 
-  [aspectRatio]{#55400}\   [Float]{#55402}\                [The aspect ratio of the destination image]{#55404}\
+  aspectRatio   Float                The aspect ratio of the destination image
 
-  [destROI]{#55394}\       [Rectangle2D.Float]{#55396}\    [The destination rectangle of interest in rendering-independent coordinates]{#55398}\
+  destROI       Rectangle2D.Float    The destination rectangle of interest in rendering-independent coordinates
 
-  [rotation]{#55388}\      [Integer]{#55390}\              [The counterclockwise rotation angle to be applied to the destination]{#55392}\
+  rotation      Integer              The counterclockwise rotation angle to be applied to the destination
 
-  [mirrorAxis]{#55382}\    [String]{#55384}\               [The mirror axis]{#55386}\
+  mirrorAxis    String               The mirror axis
 
-  [ICCProfile]{#55376}\    [color.ICC\_Profile]{#55378}\   [The ICC profile used to represent the color space of the source image]{#55380}\
+  ICCProfile    color.ICC\_Profile   The ICC profile used to represent the color space of the source image
 
-  [JPEGQuality]{#55370}\   [Integer]{#55372}\              [The JPEG quality factor]{#55374}\
+  JPEGQuality   Integer              The JPEG quality factor
 
-  [JPEGTable]{#55364}\     [Integer]{#55366}\              [The JPEG compression group index number]{#55368}\
+  JPEGTable     Integer              The JPEG compression group index number
   -------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -878,11 +878,11 @@ The `IIPResolution` operation takes three parameters.
   ------------------------------------------------------------------------------------------------
   [Parameter]{#55886}     [Type]{#55888}       [Description]{#55890}
   ----------------------- -------------------- ---------------------------------------------------
-  [URL]{#55892}\          [String]{#55894}\    [The URL of the IIP image]{#55896}\
+  URL          String    The URL of the IIP image
 
-  [resolution]{#55898}\   [Integer]{#55900}\   [The resolution level to request]{#55902}\
+  resolution   Integer   The resolution level to request
 
-  [subImage]{#55904}\     [Integer]{#55906}\   [The sub-image to be used by the server]{#55908}\
+  subImage     Integer   The sub-image to be used by the server
   ------------------------------------------------------------------------------------------------
 
   : 
@@ -914,53 +914,53 @@ specification for information on each of these properties.
   ---------------------------------------------------------------------------
   [Property]{#56055}             [Type]{#56057}
   ------------------------------ --------------------------------------------
-  [affine-transform]{#56151}\    [java.awt.geom.AffineTransform]{#56153}\
+  affine-transform    java.awt.geom.AffineTransform
 
-  [app-name]{#56059}\            [java.lang.String]{#56061}\
+  app-name            java.lang.String
 
-  [aspect-ratio]{#56063}\        [java.lang.Float]{#56065}\
+  aspect-ratio        java.lang.Float
 
-  [author]{#56067}\              [java.lang.String]{#56069}\
+  author              java.lang.String
 
-  [colorspace]{#56071}\          [int\[\]]{#56073}\
+  colorspace          [int\[\]]{#56073}\
 
-  [color-twist]{#56075}\         [float\[16\]]{#56077}\
+  color-twist         [float\[16\]]{#56077}\
 
-  [comment]{#56079}\             [java.lang.String]{#56081}\
+  comment             java.lang.String
 
-  [contrast-adjust]{#56083}\     [java.lang.Float]{#56085}\
+  contrast-adjust     java.lang.Float
 
-  [copyright]{#56087}\           [java.lang.String]{#56089}\
+  copyright           java.lang.String
 
-  [create-dtm]{#56091}\          [java.lang.String]{#56093}\
+  create-dtm          java.lang.String
 
-  [edit-time]{#56095}\           [java.lang.String]{#56097}\
+  edit-time           java.lang.String
 
-  [filtering-value]{#56099}\     [java.lang.Float]{#56101}\
+  filtering-value     java.lang.Float
 
-  [iip]{#56103}\                 [java.lang.String]{#56105}\
+  iip                 java.lang.String
 
-  [iip-server]{#56107}\          [java.lang.String]{#56109}\
+  iip-server          java.lang.String
 
-  [keywords]{#56111}\            [java.lang.String]{#56113}\
+  keywords            java.lang.String
 
-  [last-author]{#56115}\         [java.lang.String]{#56117}\
+  last-author         java.lang.String
 
-  [last-printed]{#56119}\        [java.lang.String]{#56121}\
+  last-printed        java.lang.String
 
-  [last-save-dtm]{#56123}\       [java.lang.String]{#56125}\
+  last-save-dtm       java.lang.String
 
-  [max-size]{#56127}\            [int\[2\]]{#56129}\
+  max-size            [int\[2\]]{#56129}\
 
-  [resolution-number]{#56131}\   [java.lang.Integer]{#56133}\
+  resolution-number   java.lang.Integer
 
-  [rev-number]{#56135}\          [java.lang.String]{#56137}\
+  rev-number          java.lang.String
 
-  [roi-iip]{#56139}\             [java.awt.geom.Rectangle2D.Float]{#56141}\
+  roi-iip             java.awt.geom.Rectangle2D.Float
 
-  [subject]{#56143}\             [java.lang.String]{#56145}\
+  subject             java.lang.String
 
-  [title]{#56147}\               [java.lang.String]{#56149}\
+  title               java.lang.String
   ---------------------------------------------------------------------------
 
   : 

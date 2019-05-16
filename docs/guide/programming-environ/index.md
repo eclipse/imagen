@@ -793,85 +793,85 @@ operators.
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#64596}               [Description]{#64598}                                                                                                                                                                                                                                                                                 [Reference]{#64600}
   -------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -----------------------------------------------------------
-  [Absolute]{#64602}\              [Takes one rendered or renderable source image, and computes the mathematical absolute value of each pixel.]{#64604}\                                                                                                                                                                                 []{#64609} [page 177](../image-manipulation)\
+  Absolute              Takes one rendered or renderable source image, and computes the mathematical absolute value of each pixel.                                                                                                                                                                                 []{#64609} [page 177](../image-manipulation)\
 
-  [Add]{#64611}\                   [Takes two rendered or renderable source images, and adds every pair of pixels, one from each source image of the corresponding position and band.]{#64613}\                                                                                                                                          []{#64618} [page 166](../image-manipulation)\
+  Add                   Takes two rendered or renderable source images, and adds every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                                          []{#64618} [page 166](../image-manipulation)\
 
-  [AddCollection]{#64620}\         [Takes a collection of rendered source images, and adds every pair of pixels, one from each source image of the corresponding position and band.]{#64622}\                                                                                                                                            []{#64627} [page 168](../image-manipulation)\
+  AddCollection         Takes a collection of rendered source images, and adds every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                                            []{#64627} [page 168](../image-manipulation)\
 
-  [AddConst]{#64629}\              [Takes a collection of rendered images and an array of double constants, and for each rendered image in the collection adds a constant to every pixel of its corresponding band.]{#64968}\                                                                                                            []{#64636} [page 167](../image-manipulation)\
+  AddConst              Takes a collection of rendered images and an array of double constants, and for each rendered image in the collection adds a constant to every pixel of its corresponding band.                                                                                                            []{#64636} [page 167](../image-manipulation)\
 
-  [AddConstToCollection]{#64638}   [Takes a collection of rendered images and an array of double constants, and for each rendered image in the collection adds a constant to every pixel of its corresponding band.]{#64978}\                                                                                                            []{#64645} [page 169](../image-manipulation)\
+  [AddConstToCollection]{#64638}   Takes a collection of rendered images and an array of double constants, and for each rendered image in the collection adds a constant to every pixel of its corresponding band.                                                                                                            []{#64645} [page 169](../image-manipulation)\
 
-  [And]{#64647}\                   [Takes two rendered or renderable source images and performs a bit-wise logical AND on every pair of pixels, one from each source image, of the corresponding position and band.]{#64988}\                                                                                                            []{#64654} [page 158](../image-manipulation)\
+  And                   Takes two rendered or renderable source images and performs a bit-wise logical AND on every pair of pixels, one from each source image, of the corresponding position and band.                                                                                                            []{#64654} [page 158](../image-manipulation)\
 
-  [AndConst]{#64656}\              [Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical AND between every pixel in the same band of the source and the constant from the corresponding array entry.]{#65000}\                                                               []{#64663} [page 159](../image-manipulation)\
+  AndConst              Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical AND between every pixel in the same band of the source and the constant from the corresponding array entry.                                                               []{#64663} [page 159](../image-manipulation)\
 
-  [BandCombine]{#64665}\           [Takes one rendered or renderable source image and computes a set of arbitrary linear combinations of the bands using a specified matrix.]{#65010}\                                                                                                                                                   []{#64672} [page 141](../color)\
+  BandCombine           Takes one rendered or renderable source image and computes a set of arbitrary linear combinations of the bands using a specified matrix.                                                                                                                                                   []{#64672} [page 141](../color)\
 
-  [BandSelect]{#64674}\            [Takes one rendered or renderable source image, chooses N bands from the image, and copies the pixel data of these bands to the destination image in the order specified.]{#65030}\                                                                                                                   []{#64681} [page 185](../image-manipulation)\
+  BandSelect            Takes one rendered or renderable source image, chooses N bands from the image, and copies the pixel data of these bands to the destination image in the order specified.                                                                                                                   []{#64681} [page 185](../image-manipulation)\
 
-  [Clamp]{#64683}\                 [Takes one rendered or renderable source image and sets all the pixels whose value is below a low value to that low value and all the pixels whose value is above a high value to that high value. The pixels whose value is between the low value and the high value are left unchanged.]{#65036}\   []{#64690} [page 184](../image-manipulation)\
+  Clamp                 Takes one rendered or renderable source image and sets all the pixels whose value is below a low value to that low value and all the pixels whose value is above a high value to that high value. The pixels whose value is between the low value and the high value are left unchanged.   []{#64690} [page 184](../image-manipulation)\
 
-  [ColorConvert]{#64692}\          [Takes one rendered or renderable source image and performs a pixel-by-pixel color conversion of the data.]{#65046}\                                                                                                                                                                                  []{#64699} [page 140](../color)\
+  ColorConvert          Takes one rendered or renderable source image and performs a pixel-by-pixel color conversion of the data.                                                                                                                                                                                  []{#64699} [page 140](../color)\
 
-  [Composite]{#64701}\             [Takes two rendered or renderable source images and combines the two images based on their alpha values at each pixel.]{#65056}\                                                                                                                                                                      []{#64708} [page 243](../image-enhance)\
+  Composite             Takes two rendered or renderable source images and combines the two images based on their alpha values at each pixel.                                                                                                                                                                      []{#64708} [page 243](../image-enhance)\
 
-  [Constant]{#64710}\              [Takes one rendered or renderable source image and creates a multi-banded, tiled rendered image, where all the pixels from the same band have a constant value.]{#65062}\                                                                                                                             []{#64717} [page 123](../acquisition)\
+  Constant              Takes one rendered or renderable source image and creates a multi-banded, tiled rendered image, where all the pixels from the same band have a constant value.                                                                                                                             []{#64717} [page 123](../acquisition)\
 
-  [Divide]{#64719}\                [Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, divides the pixel from the first source by the pixel from the second source.]{#65072}\                                                              []{#64726} [page 171](../image-manipulation)\
+  Divide                Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, divides the pixel from the first source by the pixel from the second source.                                                              []{#64726} [page 171](../image-manipulation)\
 
-  [DivideByConst]{#64728}\         [Takes one rendered source image and divides the pixel values of the image by a constant.]{#65084}\                                                                                                                                                                                                   []{#64735} [page 172](../image-manipulation)\
+  DivideByConst         Takes one rendered source image and divides the pixel values of the image by a constant.                                                                                                                                                                                                   []{#64735} [page 172](../image-manipulation)\
 
-  [DivideComplex]{#64737}\         [Takes two rendered or renderable source images representing complex data and divides them.]{#65094}\                                                                                                                                                                                                 []{#64744} [page 174](../image-manipulation)\
+  DivideComplex         Takes two rendered or renderable source images representing complex data and divides them.                                                                                                                                                                                                 []{#64744} [page 174](../image-manipulation)\
 
-  [DivideIntoConst]{#64746}\       [Takes one rendered or renderable source image and an array of double constants, and divides every pixel of the same band of the source into the constant from the corresponding array entry.]{#65102}\                                                                                               []{#64753} [page 173](../image-manipulation)\
+  DivideIntoConst       Takes one rendered or renderable source image and an array of double constants, and divides every pixel of the same band of the source into the constant from the corresponding array entry.                                                                                               []{#64753} [page 173](../image-manipulation)\
 
-  [Exp]{#64755}\                   [Takes one rendered or renderable source image and computes the exponential of the pixel values.]{#65112}\                                                                                                                                                                                            []{#64762} [page 177](../image-manipulation)\
+  Exp                   Takes one rendered or renderable source image and computes the exponential of the pixel values.                                                                                                                                                                                            []{#64762} [page 177](../image-manipulation)\
 
-  [Invert]{#64764}\                [Takes one rendered or renderable source image and inverts the pixel values.]{#65122}\                                                                                                                                                                                                                []{#64771} [page 241](../image-enhance)\
+  Invert                Takes one rendered or renderable source image and inverts the pixel values.                                                                                                                                                                                                                []{#64771} [page 241](../image-enhance)\
 
-  [Log]{#64773}\                   [Takes one rendered or renderable source image and computes the natural logarithm of the pixel values. The operation is done on a per-pixel, per-band basis. For integral data types, the result will be rounded and clamped as needed.]{#65128}\                                                     []{#64780} [page 241](../image-enhance)\
+  Log                   Takes one rendered or renderable source image and computes the natural logarithm of the pixel values. The operation is done on a per-pixel, per-band basis. For integral data types, the result will be rounded and clamped as needed.                                                     []{#64780} [page 241](../image-enhance)\
 
-  [Lookup]{#64782}\                [Takes one rendered or renderable source image and a lookup table, and performs general table lookup by passing the source image through the table.]{#65138}\                                                                                                                                         []{#64789} [page 205](../image-enhance)\
+  Lookup                Takes one rendered or renderable source image and a lookup table, and performs general table lookup by passing the source image through the table.                                                                                                                                         []{#64789} [page 205](../image-enhance)\
 
-  [MatchCDF]{#64791}\              [Takes one rendered or renderable source image and performs a piecewise linear mapping of the pixel values such that the Cumulative Distribution Function (CDF) of the destination image matches as closely as possible a specified Cumulative Distribution Function.]{#65148}\                       []{#64798} [page 203](../image-enhance)\
+  MatchCDF              Takes one rendered or renderable source image and performs a piecewise linear mapping of the pixel values such that the Cumulative Distribution Function (CDF) of the destination image matches as closely as possible a specified Cumulative Distribution Function.                       []{#64798} [page 203](../image-enhance)\
 
-  [Max]{#64800}\                   [Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, finds the maximum pixel value.]{#65158}\                                                                                                            []{#64807} [page 156](../image-manipulation)\
+  Max                   Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, finds the maximum pixel value.                                                                                                            []{#64807} [page 156](../image-manipulation)\
 
-  [Min]{#64809}\                   [Takes two rendered or renderable source images and for every pair of pixels, one from each source image of the corresponding position and band, finds the minimum pixel value.]{#64811}\                                                                                                             []{#64816} [page 157](../image-manipulation)\
+  Min                   Takes two rendered or renderable source images and for every pair of pixels, one from each source image of the corresponding position and band, finds the minimum pixel value.                                                                                                             []{#64816} [page 157](../image-manipulation)\
 
-  [Multiply]{#64818}\              [Takes two rendered or renderable source images, and multiplies every pair of pixels, one from each source image of the corresponding position and band.]{#65176}\                                                                                                                                    []{#64825} [page 174](../image-manipulation)\
+  Multiply              Takes two rendered or renderable source images, and multiplies every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                                    []{#64825} [page 174](../image-manipulation)\
 
-  [MultiplyComplex]{#64827}\       [Takes two rendered source images representing complex data and multiplies the two images.]{#65186}\                                                                                                                                                                                                  []{#64834} [page 176](../image-manipulation)\
+  MultiplyComplex       Takes two rendered source images representing complex data and multiplies the two images.                                                                                                                                                                                                  []{#64834} [page 176](../image-manipulation)\
 
-  [MultiplyConst]{#64836}\         [Takes one rendered or renderable source image and an array of double constants, and multiplies every pixel of the same band of the source by the constant from the corresponding array entry.]{#65196}\                                                                                              []{#64843} [page 175](../image-manipulation)\
+  MultiplyConst         Takes one rendered or renderable source image and an array of double constants, and multiplies every pixel of the same band of the source by the constant from the corresponding array entry.                                                                                              []{#64843} [page 175](../image-manipulation)\
 
-  [Not]{#64845}\                   [Takes one rendered or renderable source image and performs a bit-wise logical NOT on every pixel from every band of the source image.]{#65208}\                                                                                                                                                      []{#64852} [page 164](../image-manipulation)\
+  Not                   Takes one rendered or renderable source image and performs a bit-wise logical NOT on every pixel from every band of the source image.                                                                                                                                                      []{#64852} [page 164](../image-manipulation)\
 
-  [Or]{#64854}\                    [Takes two rendered or renderable source images and performs bit-wise logical OR on every pair of pixels, one from each source image of the corresponding position and band.]{#64856}\                                                                                                                []{#64861} [page 160](../image-manipulation)\
+  Or                    Takes two rendered or renderable source images and performs bit-wise logical OR on every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                []{#64861} [page 160](../image-manipulation)\
 
-  [OrConst]{#64863}\               [Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical OR between every pixel in the same band of the source and the constant from the corresponding array entry.]{#65226}\                                                                []{#64870} [page 161](../image-manipulation)\
+  OrConst               Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical OR between every pixel in the same band of the source and the constant from the corresponding array entry.                                                                []{#64870} [page 161](../image-manipulation)\
 
-  [Overlay]{#64872}\               [Takes two rendered or renderable source images and overlays the second source image on top of the first source image.]{#64874}\                                                                                                                                                                      []{#64879} [page 242](../image-enhance)\
+  Overlay               Takes two rendered or renderable source images and overlays the second source image on top of the first source image.                                                                                                                                                                      []{#64879} [page 242](../image-enhance)\
 
-  [Pattern]{#64881}\               [Takes a rendered source image and defines a tiled image consisting of a repeated pattern.]{#65240}\                                                                                                                                                                                                  []{#64888} [page 80](../acquisition)\
+  Pattern               Takes a rendered source image and defines a tiled image consisting of a repeated pattern.                                                                                                                                                                                                  []{#64888} [page 80](../acquisition)\
 
-  [Piecewise]{#64890}\             [Takes one rendered or renderable source image and performs a piecewise linear mapping of the pixel values.]{#65252}\                                                                                                                                                                                 []{#64897} [page 202](../image-enhance)\
+  Piecewise             Takes one rendered or renderable source image and performs a piecewise linear mapping of the pixel values.                                                                                                                                                                                 []{#64897} [page 202](../image-enhance)\
 
-  [Rescale]{#64899}\               [Takes one rendered or renderable source image and maps the pixel values of an image from one range to another range by multiplying each pixel value by one of a set of constants and then adding another constant to the result of the multiplication.]{#65262}\                                     []{#64906} [page 200](../image-enhance)\
+  Rescale               Takes one rendered or renderable source image and maps the pixel values of an image from one range to another range by multiplying each pixel value by one of a set of constants and then adding another constant to the result of the multiplication.                                     []{#64906} [page 200](../image-enhance)\
 
-  [Subtract]{#64908}\              [Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, subtracts the pixel from the second source from the pixel from the first source.]{#65268}\                                                          []{#64915} [page 169](../image-manipulation)\
+  Subtract              Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, subtracts the pixel from the second source from the pixel from the first source.                                                          []{#64915} [page 169](../image-manipulation)\
 
-  [SubtractConst]{#64917}\         [Takes one rendered or renderable source image and an array of double constants, and subtracts a constant from every pixel of its corresponding band of the source.]{#65278}\                                                                                                                         []{#64924} [page 170](../image-manipulation)\
+  SubtractConst         Takes one rendered or renderable source image and an array of double constants, and subtracts a constant from every pixel of its corresponding band of the source.                                                                                                                         []{#64924} [page 170](../image-manipulation)\
 
-  [SubtractFromConst]{#64926}\     [Takes one rendered or renderable source image and an array of double constants, and subtracts every pixel of the same band of the source from the constant from the corresponding array entry.]{#65288}\                                                                                             []{#64933} [page 171](../image-manipulation)\
+  SubtractFromConst     Takes one rendered or renderable source image and an array of double constants, and subtracts every pixel of the same band of the source from the constant from the corresponding array entry.                                                                                             []{#64933} [page 171](../image-manipulation)\
 
-  [Threshold]{#64935}\             [Takes one rendered or renderable source image, and maps all the pixels of this image whose value falls within a specified range to a specified constant.]{#65294}\                                                                                                                                   []{#64942} [page 245](../image-enhance)\
+  Threshold             Takes one rendered or renderable source image, and maps all the pixels of this image whose value falls within a specified range to a specified constant.                                                                                                                                   []{#64942} [page 245](../image-enhance)\
 
-  [Xor]{#64944}\                   [Takes two rendered or renderable source images, and performs a bit-wise logical XOR on every pair of pixels, one from each source image of the corresponding position and band.]{#64946}\                                                                                                            []{#64951} [page 162](../image-manipulation)\
+  Xor                   Takes two rendered or renderable source images, and performs a bit-wise logical XOR on every pair of pixels, one from each source image of the corresponding position and band.                                                                                                            []{#64951} [page 162](../image-manipulation)\
 
-  [XorConst]{#64953}\              [Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical XOR between every pixel in the same band of the source and the constant from the corresponding array entry.]{#65304}\                                                               []{#64960} [page 163](../image-manipulation)\
+  XorConst              Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical XOR between every pixel in the same band of the source and the constant from the corresponding array entry.                                                               []{#64960} [page 163](../image-manipulation)\
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 3-1*  Point
@@ -896,15 +896,15 @@ operators.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#55487}       [Description]{#55489}                                                                                                                                                                                       [Reference]{#55491}
   ------------------------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------
-  [Border]{#55502}         [Takes one rendered source image and adds a border around it.]{#65314}\                                                                                                                                     []{#55509} [page 191](../image-enhance)\
+  [Border]{#55502}         Takes one rendered source image and adds a border around it.                                                                                                                                     []{#55509} [page 191](../image-enhance)\
 
-  [BoxFilter]{#60860}      [Takes one rendered source image and determines the intensity of a pixel in the image by averaging the source pixels within a rectangular area around the pixel.]{#65324}\                                  []{#60867} [page 224](../image-enhance)\
+  [BoxFilter]{#60860}      Takes one rendered source image and determines the intensity of a pixel in the image by averaging the source pixels within a rectangular area around the pixel.                                  []{#60867} [page 224](../image-enhance)\
 
-  [Convolve]{#55511}       [Takes one rendered source image and performs a spatial operation that computes each output sample by multiplying elements of a kernel with the samples surrounding a particular source sample.]{#65330}\   []{#55518} [page 221](../image-enhance)\
+  [Convolve]{#55511}       Takes one rendered source image and performs a spatial operation that computes each output sample by multiplying elements of a kernel with the samples surrounding a particular source sample.   []{#55518} [page 221](../image-enhance)\
 
-  [Crop]{#61475}           [Takes one rendered or renderable source image and crops the image to a specified rectangular area.]{#65336}\                                                                                               []{#61479} [page 199](../image-enhance)\
+  [Crop]{#61475}           Takes one rendered or renderable source image and crops the image to a specified rectangular area.                                                                                               []{#61479} [page 199](../image-enhance)\
 
-  [MedianFilter]{#55538}   [Takes a rendered source image and passes it through a non-linear filter that is useful for removing isolated lines or pixels while preserving the overall appearance of the image.]{#65346}\               []{#55545} [page 226](../image-enhance)\
+  [MedianFilter]{#55538}   Takes a rendered source image and passes it through a non-linear filter that is useful for removing isolated lines or pixels while preserving the overall appearance of the image.               []{#55545} [page 226](../image-enhance)\
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 3-2*  Area Operators]{#55481}**
@@ -919,19 +919,19 @@ lists the geometric operators.
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#60640}     [Description]{#60642}                                                                                                                        [Reference]{#60644}
   ---------------------- -------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------------------------------
-  [Affine]{#60650}\      [Takes one rendered or renderable source image and performs (possibly filtered) affine mapping on it.]{#65354}\                              []{#60657} [page 272](../geom-image-manip)\
+  Affine      Takes one rendered or renderable source image and performs (possibly filtered) affine mapping on it.                              []{#60657} [page 272](../geom-image-manip)\
 
-  [Rotate]{#60699}\      [Takes one rendered or renderable source image and rotates the image about a given point by a given angle, specified in radians.]{#65364}\   []{#60706} [page 270](../geom-image-manip)\
+  Rotate      Takes one rendered or renderable source image and rotates the image about a given point by a given angle, specified in radians.   []{#60706} [page 270](../geom-image-manip)\
 
-  [Scale]{#60690}\       [Takes one rendered or renderable source image and translates and resizes the image.]{#65370}\                                               []{#60697} [page 268](../geom-image-manip)\
+  Scale       Takes one rendered or renderable source image and translates and resizes the image.                                               []{#60697} [page 268](../geom-image-manip)\
 
-  [Shear]{#60681}\       [Takes one rendered source image and shears the image either horizontally or vertically.]{#65380}\                                           []{#60688} [page 283](../geom-image-manip)\
+  Shear       Takes one rendered source image and shears the image either horizontally or vertically.                                           []{#60688} [page 283](../geom-image-manip)\
 
-  [Translate]{#60672}\   [Takes one rendered or renderable source image and copies the image to a new location in the plane.]{#65389}\                                []{#60679} [page 266](../geom-image-manip)\
+  Translate   Takes one rendered or renderable source image and copies the image to a new location in the plane.                                []{#60679} [page 266](../geom-image-manip)\
 
-  [Transpose]{#60663}\   [Takes one rendered or renderable source image and flips or rotates the image as specified.]{#65399}\                                        []{#60670} [page 281](../geom-image-manip)\
+  Transpose   Takes one rendered or renderable source image and flips or rotates the image as specified.                                        []{#60670} [page 281](../geom-image-manip)\
 
-  [Warp]{#60712}\        [Takes one rendered source image and performs (possibly filtered) general warping on the image.]{#65405}\                                    []{#60719} [page 285](../geom-image-manip)\
+  Warp        Takes one rendered source image and performs (possibly filtered) general warping on the image.                                    []{#60719} [page 285](../geom-image-manip)\
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 3-3*  Geometric
@@ -949,9 +949,9 @@ lists the color quantization operators.
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#60744}          [Description]{#60746}                                                                                                                                                                                                                                                     [Reference]{#60748}
   --------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -----------------------------------------------------------
-  [ErrorDiffusion]{#60754}\   [Takes one rendered source image and performs color quantization by finding the nearest color to each pixel in a supplied color map and \"diffusing\" the color quantization error below and to the right of the pixel.]{#65411}\                                         []{#60761} [page 181](../image-manipulation)\
+  ErrorDiffusion   Takes one rendered source image and performs color quantization by finding the nearest color to each pixel in a supplied color map and \"diffusing\" the color quantization error below and to the right of the pixel.                                         []{#60761} [page 181](../image-manipulation)\
 
-  [OrderedDither]{#60784}\    [Takes one rendered source image and performs color quantization by finding the nearest color to each pixel in a supplied color cube and \"shifting\" the resulting index value by a pseudo-random amount determined by the values of a supplied dither mask.]{#65421}\   []{#60788} [page 178](../image-manipulation)\
+  OrderedDither    Takes one rendered source image and performs color quantization by finding the nearest color to each pixel in a supplied color cube and \"shifting\" the resulting index value by a pseudo-random amount determined by the values of a supplied dither mask.   []{#60788} [page 178](../image-manipulation)\
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 3-4*  Color Quantization
@@ -966,37 +966,37 @@ The file operators are used to read or write image files. [Table
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#55632}         [Description]{#55634}                                                                                                                                                                                                                                                                             [Reference]{#55636}
   -------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------
-  [AWTImage]{#55638}\        [Converts a standard java.awt.Image into a rendered image.]{#65427}\                                                                                                                                                                                                                              []{#55645} [page 118](../acquisition)\
+  AWTImage        Converts a standard java.awt.Image into a rendered image.                                                                                                                                                                                                                              []{#55645} [page 118](../acquisition)\
 
-  [BMP]{#58061}\             [Reads a standard BMP input stream.]{#65437}\                                                                                                                                                                                                                                                     []{#58065} [page 111](../acquisition)\
+  BMP             Reads a standard BMP input stream.                                                                                                                                                                                                                                                     []{#58065} [page 111](../acquisition)\
 
-  [Encode]{#62822}\          [Takes one rendered source image and writes the image to a given OutputStream in a specified format using the supplied encoding parameters.]{#65443}\                                                                                                                                             []{#62826} [page 362](../encode)\
+  Encode          Takes one rendered source image and writes the image to a given OutputStream in a specified format using the supplied encoding parameters.                                                                                                                                             []{#62826} [page 362](../encode)\
 
-  [FileLoad]{#60320}\        [Reads an image from a file.]{#65449}\                                                                                                                                                                                                                                                            []{#60324} [page 104](../acquisition)\
+  FileLoad        Reads an image from a file.                                                                                                                                                                                                                                                            []{#60324} [page 104](../acquisition)\
 
-  [FileStore]{#62802}\       [Takes one rendered source image and writes the image to a given file in a specified format using the supplied encoding parameters.]{#65455}\                                                                                                                                                     []{#62806} [page 361](../encode)\
+  FileStore       Takes one rendered source image and writes the image to a given file in a specified format using the supplied encoding parameters.                                                                                                                                                     []{#62806} [page 361](../encode)\
 
-  [Format]{#58093}\          [Takes one rendered or renderable source image and reformats it. This operation is capable of casting the pixel values of an image to a given data type, replacing the SampleModel and ColorModel of an image, and restructuring the image\'s tile grid layout.]{#65461}\                         []{#58097} [page 119](../acquisition)\
+  Format          Takes one rendered or renderable source image and reformats it. This operation is capable of casting the pixel values of an image to a given data type, replacing the SampleModel and ColorModel of an image, and restructuring the image\'s tile grid layout.                         []{#58097} [page 119](../acquisition)\
 
-  [FPX]{#55647}\             [Reads an image from a FlashPix stream.]{#65471}\                                                                                                                                                                                                                                                 []{#55654} [page 109](../acquisition)\
+  FPX             Reads an image from a FlashPix stream.                                                                                                                                                                                                                                                 []{#55654} [page 109](../acquisition)\
 
-  [GIF]{#55656}\             [Reads an image from a GIF stream.]{#65477}\                                                                                                                                                                                                                                                      []{#55663} [page 110](../acquisition)\
+  GIF             Reads an image from a GIF stream.                                                                                                                                                                                                                                                      []{#55663} [page 110](../acquisition)\
 
-  [IIP]{#64408}\             [Provides client-side support of the Internet Imaging Protocol (IIP) in both the rendered and renderable modes. It creates a RenderedImage or a RenderableImage based on the data received from the IIP server, and optionally applies a sequence of operations to the created image.]{#65483}\   []{#64412} [page 352](../client-server)\
+  IIP             Provides client-side support of the Internet Imaging Protocol (IIP) in both the rendered and renderable modes. It creates a RenderedImage or a RenderableImage based on the data received from the IIP server, and optionally applies a sequence of operations to the created image.   []{#64412} [page 352](../client-server)\
 
-  [IIPResolution]{#64402}\   [Provides client-side support of the Internet Imaging Protocol (IIP) in the rendered mode. It is resolution-specific. It requests from the IIP server an image at a particular resolution level, and creates a RenderedImage based on the data received from the server.]{#65493}\                []{#64406} [page 357](../client-server)\
+  IIPResolution   Provides client-side support of the Internet Imaging Protocol (IIP) in the rendered mode. It is resolution-specific. It requests from the IIP server an image at a particular resolution level, and creates a RenderedImage based on the data received from the server.                []{#64406} [page 357](../client-server)\
 
-  [JPEG]{#55674}\            [Reads an image from a JPEG (JFIF) stream.]{#65499}\                                                                                                                                                                                                                                              []{#55681} [page 110](../acquisition)\
+  JPEG            Reads an image from a JPEG (JFIF) stream.                                                                                                                                                                                                                                              []{#55681} [page 110](../acquisition)\
 
-  [PNG]{#58171}\             [Reads a standard PNG version 1.1 input stream.]{#65505}\                                                                                                                                                                                                                                         []{#58175} [page 112](../acquisition)\
+  PNG             Reads a standard PNG version 1.1 input stream.                                                                                                                                                                                                                                         []{#58175} [page 112](../acquisition)\
 
-  [PNM]{#58165}\             [Reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats. It stores the image data into an appropriate SampleModel.]{#65511}\                                                                                                                                 []{#58169} [page 117](../acquisition)\
+  PNM             Reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats. It stores the image data into an appropriate SampleModel.                                                                                                                                 []{#58169} [page 117](../acquisition)\
 
-  [Stream]{#58214}\          [Produces an image by decoding data from a SeekableStream. The allowable formats are those registered with the com.sun.media.jai.codec.ImageCodec class.]{#65517}\                                                                                                                                []{#58218} [page 103](../acquisition)\
+  Stream          Produces an image by decoding data from a SeekableStream. The allowable formats are those registered with the com.sun.media.jai.codec.ImageCodec class.                                                                                                                                []{#58218} [page 103](../acquisition)\
 
-  [TIFF]{#55683}\            [Reads TIFF 6.0 data from a SeekableStream.]{#65527}\                                                                                                                                                                                                                                             []{#55690} [page 104](../acquisition)\
+  TIFF            Reads TIFF 6.0 data from a SeekableStream.                                                                                                                                                                                                                                             []{#55690} [page 104](../acquisition)\
 
-  [URL]{#61372}\             [Creates an output image whose source is specified by a Uniform Resource Locator (URL).]{#65537}\                                                                                                                                                                                                 []{#61376} [page 119](../acquisition)\
+  URL             Creates an output image whose source is specified by a Uniform Resource Locator (URL).                                                                                                                                                                                                 []{#61376} [page 119](../acquisition)\
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 3-5*  File Operators]{#55626}**
@@ -1023,27 +1023,27 @@ frequency operators.
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#55715}            [Description]{#55717}                                                                                                                                                                                                                                                                                                                        [Reference]{#55719}
   ----------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------
-  [Conjugate]{#61404}\          [Takes one rendered or renderable source image containing complex data and negates the imaginary components of the pixel values.]{#65547}\                                                                                                                                                                                                   []{#61408} [page 236](../image-enhance)\
+  Conjugate          Takes one rendered or renderable source image containing complex data and negates the imaginary components of the pixel values.                                                                                                                                                                                                   []{#61408} [page 236](../image-enhance)\
 
-  [DCT]{#60824}\                [Takes one rendered or renderable source image and computes the even discrete cosine transform (DCT) of the image. Each band of the destination image is derived by performing a two-dimensional DCT on the corresponding band of the source image.]{#65557}\                                                                                []{#60831} [page 232](../image-enhance)\
+  DCT                Takes one rendered or renderable source image and computes the even discrete cosine transform (DCT) of the image. Each band of the destination image is derived by performing a two-dimensional DCT on the corresponding band of the source image.                                                                                []{#60831} [page 232](../image-enhance)\
 
-  [DFT]{#55730}\                [Takes one rendered or renderable source image and computes the discrete Fourier transform of the image.]{#65567}\                                                                                                                                                                                                                           []{#55737} [page 228](../image-enhance)\
+  DFT                Takes one rendered or renderable source image and computes the discrete Fourier transform of the image.                                                                                                                                                                                                                           []{#55737} [page 228](../image-enhance)\
 
-  [IDCT]{#60837}\               [Takes one rendered or renderable source image and computes the inverse even discrete cosine transform (DCT) of the image. Each band of the destination image is derived by performing a two-dimensional inverse DCT on the corresponding band of the source image.]{#65573}\                                                                []{#60844} [page 233](../image-enhance)\
+  IDCT               Takes one rendered or renderable source image and computes the inverse even discrete cosine transform (DCT) of the image. Each band of the destination image is derived by performing a two-dimensional inverse DCT on the corresponding band of the source image.                                                                []{#60844} [page 233](../image-enhance)\
 
-  [IDFT]{#55739}\               [Takes one rendered or renderable source image and computes the inverse discrete Fourier transform of the image. A positive exponential is used as the basis function for the transform.]{#65579}\                                                                                                                                           []{#55746} [page 231](../image-enhance)\
+  IDFT               Takes one rendered or renderable source image and computes the inverse discrete Fourier transform of the image. A positive exponential is used as the basis function for the transform.                                                                                                                                           []{#55746} [page 231](../image-enhance)\
 
-  [ImageFunction]{#61451}\      [Generates an image on the basis of a functional description provided by an object that is an instance of a class that implements the ImageFunction interface.]{#65589}\                                                                                                                                                                     []{#61455} [page 237](../image-enhance)\
+  ImageFunction      Generates an image on the basis of a functional description provided by an object that is an instance of a class that implements the ImageFunction interface.                                                                                                                                                                     []{#61455} [page 237](../image-enhance)\
 
-  [Magnitude]{#55748}\          [Takes one rendered or renderable source image containing complex data and computes the magnitude of each pixel.]{#65595}\                                                                                                                                                                                                                   []{#55755} [page 234](../image-enhance)\
+  Magnitude          Takes one rendered or renderable source image containing complex data and computes the magnitude of each pixel.                                                                                                                                                                                                                   []{#55755} [page 234](../image-enhance)\
 
-  [MagnitudeSquared]{#55757}\   [Takes one rendered or renderable source image containing complex data and computes the squared magnitude of each pixel.]{#65601}\                                                                                                                                                                                                           []{#55764} [page 235](../image-enhance)\
+  MagnitudeSquared   Takes one rendered or renderable source image containing complex data and computes the squared magnitude of each pixel.                                                                                                                                                                                                           []{#55764} [page 235](../image-enhance)\
 
-  [PeriodicShift]{#61413}\      [Takes a rendered or renderable source image and generates a destination image that is the infinite periodic extension of the source image, with horizontal and vertical periods equal to the image width and height, respectively, shifted by a specified amount along each axis and clipped to the bounds of the source image.]{#65607}\   []{#61417} [page 236](../image-enhance)\
+  PeriodicShift      Takes a rendered or renderable source image and generates a destination image that is the infinite periodic extension of the source image, with horizontal and vertical periods equal to the image width and height, respectively, shifted by a specified amount along each axis and clipped to the bounds of the source image.   []{#61417} [page 236](../image-enhance)\
 
-  [Phase]{#55766}\              [Takes one rendered or renderable source image containing complex data and computes the phase angle of each pixel.]{#65617}\                                                                                                                                                                                                                 []{#55773} [page 235](../image-enhance)\
+  Phase              Takes one rendered or renderable source image containing complex data and computes the phase angle of each pixel.                                                                                                                                                                                                                 []{#55773} [page 235](../image-enhance)\
 
-  [PolarToComplex]{#61430}\     [Takes two rendered or renderable source images and creates an image with complex-valued pixels from the two images the respective pixel values of which represent the magnitude (modulus) and phase of the corresponding complex pixel in the destination image.]{#65623}\                                                                  []{#61434} [page 237](../image-enhance)\
+  PolarToComplex     Takes two rendered or renderable source images and creates an image with complex-valued pixels from the two images the respective pixel values of which represent the magnitude (modulus) and phase of the corresponding complex pixel in the destination image.                                                                  []{#61434} [page 237](../image-enhance)\
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 3-6*  Frequency
@@ -1059,11 +1059,11 @@ statistical operators.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#55793}     [Description]{#55795}                                                                                                                                                                                                                                                                                                                                                                                                                                                                            [Reference]{#55797}
   ---------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -------------------------------------------------
-  [Extrema]{#55799}\     [Takes one rendered source image, scans a specific region of the image, and finds the maximum and minimum pixel values for each band within that region of the image. The image data pass through this operation unchanged.]{#65629}\                                                                                                                                                                                                                                                            []{#55806} [page 308](../analysis)\
+  Extrema     Takes one rendered source image, scans a specific region of the image, and finds the maximum and minimum pixel values for each band within that region of the image. The image data pass through this operation unchanged.                                                                                                                                                                                                                                                            []{#55806} [page 308](../analysis)\
 
-  [Histogram]{#55808}\   [Takes one rendered source image, scans a specific region of the image, and generates a histogram based on the pixel values within that region of the image. The histogram data is stored in the user supplied javax.media.jai.Histogram object, and may be retrieved by calling the getProperty method on this operation with \"histogram\" as the property name. The return value will be of type javax.media.jai.Histogram. The image data pass through this operation unchanged.]{#65639}\   []{#55815} [page 310](../analysis)\
+  Histogram   Takes one rendered source image, scans a specific region of the image, and generates a histogram based on the pixel values within that region of the image. The histogram data is stored in the user supplied javax.media.jai.Histogram object, and may be retrieved by calling the getProperty method on this operation with \"histogram\" as the property name. The return value will be of type javax.media.jai.Histogram. The image data pass through this operation unchanged.   []{#55815} [page 310](../analysis)\
 
-  [Mean]{#55817}\        [Takes a rendered source image, scans a specific region, and computes the mean pixel value for each band within that region of the image. The image data pass through this operation unchanged.]{#65645}\                                                                                                                                                                                                                                                                                        []{#55824} [page 307](../analysis)\
+  Mean        Takes a rendered source image, scans a specific region, and computes the mean pixel value for each band within that region of the image. The image data pass through this operation unchanged.                                                                                                                                                                                                                                                                                        []{#55824} [page 307](../analysis)\
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 3-7*  Statistical
@@ -1084,7 +1084,7 @@ extraction operators.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#55841}             [Description]{#55843}                                                                                                              [Reference]{#55845}
   ------------------------------ ---------------------------------------------------------------------------------------------------------------------------------- -------------------------------------------------
-  [GradientMagnitude]{#55847}\   [Takes one rendered source image and computes the magnitude of the image gradient vector in two orthogonal directions.]{#65651}\   []{#55854} [page 315](../analysis)\
+  GradientMagnitude   Takes one rendered source image and computes the magnitude of the image gradient vector in two orthogonal directions.   []{#55854} [page 315](../analysis)\
 
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1101,7 +1101,7 @@ lists the miscellaneous operators.
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Operator]{#63146}      [Description]{#63148}                                                                                                                                         [Reference]{#63150}
   ----------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------- ----------------------------------------------------
-  [Renderable]{#63140}\   [Takes one rendered source image and produces a RenderableImage consisting of a \"pyramid\" of RenderedImages at progressively lower resolutions.]{#65661}\   []{#63144} [page 122](../acquisition)\
+  Renderable   Takes one rendered source image and produces a RenderableImage consisting of a \"pyramid\" of RenderedImages at progressively lower resolutions.   []{#63144} [page 122](../acquisition)\
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1125,17 +1125,17 @@ Renderable mode, as listed in [Table
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Method]{#63851}                           [Parameters]{#63853}        [Description]{#63855}
   ------------------------------------------ --------------------------- ------------------------------------------------------------------------------------------------------------------------------------------
-  [createRenderable]{#63857}\                [opName]{#63859}\           [Creates a RenderableOp that represents the named operation, using the sources and parameters specified in the ParameterBlock.]{#63862}\
-                                             [parameterBlock]{#63860}\   
+  createRenderable                opName           Creates a RenderableOp that represents the named operation, using the sources and parameters specified in the ParameterBlock.
+                                             parameterBlock   
 
-  [createRenderableNS]{#63864}\              [opName]{#63866}\           [The same as the previous method, only this version is non-static.]{#63869}\
-                                             [parameterBlock]{#63867}\   
+  createRenderableNS              opName           The same as the previous method, only this version is non-static.
+                                             parameterBlock   
 
-  [createRenderable-Collection]{#63871}\     [opName]{#63873}\           [Creates a Collection that represents the named operation, using the sources and parameters specified in the ParameterBlock.]{#63876}\
-                                             [parameterBlock]{#63874}\   
+  createRenderable-Collection     opName           Creates a Collection that represents the named operation, using the sources and parameters specified in the ParameterBlock.
+                                             parameterBlock   
 
-  [createRenderable-CollectionNS]{#63878}\   [opName]{#63880}\           [The same as the previous method, only this version is non-static.]{#63883}\
-                                             [parameterBlock]{#63881}\   
+  createRenderable-CollectionNS   opName           The same as the previous method, only this version is non-static.
+                                             parameterBlock   
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 3-10*  JAI Class Renderable
@@ -1171,100 +1171,100 @@ numbers of sources and parameters directly.
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Method]{#63911}                [Parameters]{#63913}        [Description]{#63915}
   ------------------------------- --------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [create]{#63917}\               [opName]{#63919}\           [Creates a RenderedOp that represents the named operation, using the sources and parameters specified in the ParameterBlock, and applying the specified hints to the destination. This method is appropriate only when the final results return a single RenderedImage.]{#63923}\
-                                  [parameterBlock]{#63920}\   
-                                  [hints]{#63921}\            
+  create               opName           Creates a RenderedOp that represents the named operation, using the sources and parameters specified in the ParameterBlock, and applying the specified hints to the destination. This method is appropriate only when the final results return a single RenderedImage.
+                                  parameterBlock   
+                                  hints            
 
-  [createNS]{#63925}\             [opName]{#63927}\           [The same as the previous method, only this version is non-static.]{#63931}\
-                                  [parameterBlock]{#63928}\   
-                                  [hints]{#63929}\            
+  createNS             opName           The same as the previous method, only this version is non-static.
+                                  parameterBlock   
+                                  hints            
 
-  [createCollection]{#63933}\     [opName]{#63935}\           [Creates a Collection that represents the named operation, using the sources and parameters specified in the ParameterBlock, and applying the specified hints to the destination. This method is appropriate only when the final results return a Collection.]{#63939}\
-                                  [parameterBlock]{#63936}\   
-                                  [hints]{#63937}\            
+  createCollection     opName           Creates a Collection that represents the named operation, using the sources and parameters specified in the ParameterBlock, and applying the specified hints to the destination. This method is appropriate only when the final results return a Collection.
+                                  parameterBlock   
+                                  hints            
 
-  [createCollectionNS]{#63941}\   [opName]{#63943}\           [The same as the previous method, only this version is non-static.]{#63947}\
-                                  [parameterBlock]{#63944}\   
-                                  [hints]{#63945}\            
+  createCollectionNS   opName           The same as the previous method, only this version is non-static.
+                                  parameterBlock   
+                                  hints            
 
-  [create]{#63962}\               [opName]{#63964}\           [Creates a RenderedOp with null rendering hints.]{#63967}\
-                                  [parameterBlock]{#63965}\   
+  create               opName           Creates a RenderedOp with null rendering hints.
+                                  parameterBlock   
 
-  [create]{#63969}\               [opName]{#63971}\           [Creates a RenderedOp that takes one parameter.]{#63974}\
-                                  [param]{#63972}\            
+  create               opName           Creates a RenderedOp that takes one parameter.
+                                  param            
 
-  [create]{#63976}\               [opName]{#63978}\           [Creates a RenderedOp that takes two parameters. There are two variations on this method, depending on the parameter data type (Object or int).]{#63982}\
-                                  [param1]{#63979}\           
-                                  [param2]{#63980}\           
+  create               opName           Creates a RenderedOp that takes two parameters. There are two variations on this method, depending on the parameter data type (Object or int).
+                                  param1           
+                                  param2           
 
-  [create]{#63984}\               [opName]{#63986}\           [Creates a RenderedOp that takes three parameters. There are two variations on this method, depending on the parameter data type (Object or int).]{#63991}\
-                                  [param1]{#63987}\           
-                                  [param2]{#63988}\           
-                                  [param3]{#63989}\           
+  create               opName           Creates a RenderedOp that takes three parameters. There are two variations on this method, depending on the parameter data type (Object or int).
+                                  param1           
+                                  param2           
+                                  param3           
 
-  [create]{#63993}\               [opName]{#63995}\           [Creates a RenderedOp that takes four parameters. There are two variations on this method, depending on the parameter data type (Object or int).]{#64164}\
-                                  [param1]{#63996}\           
-                                  [param2]{#63997}\           
-                                  [param3]{#63998}\           
-                                  [param4]{#63999}\           
+  create               opName           Creates a RenderedOp that takes four parameters. There are two variations on this method, depending on the parameter data type (Object or int).
+                                  param1           
+                                  param2           
+                                  param3           
+                                  param4           
 
-  [create]{#64003}\               [opName]{#64005}\           [Creates a RenderedOp that takes one source image.]{#64008}\
-                                  [renderedImage]{#64006}\    
+  create               opName           Creates a RenderedOp that takes one source image.
+                                  renderedImage    
 
-  [create]{#64010}\               [opName]{#64012}\           [Creates a RenderedOp that takes one source collection.]{#64015}\
-                                  [Collection]{#64013}\       
+  create               opName           Creates a RenderedOp that takes one source collection.
+                                  Collection       
 
-  [create]{#64017}\               [opName]{#64019}\           [Creates a RenderedOp that takes one source and one parameter. There are two variations on this method, depending on the parameter data type (Object or int).]{#64023}\
-                                  [renderedImage]{#64020}\    
-                                  [param]{#64021}\            
+  create               opName           Creates a RenderedOp that takes one source and one parameter. There are two variations on this method, depending on the parameter data type (Object or int).
+                                  renderedImage    
+                                  param            
 
-  [create]{#64025}\               [opName]{#64027}\           [Creates a RenderedOp that takes one source and two parameters. There are two variations on this method, depending on the parameter data type (Object or float).]{#64192}\
-                                  [renderedImage]{#64028}\    
-                                  [param1]{#64029}\           
-                                  [param2]{#64030}\           
+  create               opName           Creates a RenderedOp that takes one source and two parameters. There are two variations on this method, depending on the parameter data type (Object or float).
+                                  renderedImage    
+                                  param1           
+                                  param2           
 
-  [create]{#64034}\               [opName]{#64036}\           [Creates a RenderedOp that takes one source and three parameters. There are three variations on this method, depending on the parameter data type (Object, int, or float).]{#64042}\
-                                  [renderedImage]{#64037}\    
-                                  [param1]{#64038}\           
-                                  [param2]{#64039}\           
-                                  [param3]{#64040}\           
+  create               opName           Creates a RenderedOp that takes one source and three parameters. There are three variations on this method, depending on the parameter data type (Object, int, or float).
+                                  renderedImage    
+                                  param1           
+                                  param2           
+                                  param3           
 
-  [create]{#64044}\               [opName]{#64046}\           [Creates a RenderedOp that takes one source and four parameters. There are four variations on this method, depending on the parameter data type (Object, int, or float).]{#64212}\
-                                  [renderedImage]{#64047}\    
-                                  [param1]{#64048}\           
-                                  [param2]{#64049}\           
-                                  [param3]{#64050}\           
-                                  [param4]{#64051}\           
+  create               opName           Creates a RenderedOp that takes one source and four parameters. There are four variations on this method, depending on the parameter data type (Object, int, or float).
+                                  renderedImage    
+                                  param1           
+                                  param2           
+                                  param3           
+                                  param4           
 
-  [create]{#64055}\               [opName]{#64057}\           [Creates a RenderedOp that takes one source and five parameters. There are three variations on this method, depending on the parameter data type (Object, int, or float).]{#64222}\
-                                  [renderedImage]{#64058}\    
-                                  [param1]{#64059}\           
-                                  [param2]{#64060}\           
-                                  [param3]{#64061}\           
-                                  [param4]{#64062}\           
-                                  [param5]{#64063}\           
+  create               opName           Creates a RenderedOp that takes one source and five parameters. There are three variations on this method, depending on the parameter data type (Object, int, or float).
+                                  renderedImage    
+                                  param1           
+                                  param2           
+                                  param3           
+                                  param4           
+                                  param5           
 
-  [create]{#64067}\               [opName]{#64069}\           [Creates a RenderedOp that takes one source and six parameters. There are two variations on this method, depending on the parameter data type (Object or int).]{#64238}\
-                                  [renderedImage]{#64070}\    
-                                  [param1]{#64071}\           
-                                  [param2]{#64072}\           
-                                  [param3]{#64073}\           
-                                  [param4]{#64074}\           
-                                  [param5]{#64075}\           
-                                  [param6]{#64076}\           
+  create               opName           Creates a RenderedOp that takes one source and six parameters. There are two variations on this method, depending on the parameter data type (Object or int).
+                                  renderedImage    
+                                  param1           
+                                  param2           
+                                  param3           
+                                  param4           
+                                  param5           
+                                  param6           
 
-  [create]{#64080}\               [opName]{#64082}\           [Creates a RenderedOp that takes two sources.]{#64086}\
-                                  [renderedImage1]{#64083}\   
-                                  [renderedImage2]{#64084}\   
+  create               opName           Creates a RenderedOp that takes two sources.
+                                  renderedImage1   
+                                  renderedImage2   
 
-  [create]{#64088}\               [opName]{#64090}\           [Creates a RenderedOp that takes two sources and four parameters.]{#64096}\
-                                  [renderedImage1]{#64091}\   
-                                  [renderedImage2]{#64092}\   
-                                  [param1]{#64093}\           
-                                  [param2]{#64094}\           
+  create               opName           Creates a RenderedOp that takes two sources and four parameters.
+                                  renderedImage1   
+                                  renderedImage2   
+                                  param1           
+                                  param2           
 
-  [createCollection]{#64098}\     [opName]{#64100}\           [Creates a Collection with null rendering hints.]{#64103}\
-                                  [parameterBlock]{#64101}\   
+  createCollection     opName           Creates a Collection with null rendering hints.
+                                  parameterBlock   
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 3-11*  JAI Class Rendered Mode
@@ -1498,7 +1498,7 @@ specified.
 
 ------------------------------------------------------------------------
 
-**API:** `org.eclipse.imagen.jai.ParameterBlockJA |
+**API:** `org.eclipse.imagen.ParameterBlockJA |
 |                                   | I`
 
     ParameterBlock set(byte b, String paramName)
@@ -1578,130 +1578,130 @@ Hints]{#60917}**
 
 [Description]{#60927}
 
-[Alpha\_Interpolation]{#60930}\
+Alpha\_Interpolation
 
-[Alpha\_Interpolation\_\
-Default]{#60932}\
+Alpha\_Interpolation\_\
+Default
 
-[Rendering is done with the platform default alpha
-interpolation.]{#60934}\
+Rendering is done with the platform default alpha
+interpolation.
 
-[Alpha\_Interpolation\_\
-Quality]{#60938}\
+Alpha\_Interpolation\_\
+Quality
 
-[Appropriate rendering algorithms are chosen with a preference for
-output quality.]{#60940}\
+Appropriate rendering algorithms are chosen with a preference for
+output quality.
 
-[Alpha\_Interpolation\_Speed]{#60944}\
+Alpha\_Interpolation\_Speed
 
-[Appropriate rendering algorithms are chosen with a preference for
-output speed.]{#60946}\
+Appropriate rendering algorithms are chosen with a preference for
+output speed.
 
-[Antialiasing]{#60949}\
+Antialiasing
 
-[Antialias\_Default]{#60951}\
+Antialias\_Default
 
-[Rendering is done with the platform default antialiasing
-mode.]{#60953}\
+Rendering is done with the platform default antialiasing
+mode.
 
-[Antialias\_Off]{#60957}\
+Antialias\_Off
 
-[Rendering is done without antialiasing.]{#60959}\
+Rendering is done without antialiasing.
 
-[Antialias\_On]{#60963}\
+Antialias\_On
 
-[Rendering is done with antialiasing]{#60965}\
+Rendering is done with antialiasing
 
-[Color\_Rendering]{#60968}\
+Color\_Rendering
 
-[Color\_Render\_Default]{#60970}\
+Color\_Render\_Default
 
-[Rendering is done with the platform default color
-rendering.]{#60972}\
+Rendering is done with the platform default color
+rendering.
 
-[Color\_Render\_Quality]{#60976}\
+Color\_Render\_Quality
 
-[Appropriate rendering algorithms are chosen with a preference for
-output quality.]{#60978}\
+Appropriate rendering algorithms are chosen with a preference for
+output quality.
 
-[Color\_Render\_Speed]{#60982}\
+Color\_Render\_Speed
 
-[Appropriate rendering algorithms are chosen with a preference for
-output speed.]{#60984}\
+Appropriate rendering algorithms are chosen with a preference for
+output speed.
 
-[Dithering]{#60987}\
+Dithering
 
-[Dither\_Default]{#60989}\
+Dither\_Default
 
-[Use the platform default for dithering.]{#60991}\
+Use the platform default for dithering.
 
-[Dither\_Disable]{#60995}\
+Dither\_Disable
 
-[Do not do dither when rendering.]{#60997}\
+Do not do dither when rendering.
 
-[Dither\_Enable]{#61001}\
+Dither\_Enable
 
-[Dither with rendering when needed.]{#61003}\
+Dither with rendering when needed.
 
-[FractionalMetrics]{#61006}\
+FractionalMetrics
 
-[FractionalMetrics\_Default]{#61008}\
+FractionalMetrics\_Default
 
-[Use the platform default for fractional metrics.]{#61010}\
+Use the platform default for fractional metrics.
 
-[FractionalMetrics\_Off]{#61014}\
+FractionalMetrics\_Off
 
-[Disable fractional metrics.]{#61016}\
+Disable fractional metrics.
 
-[FractionalMetrics\_On]{#61020}\
+FractionalMetrics\_On
 
-[Enable fractional metrics.]{#61022}\
+Enable fractional metrics.
 
-[Interpolation]{#61025}\
+Interpolation
 
-[Interpolation\_Bicubic]{#61027}\
+Interpolation\_Bicubic
 
-[Perform bicubic interpolation.]{#61029}\
+Perform bicubic interpolation.
 
-[Interpolation\_Bilinear]{#61033}\
+Interpolation\_Bilinear
 
-[Perform bilinear interpolation.]{#61035}\
+Perform bilinear interpolation.
 
-[Interpolation\_Nearest\_\
-Neighbor]{#61039}\
+Interpolation\_Nearest\_\
+Neighbor
 
-[Perform nearest-neighbor interpolation.]{#61041}\
+Perform nearest-neighbor interpolation.
 
-[Rendering]{#61044}\
+Rendering
 
-[Render\_Default]{#61046}\
+Render\_Default
 
-[The platform default rendering algorithms will be chosen.]{#61048}\
+The platform default rendering algorithms will be chosen.
 
-[Render\_Quality]{#61052}\
+Render\_Quality
 
-[Appropriate rendering algorithms are chosen with a preference for
-output quality.]{#61054}\
+Appropriate rendering algorithms are chosen with a preference for
+output quality.
 
-[Render\_Speed]{#61058}\
+Render\_Speed
 
-[Appropriate rendering algorithms are chosen with a preference for
-output speed.]{#61060}\
+Appropriate rendering algorithms are chosen with a preference for
+output speed.
 
-[Text\_Antialiasing]{#61063}\
+Text\_Antialiasing
 
-[Text\_Antialias\_Default]{#61065}\
+Text\_Antialias\_Default
 
-[Text rendering is done using the platform default text antialiasing
-mode.]{#61067}\
+Text rendering is done using the platform default text antialiasing
+mode.
 
-[Text\_Antialias\_Off]{#61071}\
+Text\_Antialias\_Off
 
-[Text rendering is done without antialiasing.]{#61073}\
+Text rendering is done without antialiasing.
 
-[Text\_Antialias\_On]{#61077}\
+Text\_Antialias\_On
 
-[Text rendering is done with antialiasing.]{#61079}\
+Text rendering is done with antialiasing.
 
 To set the rendering hints, create a `RenderingHints` object and pass
 it to the `JAI.create` method you want to affect. Setting a rendering
@@ -1746,145 +1746,145 @@ hints]{#61091}**
 
 [Description]{#61101}
 
-[HINT\_BORDER\_EXTENDER]{#61494}\
+HINT\_BORDER\_EXTENDER
 
-[BorderExtenderZero]{#61496}\
+BorderExtenderZero
 
-[Extends an image\'s border by filling all pixels outside the image
-bounds with zeros.]{#61498}\
+Extends an image\'s border by filling all pixels outside the image
+bounds with zeros.
 
-[BorderExtenderConstant]{#62573}\
+BorderExtenderConstant
 
-[Extends an image\'s border by filling all pixels outside the image
-bounds with constant values.]{#62575}\
+Extends an image\'s border by filling all pixels outside the image
+bounds with constant values.
 
-[BorderExtenderCopy]{#61514}\
+BorderExtenderCopy
 
-[Extends an image\'s border by filling all pixels outside the image
-bounds with copies of the edge pixels.]{#61543}\
+Extends an image\'s border by filling all pixels outside the image
+bounds with copies of the edge pixels.
 
-[BorderExtenderWrap]{#61508}\
+BorderExtenderWrap
 
-[Extends an image\'s border by filling all pixels outside the image
-bounds with copies of the whole image.]{#61577}\
+Extends an image\'s border by filling all pixels outside the image
+bounds with copies of the whole image.
 
-[BorderExtenderReflect]{#61502}\
+BorderExtenderReflect
 
-[Extends an image\'s border by filling all pixels outside the image
-bounds with copies of the whole image.]{#61595}\
+Extends an image\'s border by filling all pixels outside the image
+bounds with copies of the whole image.
 
-[HINT\_IMAGE\_LAYOUT]{#61146}\
+HINT\_IMAGE\_LAYOUT
 
-[Width]{#61148}\
+Width
 
-[The image\'s width.]{#61150}\
+The image\'s width.
 
-[Height]{#61154}\
+Height
 
-[The image\'s height]{#61156}\
+The image\'s height
 
-[MinX]{#61160}\
+MinX
 
-[The image\'s minimum *x* coordinate.]{#61162}\
+The image\'s minimum *x* coordinate.
 
-[MinY]{#61166}\
+MinY
 
-[The image\'s minimum *y* coordinate]{#61168}\
+The image\'s minimum *y* coordinate
 
-[TileGridXOffset]{#61172}\
+TileGridXOffset
 
-[The *x* coordinate of tile (0, 0).]{#61174}\
+The *x* coordinate of tile (0, 0).
 
-[TileGridYOffset]{#61178}\
+TileGridYOffset
 
-[The *y* coordinate of tile (0, 0).]{#61180}\
+The *y* coordinate of tile (0, 0).
 
-[TileWidth]{#61184}\
+TileWidth
 
-[The width of a tile.]{#61186}\
+The width of a tile.
 
-[TileHeight]{#61190}\
+TileHeight
 
-[The height of a tile.]{#61192}\
+The height of a tile.
 
 [SampleModel]{#61196}
 
-[The image\'s SampleModel.]{#61198}\
+The image\'s SampleModel.
 
-[ColorModel]{#61202}\
+ColorModel
 
-[The image\'s ColorModel.]{#61204}\
+The image\'s ColorModel.
 
-[HINT\_INTERPOLATION]{#61207}\
+HINT\_INTERPOLATION
 
 [InterpolationNearest]{#61209}
 
-[Perform nearest-neighbor interpolation.]{#61211}\
+Perform nearest-neighbor interpolation.
 
 [InterpolationBilinear]{#61215}
 
-[Perform bilinear interpolation.]{#61217}\
+Perform bilinear interpolation.
 
-[InterpolationBicubic]{#61221}\
+InterpolationBicubic
 
-[Perform bicubic interpolation.]{#61223}\
+Perform bicubic interpolation.
 
-[InterpolationBicubic2]{#61227}\
+InterpolationBicubic2
 
-[Perform bicubic interpolation.]{#61229}\
+Perform bicubic interpolation.
 
-[HINT\_OPERATION\_BOUND]{#61610}\
+HINT\_OPERATION\_BOUND
 
-[OpImage.OP\_COMPUTE\_\
-BOUND]{#61612}\
+OpImage.OP\_COMPUTE\_\
+BOUND
 
-[An operation is likely to spend its time mainly performing
-computation.]{#61614}\
+An operation is likely to spend its time mainly performing
+computation.
 
 [OpImage.OP\_IO\_BOUND]{#61633}
 
-[An operation is likely to spend its time mainly performing local
-I/O.]{#61635}\
+An operation is likely to spend its time mainly performing local
+I/O.
 
-[OpImage.OP\_NETWORK\_\
-BOUND]{#61627}\
+OpImage.OP\_NETWORK\_\
+BOUND
 
-[An operation is likely to spend its time mainly performing network
-I/O.]{#61629}\
+An operation is likely to spend its time mainly performing network
+I/O.
 
-[HINT\_OPERATION\_REGISTRY]{#61604}\
+HINT\_OPERATION\_REGISTRY
 
-[Key for OperationRegistry object values.]{#61608}\
+Key for OperationRegistry object values.
 
-[HINT\_PNG\_EMIT\_SQUARE\_\
-PIXELS]{#61258}\
+HINT\_PNG\_EMIT\_SQUARE\_\
+PIXELS
 
-[True]{#61260}\
+True
 
-[Scale non-square pixels read from a PNG format image file to square
-pixels.]{#61262}\
+Scale non-square pixels read from a PNG format image file to square
+pixels.
 
-[False]{#61266}\
+False
 
-[Do not scale non-square pixels.]{#61268}\
+Do not scale non-square pixels.
 
-[HINT\_TILE\_CACHE]{#62439}\
+HINT\_TILE\_CACHE
 
-[capacity]{#62441}\
+capacity
 
-[The capacity of the cache in tiles.]{#62443}\
+The capacity of the cache in tiles.
 
-[elementCount]{#62508}\
+elementCount
 
-[The number of elements in the cache.]{#62510}\
+The number of elements in the cache.
 
-[revolver]{#62502}\
+revolver
 
-[Offset to check for tile cache victims.]{#62504}\
+Offset to check for tile cache victims.
 
-[multiplier]{#62496}\
+multiplier
 
-[Number of checks to make for tile cache victims.]{#62498}\
+Number of checks to make for tile cache victims.
 
 [Listing 3-4](../programming-environ) shows an example of
 image layout rendering hints being specified for a Scale operation.

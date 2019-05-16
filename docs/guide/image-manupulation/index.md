@@ -493,7 +493,7 @@ produce an `ROIShape` representing the region, it should call the
 `getAsImage()` method on its sources and produce its output `ROI` in
 image form.
 
-**API:** `org.eclipse.imagen.jai.ROIShape`
+**API:** `org.eclipse.imagen.ROIShape`
 
     ROIShape(Shape s)
 
@@ -520,7 +520,7 @@ image form.
 The following methods in the `ROIShape` class read the bounds of the
 `ROI`.
 
-**API:** `org.eclipse.imagen.jai.ROIShape`
+**API:** `org.eclipse.imagen.ROIShape`
 
     Rectangle getBounds()
 
@@ -539,7 +539,7 @@ lies within the region of interest. The `ROIShape.intersects` method
 is used to determine if a rectangular region of the image intersects
 the ROI.``
 
-**API:** `org.eclipse.imagen.jai.ROIShape`
+**API:** `org.eclipse.imagen.ROIShape`
 
     boolean contains(Point p)
 
@@ -686,7 +686,7 @@ the ROI.``
 Several methods allow the creation of a new `ROIShape` from the old
 `ROIShape`.
 
-**API:** `org.eclipse.imagen.jai.ROIShape`
+**API:** `org.eclipse.imagen.ROIShape`
 
     ROI add(ROI im)
 
@@ -948,13 +948,13 @@ The following matrix defines the logical `And` operation.
   ----------------------------------------------------
   [src0]{#56613}   [src1]{#56615}   [Result]{#56617}
   ---------------- ---------------- ------------------
-  [0]{#56619}\     [0]{#56621}\     [0]{#56623}\
+  0     0     0
 
-  [0]{#56625}\     [1]{#56627}\     [0]{#56629}\
+  0     1     0
 
-  [1]{#56631}\     [0]{#56633}\     [0]{#56635}\
+  1     0     0
 
-  [1]{#56637}\     [1]{#56639}\     [1]{#56641}\
+  1     1     1
   ----------------------------------------------------
 
   : 
@@ -1005,13 +1005,13 @@ The following matrix defines the logical `AndConst` operation:
   ----------------------------------------------------
   [src]{#57569}   [const]{#57571}   [Result]{#57573}
   --------------- ----------------- ------------------
-  [0]{#57575}\    [0]{#57577}\      [0]{#57579}\
+  0    0      0
 
-  [0]{#57581}\    [1]{#57583}\      [0]{#57585}\
+  0    1      0
 
-  [1]{#57587}\    [0]{#57589}\      [0]{#57591}\
+  1    0      0
 
-  [1]{#57593}\    [1]{#57595}\      [1]{#57597}\
+  1    1      1
   ----------------------------------------------------
 
   : 
@@ -1030,7 +1030,7 @@ and one parameter:
   --------------------------------------------------------------------------------------------------
   [Parameter]{#59369}    [Type]{#59371}   [Description]{#59373}
   ---------------------- ---------------- ----------------------------------------------------------
-  [constants]{#59375}\   [int]{#59377}\   [The per-band constants to logically AND with.]{#59379}\
+  constants   int   The per-band constants to logically AND with.
 
   --------------------------------------------------------------------------------------------------
 
@@ -1081,13 +1081,13 @@ The following matrix defines the logical `OR` operation:
   ----------------------------------------------------
   [src0]{#59692}   [src1]{#59694}   [Result]{#59696}
   ---------------- ---------------- ------------------
-  [0]{#59698}\     [0]{#59700}\     [0]{#59702}\
+  0     0     0
 
-  [0]{#59704}\     [1]{#59706}\     [1]{#59708}\
+  0     1     1
 
-  [1]{#59710}\     [0]{#59712}\     [1]{#59714}\
+  1     0     1
 
-  [1]{#59716}\     [1]{#59718}\     [1]{#59720}\
+  1     1     1
   ----------------------------------------------------
 
   : 
@@ -1143,13 +1143,13 @@ The following matrix defines the logical `OrConst` operation:
   ----------------------------------------------------
   [src]{#71957}   [const]{#71959}   [Result]{#71961}
   --------------- ----------------- ------------------
-  [0]{#71963}\    [0]{#71965}\      [0]{#71967}\
+  0    0      0
 
-  [0]{#71969}\    [1]{#71971}\      [1]{#71973}\
+  0    1      1
 
-  [1]{#71975}\    [0]{#71977}\      [1]{#71979}\
+  1    0      1
 
-  [1]{#71981}\    [1]{#71983}\      [1]{#71985}\
+  1    1      1
   ----------------------------------------------------
 
   : 
@@ -1168,7 +1168,7 @@ and one parameter:
   -------------------------------------------------------------------------------------------------
   [Parameter]{#71989}    [Type]{#71991}   [Description]{#71993}
   ---------------------- ---------------- ---------------------------------------------------------
-  [constants]{#71995}\   [int]{#71997}\   [The per-band constants to logically OR with.]{#71999}\
+  constants   int   The per-band constants to logically OR with.
 
   -------------------------------------------------------------------------------------------------
 
@@ -1197,13 +1197,13 @@ The following matrix defines the `Xor` operation:
   ----------------------------------------------------
   [src0]{#59440}   [src1]{#59442}   [Result]{#59444}
   ---------------- ---------------- ------------------
-  [0]{#59446}\     [0]{#59448}\     [0]{#59450}\
+  0     0     0
 
-  [0]{#59452}\     [1]{#59454}\     [1]{#59456}\
+  0     1     1
 
-  [1]{#59458}\     [0]{#59460}\     [1]{#59462}\
+  1     0     1
 
-  [1]{#59464}\     [1]{#59466}\     [0]{#59468}\
+  1     1     0
   ----------------------------------------------------
 
   : 
@@ -1235,13 +1235,13 @@ The following matrix defines the logical `XorConst` operation:
   ----------------------------------------------------
   [src]{#59198}   [const]{#59200}   [Result]{#59202}
   --------------- ----------------- ------------------
-  [0]{#59204}\    [0]{#59206}\      [0]{#59208}\
+  0    0      0
 
-  [0]{#59210}\    [1]{#59212}\      [1]{#59214}\
+  0    1      1
 
-  [1]{#59216}\    [0]{#59218}\      [1]{#59220}\
+  1    0      1
 
-  [1]{#59222}\    [1]{#59224}\      [0]{#59226}\
+  1    1      0
   ----------------------------------------------------
 
   : 
@@ -1260,7 +1260,7 @@ and one parameter:
   ---------------------------------------------------------------------------------------
   [Parameter]{#59309}   [Type]{#59311}   [Description]{#59313}
   --------------------- ---------------- ------------------------------------------------
-  [constant]{#59315}\   [int]{#59317}\   [The constant to logically XOR with.]{#59319}\
+  constant   int   The constant to logically XOR with.
 
   ---------------------------------------------------------------------------------------
 
@@ -1288,9 +1288,9 @@ The following matrix defines the logical NOT operation.
   ----------------------------------
   [src]{#72921}   [Result]{#72923}
   --------------- ------------------
-  [1]{#72925}\    [0]{#72927}\
+  1    0
 
-  [0]{#72929}\    [1]{#72931}\
+  0    1
   ----------------------------------
 
   : 
@@ -1486,7 +1486,7 @@ and one parameter:
   -------------------------------------------------------------------------------------------
   [Parameter]{#57421}    [Type]{#57423}      [Description]{#57425}
   ---------------------- ------------------- ------------------------------------------------
-  [constants]{#57427}\   [double]{#57429}\   [The per-band constants to be added.]{#57431}\
+  constants   double   The per-band constants to be added.
 
   -------------------------------------------------------------------------------------------
 
@@ -1588,7 +1588,7 @@ images and one parameter.
   ----------------------------------------------------------------------------------
   [Parameter]{#69967}    [Type]{#69969}      [Description]{#69975}
   ---------------------- ------------------- ---------------------------------------
-  [constants]{#69971}\   [double]{#69973}\   [The constants to be added.]{#69977}\
+  constants   double   The constants to be added.
 
   ----------------------------------------------------------------------------------
 
@@ -1664,7 +1664,7 @@ image and one parameter:
   ------------------------------------------------------------------------------------------------
   [Parameter]{#60837}    [Type]{#60839}      [Description]{#60841}
   ---------------------- ------------------- -----------------------------------------------------
-  [constants]{#60843}\   [double]{#60845}\   [The per-band constants to be subtracted.]{#60847}\
+  constants   double   The per-band constants to be subtracted.
 
   ------------------------------------------------------------------------------------------------
 
@@ -1700,7 +1700,7 @@ source image and one parameter:
   ---------------------------------------------------------------------------------------
   [Parameter]{#63744}    [Type]{#63746}      [Description]{#63748}
   ---------------------- ------------------- --------------------------------------------
-  [constants]{#63750}\   [double]{#63752}\   [The constants to be subtracted.]{#63754}\
+  constants   double   The constants to be subtracted.
 
   ---------------------------------------------------------------------------------------
 
@@ -1776,7 +1776,7 @@ image and one parameter:
   --------------------------------------------------------------------------------------------
   [Parameter]{#60880}    [Type]{#60882}      [Description]{#60884}
   ---------------------- ------------------- -------------------------------------------------
-  [constants]{#60886}\   [double]{#60888}\   [The per-band constants to divide by.]{#60890}\
+  constants   double   The per-band constants to divide by.
 
   --------------------------------------------------------------------------------------------
 
@@ -1818,7 +1818,7 @@ source image and one parameter:
   --------------------------------------------------------------------------------------------------
   [Parameter]{#60923}    [Type]{#60925}      [Description]{#60927}
   ---------------------- ------------------- -------------------------------------------------------
-  [constants]{#60929}\   [double]{#60931}\   [The per-band constants to be divided into.]{#60933}\
+  constants   double   The per-band constants to be divided into.
 
   --------------------------------------------------------------------------------------------------
 
@@ -1935,7 +1935,7 @@ image and one parameter:
   ----------------------------------------------------------------------------------------------
   [Parameter]{#60998}    [Type]{#61000}      [Description]{#61002}
   ---------------------- ------------------- ---------------------------------------------------
-  [constants]{#61004}\   [double]{#61006}\   [The per-band constants to multiply by.]{#61008}\
+  constants   double   The per-band constants to multiply by.
 
   ----------------------------------------------------------------------------------------------
 
@@ -2063,9 +2063,9 @@ desired speed and image quality, as shown in [Table
   ------------------------------------------------------------------------------------
   [Dither Type]{#65317}        [Relative Speed]{#65319}   [Relative Quality]{#65321}
   ---------------------------- -------------------------- ----------------------------
-  [Ordered]{#65323}\           [Medium]{#65325}\          [Medium]{#65327}\
+  Ordered           Medium          Medium
 
-  [Error diffusion]{#65329}\   [Slowest]{#65331}\         [Best]{#65333}\
+  Error diffusion   Slowest         Best
   ------------------------------------------------------------------------------------
 
   :  **[*Table 6-1*  Dithering
@@ -2092,9 +2092,9 @@ parameters:
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#63972}     [Type]{#63974}             [Description]{#63976}
   ----------------------- -------------------------- ------------------------------------------------------------------------------------------------------------------
-  [colorMap]{#63978}\     [ColorCube]{#63980}\       [The color cube. See]{#63982} [Section 6.6.1.1, \"Color Map Parameter](../image-manipulation).\"\
+  colorMap     ColorCube       [The color cube. See]{#63982} [Section 6.6.1.1, \"Color Map Parameter](../image-manipulation).\"\
 
-  [ditherMask]{#63984}\   [KernelJAI\[\]]{#63986}\   [The dither mask. See]{#63988} [Section 6.6.1.2, \"Dither Mask Parameter](../image-manipulation).\"\
+  ditherMask   [KernelJAI\[\]]{#63986}\   [The dither mask. See]{#63988} [Section 6.6.1.2, \"Dither Mask Parameter](../image-manipulation).\"\
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2112,9 +2112,9 @@ The predefined color maps are:
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [colorMap]{#66064}     [Description]{#66066}
   ---------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [BYTE\_496]{#66068}\   [A ColorCube with dimensions 4:9:6, useful for dithering RGB images into 216 colors. The offset of this ColorCube is 38. This color cube dithers blue values in the source image to one of four blue levels, green values to one of nine green levels, and red values to one of six red levels. This is the default color cube for the ordered dither operation.]{#66070}\
+  BYTE\_496   A ColorCube with dimensions 4:9:6, useful for dithering RGB images into 216 colors. The offset of this ColorCube is 38. This color cube dithers blue values in the source image to one of four blue levels, green values to one of nine green levels, and red values to one of six red levels. This is the default color cube for the ordered dither operation.
 
-  [BYTE\_855]{#66072}\   [A ColorCube with dimensions 8:5:5, useful for dithering YCbCr images into 200 colors. The offset of this ColorCube is 54. This color cube dithers blue values in the source image to one of eight blue levels, green values to one of five green levels, and red values to one of five red levels.]{#66074}\
+  BYTE\_855   A ColorCube with dimensions 8:5:5, useful for dithering YCbCr images into 200 colors. The offset of this ColorCube is 54. This color cube dithers blue values in the source image to one of eight blue levels, green values to one of five green levels, and red values to one of five red levels.
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2141,9 +2141,9 @@ The predefined dither masks are (see [Figure
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [ditherMask]{#66117}           [Description]{#66119}
   ------------------------------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [DITHER\_MASK\_441]{#66121}\   [A 4 x 4 x 1 mask useful for dithering eight-bit grayscale images to one-bit images]{#66123}\
+  DITHER\_MASK\_441   A 4 x 4 x 1 mask useful for dithering eight-bit grayscale images to one-bit images
 
-  [DITHER\_MASK\_443]{#66125}\   [A 4 x 4 x 3 mask useful for dithering 24-bit color images to eight-bit pseudocolor images. This is the default dither mask for the OrderedDither operation.]{#66127}\
+  DITHER\_MASK\_443   A 4 x 4 x 3 mask useful for dithering 24-bit color images to eight-bit pseudocolor images. This is the default dither mask for the OrderedDither operation.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2227,9 +2227,9 @@ parameters:
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#63569}      [Type]{#63587}              [Description]{#63589}
   ------------------------ --------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [colorMap]{#63575}\      [LookupTableJAI]{#63577}\   [The color map. A LookupTableJAI (see]{#63579} [Section 7.6.1, \"Creating the Lookup Table](../image-enhance)\") or a ColorCube (see [Section 6.6.1.1, \"Color Map Parameter](../image-manipulation)\").\
+  colorMap      LookupTableJAI   [The color map. A LookupTableJAI (see]{#63579} [Section 7.6.1, \"Creating the Lookup Table](../image-enhance)\") or a ColorCube (see [Section 6.6.1.1, \"Color Map Parameter](../image-manipulation)\").\
 
-  [errorKernel]{#63581}\   [KernelJAI]{#63583}\        [The error filter kernel. See]{#63585} [Section 6.6.2.1, \"Error Filter Kernel](../image-manipulation).\"\
+  errorKernel   KernelJAI        [The error filter kernel. See]{#63585} [Section 6.6.2.1, \"Error Filter Kernel](../image-manipulation).\"\
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2247,11 +2247,11 @@ The predefined kernels are (see [Figure
   ---------------------------------------------------------------------------------------------------------------------------------------
   [errorKernel]{#66174}                        [Description]{#66176}
   -------------------------------------------- ------------------------------------------------------------------------------------------
-  [ERROR\_FILTER\_FLOYD\_STEINBERG]{#66178}\   [Based on the Floyd-Steinberg filter model (the default if none is specified).]{#66180}\
+  ERROR\_FILTER\_FLOYD\_STEINBERG   Based on the Floyd-Steinberg filter model (the default if none is specified).
 
-  [ERROR\_FILTER\_JARVIS]{#66182}\             [Based on the Jarvis-Judice-Ninke filter model.]{#66184}\
+  ERROR\_FILTER\_JARVIS             Based on the Jarvis-Judice-Ninke filter model.
 
-  [ERROR\_FILTER\_STUCKI]{#66186}\             [Based on the Stucki filter model]{#66188}\
+  ERROR\_FILTER\_STUCKI             Based on the Stucki filter model
   ---------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2371,9 +2371,9 @@ and two parameters:
   ----------------------------------------------------------------------------------------
   [Parameter]{#73429}   [Type]{#73431}      [Description]{#73433}
   --------------------- ------------------- ----------------------------------------------
-  [low]{#73435}\        [Double]{#73437}\   [The lower boundary for each band.]{#73439}\
+  low        Double   The lower boundary for each band.
 
-  [high]{#73441}\       [Double]{#73443}\   [The upper boundary for each band.]{#73445}\
+  high       Double   The upper boundary for each band.
   ----------------------------------------------------------------------------------------
 
   : 
@@ -2443,7 +2443,7 @@ image and one parameter:
   ----------------------------------------------------------------------------------------------------------
   [Parameter]{#63453}      [Type]{#63455}       [Description]{#63457}
   ------------------------ -------------------- ------------------------------------------------------------
-  [bandIndices]{#63417}\   [int\[\]]{#63419}\   [The indices of the selected bands of the image.]{#63421}\
+  bandIndices   [int\[\]]{#63419}\   The indices of the selected bands of the image.
 
   ----------------------------------------------------------------------------------------------------------
 
@@ -2571,20 +2571,20 @@ Dither](../image-manipulation),\" [Section 6.6.2,
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Kernel Name]{#68080}                        [Description and Use]{#68082}
   -------------------------------------------- --------------------------------------------------------------------------------------------------------------------------
-  [DITHER\_MASK\_441]{#68103}\                 [Ordered dither filter. A 4 x 4 x 1 mask useful for dithering 8-bit grayscale images to 1-bit images]{#68105}\
+  DITHER\_MASK\_441                 Ordered dither filter. A 4 x 4 x 1 mask useful for dithering 8-bit grayscale images to 1-bit images
 
-  [DITHER\_MASK\_443]{#68108}\                 [Ordered dither filter. A 4 x 4 x 3 mask useful for dithering 24-bit color images to 8-bit pseudocolor images.]{#68110}\
+  DITHER\_MASK\_443                 Ordered dither filter. A 4 x 4 x 3 mask useful for dithering 24-bit color images to 8-bit pseudocolor images.
 
-  [ERROR\_FILTER\_FLOYD\_STEINBERG]{#68135}\   [Error diffusion filter, based on the Floyd-Steinberg model.]{#68138}\
+  ERROR\_FILTER\_FLOYD\_STEINBERG   Error diffusion filter, based on the Floyd-Steinberg model.
 
-  [ERROR\_FILTER\_JARVIS]{#68129}\             [Error diffusion filter, based on the Jarvis-Judice-Ninke model.]{#68132}\
+  ERROR\_FILTER\_JARVIS             Error diffusion filter, based on the Jarvis-Judice-Ninke model.
 
-  [ERROR\_FILTER\_STUCKI]{#68123}\             [Error diffusion filter, based on the Stucki model]{#68126}\
+  ERROR\_FILTER\_STUCKI             Error diffusion filter, based on the Stucki model
 
-  [GRADIENT\_MASK\_SOBEL\_\                    [The horizontal gradient filter mask for the Gradient operation.]{#69607}\
+  GRADIENT\_MASK\_SOBEL\_\                    [The horizontal gradient filter mask for the Gradient operation.
   HORIZONTAL]{#69605}\                         
 
-  [GRADIENT\_MASK\_SOBEL\_\                    [The vertical gradient filter mask for the Gradient operation.]{#69603}\
+  GRADIENT\_MASK\_SOBEL\_\                    [The vertical gradient filter mask for the Gradient operation.
   VERTICAL]{#69601}\                           
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2595,7 +2595,7 @@ kernel:
 
          KernelJAI kernel = KernelJAI.ERROR_FILTER_FLOYD_STEINBERG;
 
-**API:** `org.eclipse.imagen.jai.KernelJAI`
+**API:** `org.eclipse.imagen.KernelJAI`
 
     public KernelJAI(int width, int height, int xOrigin, 
            int  yOrigin, float[] data)

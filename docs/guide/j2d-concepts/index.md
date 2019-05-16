@@ -5,7 +5,7 @@ parent: Programming Guide
 nav_order: 3
 ---
 
-# Java AWT Imaging                                                      
+# Java AWT Imaging
 
 Digital imaging in Java has been supported since its first
 release, through the **java.awt** and **java.awt.image** class
@@ -27,22 +27,21 @@ The Eclipse ImageN API supports three imaging models:
 classes for each of the three models.
 
 
+<a name="table-2-1"></a>
 
+------------------------------------------------------------------------ 
 
-  --------------------------------------------------------------------------------------------------
-  [AWT Push Model]{#52522}   [Java 2D Immediate Mode Model]{#52524}   [Pull Model]{#52526}
-  -------------------------- ---------------------------------------- ------------------------------
-  [Image]{#52528}\           [BufferedImage]{#52533}\                 [RenderableImage]{#52538}\
-  [ImageProducer]{#52529}\   [Raster]{#52534}\                        [RenderableImageOp]{#52539}\
-  [ImageConsumer]{#52530}\   [BufferedImageOp]{#52535}\               [RenderedOp]{#52540}\
-  [ImageObserver]{#52531}\   [RasterOp]{#52536}\                      [RenderableOp]{#52541}\
-                                                                      [TiledImage]{#52542}\
+| AWT Push Model | Java 2D Immediate Mode Model  | Pull Model         |
+| ---------------| ----------------------------- | ------------------ |
+| Image          | BufferedImage                 | RenderableImage    |
+| ImageProducer  | Raster                        | RenderableImageOp  |
+| ImageConsumer  | BufferedImageOp               | RenderedOp         |
+| ImageObserver  | RasterOp                      | RenderableOp       |
+|                |                               | TiledImage         |
 
-  --------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-  :  **[*Table 2-1*  Imaging Model Interfaces
-  and Classes]{#52516}**
-
+**Table 2-1 Imaging Model Interfaces and Classes**
 
 ### 2.1.1 The AWT Push Model
 
@@ -107,34 +106,32 @@ region of interest in an image.
 The following are the Java interfaces and classes associated with the
 AWT push model of imaging.
 
-  -------------------------------------------------------------------------------------------------
-  [Interface]{#52559}   [Description]{#52561}
-  --------------------- ---------------------------------------------------------------------------
-  [Image]{#52582}\      [Extends: Object]{#52584}\
-                        [The superclass of all classes that represent graphical images.]{#52585}\
+<a name="table-2-1"></a>
 
-  -------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
 
-  :  **[*Table 2-2*  Push Model Imaging
-  Interfaces]{#52555}**
+| Interface | Description |
+| --------- | ----------- |
+| Image     | Extends: `Object` \n The superclass of all classes that represent graphical images. |
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Class]{#52598}                  [Description]{#52600}
-  -------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [ColorModel]{#52680}\            [An abstract class that encapsulates the methods for translating a pixel value to color components (e.g., red, green, blue) and an alpha component.]{#52684}\
+-------------------------------------------------------------------------------------------------
 
-  [FilteredImageSource]{#52695}\   [An implementation of the ImageProducer interface which takes an existing image and a filter object and uses them to produce image data for a new filtered version of the original image.]{#52699}\
+**Table 2-2 Push Model Imaging Interfaces**
 
-  [ImageProducer]{#52602}\         [The interface for objects that can produce the image data for Images. Each image contains an ImageProducer that is used to reconstruct the image whenever it is needed, for example, when a new size of the Image is scaled, or when the width or height of the Image is being requested.]{#52621}\
+<a name="table-2-2"></a>
 
-  [ImageConsumer]{#52606}\         [The interface for objects expressing interest in image data through the ImageProducer interfaces. When a consumer is added to an image producer, the producer delivers all of the data about the image using the method calls defined in this interface.]{#52641}\
+-------------------------------------------------------------------------------------------------
 
-  [ImageObserver]{#52610}\         [An asynchronous update interface for receiving notifications about Image information as the Image is constructed.]{#52653}\
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Class | Description |
+| --------- | ----------- |
+| ColorModel          | An abstract class that encapsulates the methods for translating a pixel value to color components (e.g., red, green, blue) and an alpha component. |
+| FilteredImageSource | An implementation of the ImageProducer interface which takes an existing image and a filter object and uses them to produce image data for a new filtered version of the original image. |
+| ImageProducer       | The interface for objects that can produce the image data for Images. Each image contains an ImageProducer that is used to reconstruct the image whenever it is needed, for example, when a new size of the Image is scaled, or when the width or height of the Image is being requested. |
+| ImageConsumer       | The interface for objects expressing interest in image data through the ImageProducer interfaces. When a consumer is added to an image producer, the producer delivers all of the data about the image using the method calls defined in this interface.
+|  ImageObserver      | An asynchronous update interface for receiving notifications about Image information as the Image is constructed.
+| --------- | ----------- |
 
-  :  **[*Table 2-3*  Push Model Imaging
-  Classes]{#52594}**
-
+**Table 2-3 Push Model Imaging Classes**
 
 2.2 The Immediate Mode Model
 -------------------------------------------------
@@ -164,7 +161,7 @@ images to be pulled through a chain of filter operations, with the
 image resolution selected through a rendering context.
 
 The concepts of rendered and renderable images contained in the Java
-2D API are essential to JAI. The next few sections explain these
+2D API are essential to Eclipse ImageN. The next few sections explain these
 concepts; complete information about the classes discussed can be
 found in *The Java 2D API Specification* and the *Java 2D API White
 Paper*.
@@ -230,7 +227,7 @@ This has several advantages, such as a simplified programming model
 and explicit controls on the type and order of results. However, the
 synchronous nature of Java AWT has one distinct disadvantage in that
 it is not well suited to notions of progressive rendering or network
-resources. These issues are addressed in JAI.
+resources. These issues are addressed in Eclipse ImageN.
 
 
 ### 2.2.3 The Renderable Layer vs. the Rendered Layer
@@ -391,50 +388,50 @@ Interfaces and Classes]{#53782}**
 
 [Description]{#53792}
 
-[Interface]{#53794}\
+Interface
 
-[RenderableImage]{#53797}\
+RenderableImage
 
-[A common interface for rendering-independent images (a notion that
-subsumes resolution independence).]{#53799}\
+A common interface for rendering-independent images (a notion that
+subsumes resolution independence).
 
-[ContextualRenderedImage-Factory]{#53804}\
+ContextualRenderedImage-Factory
 
-[Extends: RenderedImageFactory]{#53806}\
-[Provides an interface for the functionality that may differ between
-instances of RenderableImageOp.]{#53807}\
+Extends: RenderedImageFactory
+Provides an interface for the functionality that may differ between
+instances of RenderableImageOp.
 
-[Class]{#53809}\
+Class
 
-[ParameterBlock]{#53811}\
+ParameterBlock
 
-[Extends: Object]{#53813}\
-[Implements: Cloneable, Serializable]{#53814}\
-[Encapsulates all the information about sources and parameters
+Extends: Object
+Implements: Cloneable, Serializable
+Encapsulates all the information about sources and parameters
 (expressed as base types or Objects) required by a RenderableImageOp
 and other future classes that manipulate chains of imaging
-operators.]{#53815}\
+operators.
 
-[RenderableImageOp]{#53819}\
+RenderableImageOp
 
-[Extends: Object]{#53821}\
-[Implements: RenderableImage]{#53822}\
-[Handles the renderable aspects of an operation with help from its
-associated instance of a ContextualRenderedImageFactory.]{#53823}\
+Extends: Object
+Implements: RenderableImage
+Handles the renderable aspects of an operation with help from its
+associated instance of a ContextualRenderedImageFactory.
 
-[RenderableImageProducer]{#53827}\
+RenderableImageProducer
 
-[Extends: Object]{#53829}\
-[Implements: ImageProducer, Runnable]{#53830}\
-[An adapter class that implements ImageProducer to allow the
-asynchronous production of a RenderableImage.]{#53831}\
+Extends: Object
+Implements: ImageProducer, Runnable
+An adapter class that implements ImageProducer to allow the
+asynchronous production of a RenderableImage.
 
-[RenderContext]{#53835}\
+RenderContext
 
-[Extends: Object]{#53837}\
-[Implements: Cloneable]{#53838}\
-[Encapsulates the information needed to produce a specific rendering
-from a RenderableImage.]{#53839}\
+Extends: Object
+Implements: Cloneable
+Encapsulates the information needed to produce a specific rendering
+from a RenderableImage.
 
 The other block involved in the construction of `RenderableImageOp` is
 a `ParameterBlock`. The `ParameterBlock` houses the source(s) for the
@@ -482,6 +479,7 @@ actually flow through the rendered operator to the Graphics2D. The
 renderable operator chain remains available to produce more renderings
 whenever its `getImage()` method is called.
 
+<a name="figure-2-2"></a>
 
 ------------------------------------------------------------------------
 
@@ -489,40 +487,21 @@ whenever its `getImage()` method is called.
 
 ------------------------------------------------------------------------
 
+**Figure 2-2 Deriving a Rendering from a Renderable Chain**
 
-***Figure 2-2*  Deriving a Rendering from a
-Renderable Chain**
+<a name="table-2-5"></a>
 
-**[*Table 2-5*  The Rendered Layer Interfaces
-and Classes]{#52034}**
+**Table 2-5 The Rendered Layer Interfaces and Classes**
 
-[Type]{#52082}
+------------------------------------------------------------------------
 
-[Name]{#52084}
+| Type        | Name          | Description |
+| ----------- | ------------- | ------------------ |
+| Interface  | RenderedImage | A common interface for objects that contain or can produce image data in the form of Rasters. |
+| Class      | BufferedImage | Extends: `Image` \n Implements: `WritableRenderedImage` \n A subclass that describes an Image with an accessible buffer of image data. |
+| Class | WritableRenderedImage | Extends: `RenderedImage` \n A common interface for objects that contain or can produce image data that can be modified and/or written over. |
 
-[Description]{#52086}
-
-[Interface]{#52046}\
-
-[RenderedImage]{#52048}\
-
-[A common interface for objects that contain or can produce image data
-in the form of Rasters.]{#52050}\
-
-[Class]{#52052}\
-
-[BufferedImage]{#52054}\
-
-[Extends: `Image`]{#52056}\
-[Implements: WritableRenderedImage]{#52114}\
-[A subclass that describes an Image with an accessible buffer of image
-data.]{#52115}\
-
-[WritableRenderedImage]{#52060}\
-
-[Extends: RenderedImage]{#52062}\
-[A common interface for objects that contain or can produce image data
-that can be modified and/or written over.]{#52134}\
+------------------------------------------------------------------------
 
 A rendered image represents a virtual image with a coordinate system
 that maps directly to pixels. A Rendered image does not have to have
@@ -548,8 +527,7 @@ cyan, magenta, and yellow (CMY). A four-color subtractive image
 contains four bands; one each for cyan, magenta, yellow, and black
 (CMYK).
 
-**[*Table 2-6*  Java 2D Image Data
-Classes]{#52193}**
+**[*Table 2-6*  Java 2D Image Data Classes]{#52193}**
 
 [Type]{#52241}
 
@@ -557,30 +535,30 @@ Classes]{#52193}**
 
 [Description]{#52245}
 
-[Class]{#52205}\
+Class
 
-[DataBuffer]{#52207}\
+DataBuffer
 
-[Extends: Object]{#52289}\
-[Wraps one or more data arrays. Each data array in the DataBuffer is
-referred to as a bank.]{#52209}\
+Extends: Object
+Wraps one or more data arrays. Each data array in the DataBuffer is
+referred to as a bank.
 
-[Raster]{#52265}\
+Raster
 
-[Extends: Object]{#52267}\
-[Represents a rectanglular array of pixels and provides methods for
-retrieving image data.]{#52287}\
+Extends: Object
+Represents a rectanglular array of pixels and provides methods for
+retrieving image data.
 
-[SampleModel]{#53562}\
+SampleModel
 
-[Extends: Object]{#53566}\
-[Extracts samples of pixels in images.]{#53564}\
+Extends: Object
+Extracts samples of pixels in images.
 
-[WriteableRaster]{#52219}\
+WriteableRaster
 
-[Extends: Raster]{#52221}\
-[Provides methods for storing image data and inherits methods for
-retrieving image data from it\'s parent class Raster.]{#52277}\
+Extends: Raster
+Provides methods for storing image data and inherits methods for
+retrieving image data from it\'s parent class Raster.
 
 The basic unit of image data storage is the `DataBuffer`. The
 `DataBuffer` is a kind of raw storage that contains all of the samples
@@ -596,7 +574,6 @@ data it contains. There are two basic types of `Raster`s:
 
 -   `Raster` - a read-only object that has only accessors
 
-
 -   `WritableRaster` - A writable object that has a variety of
     mutators
 
@@ -610,7 +587,7 @@ Data from a *tile* is returned in a `Raster` object. A tile is not a
 class in the architecture; it is a concept. A tile is one of a set of
 regular rectangular regions that span the image on a regular grid. In
 the `RenderedImage` interface, there are several methods that relate
-to tiles and a tile grid. These methods are used by the JAI API,
+to tiles and a tile grid. These methods are used by the Eclipse ImageN API,
 rather than the Java 2D API. In the Java 2D API, the implementation of
 the `WritableRenderedImage` (`BufferedImage`) is defined to have a
 single tile. This, the `getWritableTile` method will return all the
@@ -632,27 +609,22 @@ which is different from the `SampleModel`. The `ColorModel` determines
 how the bands are interpreted in a colorimetric sense.
 
 
-2.5 Introducing the Java Advanced Imaging API
+2.5 Introducing the Eclipse ImageN
 ------------------------------------------------------------------
 
-The JAI API builds on the foundation of the Java 2D API to allow more
-powerful and general imaging applications. The JAI API adds the
+Eclipse ImageN builds on the foundation of the Java 2D API to allow more
+powerful and general imaging applications. ImageN adds the
 following concepts:
 
 -   Multi-tiled images
 
-
 -   Deferred execution
-
 
 -   Networked images
 
-
 -   Image property management
 
-
 -   Image operators with multiple sources
-
 
 -   Three-dimensional image data
 
@@ -662,38 +634,37 @@ model for programmers. New operators may be added and the new
 operators may participate as first-class objects in the deferred
 execution model.
 
-The JAI API also provides for a considerable degree of compatibility
-with the Java AWT and Java 2D imaging models. JAI\'s operators can
+ImageN also provides for a considerable degree of compatibility
+with the Java AWT and Java 2D imaging models. ImageN\'s operators can
 work directly on Java 2D `BufferedImage` objects or any other image
-objects that implement the `RenderedImage` interface. JAI supports the
+objects that implement the `RenderedImage` interface. ImageN supports the
 same rendering-independent model as the Java 2D API. using
-device-independent coordinates. JAI also supports Java 2D-style
+device-independent coordinates. ImageN also supports Java 2D-style
 drawing on both Rendered and Renderable images using the `Graphics`
 interface.
 
-The JAI API does not make use of the image producer/consumer
+ImageN does not make use of the image producer/consumer
 interfaces introduced in Java AWT and carried forward into the Java 2D
-API. Instead, the JAI API requires that image sources participate in
+API. Instead, ImageN requires that image sources participate in
 the \"pull\" imaging model by responding to requests for arbitrary
 areas, thus making it impossible to instantiate an `ImageProducer`
 directly as a source. It is, however, possible to instantiate an
-`ImageProducer` that makes the JAI API image data available to older
+`ImageProducer` that makes ImageN image data available to older
 AWT applications.
 
 
 ### 2.5.1 Similarities with the Java 2D API
 
-The JAI API is heavily dependent on the abstractions defined in the
+Eclipse ImageN is heavily dependent on the abstractions defined in the
 Java 2D API. In general, the entire mechanism for handling Renderable
 and Rendered images, pixel samples, and data storage is carried over
-into JAI. Here are some of the major points of congruity between Java
-2D and JAI:
+into ImageN. Here are some of the major points of congruity between Java
+2D and ImageN:
 
 -   The `RenderableImage` and `RenderedImage` interfaces defined in
     the Java 2D API are used as a basis for higher-level abstractions.
-    Further, JAI allows you to create and manipulate directed acyclic
+    Further, ImageN allows you to create and manipulate directed acyclic
     graphs of objects implementing these interfaces.
-
 
 -   The primary data object, the `TiledImage`, implements the
     `WritableRenderedImage` interface and can contain a regular tile
@@ -701,225 +672,65 @@ into JAI. Here are some of the major points of congruity between Java
     the Java 2D API, `TiledImage` does not require that a `ColorModel`
     for photometric interpretation of its image data be present.
 
-
 -   The operator objects are considerably more sophisticated than
     in the Java 2D API. The `OpImage`, the fundamental operator
     object, provides considerable support for extensibility to new
-    operators beyone that in the Java 2D API. JAI has a registry
+    operators beyone that in the Java 2D API. ImageN has a registry
     mechanism that automates the selection of operations on
     `RenderedImages`.
 
-
 -   The Java 2D API `SampleModel`, `DataBuffer`, and `Raster` objects
-    are carried over into JAI without change, except that `double`s
+    are carried over into ImageN without change, except that `double`s
     and `float`s are allows to be used as the fundamental data types
     of a `DataBuffer` in addition to the `byte`, `short`, and `int`
     data types.
 
 
-### 2.5.2 JAI Data Classes
+### 2.5.2 Data Classes
 
-JAI introduces two new data classes, which extend the Java 2D
-`DataBuffer` image data class.
+Eclipse ImageN provides two data classes, which extend the Java 2D `DataBuffer` image data class.
 
-**[*Table 2-7*  JAI Data Classes]{#52723}**
+<a name="table-2-7"></a>
 
-[Type]{#52747}
+**Table 2-7 Data Classes**
 
-[Name]{#52749}
+--------------------------------
 
-[Description]{#52751}
+| Type  | Name             | Description                |
+| ----- | ---------------- | -------------------------- |
+| Class | DataBufferFloat  | Extends: `DataBuffer` \\ Stores data internally in float form. |
+| Class | DataBufferDouble | Extends: `DataBuffer` \\ Stores data internally in double form. |
 
-[Class]{#52735}\
-
-[DataBufferFloat]{#52737}\
-
-[Extends: DataBuffer]{#52745}\
-[Stores data internally in float form.]{#52787}\
-
-[DataBufferDouble]{#52804}\
-
-[Extends: DataBuffer]{#52806}\
-[Stores data internally in double form.]{#52807}\
-
+--------------------------------
 
 #### 2.5.2.1 The DataBufferFloat Class
 
-**API:** `org.eclipse.imagen.jai.DataBufferFloat`
+**API:** `org.eclipse.imagen.DataBufferFloat`
 
-    DataBufferFloat(int size)
+* `DataBufferFloat(int size)`
 
-:   constructs a float-based DataBuffer with a specified size.
-      --------------- -------- ---------------------------------------------
-      *Parameters*:   `size`   The number of elements in the `DataBuffer`.
-      --------------- -------- ---------------------------------------------
+* `DataBufferFloat(int size, int numBanks)`
 
-      : 
+* `DataBufferFloat(float[] dataArray, int size)`
 
+* `DataBufferFloat(float[] dataArray, int size, int offset)`
 
-    DataBufferFloat(int size, int numBanks)
+* `DataBufferFloat(float[][] dataArray, int size)`
 
-:   constructs a float-based DataBuffer with a specified number of
-    banks, all of which are of a specified size.
-    *Parameters*:
-    `size`
-    The number of elements in each bank of the `DataBuffer`.
-    `numBanks`
-    The number of banks in the `DataBuffer`.
-
-
-    DataBufferFloat(float[] dataArray, int size)
-
-:   constructs a float-based `DataBuffer` with the specified data
-    array. Only the first size elements are available for use by this
-    data buffer. The array must be large enough to hold `size`
-    elements.
-    *Parameters*:
-    `dataArray`
-    An array of floats to be used as the first and only bank of this
-    `DataBuffer`.
-    `size`
-    The number of elements of the array to be used.
-
-
-    DataBufferFloat(float[] dataArray, int size, int offset)
-
-:   constructs a float-based `DataBuffer` with the specified data
-    array. Only the elements between `offset` and (`offset` + `size` -
-    1) are available for use by this `DataBuffer`. The array must be
-    large enough to hold (`offset` + `size`) elements.
-    *Parameters*:
-    `dataArray`
-    An array of floats to be used as the first and only bank of this
-    `DataBuffer`.
-    `size`
-    The number of elements of the array to be used.
-    `offset`
-    The offset of the first element of the array that will be used.
-
-
-    DataBufferFloat(float[][] dataArray, int size)
-
-:   constructs a float-based `DataBuffer` with the specified data
-    arrays. Only the first size elements of each array are available
-    for use by this `DataBuffer`. The number of banks will be equal to
-    `dataArray.length`.
-    *Parameters*:
-    `dataArray`
-    An array of floats to be used as banks of this `DataBuffer`.
-    `size`
-    The number of elements of each array to be used.
-
-
-    DataBufferFloat(float[][] dataArray, int size, int[] offsets)
-
-:   constructs a float-based `DataBuffer` with the specified data
-    arrays, size, and per-bank offsets. The number of banks is equal
-    to `dataArray.length`. Each array must be at least as large as
-    `size` + the corresponding `offset`. There must be an entry in the
-    `offsets` array for each data array.
-    *Parameters*:
-    `dataArray`
-    An array of arrays of floats to be used as the banks of this
-    `DataBuffer`.
-    `size`
-    The number of elements of each array to be used.
-    `offset`
-    An array of integer offsets, one for each bank.
-
+* `DataBufferFloat(float[][] dataArray, int size, int[] offsets)`
 
 #### 2.5.2.2 The DataBufferDouble Class
 
-**API:** `org.eclipse.imagen.jai.DataBufferDouble |
-|                                   | `
+**API:** `org.eclipse.imagen.DataBufferDouble |
 
-    DataBufferDouble(int size)
+* `DataBufferDouble(int size)`
 
-:   constructs a double-based `DataBuffer` with a specified size.
-      --------------- -------- ---------------------------------------------
-      *Parameters*:   `size`   The number of elements in the `DataBuffer`.
-      --------------- -------- ---------------------------------------------
+* `DataBufferDouble(int size, int numBanks)`
 
-      : 
+* `DataBufferDouble(double[] dataArray, int size)`
 
+* `DataBufferDouble(double[] dataArray, int size, int offset)`
 
-    DataBufferDouble(int size, int numBanks)
+* `DataBufferDouble(double[][] dataArray, int size)`
 
-:   constructs a double-based `DataBuffer` with a specified number of
-    banks, all of which are of a specified size.
-    *Parameters*:
-    `size`
-    The number of elements in each bank of the `DataBuffer`.
-    `numBanks`
-    The number of banks in the `DataBuffer`.
-
-
-    DataBufferDouble(double[] dataArray, int size)
-
-:   constructs a double-based `DataBuffer` with the specified data
-    array. Only the first `size` elements are available for use by
-    this databuffer. The array must be large enough to hold `size`
-    elements.
-    *Parameters*:
-    `dataArray`
-    An array of doubles to be used as the first and only bank of this
-    `DataBuffer`.
-    `size`
-    The number of elements of the array to be used.
-
-
-    DataBufferDouble(double[] dataArray, int size, int offset)
-
-:   constructs a double-based `DataBuffer` with the specified data
-    array. Only the elements between `offset` and (`offset` + `size` -
-    1) are available for use by this data buffer. The array must be
-    large enough to hold (`offset` + `size`) elements.
-    *Parameters*:
-    `dataArray`
-    An array of doubles to be used as the first and only bank of this
-    `DataBuffer`.
-    `size`
-    The number of elements of the array to be used.
-    `offset`
-    The offset of the first element of the array that will be used.
-
-
-    DataBufferDouble(double[][] dataArray, int size)
-
-:   constructs a double-based `DataBuffer` with the specified data
-    arrays. Only the first size elements of each array are available
-    for use by this `DataBuffer`. The number of banks will be equal to
-    `dataArray.length`.
-    *Parameters*:
-    `dataArray`
-    An array of doubles to be used as banks of this `DataBuffer`.
-    `size`
-    The number of elements of each array to be used.
-
-
-    DataBufferDouble(double[][] dataArray, int size, int[] offsets)
-
-:   constructs a double-based `DataBuffer` with the specified data
-    arrays, size, and per-bank offsets. The number of banks is equal
-    to `dataArray.length`. Each array must be at least as large as
-    `size` + the corresponding `offset`. There must be an entry in the
-    offsets array for each data array.
-    *Parameters*:
-    `dataArray`
-    An array of arrays of doubles to be used as the banks of this
-    `DataBuffer`.
-    `size`
-    The number of elements of each array to be used.
-    `offset`
-    An array of integer offsets, one for each bank.
-
-------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-
-
+* *`DataBufferDouble(double[][] dataArray, int size, int[] offsets)`

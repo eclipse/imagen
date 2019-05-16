@@ -96,13 +96,13 @@ interpolation methods.
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Name]{#65021}                [Description]{#65023}
   ----------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [INTERP\_NEAREST]{#65025}\    [Nearest-neighbor interpolation. Assigns to point D in the destination image the value of the pixel nearest S in the source image. See]{#65027} [Section 8.2.1, \"Nearest-neighbor Interpolation](../geom-image-manip).\"\
+  INTERP\_NEAREST    [Nearest-neighbor interpolation. Assigns to point D in the destination image the value of the pixel nearest S in the source image. See]{#65027} [Section 8.2.1, \"Nearest-neighbor Interpolation](../geom-image-manip).\"\
 
-  [INTERP\_BILINEAR]{#65029}\   [Bilinear interpolation. Assigns to Point D in the destination a value that is a bilinear function of the four pixels nearest S in the source image. See]{#65031} [Section 8.2.2, \"Bilinear Interpolation](../geom-image-manip).\"\
+  INTERP\_BILINEAR   [Bilinear interpolation. Assigns to Point D in the destination a value that is a bilinear function of the four pixels nearest S in the source image. See]{#65031} [Section 8.2.2, \"Bilinear Interpolation](../geom-image-manip).\"\
 
-  [INTERP\_BICUBIC]{#65033}\    [Bicubic interpolation. Assigns to point D in the destination image a value that is a bicubic function of the 16 pixels nearest S in the source image.]{#65035}[Section 8.2.3, \"Bicubic Interpolation](../geom-image-manip).\"\
+  INTERP\_BICUBIC    [Bicubic interpolation. Assigns to point D in the destination image a value that is a bicubic function of the 16 pixels nearest S in the source image.]{#65035}[Section 8.2.3, \"Bicubic Interpolation](../geom-image-manip).\"\
 
-  [INTERP\_BICUBIC2]{#65037}\   [Bicubic2 interpolation. Similar to Bicubic, but uses a different polynomial function. See]{#65039} [Section 8.2.4, \"Bicubic2 Interpolation](../geom-image-manip).\"\
+  INTERP\_BICUBIC2   [Bicubic2 interpolation. Similar to Bicubic, but uses a different polynomial function. See]{#65039} [Section 8.2.4, \"Bicubic2 Interpolation](../geom-image-manip).\"\
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   :  **[*Table 8-1*  Interpolation
@@ -215,7 +215,7 @@ For `float` and `double` images, JAI uses a `float` between 0.0F and
 1.0F (not including 1.0F) as a positional specifier in the interest of
 greater accuracy.
 
-**API:** `org.eclipse.imagen.jai.Interpolation`
+**API:** `org.eclipse.imagen.Interpolation`
 
     static Interpolation getInstance(int type)
 
@@ -333,7 +333,7 @@ Neighborhoods of sizes 2 x 1, 1 x 2, 2 x 2, 4 x 1, 1 x 4, 4 x 4, N x
 code that handles a number of types of interpolation. In each case,
 the central sample is returned and the rest are ignored.
 
-**API:** `org.eclipse.imagen.jai.InterpolationNea |
+**API:** `org.eclipse.imagen.InterpolationNea |
 |                                   | rest`
 
     InterpolationNearest()
@@ -360,7 +360,7 @@ given by (*u*, *v*), the resampled pixel value will be:
 
 :   ![](Geom-image-manip.doc.anc4.gif)
 
-**API:** `org.eclipse.imagen.jai.InterpolationBil |
+**API:** `org.eclipse.imagen.InterpolationBil |
 |                                   | inear`
 
     InterpolationBilinear(int subsampleBits)
@@ -402,7 +402,7 @@ Bicubic interpolation requires a neighborhood extending one sample to
 the left of and above the central sample, and two samples to the right
 of and below the central sample.
 
-**API:** `org.eclipse.imagen.jai.InterpolationBic |
+**API:** `org.eclipse.imagen.InterpolationBic |
 |                                   | ubic`
 
     InterpolationBicubic(int subsampleBits)
@@ -428,7 +428,7 @@ Bicubic interpolation requires a neighborhood extending one sample to
 the left of and above the central sample, and two samples to the right
 of and below the central sample.
 
-**API:** `org.eclipse.imagen.jai.InterpolationBic |
+**API:** `org.eclipse.imagen.InterpolationBic |
 |                                   | ubic2`
 
     InterpolationBicubic2(int subsampleBits)
@@ -630,7 +630,7 @@ If a value of `null` is given for `dataV`, the `dataH` table data is
 used for vertical interpolation as well, and the `topPadding`,
 `height`, and `subsampleBitsV` parameters are ignored.
 
-**API:** `org.eclipse.imagen.jai.InterpolationTab |
+**API:** `org.eclipse.imagen.InterpolationTab |
 |                                   | le`
 
     InterpolationTable(int padding, int width, int subsampleBits, 
@@ -716,7 +716,7 @@ The `InterpolationTable` class provides several methods for retrieving
 an interpolation table\'s kernel data values, subsample size, and
 precision.
 
-**API:** `org.eclipse.imagen.jai.InterpolationTab |
+**API:** `org.eclipse.imagen.InterpolationTab |
 |                                   | le`
 
     int getSubsampleBitsH()
@@ -836,13 +836,13 @@ methods may be selected:
   ----------------------------------------------------------------------------------------------------------------
   [interpolation Methods]{#64125}   [Description]{#64127}
   --------------------------------- ------------------------------------------------------------------------------
-  [INTERP\_NEAREST]{#64129}\        [Use nearest-neighbor interpolation]{#64131}\
+  INTERP\_NEAREST        Use nearest-neighbor interpolation
 
-  [INTERP\_BILINEAR]{#64133}\       [Use bilinear interpolation]{#64135}\
+  INTERP\_BILINEAR       Use bilinear interpolation
 
-  [INTERP\_BICUBIC]{#64137}\        [Use bicubic interpolation]{#64139}\
+  INTERP\_BICUBIC        Use bicubic interpolation
 
-  [INTERP\_BICUBIC2]{#64141}\       [Use bicubic2 interpolation (uses a different polynomial function)]{#64143}\
+  INTERP\_BICUBIC2       Use bicubic2 interpolation (uses a different polynomial function)
   ----------------------------------------------------------------------------------------------------------------
 
   : 
@@ -886,11 +886,11 @@ image and three parameters:
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameters]{#60889}       [Type]{#60891}             [Description]{#60893}
   -------------------------- -------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [xTrans]{#60895}\          [Float]{#60897}\           [The displacement in the *x* direction. The default value is 0.0F.]{#60899}\
+  xTrans          Float           The displacement in the *x* direction. The default value is 0.0F.
 
-  [yTrans]{#60901}\          [Float]{#60903}\           [The displacement in the *y* direction. The default value is 0.0F.]{#60905}\
+  yTrans          Float           The displacement in the *y* direction. The default value is 0.0F.
 
-  [interpolation]{#60907}\   [Interpolation]{#60909}\   [The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2. The default value is null.]{#61259}\
+  interpolation   Interpolation   The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2. The default value is null.
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -964,15 +964,15 @@ and five parameters:
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameters]{#60951}       [Type]{#60953}             [Description]{#60955}
   -------------------------- -------------------------- -------------------------------------------------------------------------------------------------------------------------------------
-  [xScale]{#60957}\          [Float]{#60959}\           [The *x* scale factor.]{#60961}\
+  xScale          Float           The *x* scale factor.
 
-  [yScale]{#60963}\          [Float]{#60965}\           [The *y* scale factor.]{#60967}\
+  yScale          Float           The *y* scale factor.
 
-  [xTrans]{#60969}\          [Float]{#60971}\           [The *x* translation.]{#60973}\
+  xTrans          Float           The *x* translation.
 
-  [xTrans]{#60975}\          [Float]{#60977}\           [The *y* translation.]{#60979}\
+  xTrans          Float           The *y* translation.
 
-  [interpolation]{#60981}\   [Interpolation]{#60983}\   [The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.]{#60985}\
+  interpolation   Interpolation   The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -1070,13 +1070,13 @@ and four parameters:
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameters]{#68407}       [Type]{#68409}             [Description]{#68411}
   -------------------------- -------------------------- -------------------------------------------------------------------------------------------------------------------------------------
-  [xOrigin]{#68413}\         [Float]{#68415}\           [The *x* origin to rotate about.]{#68417}\
+  xOrigin         Float           The *x* origin to rotate about.
 
-  [yOrigin]{#68419}\         [Float]{#68421}\           [The *y* origin to rotate about.]{#68423}\
+  yOrigin         Float           The *y* origin to rotate about.
 
-  [angle]{#68425}\           [Float]{#68427}\           [The rotation angle in radians.]{#68429}\
+  angle           Float           The rotation angle in radians.
 
-  [interpolation]{#68431}\   [Interpolation]{#68433}\   [The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.]{#68435}\
+  interpolation   Interpolation   The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -1146,9 +1146,9 @@ and two parameters:
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#69165}        [Type]{#69167}               [Description]{#69169}
   -------------------------- ---------------------------- -------------------------------------------------------------------------------------------------------------------------------------
-  [transform]{#69171}\       [AffineTransform]{#69173}\   [The affine transform matrix.]{#69175}\
+  transform       AffineTransform   The affine transform matrix.
 
-  [interpolation]{#69177}\   [Interpolation]{#69179}\     [The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.]{#69182}\
+  interpolation   Interpolation     The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -1172,17 +1172,17 @@ These six elements affect the transformation as follows:
   ---------------------------------------------------------------------
   [Element]{#69204}   [Description]{#69206}
   ------------------- -------------------------------------------------
-  [m00]{#69208}\      [The *x* coordinate scale element]{#69210}\
+  m00      The *x* coordinate scale element
 
-  [m10]{#69212}\      [The *y* coordinate shear element]{#69214}\
+  m10      The *y* coordinate shear element
 
-  [m01]{#69216}\      [The *x* coordinate shear element]{#69218}\
+  m01      The *x* coordinate shear element
 
-  [m11]{#69220}\      [The *y* coordinate scale element]{#69222}\
+  m11      The *y* coordinate scale element
 
-  [m02]{#69224}\      [The *x* coordinate translate element]{#69226}\
+  m02      The *x* coordinate translate element
 
-  [m12]{#69228}\      [The *y* coordinate translate element]{#69230}\
+  m12      The *y* coordinate translate element
   ---------------------------------------------------------------------
 
   : 
@@ -1365,7 +1365,7 @@ The perspective transform is used with the perspective warp operation.
 See [Section 8.7.7, \"Perspective
 Warp](geom-image-manip).\"
 
-**API:** `org.eclipse.imagen.jai.PerspectiveTrans |
+**API:** `org.eclipse.imagen.PerspectiveTrans |
 |                                   | form`
 
     PerspectiveTransform(float m00, float m01, float m02, 
@@ -1450,7 +1450,7 @@ another arbitrary quadrilateral:
     (*x*2, *y*2) ![](shared/chars/arrwrite.gif) (*x*2p, *y*2p)\
     (*x*3, *y*3) ![](shared/chars/arrwrite.gif) (*x*3p, *y*3p)
 
-**API:** `org.eclipse.imagen.jai.PerspectiveTrans |
+**API:** `org.eclipse.imagen.PerspectiveTrans |
 |                                   | form`
 
     static PerspectiveTransform getSquareToQuad(double x0, 
@@ -1508,7 +1508,7 @@ create a perspective transform that can be used to map one arbitrary
 triangle to another arbitrary triangle. This is done with one of the
 `getTriToTri` methods
 
-**API:** `org.eclipse.imagen.jai.PerspectiveTrans |
+**API:** `org.eclipse.imagen.PerspectiveTrans |
 |                                   | form`
 
     static AffineTransform getTriToTri(double x0, double y0, double 
@@ -1541,7 +1541,7 @@ inverse transforms a specified Point2D to another Point2D. Another
 `inverseTransform` method inverse transforms an array of
 double-precision coordinates.
 
-**API:** `org.eclipse.imagen.jai.PerspectiveTrans |
+**API:** `org.eclipse.imagen.PerspectiveTrans |
 |                                   | form`
 
     Point2D inverseTransform(Point2D ptSrc, Point2D ptDst)
@@ -1596,7 +1596,7 @@ true inverse. Since it is unnecessary to normalize the adjoint, it is
 both faster to compute and more numerically stable than the true
 inverse.
 
-**API:** `org.eclipse.imagen.jai.PerspectiveTrans |
+**API:** `org.eclipse.imagen.PerspectiveTrans |
 |                                   | form`
 
     public PerspectiveTransform createAdjoint()
@@ -1637,7 +1637,7 @@ image and one parameter:
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#73592}   [Type]{#73594}       [Description]{#73596}
   --------------------- -------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [type]{#73598}\       [Integer]{#73600}\   [The type of flip operation to be performed. One of FLIP\_VERTICAL, FLIP\_HORIZONTAL, FLIP\_DIAGONAL, FLIP\_ANTIDIAGONAL, ROTATE\_90, ROTATE\_180, or ROTATE\_270]{#73602}\
+  type       Integer   The type of flip operation to be performed. One of FLIP\_VERTICAL, FLIP\_HORIZONTAL, FLIP\_DIAGONAL, FLIP\_ANTIDIAGONAL, ROTATE\_90, ROTATE\_180, or ROTATE\_270
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1714,15 +1714,15 @@ parameters:
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameters]{#57345}       [Type]{#57347}             [Description]{#57349}
   -------------------------- -------------------------- -------------------------------------------------------------------------------------------------------------------------------------
-  [shear]{#57351}\           [Float]{#57353}\           [The shear value.]{#57355}\
+  shear           Float           The shear value.
 
-  [shearDir]{#57357}\        [Integer]{#57359}\         [The shear direction: SHEAR\_HORIZONTAL or SHEAR\_VERTICAL]{#57361}\
+  shearDir        Integer         The shear direction: SHEAR\_HORIZONTAL or SHEAR\_VERTICAL
 
-  [xTrans]{#57363}\          [Float]{#57365}\           [The *x* translation.]{#57367}\
+  xTrans          Float           The *x* translation.
 
-  [yTrans]{#57369}\          [Float]{#57371}\           [The *y* translation.]{#57373}\
+  yTrans          Float           The *y* translation.
 
-  [interpolation]{#57375}\   [Interpolation]{#57377}\   [The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.]{#57379}\
+  interpolation   Interpolation   The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2005,10 +2005,10 @@ operation takes one rendered source image and two parameters:
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameters]{#73654}       [Type]{#73656}             [Description]{#73658}
   -------------------------- -------------------------- ------------------------------------------------------------------------------------------------------------------------------------------
-  [warp]{#73698}\            [Warp]{#73700}\            [The warp object. One of]{#73702}\
+  warp            Warp            The warp object. One of
                                                         [WarpAffine]{#73703} [WarpGrid]{#73704} [WarpPerspective]{#73705} [WarpPolynomial]{#73706} [WarpQuadratic]{#73707} [WarpOpImage]{#73708}
 
-  [interpolation]{#73684}\   [Interpolation]{#73686}\   [The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.]{#73689}\
+  interpolation   Interpolation   The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2021,19 +2021,19 @@ The warp object will be one of the following:
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Object]{#66940}                   [Description]{#66942}
   ---------------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [WarpAffine]{#66944}\              [An affine-based image warp. See]{#66946} [Section 8.7.8, \"Affine Warp](../geom-image-manip).\"\
+  WarpAffine              [An affine-based image warp. See]{#66946} [Section 8.7.8, \"Affine Warp](../geom-image-manip).\"\
 
-  [WarpCubic]{#66948}\               [A cubic-based image warp. See]{#66950} [Section 8.7.6, \"Cubic Warp](../geom-image-manip).\"\
+  WarpCubic               [A cubic-based image warp. See]{#66950} [Section 8.7.6, \"Cubic Warp](../geom-image-manip).\"\
 
-  [WarpGeneralPolynomial]{#66952}\   [A polynomial-based image warp for polynomials of a higher degree. See]{#66954} [Section 8.7.3, \"General Polynomial Warp](../geom-image-manip).\"\
+  WarpGeneralPolynomial   [A polynomial-based image warp for polynomials of a higher degree. See]{#66954} [Section 8.7.3, \"General Polynomial Warp](../geom-image-manip).\"\
 
-  [WarpGrid]{#66956}\                [A grid-based image warp where the image may be warped in pieces. See]{#66958} [Section 8.7.4, \"Grid Warp](../geom-image-manip).\"\
+  WarpGrid                [A grid-based image warp where the image may be warped in pieces. See]{#66958} [Section 8.7.4, \"Grid Warp](../geom-image-manip).\"\
 
-  [WarpPerspective]{#66960}\         [A perspective or projective image warp. See]{#66962} [Section 8.7.7, \"Perspective Warp](../geom-image-manip).\"\
+  WarpPerspective         [A perspective or projective image warp. See]{#66962} [Section 8.7.7, \"Perspective Warp](../geom-image-manip).\"\
 
-  [WarpPolynomial]{#66964}\          [A polynomial-based description of an image warp. See]{#66966} [Section 8.7.2, \"Polynomial Warp](../geom-image-manip).\"\
+  WarpPolynomial          [A polynomial-based description of an image warp. See]{#66966} [Section 8.7.2, \"Polynomial Warp](../geom-image-manip).\"\
 
-  [WarpQuadratic]{#66968}\           [A quadratic-based description of an image warp. See]{#66970} [Section 8.7.5, \"Quadratic Warp](../geom-image-manip).\"\
+  WarpQuadratic           [A quadratic-based description of an image warp. See]{#66970} [Section 8.7.5, \"Quadratic Warp](../geom-image-manip).\"\
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2044,9 +2044,9 @@ necessary parameters to it. The `Warp` operation takes two parameters:
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Parameter]{#67163}        [Description]{#67165}
   -------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------
-  [warp]{#67167}\            [The Warp object. One of WarpAffine, WarpCubic, WarpGeneralPolynomial, WarpGrid, WarpPerspective, WarpPolynomial, or WarpQuadratic.]{#67169}\
+  warp            The Warp object. One of WarpAffine, WarpCubic, WarpGeneralPolynomial, WarpGrid, WarpPerspective, WarpPolynomial, or WarpQuadratic.
 
-  [interpolation]{#67171}\   [The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.]{#67173}\
+  interpolation   The interpolation method for resampling. One of INTERP\_NEAREST, INTERP\_BILINEAR, INTERP\_BICUBIC, or INTERP\_BICUBIC2.
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -2126,24 +2126,24 @@ number of points required for each degree of warp are as follows:
   -------------------------------------------------------
   [Degree of Warp]{#64068}   [Number of Points]{#64070}
   -------------------------- ----------------------------
-  [1]{#64072}\               [3]{#64074}\
+  1               3
 
-  [2]{#64076}\               [6]{#64078}\
+  2               6
 
-  [3]{#64080}\               [10]{#64082}\
+  3               10
 
-  [4]{#64084}\               [15]{#64086}\
+  4               15
 
-  [5]{#64088}\               [21]{#64090}\
+  5               21
 
-  [6]{#64092}\               [28]{#64094}\
+  6               28
 
-  [7]{#64096}\               [36]{#64098}\
+  7               36
   -------------------------------------------------------
 
   : 
 
-**API:** `org.eclipse.imagen.jai.WarpPolynomial`
+**API:** `org.eclipse.imagen.WarpPolynomial`
 
     WarpPolynomial(float[] coeffs)
 
@@ -2235,7 +2235,7 @@ output of the functions is given in fixed-point, subpixel coordinates
 with a number of fractional bits specified by the `subsampleBitsH` and
 `subsampleBitsV` parameters.
 
-**API:** `org.eclipse.imagen.jai.WarpGeneralPolyn |
+**API:** `org.eclipse.imagen.WarpGeneralPolyn |
 |                                   | omial`
 
     WarpGeneralPolynomial(float[] xCoeffs, float[] yCoeffs)
@@ -2366,7 +2366,7 @@ the data in the table would be as follows:
 
 for a total of 2(2 + 1)(1 + 1) = 12 elements.
 
-**API:** `org.eclipse.imagen.jai.WarpGrid`
+**API:** `org.eclipse.imagen.WarpGrid`
 
     WarpGrid(int xStart, int xStep, int xNumCells, int yStart, 
            int  yStep, int yNumCells, float[] warpPositions)
@@ -2473,7 +2473,7 @@ image warp. The source position (*x*\', *y*\') of a point (*x*, *y*)
 is given by the following quadratic bivariate polynomial:
 
 
-**API:** `org.eclipse.imagen.jai.WarpQuadratic`
+**API:** `org.eclipse.imagen.WarpQuadratic`
 
     WarpQuadratic(float[] xCoeffs, float[] yCoeffs, 
            float  preScaleX, float preScaleY, float postScaleX, 
@@ -2561,7 +2561,7 @@ following cubic polynomial:
 
 
 
-**API:** `org.eclipse.imagen.jai.WarpCubic`
+**API:** `org.eclipse.imagen.WarpCubic`
 
     WarpCubic(float[] xCoeffs, float[] yCoeffs, float preScaleX, 
            float preScaleY, float postScaleX, float postScaleY)
@@ -2632,7 +2632,7 @@ specification of a perspective image transformation. See [Section 8.4,
 \"Perspective Transformation](../geom-image-manip),\" for
 a description of the `PerspectiveTransform` class.
 
-**API:** `org.eclipse.imagen.jai.WarpPerspective`
+**API:** `org.eclipse.imagen.WarpPerspective`
 
     WarpPerspective(PerspectiveTransform transform)
 
@@ -2746,7 +2746,7 @@ an affine-based warp operation.
 
 ------------------------------------------------------------------------
 
-**API:** `org.eclipse.imagen.jai.WarpAffine`
+**API:** `org.eclipse.imagen.WarpAffine`
 
     public WarpAffine(float[] xCoeffs, float[] yCoeffs, 
            float  preScaleX, float  preScaleY, float postScaleX, 
