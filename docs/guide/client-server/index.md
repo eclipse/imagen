@@ -72,8 +72,7 @@ is supplied. If the `serverName` parameter is null, the default is to
 search for the RMIImage service on the local host at the default
 *rmiregistry* port (1099.
 
-**API:** 
-|                                   | `javax.media.jai.RemoteImage`     |
+**API:** `org.eclipse.imagen.jai.RemoteImage`
 
     RemoteImage(String serverName, RenderedImage source)
 
@@ -120,8 +119,7 @@ The number of times the program will attempt to read the remote image
 may be read with the `getNumRetries` method. The `setNumRetries`
 method is used to set the maximum number of retries.
 
-**API:** 
-|                                   | `javax.media.jai.RemoteImage`     |
+**API:** `org.eclipse.imagen.jai.RemoteImage`
 
     void setTimeout(int timeout)
 
@@ -419,8 +417,7 @@ Program Using Two Nodes (Sheet 1 of 2)**
 
 ------------------------------------------------------------------------
 
-**API:** 
-|                                   | `javax.media.jai.RemoteImage`     |
+**API:** `org.eclipse.imagen.jai.RemoteImage`
 
     int getWidth()
 

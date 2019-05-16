@@ -29,74 +29,74 @@ This version of is based on release {{ version }} of the Eclipse ImageN API.
 
 If any discrepancies between this guide and the javadocs are noted, always
 consider the javadocs to be the most accurate, since they are
-generated directly from the JAI files and are always the most up to
+generated directly from the source files and are always the most up to
 date.
 
 About This Book
 ---------------
 
 **[Chapter 1, \"Introduction to Java Advanced
-Imaging](Introduction.doc.html#47285),\"** gives an overview of the
+Imaging\"](../introduction/index.html),** gives an overview of the
 Java Advanced Imaging API, how it evolved from the original Java
 Advanced Windowing Toolkit (AWT), some of its features, and introduces
 the imaging operations.
 
-**[Chapter 2, \"Java AWT Imaging](J2D-concepts.doc.html#47285),\"**
+**[Chapter 2, \"Java AWT Imaging\"](J2D-concepts.doc.html#47285),"**
 reviews the imaging portions of the Java AWT and examines the imaging
 features of the Java 2D API.
 
 **[Chapter 3, \"Programming in Java Advanced
-Imaging](Programming-environ.doc.html#47285),\"** describes how to get
+Imaging\"](Programming-environ.doc.html#47285),** describes how to get
 started programming with the Java Advanced Imaging API.
 
 **[Chapter 4, \"Image Acquisition and
-Display](Acquisition.doc.html#81550),\"** describes the Java Advanced
+Display\"](Acquisition.doc.html#81550),** describes the Java Advanced
 Imaging API image data types and the API constructors and methods for
 image acquisition and display.
 
-**[Chapter 5, \"Color Space](Color.doc.html#47285),\"** describes the
-JAI color space, transparency, and the color conversion operators.
+**[Chapter 5, \"Color Space\"](Color.doc.html#47285),** describes the
+ color space, transparency, and the color conversion operators.
 
 **[Chapter 6, \"Image
-Manipulation](Image-manipulation.doc.html#47285),\"** describes the
+Manipulation\"](Image-manipulation.doc.html#47285),** describes the
 basics of manipulating images to prepare them for processing and
 display.
 
-**[Chapter 7, \"Image Enhancement](Image-enhance.doc.html#47285),\"**
+**[Chapter 7, \"Image Enhancement\"](Image-enhance.doc.html#47285),**
 describes the basics of improving the visual appearance of images
 through enhancement techniques.
 
 **[Chapter 8, \"Geometric Image
-Manipulation](Geom-image-manip.doc.html#51140),\"** describes the
+Manipulation\"](Geom-image-manip.doc.html#51140),** describes the
 basics of Java Advanced Imaging\'s geometric image manipulation
 functions.
 
-**[Chapter 9, \"Image Analysis](Analysis.doc.html#55366),\"**
+**[Chapter 9, \"Image Analysis\"](Analysis.doc.html#55366),**
 describes the Java Advanced Imaging API image analysis operators.
 
-**[Chapter 10, \"Graphics Rendering](Graphics.doc.html#51143),\"**
+**[Chapter 10, \"Graphics Rendering\"](Graphics.doc.html#51143),**
 describes the Java Advanced Imaging presentation of shapes and text.
 
-**[Chapter 11, \"Image Properties](Properties.doc.html#47285),\"**
+**[Chapter 11, \"Image Properties\"](Properties.doc.html#47285),**
 describes the tools that allow a programmer to add a simple database
 of arbitrary data that can be attached to images.
 
 **[Chapter 12, \"Client-Server
-Imaging](Client-server.doc.html#47285),\"** describes Java Advanced
+Imaging\"](Client-server.doc.html#47285),** describes Java Advanced
 Imaging\'s client-server imaging system.
 
-**[Chapter 13, \"Writing Image Files](Encode.doc.html#47285),\"**
+**[Chapter 13, \"Writing Image Files\"](Encode.doc.html#47285),**
 describes Java Advanced Imaging\'s codec system for encoding image
 data files.
 
-**[Chapter 14, \"Extending the API](Extension.doc.html#47285),\"**
+**[Chapter 14, \"Extending the API\"](Extension.doc.html#47285),**
 describes how the Java Advanced Imaging API is extended.
 
-**[Appendix A, \"Program Examples](Examples.doc.html#72446),\"**
+**[Appendix A, \"Program Examples\"](Examples.doc.html#72446),**
 contains fully-operational Java Advanced Imaging program examples.
 
-**[Appendix B, \"Java Advanced Imaging API
-Summary](API-summary.doc.html#72446),\"** summarizes the imaging
+**[Appendix B, \"API
+Summary\"](API-summary.doc.html#72446),** summarizes the imaging
 interfaces, and classes, including the `java.awt`, `java.awt.Image`,
 and `javax.media.jai` classes.
 
@@ -146,16 +146,15 @@ following books:
 Additional Information
 ----------------------
 
-Since Java Advanced Imaging continues to evolve and periodically add
+Since Eclipse ImageN continues to evolve and periodically add
 new operators, it is always a good idea to occasionally check the
-JavaSoft JAI web site for the latest information.
+project page for the latest information.
 
-:   `http://java.sun.com/products/java-media/jai/`
+:   `https://projects.eclipse.org/projects/technology.imagen`
 
-The web site contains links to the latest version of JAI, email
-aliases for obtaining help from the community of JAI developers, and a
-tutorial that includes examples of the use of many JAI operators.
-
+The web site contains links to the latest version of ImageN, email
+list to take part in the community, and tutorial and demos 
+including examples of the use of many ImageN operators.
 
 Style Conventions
 -----------------
@@ -174,19 +173,7 @@ The following style conventions are used in this document:
 Throughout the book, we introduce many API calls with the following
 format:
 
-**API:** 
-|                                   | `javax.media.jai.TiledImage`      |
+**API:** `org.eclipse.imagen.jai.TiledImage`
 
 When introducing an API call for the first time, we add a short
-summary of the methods, tagged with the API heading.
-
-------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+list of the methods, tagged with the API heading.

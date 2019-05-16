@@ -154,9 +154,8 @@ The following sample code is an example of encoding a BMP file.
 
 ------------------------------------------------------------------------
 
-**API:** 
-|                                   | `javax.media.jai.codec.ImageCodec |
-|                                   | `                                 |
+**API:** `org.eclipse.imagen.jai.codec.ImageCodec |
+|                                   | `
 
     static ImageEncoder createImageEncoder(java.lang.String name, 
     java.io.OutputStream dst, ImageEncodeParam param)
@@ -182,9 +181,8 @@ The following sample code is an example of encoding a BMP file.
     supplied `OutputStream` object. A null `ImageEncoderParam` is
     used.
 
-**API:** 
-|                                   | `javax.media.jai.codec.ImageEncod |
-|                                   | er`                               |
+**API:** `org.eclipse.imagen.jai.codec.ImageEncod |
+|                                   | er`
 
     void encode(java.awt.image.Raster ras)
 
@@ -232,9 +230,8 @@ The following sample code is an example of decoding a JPEG file.
 
 ------------------------------------------------------------------------
 
-**API:** 
-|                                   | `javax.media.jai.codec.ImageCodec |
-|                                   | `                                 |
+**API:** `org.eclipse.imagen.jai.codec.ImageCodec |
+|                                   | `
 
     static ImageDecoder createImageDecoder(java.lang.String name, 
     java.io.InputStream src, ImageDecodeParam param)
@@ -259,9 +256,8 @@ The following sample code is an example of decoding a JPEG file.
 :   returns an `ImageDecoder` object suitable for decoding from the
     supplied `InputStream`. A null `ImageDecodeParam` is used.
 
-**API:** 
-|                                   | `javax.media.jai.codec.ImageDecod |
-|                                   | er`                               |
+**API:** `org.eclipse.imagen.jai.codec.ImageDecod |
+|                                   | er`
 
     java.awt.image.Raster decodeAsRaster()
 
@@ -378,9 +374,8 @@ specified with `getVersion` and `setVersion` methods in the
 
 If not specifically set, `VERSION_3` is the default version.
 
-**API:** 
-|                                   | `javax.media.jai.codec.BMPEncodeP |
-|                                   | aram`                             |
+**API:** `org.eclipse.imagen.jai.codec.BMPEncodeP |
+|                                   | aram`
 
     int getVersion()
 
@@ -410,9 +405,8 @@ Advanced Imaging currently supports four compression types:
 If not specifically set, `BI_RGB` is the default type (no
 compression).
 
-**API:** 
-|                                   | `javax.media.jai.codec.BMPEncodeP |
-|                                   | aram`                             |
+**API:** `org.eclipse.imagen.jai.codec.BMPEncodeP |
+|                                   | aram`
 
     int getCompression()
 
@@ -442,9 +436,8 @@ layout is one of the following:
 
   : 
 
-**API:** 
-|                                   | `javax.media.jai.codec.BMPEncodeP |
-|                                   | aram`                             |
+**API:** `org.eclipse.imagen.jai.codec.BMPEncodeP |
+|                                   | aram`
 
     int getDataLayout()
 
@@ -464,9 +457,8 @@ are 1, 4, 8, and 24. Support for 16- and 32-bit images has also been
 implemented in Java Advanced imaging, though such BMP images are not
 very common.
 
-**API:** 
-|                                   | `javax.media.jai.codec.BMPEncodeP |
-|                                   | aram`                             |
+**API:** `org.eclipse.imagen.jai.codec.BMPEncodeP |
+|                                   | aram`
 
     int getBitsPerPixel()
 
@@ -637,9 +629,8 @@ Table 0 is designed to be used with the luminance band of eight-bit
 YCC images. Table 1 is designed to be used with the chrominance bands
 of eight-bit YCC images. Tables 2 and 3 are not normally used.
 
-**API:** 
-|                                   | `javax.media.jai.codec.JPEGEncode |
-|                                   | Param`                            |
+**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+|                                   | Param`
 
     void setQTable(int tableNum, 
     com.sun.image.codec.jpeg.JPEGQTable qTable)
@@ -685,9 +676,8 @@ tables for the AC discrete cosine transform coefficients, as listed in
   :  **[*Table 11-3* ![](shared/sm-blank.gif) AC Huffman
   Tables]{#53175}**
 
-**API:** 
-|                                   | `javax.media.jai.codec.JPEGEncode |
-|                                   | Param`                            |
+**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+|                                   | Param`
 
     void setACHuffmanTable(int tableNum, 
     com.sun.image.codec.jpeg.JPEGHuffmanTable huffTable)
@@ -728,9 +718,8 @@ tables for the DC discrete cosine transform coefficients, as listed in
   :  **[*Table 11-4* ![](shared/sm-blank.gif) DC Huffman
   Tables]{#53232}**
 
-**API:** 
-|                                   | `javax.media.jai.codec.JPEGEncode |
-|                                   | Param`                            |
+**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+|                                   | Param`
 
     void setDCHuffmanTable(int tableNum, 
     com.sun.image.codec.jpeg.JPEGHuffmanTable huffTable)
@@ -797,9 +786,8 @@ Subsampling can easily be accomplished using a symmetrical digital
 filter with an even number of taps (coefficients). A commonly used
 filter for 2:1 subsampling uses two taps (1/2, 1/2).
 
-**API:** 
-|                                   | `javax.media.jai.codec.JPEGEncode |
-|                                   | Param`                            |
+**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+|                                   | Param`
 
     void setHorizontalSubsampling(int component, int subsample)
 
@@ -854,9 +842,8 @@ parameters.
 
   :  **[*Table 11-5* ![](shared/sm-blank.gif) Marker Data]{#53464}**
 
-**API:** 
-|                                   | `javax.media.jai.codec.JPEGEncode |
-|                                   | Param`                            |
+**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+|                                   | Param`
 
     void setMarkerData(int marker, byte[][] data)
 
@@ -905,9 +892,8 @@ desired aspect ratio. For example, set `XDensity` = 1 and `YDensity` =
 1 to specify a 1:1 aspect ratio. The values for `XDensity` and
 `YDensity` should always be non-zero.
 
-**API:** 
-|                                   | `javax.media.jai.codec.JPEGEncode |
-|                                   | Param`                            |
+**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+|                                   | Param`
 
     void setDensityUnit(int unit)
 
@@ -964,9 +950,8 @@ Table](Compression.doc.html#52322).\"
 
 ------------------------------------------------------------------------
 
-**API:** 
-|                                   | `javax.media.jai.codec.JPEGEncode |
-|                                   | Param`                            |
+**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+|                                   | Param`
 
     void setQuality(float quality, boolean forceBaseline)
 
@@ -980,9 +965,8 @@ What does forceBaseline do - set to the baseline process?
 These methods don\'t currently have a home. I\'m not sure what to do
 with them.
 
-**API:** 
-|                                   | `javax.media.jai.codec.JPEGEncode |
-|                                   | Param`                            |
+**API:** `org.eclipse.imagen.jai.codec.JPEGEncode |
+|                                   | Param`
 
     void setImageInfoValid(boolean flag)
 
@@ -1097,9 +1081,8 @@ The PNM fotmat comes in six variants:
 
 -   PPM raw - single-banded images
 
-**API:** 
-|                                   | `javax.media.jai.codec.PNMEncodeP |
-|                                   | aram`                             |
+**API:** `org.eclipse.imagen.jai.codec.PNMEncodeP |
+|                                   | aram`
 
     void setRaw(boolean raw)
 

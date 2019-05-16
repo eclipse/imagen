@@ -227,8 +227,7 @@ For `float` and `double` images, JAI uses a `float` between 0.0F and
 1.0F (not including 1.0F) as a positional specifier in the interest of
 greater accuracy.
 
-**API:** 
-|                                   | `javax.media.jai.Interpolation`   |
+**API:** `org.eclipse.imagen.jai.Interpolation`
 
     static Interpolation getInstance(int type)
 
@@ -346,9 +345,8 @@ Neighborhoods of sizes 2 x 1, 1 x 2, 2 x 2, 4 x 1, 1 x 4, 4 x 4, N x
 code that handles a number of types of interpolation. In each case,
 the central sample is returned and the rest are ignored.
 
-**API:** 
-|                                   | `javax.media.jai.InterpolationNea |
-|                                   | rest`                             |
+**API:** `org.eclipse.imagen.jai.InterpolationNea |
+|                                   | rest`
 
     InterpolationNearest()
 
@@ -374,9 +372,8 @@ given by (*u*, *v*), the resampled pixel value will be:
 
 :   ![](Geom-image-manip.doc.anc4.gif)
 
-**API:** 
-|                                   | `javax.media.jai.InterpolationBil |
-|                                   | inear`                            |
+**API:** `org.eclipse.imagen.jai.InterpolationBil |
+|                                   | inear`
 
     InterpolationBilinear(int subsampleBits)
 
@@ -417,9 +414,8 @@ Bicubic interpolation requires a neighborhood extending one sample to
 the left of and above the central sample, and two samples to the right
 of and below the central sample.
 
-**API:** 
-|                                   | `javax.media.jai.InterpolationBic |
-|                                   | ubic`                             |
+**API:** `org.eclipse.imagen.jai.InterpolationBic |
+|                                   | ubic`
 
     InterpolationBicubic(int subsampleBits)
 
@@ -444,9 +440,8 @@ Bicubic interpolation requires a neighborhood extending one sample to
 the left of and above the central sample, and two samples to the right
 of and below the central sample.
 
-**API:** 
-|                                   | `javax.media.jai.InterpolationBic |
-|                                   | ubic2`                            |
+**API:** `org.eclipse.imagen.jai.InterpolationBic |
+|                                   | ubic2`
 
     InterpolationBicubic2(int subsampleBits)
 
@@ -647,9 +642,8 @@ If a value of `null` is given for `dataV`, the `dataH` table data is
 used for vertical interpolation as well, and the `topPadding`,
 `height`, and `subsampleBitsV` parameters are ignored.
 
-**API:** 
-|                                   | `javax.media.jai.InterpolationTab |
-|                                   | le`                               |
+**API:** `org.eclipse.imagen.jai.InterpolationTab |
+|                                   | le`
 
     InterpolationTable(int padding, int width, int subsampleBits, 
            int precisionBits, float[] data)
@@ -734,9 +728,8 @@ The `InterpolationTable` class provides several methods for retrieving
 an interpolation table\'s kernel data values, subsample size, and
 precision.
 
-**API:** 
-|                                   | `javax.media.jai.InterpolationTab |
-|                                   | le`                               |
+**API:** `org.eclipse.imagen.jai.InterpolationTab |
+|                                   | le`
 
     int getSubsampleBitsH()
 
@@ -1384,9 +1377,8 @@ The perspective transform is used with the perspective warp operation.
 See [Section 8.7.7, \"Perspective
 Warp](Geom-image-manip.doc.html#58571).\"
 
-**API:** 
-|                                   | `javax.media.jai.PerspectiveTrans |
-|                                   | form`                             |
+**API:** `org.eclipse.imagen.jai.PerspectiveTrans |
+|                                   | form`
 
     PerspectiveTransform(float m00, float m01, float m02, 
            float  m10, float m11, float m12, float m20, float m21, 
@@ -1470,9 +1462,8 @@ another arbitrary quadrilateral:
     (*x*2, *y*2) ![](shared/chars/arrwrite.gif) (*x*2p, *y*2p)\
     (*x*3, *y*3) ![](shared/chars/arrwrite.gif) (*x*3p, *y*3p)
 
-**API:** 
-|                                   | `javax.media.jai.PerspectiveTrans |
-|                                   | form`                             |
+**API:** `org.eclipse.imagen.jai.PerspectiveTrans |
+|                                   | form`
 
     static PerspectiveTransform getSquareToQuad(double x0, 
            double  y0, double x1, double y1, double x2, double y2, 
@@ -1529,9 +1520,8 @@ create a perspective transform that can be used to map one arbitrary
 triangle to another arbitrary triangle. This is done with one of the
 `getTriToTri` methods
 
-**API:** 
-|                                   | `javax.media.jai.PerspectiveTrans |
-|                                   | form`                             |
+**API:** `org.eclipse.imagen.jai.PerspectiveTrans |
+|                                   | form`
 
     static AffineTransform getTriToTri(double x0, double y0, double 
            x1, double y1, double x2, double y2)
@@ -1563,9 +1553,8 @@ inverse transforms a specified Point2D to another Point2D. Another
 `inverseTransform` method inverse transforms an array of
 double-precision coordinates.
 
-**API:** 
-|                                   | `javax.media.jai.PerspectiveTrans |
-|                                   | form`                             |
+**API:** `org.eclipse.imagen.jai.PerspectiveTrans |
+|                                   | form`
 
     Point2D inverseTransform(Point2D ptSrc, Point2D ptDst)
 
@@ -1619,9 +1608,8 @@ true inverse. Since it is unnecessary to normalize the adjoint, it is
 both faster to compute and more numerically stable than the true
 inverse.
 
-**API:** 
-|                                   | `javax.media.jai.PerspectiveTrans |
-|                                   | form`                             |
+**API:** `org.eclipse.imagen.jai.PerspectiveTrans |
+|                                   | form`
 
     public PerspectiveTransform createAdjoint()
 
@@ -2167,8 +2155,7 @@ number of points required for each degree of warp are as follows:
 
   : 
 
-**API:** 
-|                                   | `javax.media.jai.WarpPolynomial`  |
+**API:** `org.eclipse.imagen.jai.WarpPolynomial`
 
     WarpPolynomial(float[] coeffs)
 
@@ -2260,9 +2247,8 @@ output of the functions is given in fixed-point, subpixel coordinates
 with a number of fractional bits specified by the `subsampleBitsH` and
 `subsampleBitsV` parameters.
 
-**API:** 
-|                                   | `javax.media.jai.WarpGeneralPolyn |
-|                                   | omial`                            |
+**API:** `org.eclipse.imagen.jai.WarpGeneralPolyn |
+|                                   | omial`
 
     WarpGeneralPolynomial(float[] xCoeffs, float[] yCoeffs)
 
@@ -2392,8 +2378,7 @@ the data in the table would be as follows:
 
 for a total of 2(2 + 1)(1 + 1) = 12 elements.
 
-**API:** 
-|                                   | `javax.media.jai.WarpGrid`        |
+**API:** `org.eclipse.imagen.jai.WarpGrid`
 
     WarpGrid(int xStart, int xStep, int xNumCells, int yStart, 
            int  yStep, int yNumCells, float[] warpPositions)
@@ -2500,8 +2485,7 @@ image warp. The source position (*x*\', *y*\') of a point (*x*, *y*)
 is given by the following quadratic bivariate polynomial:
 
 
-**API:** 
-|                                   | `javax.media.jai.WarpQuadratic`   |
+**API:** `org.eclipse.imagen.jai.WarpQuadratic`
 
     WarpQuadratic(float[] xCoeffs, float[] yCoeffs, 
            float  preScaleX, float preScaleY, float postScaleX, 
@@ -2589,8 +2573,7 @@ following cubic polynomial:
 
 
 
-**API:** 
-|                                   | `javax.media.jai.WarpCubic`       |
+**API:** `org.eclipse.imagen.jai.WarpCubic`
 
     WarpCubic(float[] xCoeffs, float[] yCoeffs, float preScaleX, 
            float preScaleY, float postScaleX, float postScaleY)
@@ -2661,8 +2644,7 @@ specification of a perspective image transformation. See [Section 8.4,
 \"Perspective Transformation](Geom-image-manip.doc.html#55959),\" for
 a description of the `PerspectiveTransform` class.
 
-**API:** 
-|                                   | `javax.media.jai.WarpPerspective` |
+**API:** `org.eclipse.imagen.jai.WarpPerspective`
 
     WarpPerspective(PerspectiveTransform transform)
 
@@ -2776,8 +2758,7 @@ an affine-based warp operation.
 
 ------------------------------------------------------------------------
 
-**API:** 
-|                                   | `javax.media.jai.WarpAffine`      |
+**API:** `org.eclipse.imagen.jai.WarpAffine`
 
     public WarpAffine(float[] xCoeffs, float[] yCoeffs, 
            float  preScaleX, float  preScaleY, float postScaleX, 

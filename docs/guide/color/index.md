@@ -220,9 +220,8 @@ The following sample code shows the construction of a
 
       : 
 
-**API:** 
-|                                   | `javax.media.jai.FloatDoubleColor |
-|                                   | Model`                            |
+**API:** `org.eclipse.imagen.jai.FloatDoubleColor |
+|                                   | Model`
 
     FloatDoubleColorModel(ColorSpace colorSpace, boolean hasAlpha, 
            boolean isAlphaPremultiplied, int transparency, 

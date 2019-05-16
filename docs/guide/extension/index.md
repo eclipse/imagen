@@ -401,9 +401,8 @@ relative to operation parameters.
   :  **[*Table 14-4* ![](shared/sm-blank.gif) Parameter
   Methods]{#58876}**
 
-**API:** 
-|                                   | `javax.media.jai.OperationRegistr |
-|                                   | y`                                |
+**API:** `org.eclipse.imagen.jai.OperationRegistr |
+|                                   | y`
 
     void registerOperationDescriptor(OperationDescriptor odesc, 
            String operationName)
@@ -554,9 +553,8 @@ An instance of `RectIter` may be obtained by means of the
 `RectIterFactory.create()` method, which returns an opaque object
 implementing this interface.
 
-**API:** 
-|                                   | `javax.media.jai.iterator.RectIte |
-|                                   | rFactory`                         |
+**API:** `org.eclipse.imagen.jai.iterator.RectIte |
+|                                   | rFactory`
 
     static RectIter create(RenderedImage im, Rectangle bounds)
 
@@ -611,9 +609,8 @@ implementing this interface.
     `bounds`
     The bounding `Rectangle` for the iterator, or null.
 
-**API:** 
-|                                   | `javax.media.jai.iterator.RectIte |
-|                                   | r`                                |
+**API:** `org.eclipse.imagen.jai.iterator.RectIte |
+|                                   | r`
 
     void startLines()
 
@@ -778,9 +775,8 @@ The `getSample()`, `getSampleFloat()`, and `getSampleDouble()` methods
 are provided to allow read-only access to the source data. The
 `getPixel()` methods allow retrieval of all bands simultaneously.
 
-**API:** 
-|                                   | `javax.media.jai.iterator.RandomI |
-|                                   | terFactory`                       |
+**API:** `org.eclipse.imagen.jai.iterator.RandomI |
+|                                   | terFactory`
 
     static RandomIter create(RenderedImage im, Rectangle bounds)
 

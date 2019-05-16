@@ -564,8 +564,7 @@ request onto its successor. This process continues until the latest
 Snapshot is reached; if it does not contain a copy of the tile, the
 tile is requested from the real source image.
 
-**API:** 
-|                                   | `javax.media.jai.SnapShotImage`   |
+**API:** `org.eclipse.imagen.jai.SnapShotImage`
 
     SnapshotImage(PlanarImage source)
 
@@ -625,8 +624,7 @@ discarded.
 Disposing of the `Snapshot` allows tile data held by the Snapshot that
 is not needed by any other `Snapshot` to be disposed of as well.
 
-**API:** 
-|                                   | `javax.media.jai.PlanarImage`     |
+**API:** `org.eclipse.imagen.jai.PlanarImage`
 
     void dispose()
 
@@ -656,8 +654,7 @@ representing groups of images. Examples of groups of images include
 pyramids (`ImagePyramid`), time sequences (`ImageSequence`), and
 planar slices stacked to form a volume (`ImageStack`).
 
-**API:** 
-|                                   | `javax.media.jai.CollectionImage` |
+**API:** `org.eclipse.imagen.jai.CollectionImage`
 
     CollectionImage()
 
@@ -686,8 +683,7 @@ The images are of the type `ImageJAI`. The timestamps are of the type
 (image, time stamp, camera position) is represented by class
 `SequentialImage`.
 
-**API:** 
-|                                   | `javax.media.jai.ImageSequence`   |
+**API:** `org.eclipse.imagen.jai.ImageSequence`
 
     ImageSequence(Collection images)
 
@@ -707,8 +703,7 @@ coordinates are of the type `javax.media.jai.Coordinate`. The tuple
 (image, coordinate) is represented by class
 `javax.media.jai.CoordinateImage`.
 
-**API:** 
-|                                   | `javax.media.jai.ImageStack`      |
+**API:** `org.eclipse.imagen.jai.ImageStack`
 
     ImageStack(Collection images)
 
@@ -904,8 +899,7 @@ example of the use of `ImageMIPMap`.
 
 ------------------------------------------------------------------------
 
-**API:** 
-|                                   | `javax.media.jai.ImageMIPMap`     |
+**API:** `org.eclipse.imagen.jai.ImageMIPMap`
 
     int getCurrentLevel()
 
@@ -1188,8 +1182,7 @@ example of the use of `ImagePyramid`.
 
 ------------------------------------------------------------------------
 
-**API:** 
-|                                   | `javax.media.jai.ImagePyramid`    |
+**API:** `org.eclipse.imagen.jai.ImagePyramid`
 
     ImagePyramid(RenderedImage image, RenderedOp downsampler, 
            RenderedOp upSampler, RenderedOp differencer, 
@@ -1263,9 +1256,8 @@ dimension (height; the width is derived by the source image aspect
 ratio and is not specified) and a vector of renderedImages of
 progressively lower resolution.
 
-**API:** 
-|                                   | `javax.media.jai.MultiResolutionR |
-|                                   | enderableImage`                   |
+**API:** `org.eclipse.imagen.jai.MultiResolutionR |
+|                                   | enderableImage`
 
     public MultiResolutionRenderableImage(Vector renderedSources, 
            float minX, float minY, float height)
@@ -2454,9 +2446,8 @@ The PNG rendering hints are:
 
 To read the hints, use the `OperationDescriptorImpl.getHint` method.
 
-**API:** 
-|                                   | `javax.media.jai.OperationDescrip |
-|                                   | torImpl`                          |
+**API:** `org.eclipse.imagen.jai.OperationDescrip |
+|                                   | torImpl`
 
     Object getHint(RenderingHints.Key key, 
            RenderingHints  renderHints)
@@ -2572,8 +2563,7 @@ Image**
 
 ------------------------------------------------------------------------
 
-**API:** 
-|                                   | `javax.media.jai.PlanarImage`     |
+**API:** `org.eclipse.imagen.jai.PlanarImage`
 
     void setImageParameters(ImageLayout layout, RenderedImage im)
 
@@ -3088,8 +3078,7 @@ shown in [Figure 4-5](Acquisition.doc.html#79732).
 
 ***Figure 4-5*  Grid Layout of Four Images**
 
-**API:** 
-|                                   | `javax.media.jai.RenderedOp`      |
+**API:** `org.eclipse.imagen.jai.RenderedOp`
 
     int getWidth()
 
@@ -3099,9 +3088,8 @@ shown in [Figure 4-5](Acquisition.doc.html#79732).
 
 :   returns the height of the rendered image.
 
-**API:** 
-|                                   | `javax.media.jai.widget.Scrolling |
-|                                   | ImagePanel`                       |
+**API:** `org.eclipse.imagen.jai.widget.Scrolling |
+|                                   | ImagePanel`
 
     ScrollingImagePanel(RenderedImage im, int width, int height)
 
@@ -3126,9 +3114,8 @@ origin of the image to a given (*x*, *y*) position within the
 `ScrollingImagePanel`. The `setCenter` method sets the image center to
 a given (*x*, *y*) position within the `ScrollingImagePanel`.
 
-**API:** 
-|                                   | `javax.media.jai.widget.Scrolling |
-|                                   | ImagePanel`                       |
+**API:** `org.eclipse.imagen.jai.widget.Scrolling |
+|                                   | ImagePanel`
 
     void setOrigin(int x, int y)
 
@@ -3171,9 +3158,8 @@ Use the constructor or the `set` method to include a `RenderedImage`
 in the canvas, then use the `setOrigin` method to set the position of
 the image within the canvas.
 
-**API:** 
-|                                   | `javax.media.jai.widget.ImageCanv |
-|                                   | as`                               |
+**API:** `org.eclipse.imagen.jai.widget.ImageCanv |
+|                                   | as`
 
     ImageCanvas(RenderedImage im, boolean drawBorder)
 
@@ -3220,9 +3206,8 @@ Geometric operators are treated differently with respect to image
 origin control. See [Chapter 8, \"Geometric Image
 Manipulation](Geom-image-manip.doc.html#51140).\"
 
-**API:** 
-|                                   | `javax.media.jai.widget.ImageCanv |
-|                                   | as`                               |
+**API:** `org.eclipse.imagen.jai.widget.ImageCanv |
+|                                   | as`
 
     void setOrigin(int x, int y)
 
