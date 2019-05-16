@@ -3259,11 +3259,8 @@ nav_order: 8
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](Image-manipulation.doc.html)
-> [![Next](shared/next.gif)](Geom-image-manip.doc.html)
->
-> *Programming in Java Advanced Imaging*
+> > > >
+> 
 >
 > \
 > ^1^ [See *Computer Graphics*, July 1984 pp. 253-259.]{#61010}

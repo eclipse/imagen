@@ -473,11 +473,8 @@ nav_order: 17
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](Extension.doc.html)
-> [![Next](shared/next.gif)](API-summary.doc.html)
->
-> *Programming in Java Advanced Imaging*
+> > > >
+> 
 >
 > \
 >

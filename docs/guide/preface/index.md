@@ -5,11 +5,6 @@ parent: Programming Guide
 nav_order: 1
 ---
 
-
-*Programming in Java Advanced Imaging*
-
-\
-
 []{#48128}
 
 +----------------------------------------------------------------------:+
@@ -18,9 +13,8 @@ nav_order: 1
 | -------------------------------------------------------------------   |
 +-----------------------------------------------------------------------+
 
-> \
-> \
-> \
+# {{ title }}
+
 >
 > **T**HIS document introduces the Java Advanced Imaging API and how to
 > program in it. This document is intended for serious programmers who
@@ -59,7 +53,7 @@ nav_order: 1
 > Disclaimer
 > ----------
 >
-> This version of *Programming in Java Advanced Imaging* is based on
+> This version of  is based on
 > release 1.0.1 of the Java Advanced Imaging API. Please do not rely on
 > this document or the Java Advanced Imaging software for
 > production-quality or mission-critical applications. If any
@@ -241,11 +235,8 @@ nav_order: 1
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](JAITOC.fm.html)
-> [![Next](shared/next.gif)](Introduction.doc.html)
->
-> *Programming in Java Advanced Imaging*
+> > > >
+> 
 >
 > \
 >

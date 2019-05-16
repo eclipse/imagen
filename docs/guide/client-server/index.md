@@ -1080,11 +1080,8 @@ nav_order: 14
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](Properties.doc.html)
-> [![Next](shared/next.gif)](Encode.doc.html)
->
-> *Programming in Java Advanced Imaging*
+> > > >
+> 
 >
 > \
 >

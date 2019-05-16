@@ -905,11 +905,8 @@ nav_order: 18
 
  \
 
- [![Contents](shared/contents.gif)](JAITOC.fm.html)
- [![Previous](shared/previous.gif)](Examples.doc.html)
- [![Next](shared/next.gif)](Glossary.doc.html)
-
- *Programming in Java Advanced Imaging*
+   
+ 
 
  \
 

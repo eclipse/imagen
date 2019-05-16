@@ -3207,11 +3207,8 @@ nav_order: 10
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](Image-enhance.doc.html)
-> [![Next](shared/next.gif)](Analysis.doc.html)
->
-> *Programming in Java Advanced Imaging*
+> > > >
+> 
 >
 > \
 >

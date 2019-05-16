@@ -1,6 +1,6 @@
 ![](shared/SunLogo.gif)
 
-*Programming in Java Advanced Imaging*
+
 
 Release 1.0.1, November 1999
 

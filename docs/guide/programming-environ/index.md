@@ -2039,11 +2039,8 @@ nav_order: 4
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](J2D-concepts.doc.html)
-> [![Next](shared/next.gif)](Acquisition.doc.html)
->
-> *Programming in Java Advanced Imaging*
+> > > >
+> 
 >
 > \
 >
