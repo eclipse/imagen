@@ -1,5 +1,3 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](API-summary.doc.html)
 
 \
 
@@ -193,9 +191,7 @@
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](API-summary.doc.html)
->
+> > >
 > \
 >
 > ##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.

@@ -700,11 +700,8 @@ nav_order: 6
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](Acquisition.doc.html)
-> [![Next](shared/next.gif)](Image-manipulation.doc.html)
->
-> *Programming in Java Advanced Imaging*
+> > > >
+> 
 >
 > \
 >

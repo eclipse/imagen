@@ -2144,11 +2144,8 @@ nav_order: 15
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](Client-server.doc.html)
-> [![Next](shared/next.gif)](Extension.doc.html)
->
-> *Programming in Java Advanced Imaging*
+> > > >
+> 
 >
 > \
 >

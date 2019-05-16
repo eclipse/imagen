@@ -995,11 +995,8 @@ nav_order: 3
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](Introduction.doc.html)
-> [![Next](shared/next.gif)](Programming-environ.doc.html)
->
-> *Programming in Java Advanced Imaging*
+> > > >
+> 
 >
 > \
 >

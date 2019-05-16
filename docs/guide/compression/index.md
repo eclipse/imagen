@@ -1,8 +1,5 @@
-[![Contents](shared/contents.gif)](JAITOC.fm.html)
-[![Previous](shared/previous.gif)](Properties.doc.html)
-[![Next](shared/next.gif)](Extension.doc.html)
 
-*Programming in Java Advanced Imaging*
+
 
 \
 
@@ -1620,11 +1617,8 @@
 >
 > \
 >
-> [![Contents](shared/contents.gif)](JAITOC.fm.html)
-> [![Previous](shared/previous.gif)](Properties.doc.html)
-> [![Next](shared/next.gif)](Extension.doc.html)
->
-> *Programming in Java Advanced Imaging*
+> > > >
+> 
 >
 > \
 >
