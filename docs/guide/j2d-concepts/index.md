@@ -527,38 +527,20 @@ cyan, magenta, and yellow (CMY). A four-color subtractive image
 contains four bands; one each for cyan, magenta, yellow, and black
 (CMYK).
 
-**[*Table 2-6*  Java 2D Image Data Classes]{#52193}**
+<a name="table-2-6"></a>
 
-[Type]{#52241}
+**Table 2-6 Java 2D Image Data Classes**
 
-[Name]{#52243}
+---------------------------
 
-[Description]{#52245}
+| Type | Name | Extends | Description |
+| ---- | ---- | ------- | ----- |
+| Class | DataBuffer | Object | Wraps one or more data arrays. Each data array in the DataBuffer is referred to as a bank. |
+| Class | Raster     | Object | Represents a rectanglular array of pixels and provides methods for retrieving image data. |
+| Class | SampleModel | Object | Extracts samples of pixels in images. |
+| Class | WriteableRaster | Raster | Provides methods for storing image data and inherits methods for retrieving image data from it\'s parent class Raster. |
 
-Class
-
-DataBuffer
-
-Extends: Object
-Wraps one or more data arrays. Each data array in the DataBuffer is
-referred to as a bank.
-
-Raster
-
-Extends: Object
-Represents a rectanglular array of pixels and provides methods for
-retrieving image data.
-
-SampleModel
-
-Extends: Object
-Extracts samples of pixels in images.
-
-WriteableRaster
-
-Extends: Raster
-Provides methods for storing image data and inherits methods for
-retrieving image data from it\'s parent class Raster.
+---------------------------
 
 The basic unit of image data storage is the `DataBuffer`. The
 `DataBuffer` is a kind of raw storage that contains all of the samples
@@ -698,8 +680,8 @@ Eclipse ImageN provides two data classes, which extend the Java 2D `DataBuffer` 
 
 | Type  | Name             | Description                |
 | ----- | ---------------- | -------------------------- |
-| Class | DataBufferFloat  | Extends: `DataBuffer` \\ Stores data internally in float form. |
-| Class | DataBufferDouble | Extends: `DataBuffer` \\ Stores data internally in double form. |
+| Class | DataBufferFloat  | Extends: `DataBuffer` \n Stores data internally in float form. |
+| Class | DataBufferDouble | Extends: `DataBuffer` \n Stores data internally in double form. |
 
 --------------------------------
 
