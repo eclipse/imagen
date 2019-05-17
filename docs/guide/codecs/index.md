@@ -1,18 +1,13 @@
+---
+layout: default
+title: Codecs
+parent: Programming Guide
+nav_order: 18
+---
 
+# Image Data Codecs
 
-
-\
-
-
-  -----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)11
-  -----------------------------------------
-
-
-# Image Data Compression                                                
-
-**T**his chapter describes the Java Advanced Imaging image data
-compression coders and decoders (codecs).
+This appendix describes the ImageN image data compression coders and decoders (codecs).
 
 
 11.1 Introduction
@@ -1371,12 +1366,3 @@ The `IDCT` operation does not take any parameters.
     operation to a tuple (source, parameters, hints).
 
 ------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-
-

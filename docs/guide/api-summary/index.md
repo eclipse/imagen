@@ -5,896 +5,874 @@ parent: Programming Guide
 nav_order: 18
 ---
 
-  -------------------------------------------
-    A P P E N D I X ![](shared/sm-space.gif)B
-  -------------------------------------------
+# Eclipse ImageN API Summary
 
+This appendix summarizes the imaging interfaces and classes for Java AWT, Java 2D,
+and Eclipse ImageN.
 
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Java Advanced Imaging API Summary                                     |
-+-----------------------------------------------------------------------+
+B.1 Java AWT Imaging
+-----------------------------------------
 
- \
- \
- \
+[Table B-1](api-summary/index.html) lists and describes the
+`java.awt` imaging classes.
 
- **T**HIS appendix summarizes the imaging interfaces and classes for
- Java AWT, Java 2D, and Java Advanced Imaging API.
+  ----------------------------------------------------------------------------------------------
+  [Class]{#75403}    [Description]{#75405}
+  ------------------ ---------------------------------------------------------------------------
+  Image   Extends: Object
+                     The superclass of all classes that represent graphical images.
 
- 
- B.1 Java AWT Imaging
- -----------------------------------------
+  ----------------------------------------------------------------------------------------------
 
- [Table B-1](api-summary/index.html) lists and describes the
- `java.awt` imaging classes.
+  :  **[Table B-1 **java.awt** Imaging Classes]{#75399}**
 
-   ----------------------------------------------------------------------------------------------
-   [Class]{#75403}    [Description]{#75405}
-   ------------------ ---------------------------------------------------------------------------
-   Image   Extends: Object
-                      The superclass of all classes that represent graphical images.
 
-   ----------------------------------------------------------------------------------------------
+B.2 Java 2D Imaging
+----------------------------------------
 
-   :  **[Table B-1 **java.awt** Imaging Classes]{#75399}**
+The Java 2D API is a set of classes for advanced 2D graphics and
+imaging. It encompasses line art, text, and images in a single
+comprehensive model. The API provides extensive support for image
+compositing and alpha channel images, a set of classes to provide
+accurate color space definition and conversion, and a rich set of
+display-oriented imaging operators.
 
- 
- B.2 Java 2D Imaging
- ----------------------------------------
+The Java 2D classes are provided as additions to the `java.awt` and
+`java.awt.image` packages (rather than as a separate package).
 
- The Java 2D API is a set of classes for advanced 2D graphics and
- imaging. It encompasses line art, text, and images in a single
- comprehensive model. The API provides extensive support for image
- compositing and alpha channel images, a set of classes to provide
- accurate color space definition and conversion, and a rich set of
- display-oriented imaging operators.
 
- The Java 2D classes are provided as additions to the `java.awt` and
- `java.awt.image` packages (rather than as a separate package).
+### B.2.1 Java 2D Imaging Interfaces
 
- 
- ### B.2.1 Java 2D Imaging Interfaces
+[Table B-2](api-summary/index.html) lists and briefly describes
+the imaging interfaces defined in the `java.awt.image `(Java 2D) API.
 
- [Table B-2](api-summary/index.html) lists and briefly describes
- the imaging interfaces defined in the `java.awt.image `(Java 2D) API.
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  [Interface]{#73755}                 [Description]{#73757}
+  ----------------------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  BufferedImageOp          Describes single-input/single-output operations performed on BufferedImage objects. This is implemented by such classes as AffineTransformOp, ConvolveOp, BandCombineOp,
+                                      and LookupOp.
 
-   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   [Interface]{#73755}                 [Description]{#73757}
-   ----------------------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   BufferedImageOp          Describes single-input/single-output operations performed on BufferedImage objects. This is implemented by such classes as AffineTransformOp, ConvolveOp, BandCombineOp,
-                                       and LookupOp.
+  ImageConsumer            Used for objects expressing interest in image data through the ImageProducer interfaces.
 
-   ImageConsumer            Used for objects expressing interest in image data through the ImageProducer interfaces.
+  ImageObserver            Receives notifications about Image information as the Image is constructed.
 
-   ImageObserver            Receives notifications about Image information as the Image is constructed.
+  ImageProducer            Used for objects that can produce the image data for Images. Each image contains an ImageProducer that is used to reconstruct the image whenever it is needed, for example, when a new size of the Image is scaled, or when the width or height of the Image is being requested.
 
-   ImageProducer            Used for objects that can produce the image data for Images. Each image contains an ImageProducer that is used to reconstruct the image whenever it is needed, for example, when a new size of the Image is scaled, or when the width or height of the Image is being requested.
+  ImagingLib               Provides a hook to access platform-specific imaging code.
 
-   ImagingLib               Provides a hook to access platform-specific imaging code.
+  RasterImageConsumer      Extends: ImageConsumer
+                                      The interface for objects expressing interest in image data through the ImageProducer interfaces. When a consumer is added to an image producer, the producer delivers all of the data about the image using the method calls defined in this interface.
 
-   RasterImageConsumer      Extends: ImageConsumer
-                                       The interface for objects expressing interest in image data through the ImageProducer interfaces. When a consumer is added to an image producer, the producer delivers all of the data about the image using the method calls defined in this interface.
+  RasterOp                 Describes single-input/single-output operations performed on Raster objects. This is implemented by such classes as AffineTransformOp, ConvolveOp, and LookupOp.
 
-   RasterOp                 Describes single-input/single-output operations performed on Raster objects. This is implemented by such classes as AffineTransformOp, ConvolveOp, and LookupOp.
+  RenderedImage            A common interface for objects that contain or can produce image data in the form of Rasters.
 
-   RenderedImage            A common interface for objects that contain or can produce image data in the form of Rasters.
+  TileChangeListener       An interface for objects that wish to be informed when tiles of a WritableRenderedImage become modifiable by some writer via a call to getWritableTile, and when they become unmodifiable via the last call to releaseWritableTile.
 
-   TileChangeListener       An interface for objects that wish to be informed when tiles of a WritableRenderedImage become modifiable by some writer via a call to getWritableTile, and when they become unmodifiable via the last call to releaseWritableTile.
+  WriteableRenderedImage   Extends: RenderedImage
+                                      A common interface for objects that contain or can produce image data that can be modified and/or written over.
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-   WriteableRenderedImage   Extends: RenderedImage
-                                       A common interface for objects that contain or can produce image data that can be modified and/or written over.
-   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  :  **[Table B-2 **java.awt.image** Interfaces]{#73751}**
 
-   :  **[Table B-2 **java.awt.image** Interfaces]{#73751}**
 
- 
- ### B.2.2 Java 2D Imaging Classes
+### B.2.2 Java 2D Imaging Classes
 
- [Table B-3](api-summary/index.html) lists and briefly describes
- the imaging classes defined in the `java.awt.image `(Java 2D) API.
+[Table B-3](api-summary/index.html) lists and briefly describes
+the imaging classes defined in the `java.awt.image `(Java 2D) API.
 
-   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   [Class]{#74414}                                [Description]{#74416}
-   ---------------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   AffineTransformOp                   Extends: Object
-                                                  Implements: BufferedImageOp, RasterOp
-                                                  An abstract class that uses an affine transform to perform a linear mapping from 2D coordinates in the source image or Raster to 2D coordinates in the destination image or Raster.
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  [Class]{#74414}                                [Description]{#74416}
+  ---------------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  AffineTransformOp                   Extends: Object
+                                                 Implements: BufferedImageOp, RasterOp
+                                                 An abstract class that uses an affine transform to perform a linear mapping from 2D coordinates in the source image or Raster to 2D coordinates in the destination image or Raster.
 
-   AreaAveragingScaleFilter            Extends: ReplicateScaleFilter
-                                                  An ImageFilter class for scaling images using a simple area averaging algorithm that produces smoother results than the nearest-neighbor algorithm.
+  AreaAveragingScaleFilter            Extends: ReplicateScaleFilter
+                                                 An ImageFilter class for scaling images using a simple area averaging algorithm that produces smoother results than the nearest-neighbor algorithm.
 
-   BandCombineOp                       Extends: Object
-                                                  Implements: RasterOp
-                                                  Performs an arbitrary linear combination of bands in a Raster, using a specified matrix.
+  BandCombineOp                       Extends: Object
+                                                 Implements: RasterOp
+                                                 Performs an arbitrary linear combination of bands in a Raster, using a specified matrix.
 
-   BandedSampleModel                   Extends: SampleModel
-                                                  Provides more efficent implementations for accessing
-                                                  image data than are provided in SampleModel. Used when working with images that store sample data for each band in a different bank of the DataBuffer.
+  BandedSampleModel                   Extends: SampleModel
+                                                 Provides more efficent implementations for accessing
+                                                 image data than are provided in SampleModel. Used when working with images that store sample data for each band in a different bank of the DataBuffer.
 
-   BilinearAffineTransformOp           Extends: AffineTransformOp
-                                                  Uses an affine transformation with bilinear interpolation to transform an image or Raster.
+  BilinearAffineTransformOp           Extends: AffineTransformOp
+                                                 Uses an affine transformation with bilinear interpolation to transform an image or Raster.
 
-   BufferedImage                       Extends: Image
-                                                  Implements: WritableRenderedImage
-                                                  Describes an Image with an accessible buffer of image data.
+  BufferedImage                       Extends: Image
+                                                 Implements: WritableRenderedImage
+                                                 Describes an Image with an accessible buffer of image data.
 
-   BufferedImageFilter                 Extends: ImageFilter
-                                                  Implements: RasterImageConsumer, Cloneable
-                                                  Provides a simple means of using a single-source/single-destination image operator (BufferedImageOp) to filter a BufferedImage or Raster in the Image Producer/Consumer/Observer paradigm.
+  BufferedImageFilter                 Extends: ImageFilter
+                                                 Implements: RasterImageConsumer, Cloneable
+                                                 Provides a simple means of using a single-source/single-destination image operator (BufferedImageOp) to filter a BufferedImage or Raster in the Image Producer/Consumer/Observer paradigm.
 
-   ByteLookupTable                     Extends: LookupTable
-                                                  Defines a lookup table object. The lookup table contains byte data for one or more tile channels or image components (for example, separate arrays for R, G, and B), and it contains an offset that will be subtracted from the input value before indexing the array.
+  ByteLookupTable                     Extends: LookupTable
+                                                 Defines a lookup table object. The lookup table contains byte data for one or more tile channels or image components (for example, separate arrays for R, G, and B), and it contains an offset that will be subtracted from the input value before indexing the array.
 
-   ColorConvertOp                      Extends: Object
-                                                  Implements: BufferedImageOp, RasterOp
-                                                  Performs a pixel-by-pixel color conversion of the data in the source image. The resulting color values are scaled to the precision of the destination image data type.
+  ColorConvertOp                      Extends: Object
+                                                 Implements: BufferedImageOp, RasterOp
+                                                 Performs a pixel-by-pixel color conversion of the data in the source image. The resulting color values are scaled to the precision of the destination image data type.
 
-   ColorModel                          Extends: Object
-                                                  Implements: Transparency
-                                                  An abstract class that encapsulates the methods for translating from pixel values to color components (e.g., red, green, blue) for an image.
+  ColorModel                          Extends: Object
+                                                 Implements: Transparency
+                                                 An abstract class that encapsulates the methods for translating from pixel values to color components (e.g., red, green, blue) for an image.
 
-   ComponentColorModel                 Extends: ColorModel
-                                                  A ColorModel class that can handle an arbitrary ColorSpace and an array of color components to match the ColorSpace.
+  ComponentColorModel                 Extends: ColorModel
+                                                 A ColorModel class that can handle an arbitrary ColorSpace and an array of color components to match the ColorSpace.
 
-   ComponentSampleModel                Extends: SampleModel
-                                                  Stores the N samples that make up a pixel in N separate data array elements all of which are in the same bank of a dataBuffer.
+  ComponentSampleModel                Extends: SampleModel
+                                                 Stores the N samples that make up a pixel in N separate data array elements all of which are in the same bank of a dataBuffer.
 
-   ConvolveOp                          Extends: Object
-                                                  Implements: BufferedImageOp, RasterOp
-                                                  Implements a convolution from the source to the destination. Convolution using a convolution kernel is a spatial operation that computes the output pixel from an input pixel by multiplying the kernel with the surround of the input pixel.
+  ConvolveOp                          Extends: Object
+                                                 Implements: BufferedImageOp, RasterOp
+                                                 Implements a convolution from the source to the destination. Convolution using a convolution kernel is a spatial operation that computes the output pixel from an input pixel by multiplying the kernel with the surround of the input pixel.
 
-   CropImageFilter                     Extends: ImageFilter
-                                                  An ImageFilter class for cropping images.
+  CropImageFilter                     Extends: ImageFilter
+                                                 An ImageFilter class for cropping images.
 
-   DataBuffer                          Extends: Object
-                                                  Wraps one or more data arrays. Each data array in the DataBuffer is referred to as a bank. Accessor methods for getting and setting elements of the DataBuffer\'s banks exist with and without a bank specifier.
+  DataBuffer                          Extends: Object
+                                                 Wraps one or more data arrays. Each data array in the DataBuffer is referred to as a bank. Accessor methods for getting and setting elements of the DataBuffer\'s banks exist with and without a bank specifier.
 
-   DataBufferByte                      Extends: DataBuffer
-                                                  Stores data internally as bytes.
+  DataBufferByte                      Extends: DataBuffer
+                                                 Stores data internally as bytes.
 
-   DataBufferInt                       Extends: DataBuffer
-                                                  Stores data internally as ints.
+  DataBufferInt                       Extends: DataBuffer
+                                                 Stores data internally as ints.
 
-   DataBufferShort                     Extends: DataBuffer
-                                                  Stores data internally as shorts.
+  DataBufferShort                     Extends: DataBuffer
+                                                 Stores data internally as shorts.
 
-   DirectColorModel                    Extends: PackedColorModel
-                                                  Represents pixel values that have RGB color components embedded directly in the bits of the pixel itself.
+  DirectColorModel                    Extends: PackedColorModel
+                                                 Represents pixel values that have RGB color components embedded directly in the bits of the pixel itself.
 
-   FilteredImageSource                 Extends: Object
-                                                  Implements: ImageProducer
-                                                  An implementation of the ImageProducer interface which takes an existing image and a filter object and uses them to produce image data for a new filtered version of the original image.
+  FilteredImageSource                 Extends: Object
+                                                 Implements: ImageProducer
+                                                 An implementation of the ImageProducer interface which takes an existing image and a filter object and uses them to produce image data for a new filtered version of the original image.
 
-   ImageFilter                         Extends: Object
-                                                  Implements: ImageConsumer, Cloneable
-                                                  Implements a filter for the set of interface methods that are used to deliver data from an ImageProducer to an ImageConsumer.
+  ImageFilter                         Extends: Object
+                                                 Implements: ImageConsumer, Cloneable
+                                                 Implements a filter for the set of interface methods that are used to deliver data from an ImageProducer to an ImageConsumer.
 
-   IndexColorModel                     Extends: ColorModel
-                                                  Represents pixel values that are indices into a fixed colormap in the ColorModel\'s color space.
+  IndexColorModel                     Extends: ColorModel
+                                                 Represents pixel values that are indices into a fixed colormap in the ColorModel\'s color space.
 
-   Kernel                              Extends: Object
-                                                  Defines a Kernel object - a matrix describing how a given pixel and its surrounding pixels affect the value of the given pixel in a filtering operation.
+  Kernel                              Extends: Object
+                                                 Defines a Kernel object - a matrix describing how a given pixel and its surrounding pixels affect the value of the given pixel in a filtering operation.
 
-   LookupOp                            Extends: Object
-                                                  Implements: BufferedImageOp, RasterOp
-                                                  Implements a lookup operation from the source to the destination.
+  LookupOp                            Extends: Object
+                                                 Implements: BufferedImageOp, RasterOp
+                                                 Implements a lookup operation from the source to the destination.
 
-   LookupTable                         Extends: Object
-                                                  Defines a lookup table object. The subclasses are ByteLookupTable and ShortLookupTable, which contain byte and short data, respectively.
+  LookupTable                         Extends: Object
+                                                 Defines a lookup table object. The subclasses are ByteLookupTable and ShortLookupTable, which contain byte and short data, respectively.
 
-   MemoryImageSource                   Extends: Object
-                                                  Implements: ImageProducer
-                                                  An implementation of the ImageProducer interface, which uses an array to produce pixel values for an Image.
+  MemoryImageSource                   Extends: Object
+                                                 Implements: ImageProducer
+                                                 An implementation of the ImageProducer interface, which uses an array to produce pixel values for an Image.
 
-   MultiPixelPackedSampleModel         Extends: SampleModel
-                                                  Stores one-banded images, but can pack multiple one-sample pixels into one data element.
+  MultiPixelPackedSampleModel         Extends: SampleModel
+                                                 Stores one-banded images, but can pack multiple one-sample pixels into one data element.
 
-   NearestNeighborAffine-TransformOp   Extends: AffineTransformOp
-                                                  Uses an affine transformation with nearest neighbor interpolation to transform an image or Raster.
+  NearestNeighborAffine-TransformOp   Extends: AffineTransformOp
+                                                 Uses an affine transformation with nearest neighbor interpolation to transform an image or Raster.
 
-   PackedColorModel                    Extends: ColorModel
-                                                  An abstract ColorModel class that represents pixel values that have the color components embedded directly in the bits of an integer pixel.
+  PackedColorModel                    Extends: ColorModel
+                                                 An abstract ColorModel class that represents pixel values that have the color components embedded directly in the bits of an integer pixel.
 
-   PixelGrabber                        Extends: Object
-                                                  Implements: ImageConsumer
-                                                  Implements an ImageConsumer which can be attached to an Image or ImageProducer object to retrieve a subset of the pixels in that image.
+  PixelGrabber                        Extends: Object
+                                                 Implements: ImageConsumer
+                                                 Implements an ImageConsumer which can be attached to an Image or ImageProducer object to retrieve a subset of the pixels in that image.
 
-   RGBImageFilter                      Extends: ImageFilter
-                                                  Provides an easy way to create an ImageFilter that modifies the pixels of an image in the default RGB ColorModel. It is meant to be used in conjunction with a FilteredImageSource object to produce filtered versions of existing images.
+  RGBImageFilter                      Extends: ImageFilter
+                                                 Provides an easy way to create an ImageFilter that modifies the pixels of an image in the default RGB ColorModel. It is meant to be used in conjunction with a FilteredImageSource object to produce filtered versions of existing images.
 
-   Raster                              Extends: Object
-                                                  Represents a rectanglular array of pixels and provides methods for retrieving image data. It contains a DataBuffer object that holds a buffer of image data in some format, a SampleModel that describes the format is capable of storing and retrieving Samples from the DataBuffer, and a Rect that defines the coordinate space of the raster (upper left corner, width and height).
+  Raster                              Extends: Object
+                                                 Represents a rectanglular array of pixels and provides methods for retrieving image data. It contains a DataBuffer object that holds a buffer of image data in some format, a SampleModel that describes the format is capable of storing and retrieving Samples from the DataBuffer, and a Rect that defines the coordinate space of the raster (upper left corner, width and height).
 
-   ReplicateScaleFilter                Extends: ImageFilter
-                                                  Scales images using the simplest algorithm.
+  ReplicateScaleFilter                Extends: ImageFilter
+                                                 Scales images using the simplest algorithm.
 
-   RescaleOp                           Extends: Object
-                                                  Implements: BufferedImageOp, RasterOp
-                                                  Performs a pixel-by-pixel rescaling of the data in the source image by multiplying each pixel value by a scale factor and then adding an offset.
+  RescaleOp                           Extends: Object
+                                                 Implements: BufferedImageOp, RasterOp
+                                                 Performs a pixel-by-pixel rescaling of the data in the source image by multiplying each pixel value by a scale factor and then adding an offset.
 
-   SampleModel                         Extends: Object
-                                                  Defines an interface for extracting samples of an image without knowing how the underlying data is stored in a DataBuffer.
+  SampleModel                         Extends: Object
+                                                 Defines an interface for extracting samples of an image without knowing how the underlying data is stored in a DataBuffer.
 
-   ShortLookupTable                    Extends: LookupTable
-                                                  Defines a lookup table object. The lookup table contains short data for one or more tile channels or image components (for example, separate arrays for R, G, and B), and it contains an offset that will be subtracted from the input value before indexing the array.
+  ShortLookupTable                    Extends: LookupTable
+                                                 Defines a lookup table object. The lookup table contains short data for one or more tile channels or image components (for example, separate arrays for R, G, and B), and it contains an offset that will be subtracted from the input value before indexing the array.
 
-   SinglePixelPackedSample-Model       Extends: SampleModel
-                                                  Stores (packs) the N samples that make up a single pixel in one data array element. All data array elements reside in the first bank of a DataBuffer.
+  SinglePixelPackedSample-Model       Extends: SampleModel
+                                                 Stores (packs) the N samples that make up a single pixel in one data array element. All data array elements reside in the first bank of a DataBuffer.
 
-   ThresholdOp                         Extends: Object
-                                                  Implements: BufferedImageOp, RasterOp
-                                                  Performs thresholding on the source image by mapping the value of each image component (for BufferedImages) or channel element (for Rasters) that falls between a low and a high value, to a constant.
+  ThresholdOp                         Extends: Object
+                                                 Implements: BufferedImageOp, RasterOp
+                                                 Performs thresholding on the source image by mapping the value of each image component (for BufferedImages) or channel element (for Rasters) that falls between a low and a high value, to a constant.
 
-   TileChangeMulticaster               Extends: Object
-                                                  A convenience class that takes care of the details of implementing the TileChangeListener interface.
+  TileChangeMulticaster               Extends: Object
+                                                 A convenience class that takes care of the details of implementing the TileChangeListener interface.
 
-   WritableRaster                      Extends: Raster
-                                                  Provides methods for storing image data and inherits methods for retrieving image data from it\'s parent class Raster.
-   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  WritableRaster                      Extends: Raster
+                                                 Provides methods for storing image data and inherits methods for retrieving image data from it\'s parent class Raster.
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-   :  **[Table B-3 **java.awt.image** Classes]{#74246}**
+  :  **[Table B-3 **java.awt.image** Classes]{#74246}**
 
- 
- B.3 Java Advanced Imaging
- ----------------------------------------------
 
- The Java Advanced Imaging API consists of the following packages:
+B.3 Java Advanced Imaging
+----------------------------------------------
 
- -   `javax.media.jai` - contains the \"core\" JAI interfaces and
-     classes
+The Java Advanced Imaging API consists of the following packages:
 
- <!-- --
+-   `javax.media.jai` - contains the \"core\" JAI interfaces and
+    classes
 
- -   `javax.media.jai.iterator` - contains special iterator interfaces
-     and classes, which are useful for writing extension operations
+<!-- --
 
- <!-- --
+-   `javax.media.jai.iterator` - contains special iterator interfaces
+    and classes, which are useful for writing extension operations
 
- -   `javax.media.jai.operator` - contains classes that describe all of
-     the image operators
+<!-- --
 
- <!-- --
+-   `javax.media.jai.operator` - contains classes that describe all of
+    the image operators
 
- -   `javax.media.jai.widget` - contains interfaces and classes for
-     creating simple image canvases and scrolling windows for image
-     display
+<!-- --
 
- 
- ### B.3.1 JAI Interfaces
+-   `javax.media.jai.widget` - contains interfaces and classes for
+    creating simple image canvases and scrolling windows for image
+    display
 
- [Table B-4](api-summary/index.html) lists and briefly describes
- the interfaces defined in the Java Advanced Imaging API
- (`javax.media.jai`).
 
-   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   [Interface]{#72535}                 [Description]{#72537}
-   ----------------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   CollectionImageFactory   Abbreviated CIF, this interface is intended to be implemented
-                                       by classes that wish to act as factories to produce different collection image operators.
+### B.3.1 JAI Interfaces
 
-   ImageFunction            A common interface for vector-valued functions that are to be evaluated at positions in the X-Y coordinate system.
+[Table B-4](api-summary/index.html) lists and briefly describes
+the interfaces defined in the Java Advanced Imaging API
+(`javax.media.jai`).
 
-   ImageJAI                 The top-level JAI image type, implemented by all JAI image classes.
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  [Interface]{#72535}                 [Description]{#72537}
+  ----------------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  CollectionImageFactory   Abbreviated CIF, this interface is intended to be implemented
+                                      by classes that wish to act as factories to produce different collection image operators.
 
-   OperationDescriptor      Describes a family of implementations of a high-level operation (RIF) that are to be added to an OperationRegistry.
+  ImageFunction            A common interface for vector-valued functions that are to be evaluated at positions in the X-Y coordinate system.
 
-   PropertyGenerator        An interface through which properties may be computed dynamically with respect to an environment of pre-existing properties.
+  ImageJAI                 The top-level JAI image type, implemented by all JAI image classes.
 
-   PropertySource           Encapsulates the set of operations involved in identifying and reading properties.
+  OperationDescriptor      Describes a family of implementations of a high-level operation (RIF) that are to be added to an OperationRegistry.
 
-   TileCache                Implements a caching mechanism for image tiles. The TileCache is a central place for OpImages to cache tiles they have computed. The tile cache is created with a given capacity, measured in tiles.
+  PropertyGenerator        An interface through which properties may be computed dynamically with respect to an environment of pre-existing properties.
 
-   TileScheduler            Implements a mechanism for scheduling tile calculation.
-   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  PropertySource           Encapsulates the set of operations involved in identifying and reading properties.
 
-   :  **[Table B-4 **Summary of jai Interfaces**]{#72483}**
+  TileCache                Implements a caching mechanism for image tiles. The TileCache is a central place for OpImages to cache tiles they have computed. The tile cache is created with a given capacity, measured in tiles.
 
- 
- ### B.3.2 JAI Classes
+  TileScheduler            Implements a mechanism for scheduling tile calculation.
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
- [Table B-5](api-summary/index.html) lists and briefly describes
- the classes defined in the Java Advanced Imaging API
- (`javax.media.jai`).
+  :  **[Table B-4 **Summary of jai Interfaces**]{#72483}**
 
-   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   [Class]{#72627}                              [Description]{#72629}
-   -------------------------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   AreaOpImage                       Extends: OpImage
-                                                An abstract base class for image operators that require only a fixed rectangular source region around a source pixel in order to compute each each destination pixel.
 
-   BorderExtender                    An abstract superclass for classes that extend a WritableRaster with additional pixel data taken from a PlanarImage.
+### B.3.2 JAI Classes
 
-   BorderExtenderConstant            Extends: BorderExtender
-                                                Implements border extension by filling all pixels outside of the image bounds with constant values.
+[Table B-5](api-summary/index.html) lists and briefly describes
+the classes defined in the Java Advanced Imaging API
+(`javax.media.jai`).
 
-   BorderExtenderCopy                Extends: BorderExtender
-                                                Implements border extension by filling all pixels outside of the image bounds with copies of the edge pixels.
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  [Class]{#72627}                              [Description]{#72629}
+  -------------------------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  AreaOpImage                       Extends: OpImage
+                                               An abstract base class for image operators that require only a fixed rectangular source region around a source pixel in order to compute each each destination pixel.
 
-   BorderExtenderReflect             Extends: BorderExtender
-                                                Implements border extension by filling all pixels outside of the image bounds with copies of the whole image.
+  BorderExtender                    An abstract superclass for classes that extend a WritableRaster with additional pixel data taken from a PlanarImage.
 
-   BorderExtenderWrap                Extends: BorderExtender
-                                                Implements border extension by filling all pixels outside of the image bounds with copies of the whole image.
+  BorderExtenderConstant            Extends: BorderExtender
+                                               Implements border extension by filling all pixels outside of the image bounds with constant values.
 
-   BorderExtenderZero                Extends: BorderExtender
-                                                Implements border extension by filling all pixels outside of the image bounds with zeros.
+  BorderExtenderCopy                Extends: BorderExtender
+                                               Implements border extension by filling all pixels outside of the image bounds with copies of the edge pixels.
 
-   CanvasJAI                         Extends: java.awt.Canvas
-                                                Automatically returns an instance of GraphicsJAI from its getGraphics method.
+  BorderExtenderReflect             Extends: BorderExtender
+                                               Implements border extension by filling all pixels outside of the image bounds with copies of the whole image.
 
-   CollectionImage                   Extends: ImageJAI
-                                                Implements: java.util.Collection
-                                                An abstract superclass for classes representing a collection of objects.
+  BorderExtenderWrap                Extends: BorderExtender
+                                               Implements border extension by filling all pixels outside of the image bounds with copies of the whole image.
 
-   CollectionOp                      Extends: CollectionImage
-                                                A node in a rendered imaging chain representing a CollectionImage.
+  BorderExtenderZero                Extends: BorderExtender
+                                               Implements border extension by filling all pixels outside of the image bounds with zeros.
 
-   ColorCube                         Extends: LookupTableJAI
-                                                Represents a color cube lookup table that provides a fixed, invertible mapping between tables indices and sample values.
+  CanvasJAI                         Extends: java.awt.Canvas
+                                               Automatically returns an instance of GraphicsJAI from its getGraphics method.
 
-   ComponentSampleModelJAI           Extends: ComponentSampleModel
-                                                Represents image data that is stored such that each sample of a pixel occupies one data element of the DataBuffer.
+  CollectionImage                   Extends: ImageJAI
+                                               Implements: java.util.Collection
+                                               An abstract superclass for classes representing a collection of objects.
 
-   CoordinateImage                   Extends: java.lang.Object
-                                                Represents an image that is associated with a coordinate. This class is used with ImageStack.
+  CollectionOp                      Extends: CollectionImage
+                                               A node in a rendered imaging chain representing a CollectionImage.
 
-   DataBufferDouble                  Extends: java.awt.image.DataBuffer
-                                                Stores DataBuffer data internally in double form.
+  ColorCube                         Extends: LookupTableJAI
+                                               Represents a color cube lookup table that provides a fixed, invertible mapping between tables indices and sample values.
 
-   DataBufferFloat                   Extends: java.awt.image.DataBuffer
-                                                Stores DataBuffer data internally in float form.
+  ComponentSampleModelJAI           Extends: ComponentSampleModel
+                                               Represents image data that is stored such that each sample of a pixel occupies one data element of the DataBuffer.
 
-   DisplayOpImage                    Extends: OpImage
-                                                A placeholder for display functionality.
+  CoordinateImage                   Extends: java.lang.Object
+                                               Represents an image that is associated with a coordinate. This class is used with ImageStack.
 
-   FloatDoubleColorModel             Extends: ComponentColorModel
-                                                A ColorModel class that works with pixel values that represent color and alpha information as separate samples, using float or double elements, and that store each sample in a separate data element.
+  DataBufferDouble                  Extends: java.awt.image.DataBuffer
+                                               Stores DataBuffer data internally in double form.
 
-   GraphicsJAI                       Extends: java.awt.Graphics2D
-                                                An extension of java.awt.Graphics and java.awt.Graphics2D that will support new drawing operations.
+  DataBufferFloat                   Extends: java.awt.image.DataBuffer
+                                               Stores DataBuffer data internally in float form.
 
-   Histogram                         Extends: java.lang.Object
-                                                Accumulates histogram information on an image. A histogram counts the number of image samples whose values lie within a given range of values, or *bin*.
+  DisplayOpImage                    Extends: OpImage
+                                               A placeholder for display functionality.
 
-   ImageLayout                       Extends: java.lang.Object
-                                                Implements: java.lang.Clonable
-                                                Describes the desired layout of an OpImage.
+  FloatDoubleColorModel             Extends: ComponentColorModel
+                                               A ColorModel class that works with pixel values that represent color and alpha information as separate samples, using float or double elements, and that store each sample in a separate data element.
 
-   ImageMIPMap                       Extends: ImageCollection
-                                                Represents a stack of images with a fixed operational relationship between adjacent slices.
+  GraphicsJAI                       Extends: java.awt.Graphics2D
+                                               An extension of java.awt.Graphics and java.awt.Graphics2D that will support new drawing operations.
 
-   ImagePyramid                      Extends: ImageCollection
-                                                Represents a stack of images with a fixed operational relationship between adjacent slices.
+  Histogram                         Extends: java.lang.Object
+                                               Accumulates histogram information on an image. A histogram counts the number of image samples whose values lie within a given range of values, or *bin*.
 
-   ImageSequence                     Extends: ImageCollection
-                                                Represents a sequence of images with associated timestamps and camera positions that can be used to represent video or time-lapse photography.
+  ImageLayout                       Extends: java.lang.Object
+                                               Implements: java.lang.Clonable
+                                               Describes the desired layout of an OpImage.
 
-   ImageStack                        Extends: ImageCollection
-                                                Represents a group of images, each with a defined spatial orientation in a common coordinate system, such as CT scans or seismic volumes.
+  ImageMIPMap                       Extends: ImageCollection
+                                               Represents a stack of images with a fixed operational relationship between adjacent slices.
 
-   IntegerSequence                   Extends: java.lang.Object
-                                                Represents an image that is associated with a coordinate. This class is used with ImageStack.
+  ImagePyramid                      Extends: ImageCollection
+                                               Represents a stack of images with a fixed operational relationship between adjacent slices.
 
-   Interpolation                     Extends: java.lang.Object
-                                                Encapsulates a particualr algorithm for performing sampling on a regular grid of pixels using a local neighborhood. It is intended to be used by operations that resample their sources, including affine mapping and warping.
+  ImageSequence                     Extends: ImageCollection
+                                               Represents a sequence of images with associated timestamps and camera positions that can be used to represent video or time-lapse photography.
 
-   InterpolationBicubic              Extends: InterpolationTable
-                                                Performs bicubic interpolation.
+  ImageStack                        Extends: ImageCollection
+                                               Represents a group of images, each with a defined spatial orientation in a common coordinate system, such as CT scans or seismic volumes.
 
-   InterpolationBicubic2             Extends: InterpolationTable
-                                                Performs bicubic interpolation using a different polynomial than InterpolationBicubic.
+  IntegerSequence                   Extends: java.lang.Object
+                                               Represents an image that is associated with a coordinate. This class is used with ImageStack.
 
-   InterpolationBilinear             Extends: Interpolation
-                                                Represents bilinear interpolation.
+  Interpolation                     Extends: java.lang.Object
+                                               Encapsulates a particualr algorithm for performing sampling on a regular grid of pixels using a local neighborhood. It is intended to be used by operations that resample their sources, including affine mapping and warping.
 
-   InterpolationNearest              Extends: Interpolation
-                                                Represents nearest-neighbor interpolation.
+  InterpolationBicubic              Extends: InterpolationTable
+                                               Performs bicubic interpolation.
 
-   InterpolationTable                Extends: Interpolation
-                                                Represents nearest-neighbor interpolation.
+  InterpolationBicubic2             Extends: InterpolationTable
+                                               Performs bicubic interpolation using a different polynomial than InterpolationBicubic.
 
-   JAI                               Extends: java.lang.Object
-                                                A convenience class for instantiating operations.
+  InterpolationBilinear             Extends: Interpolation
+                                               Represents bilinear interpolation.
 
-   KernelJAI                         Extends: java.lang.Object
-                                                A convolution kernel, used by the Convolve operation.
+  InterpolationNearest              Extends: Interpolation
+                                               Represents nearest-neighbor interpolation.
 
-   LookupTableJAI                    Extends: java.lang.Object
-                                                A lookup table object for the Lookup operation.
+  InterpolationTable                Extends: Interpolation
+                                               Represents nearest-neighbor interpolation.
 
-   MultiResolutionRenderable-Image   Extends: java.lang.Object
-                                                Implements: java.awt.image.renderable, RenderableImage
-                                                A RenderableImage that produces renderings based on a set of supplied RenderedImages at various
-                                                resolution.
+  JAI                               Extends: java.lang.Object
+                                               A convenience class for instantiating operations.
 
-   NullOpImage                       Extends: PointOpImage
-                                                A trivial OpImage subclass that simply transmits its source unchanged. Potentially useful when an interface requires an OpImage but another sort of RenderedImage (such as a TiledImage) is to be used.
+  KernelJAI                         Extends: java.lang.Object
+                                               A convolution kernel, used by the Convolve operation.
 
-   OperationDescriptorImpl           Extends: java.lang.Object
-                                                Implements: OperationDescriptor
-                                                A concrete implementation of the OperationDescriptor interface, suitable for subclassing.
+  LookupTableJAI                    Extends: java.lang.Object
+                                               A lookup table object for the Lookup operation.
 
-   OperationRegistry                 Extends: java.lang.Object
-                                                Implements: java.io.Externalizable
-                                                Maps an operation name into a RenderedImageFactory capable of implementing the operation, given a specific set of sources and parameters.
+  MultiResolutionRenderable-Image   Extends: java.lang.Object
+                                               Implements: java.awt.image.renderable, RenderableImage
+                                               A RenderableImage that produces renderings based on a set of supplied RenderedImages at various
+                                               resolution.
 
-   OpImage                           Extends: PlanarImage
-                                                The parent class for all imaging operations. OpImage centralizes a number of common functions, including connecting sources and sinks during construction of OpImage chains, and tile cache management.
+  NullOpImage                       Extends: PointOpImage
+                                               A trivial OpImage subclass that simply transmits its source unchanged. Potentially useful when an interface requires an OpImage but another sort of RenderedImage (such as a TiledImage) is to be used.
 
-   ParameterBlockJAI                 Extends: java.awt.image.renderable, ParameterBlock
-                                                A convenience subclass of ParameterBlock that allows the use of default parameter values and getting/setting parameters by name.
+  OperationDescriptorImpl           Extends: java.lang.Object
+                                               Implements: OperationDescriptor
+                                               A concrete implementation of the OperationDescriptor interface, suitable for subclassing.
 
-   PerspectiveTransform              Extends: java.lang.Object
-                                                Implements: java.lang.Cloneable, java.io.Serializable
-                                                A 2D perspective (or projective) transform, used by various OpImages.
+  OperationRegistry                 Extends: java.lang.Object
+                                               Implements: java.io.Externalizable
+                                               Maps an operation name into a RenderedImageFactory capable of implementing the operation, given a specific set of sources and parameters.
 
-   PlanarImage                       Extends: java.awt.Image
-                                                Implements: java.awt.image.RenderedImage
-                                                A fundamental base class representing two-dimensional images.
+  OpImage                           Extends: PlanarImage
+                                               The parent class for all imaging operations. OpImage centralizes a number of common functions, including connecting sources and sinks during construction of OpImage chains, and tile cache management.
 
-   PointOpImage                      Extends: OpImage
-                                                An abstract base class for image operators that require only a single source pixel to compute each destination pixel.
+  ParameterBlockJAI                 Extends: java.awt.image.renderable, ParameterBlock
+                                               A convenience subclass of ParameterBlock that allows the use of default parameter values and getting/setting parameters by name.
 
-   PropertyGeneratorImpl             Extends: java.lang.Object
-                                                A utility class to simplify the writing of property generators.
+  PerspectiveTransform              Extends: java.lang.Object
+                                               Implements: java.lang.Cloneable, java.io.Serializable
+                                               A 2D perspective (or projective) transform, used by various OpImages.
 
-   RasterAccessor                    Extends: java.lang.Object
-                                                An adapter class for presenting image data in a ComponentSampleModel format, even if the data is not stored that way.
+  PlanarImage                       Extends: java.awt.Image
+                                               Implements: java.awt.image.RenderedImage
+                                               A fundamental base class representing two-dimensional images.
 
-   RasterFactory                     A convenience class for the construction of various types of WritableRaster and SampleModel objects.
+  PointOpImage                      Extends: OpImage
+                                               An abstract base class for image operators that require only a single source pixel to compute each destination pixel.
 
-   RasterFormatTag                   Encapsulates some of the information needed for RasterAccessor to understand how a Raster is laid out.
+  PropertyGeneratorImpl             Extends: java.lang.Object
+                                               A utility class to simplify the writing of property generators.
 
-   RemoteImage                       Extends: PlanarImage
-                                                An implementation of RenderedImage that uses a RMIImage as its source.
+  RasterAccessor                    Extends: java.lang.Object
+                                               An adapter class for presenting image data in a ComponentSampleModel format, even if the data is not stored that way.
 
-   RenderableGraphics                Extends: Graphics2D
-                                                Implements: RenderableImage, Serializable
-                                                An implementation of Graphics2D with RenderableImage semantics.
+  RasterFactory                     A convenience class for the construction of various types of WritableRaster and SampleModel objects.
 
-   RenderableImageAdapter            Extends: java.lang.Object
-                                                Implements: java.awt.image.renderable.RenderableImage, PropertySource
-                                                An adapter class for externally-generated RenderableImages.
+  RasterFormatTag                   Encapsulates some of the information needed for RasterAccessor to understand how a Raster is laid out.
 
-   RenderableOp                      Extends: java.awt.image.renderable.RenderableImageOp
-                                                Implements: PropertySource
-                                                A JAI version of RenderableImageOp.
+  RemoteImage                       Extends: PlanarImage
+                                               An implementation of RenderedImage that uses a RMIImage as its source.
 
-   RenderedImageAdapter              Extends: PlanarImage
-                                                A PlanarImage wrapper for a non-writable RenderedImage.
+  RenderableGraphics                Extends: Graphics2D
+                                               Implements: RenderableImage, Serializable
+                                               An implementation of Graphics2D with RenderableImage semantics.
 
-   RenderedOp                        Extends: PlanarImage
-                                                A node in a rendered imaging chain.
+  RenderableImageAdapter            Extends: java.lang.Object
+                                               Implements: java.awt.image.renderable.RenderableImage, PropertySource
+                                               An adapter class for externally-generated RenderableImages.
 
-   ROI                               Extends: java.lang.Object
-                                                Represents a region of interest of an image.
+  RenderableOp                      Extends: java.awt.image.renderable.RenderableImageOp
+                                               Implements: PropertySource
+                                               A JAI version of RenderableImageOp.
 
-   ROIShape                          Extends: ROI
-                                                Represents a region of interest within an image as a Shape.
+  RenderedImageAdapter              Extends: PlanarImage
+                                               A PlanarImage wrapper for a non-writable RenderedImage.
 
-   ScaleOpImage                      Extends: WarpOpImage
-                                                Used by further extension classes that perform scale-like operations and thus require rectilinear backwards mapping and padding by the resampling filter dimensions.
+  RenderedOp                        Extends: PlanarImage
+                                               A node in a rendered imaging chain.
 
-   SequentialImage                   Extends: java.lang.Object
-                                                Represents an image that is associated with a time stamp and a camera position. Used with ImageSequence.
+  ROI                               Extends: java.lang.Object
+                                               Represents a region of interest of an image.
 
-   SnapshotImage                     Extends: PlanarImage:
-                                                Implements: java.awt.image.TileObserver
-                                                Provides an arbitrary number of synchronous views of a possibly changing WritableRenderedImage.
+  ROIShape                          Extends: ROI
+                                               Represents a region of interest within an image as a Shape.
 
-   SourcelessOpImage                 Extends: OpImage
-                                                An abstract base class for image operators that have no image sources.
+  ScaleOpImage                      Extends: WarpOpImage
+                                               Used by further extension classes that perform scale-like operations and thus require rectilinear backwards mapping and padding by the resampling filter dimensions.
 
-   StatisticsOpImage                 Extends: OpImage
-                                                An abstract base class for image operators that compute statistics on a given region of an image and with a given sampling rate.
+  SequentialImage                   Extends: java.lang.Object
+                                               Represents an image that is associated with a time stamp and a camera position. Used with ImageSequence.
 
-   TiledImage                        Extends: PlanarImage
-                                                Implements: java.awt.image.WritableRenderedImage
-                                                A concrete implementation of WritableRenderedImage.
+  SnapshotImage                     Extends: PlanarImage:
+                                               Implements: java.awt.image.TileObserver
+                                               Provides an arbitrary number of synchronous views of a possibly changing WritableRenderedImage.
 
-   UntiledOpImage                    Extends: OpImage
-                                                A general class for single-source operations in which the values of all pixels in the source image contribute to the value of each pixel in the destination image.
+  SourcelessOpImage                 Extends: OpImage
+                                               An abstract base class for image operators that have no image sources.
 
-   Warp                              Extends: java.lang.Object
-                                                A description of an image warp.
+  StatisticsOpImage                 Extends: OpImage
+                                               An abstract base class for image operators that compute statistics on a given region of an image and with a given sampling rate.
 
-   WarpAffine                        Extends: WarpPolynomial
-                                                A description of an Affine warp.
+  TiledImage                        Extends: PlanarImage
+                                               Implements: java.awt.image.WritableRenderedImage
+                                               A concrete implementation of WritableRenderedImage.
 
-   WarpCubic                         Extends: WarpPolynomial
-                                                A cubic-based description of an image warp.
+  UntiledOpImage                    Extends: OpImage
+                                               A general class for single-source operations in which the values of all pixels in the source image contribute to the value of each pixel in the destination image.
 
-   WarpGeneralPolynomial             Extends: WarpPolynomial
-                                                A general polynomial-based description of an image warp.
+  Warp                              Extends: java.lang.Object
+                                               A description of an image warp.
 
-   WarpGrid                          Extends: Warp
-                                                A regular grid-based description of an image warp.
+  WarpAffine                        Extends: WarpPolynomial
+                                               A description of an Affine warp.
 
-   WarpOpImage                       Extends: OpImage
-                                                A general implementation of image warping, and a superclass for other geometric image operations.
+  WarpCubic                         Extends: WarpPolynomial
+                                               A cubic-based description of an image warp.
 
-   WarpPerspective                   Extends: Warp
-                                                A description of a perspective (projective) warp.
+  WarpGeneralPolynomial             Extends: WarpPolynomial
+                                               A general polynomial-based description of an image warp.
 
-   WarpPolynomial                    Extends: Warp
-                                                A polynomial-based description of an image warp.
+  WarpGrid                          Extends: Warp
+                                               A regular grid-based description of an image warp.
 
-   WarpQuadratic                     Extends: WarpPolynomial
-                                                A quadratic-based description of an image warp.
+  WarpOpImage                       Extends: OpImage
+                                               A general implementation of image warping, and a superclass for other geometric image operations.
 
-   WritableRenderedImage-Adapter     Extends: RenderedImageAdapter
-                                                Implements: java.awt.image.WritableRenderedImage
-                                                A PlanarImage wrapper for a WritableRenderedImage.
-   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  WarpPerspective                   Extends: Warp
+                                               A description of a perspective (projective) warp.
 
-   :  **[Table B-5 Summary of jai Classes]{#72571}**
+  WarpPolynomial                    Extends: Warp
+                                               A polynomial-based description of an image warp.
 
- 
- ### B.3.3 JAI Iterator Interfaces
+  WarpQuadratic                     Extends: WarpPolynomial
+                                               A quadratic-based description of an image warp.
 
- [Table B-6](api-summary/index.html) lists the JAI iterator classes
- (`javax.media.jai.iterator`).
+  WritableRenderedImage-Adapter     Extends: RenderedImageAdapter
+                                               Implements: java.awt.image.WritableRenderedImage
+                                               A PlanarImage wrapper for a WritableRenderedImage.
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-   ------------------------------------------------------------------------------------------------------------------------------------------
-   [Interface]{#77310}             [Description]{#77312}
-   ------------------------------- ----------------------------------------------------------------------------------------------------------
-   RandomIter           An iterator that allows random read-only access to any sample within its bounding rectangle.
+  :  **[Table B-5 Summary of jai Classes]{#72571}**
 
-   RectIter             An iterator for traversing a read-only image in top-to-bottom, left-to-right order.
 
-   RookIter             An iterator for traversing a read-only image using arbitrary up-down and left-right moves.
+### B.3.3 JAI Iterator Interfaces
 
-   WritableRandomIter   Extends: RandomIter
-                                   An iterator that allows random read/write access to any sample within its bounding rectangle.
+[Table B-6](api-summary/index.html) lists the JAI iterator classes
+(`javax.media.jai.iterator`).
 
-   WritableRectIter     Extends: RectIter
-                                   An iterator for traversing a read/write image in top-to-bottom, left-to-right order.
+  ------------------------------------------------------------------------------------------------------------------------------------------
+  [Interface]{#77310}             [Description]{#77312}
+  ------------------------------- ----------------------------------------------------------------------------------------------------------
+  RandomIter           An iterator that allows random read-only access to any sample within its bounding rectangle.
 
-   WritableRookIter     Extends: RookIter, WritableRectIter
-                                   An iterator for traversing a read/write image using arbitrary up-down and left-right moves.
-   ------------------------------------------------------------------------------------------------------------------------------------------
+  RectIter             An iterator for traversing a read-only image in top-to-bottom, left-to-right order.
 
-   :  **[Table B-6 JAI Iterator Interfaces]{#77306}**
+  RookIter             An iterator for traversing a read-only image using arbitrary up-down and left-right moves.
 
- 
- ### B.3.4 JAI Iterator Classes
+  WritableRandomIter   Extends: RandomIter
+                                  An iterator that allows random read/write access to any sample within its bounding rectangle.
 
- [Table B-7](api-summary/index.html) lists the JAI iterator classes
- (`javax.media.jai.iterator`).
+  WritableRectIter     Extends: RectIter
+                                  An iterator for traversing a read/write image in top-to-bottom, left-to-right order.
 
-   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   [Class]{#77431}                [Description]{#77433}
-   ------------------------------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   RandomIterFactory   Extends: java.lang.Object
-                                  A factory class to instantiate instances of the RandomIter and WritableRandomIter interfaces on sources of type Raster, RenderedImage, and WritableRenderedImage.
+  WritableRookIter     Extends: RookIter, WritableRectIter
+                                  An iterator for traversing a read/write image using arbitrary up-down and left-right moves.
+  ------------------------------------------------------------------------------------------------------------------------------------------
 
-   RectIterFactory     Extends: java.lang.Object
-                                  A factory class to instantiate instances of the RectIter and WritableRectIter interfaces on sources of type Raster, RenderedImage, and WritableRenderedImage.
+  :  **[Table B-6 JAI Iterator Interfaces]{#77306}**
 
-   RookIterFactory     Extends: java.lang.Object
-                                  A factory class to instantiate instances of the RookIter and WritableRookIter interfaces on sources of type Raster, RenderedImage, and WritableRenderedImage.
-   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-   :  **[Table B-7 JAI Iterator Classes]{#77427}**
+### B.3.4 JAI Iterator Classes
 
- ``
+[Table B-7](api-summary/index.html) lists the JAI iterator classes
+(`javax.media.jai.iterator`).
 
- 
- ### B.3.5 JAI Operator Classes
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  [Class]{#77431}                [Description]{#77433}
+  ------------------------------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  RandomIterFactory   Extends: java.lang.Object
+                                 A factory class to instantiate instances of the RandomIter and WritableRandomIter interfaces on sources of type Raster, RenderedImage, and WritableRenderedImage.
 
- [Table B-8](api-summary/index.html) lists the operator classes
- (`javax.jai.operator`). These classes extend the JAI
- OperationDescriptor class.
+  RectIterFactory     Extends: java.lang.Object
+                                 A factory class to instantiate instances of the RectIter and WritableRectIter interfaces on sources of type Raster, RenderedImage, and WritableRenderedImage.
 
-   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   [Class]{#73486}                              [Description]{#73488}
-   -------------------------------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   AbsoluteDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Absolute operation, which gives the mathematical absolute value of the pixel values of a source image.
+  RookIterFactory     Extends: java.lang.Object
+                                 A factory class to instantiate instances of the RookIter and WritableRookIter interfaces on sources of type Raster, RenderedImage, and WritableRenderedImage.
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-   AddCollectionDescriptor           Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the AddCollection operation, which takes a collection of rendered images, and adds every set of pixels, one from each source image of the corresponding position and band.
+  :  **[Table B-7 JAI Iterator Classes]{#77427}**
 
-   AddConstDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the AddConst operation, which adds one of a set of constant values to the pixel values of a source image on a per-band basis.
+``
 
-   AddConstToCollection-Descriptor   Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the AddConstToCollection operation, which adds constants to a collection of rendered images.
 
-   AddDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Add operation, which adds the pixel values of two source images on a per-band basis.
+### B.3.5 JAI Operator Classes
 
-   AffineDescriptor                  Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Affine operation, which performs an affine mapping between a source and a destination image.
+[Table B-8](api-summary/index.html) lists the operator classes
+(`javax.jai.operator`). These classes extend the JAI
+OperationDescriptor class.
 
-   AndConstDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the AndConst operation, which performs a bitwise logical AND between the pixel values of a source image with one of a set of per-band constants.
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  [Class]{#73486}                              [Description]{#73488}
+  -------------------------------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  AbsoluteDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Absolute operation, which gives the mathematical absolute value of the pixel values of a source image.
 
-   AndDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the And operation, which performs a bitwise logical AND between the pixel values of the two source images on a per-band basis.
+  AddCollectionDescriptor           Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the AddCollection operation, which takes a collection of rendered images, and adds every set of pixels, one from each source image of the corresponding position and band.
 
-   AWTImageDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the AWTImage operation, which imports a standard AWT image into JAI.
+  AddConstDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the AddConst operation, which adds one of a set of constant values to the pixel values of a source image on a per-band basis.
 
-   BandCombineDescriptor             Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the BandCombine operation, which computes an arbitrary linear combination of the bands of a source image for each band of a destination image, using a specified matrix.
+  AddConstToCollection-Descriptor   Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the AddConstToCollection operation, which adds constants to a collection of rendered images.
 
-   BandSelectDescriptor              Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the BandSelect operation, which copies the pixel data from a specified number of bands in a source image to a destination image in a specified order.
+  AddDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Add operation, which adds the pixel values of two source images on a per-band basis.
 
-   BMPDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the BMP operation, which reads BMP image data file from an input stream.
+  AffineDescriptor                  Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Affine operation, which performs an affine mapping between a source and a destination image.
 
-   BorderDecriptor                   Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Border operation, which adds a border around an image.
+  AndConstDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the AndConst operation, which performs a bitwise logical AND between the pixel values of a source image with one of a set of per-band constants.
 
-   BoxFilterDescriptor               Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the BoxFilter operation, which determines the intensity of a pixel in an image by averaging the source pixels within a rectangular area around the pixel.
+  AndDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the And operation, which performs a bitwise logical AND between the pixel values of the two source images on a per-band basis.
 
-   ClampDescriptor                   Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Clamp operation, which sets all the pixel values below a \"low\" value to that low value, and sets all the pixel values above a \"high\" value to that high value.
+  AWTImageDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the AWTImage operation, which imports a standard AWT image into JAI.
 
-   ColorConvertDescriptor            Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the ColorConvert operation, which performs a pixel-by-pixel color conversion of the data in a source image.
+  BandCombineDescriptor             Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the BandCombine operation, which computes an arbitrary linear combination of the bands of a source image for each band of a destination image, using a specified matrix.
 
-   CompositeDescriptor               Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Composite operation, which combines two images based on their alpha values at each pixel.
+  BandSelectDescriptor              Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the BandSelect operation, which copies the pixel data from a specified number of bands in a source image to a destination image in a specified order.
 
-   ConjugateDescriptor               Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Conjugate operation, which negates the imaginary components of pixel values of an image containing complex data.
+  BMPDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the BMP operation, which reads BMP image data file from an input stream.
 
-   ConstantDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Constant operation, which defines a multi-banded, tiled rendered image with constant pixel values.
+  BorderDecriptor                   Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Border operation, which adds a border around an image.
 
-   ConvolveDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Convolve operation, which computes each output sample by multiplying elements of a kernel with the samples surrounding a particular source sample.
+  BoxFilterDescriptor               Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the BoxFilter operation, which determines the intensity of a pixel in an image by averaging the source pixels within a rectangular area around the pixel.
 
-   CropDescriptor                    Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Crop operation, which crops a rendered or renderable image to a specified rectangular area.
+  ClampDescriptor                   Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Clamp operation, which sets all the pixel values below a \"low\" value to that low value, and sets all the pixel values above a \"high\" value to that high value.
 
-   DCTDescriptor                     Extends: OperationDescriptorImpl
-                                                An operation descriptor for the DCT operation, which computes the even discrete cosine transform of an image.
+  ColorConvertDescriptor            Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the ColorConvert operation, which performs a pixel-by-pixel color conversion of the data in a source image.
 
-   DFTDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the DFT operation, which computes the discrete Fourier transform of an image.
+  CompositeDescriptor               Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Composite operation, which combines two images based on their alpha values at each pixel.
 
-   DivideByConstDescriptor           Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the DivideByConst operation, which divides the pixel values of a source image by a constant.
+  ConjugateDescriptor               Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Conjugate operation, which negates the imaginary components of pixel values of an image containing complex data.
 
-   DivideComplexDescriptor           Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the DivideComplex operation, which divides two images representing complex data.
+  ConstantDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Constant operation, which defines a multi-banded, tiled rendered image with constant pixel values.
 
-   DivideDescriptor                  Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Divide operation, which divides the pixel values of one first source image by the pixel values of another source image on a per-band basis.
+  ConvolveDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Convolve operation, which computes each output sample by multiplying elements of a kernel with the samples surrounding a particular source sample.
 
-   DivideIntoConstDescriptor         Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the DivideIntoConst operation, which divides a constant by the pixel values of a source image.
+  CropDescriptor                    Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Crop operation, which crops a rendered or renderable image to a specified rectangular area.
 
-   EncodeDescriptor                  Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Encode operation, which stores an image to an OutputStream.
+  DCTDescriptor                     Extends: OperationDescriptorImpl
+                                               An operation descriptor for the DCT operation, which computes the even discrete cosine transform of an image.
 
-   ErrorDiffusionDescriptor          Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the ErrorDiffusion operation, which performs color quantization by finding the nearest color to each pixel in a supplied color map.
+  DFTDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the DFT operation, which computes the discrete Fourier transform of an image.
 
-   ExpDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Exp operation, which takes the exponential of the pixel values of an image.
+  DivideByConstDescriptor           Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the DivideByConst operation, which divides the pixel values of a source image by a constant.
 
-   ExtremaDescriptor                 Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Extrema operation, which scans an image and finds the image-wise maximum and minimum pixel values for each band.
+  DivideComplexDescriptor           Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the DivideComplex operation, which divides two images representing complex data.
 
-   FileLoadDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the FileLoad operation, which reads an image from a file.
+  DivideDescriptor                  Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Divide operation, which divides the pixel values of one first source image by the pixel values of another source image on a per-band basis.
 
-   FileStoreDescriptor               Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the FileStore operation, which stores an image to a file.
+  DivideIntoConstDescriptor         Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the DivideIntoConst operation, which divides a constant by the pixel values of a source image.
 
-   FormatDescriptor                  Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Format operation, which reformats an image.
+  EncodeDescriptor                  Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Encode operation, which stores an image to an OutputStream.
 
-   FPXDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the FPX operation, which reads FlashPix data from an input stream.
+  ErrorDiffusionDescriptor          Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the ErrorDiffusion operation, which performs color quantization by finding the nearest color to each pixel in a supplied color map.
 
-   GIFDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the GIF operation, which reads GIF data from an input stream.
+  ExpDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Exp operation, which takes the exponential of the pixel values of an image.
 
-   GradientMagnitudeDescriptor       Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Gradient operation, which is an edge detector that computes the magnitude of the image gradient vector in two orthogonal directions.
+  ExtremaDescriptor                 Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Extrema operation, which scans an image and finds the image-wise maximum and minimum pixel values for each band.
 
-   HistogramDecriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Histogram operation, which scans a specified region of an image and generates a histogram based on the pixel values within that region of the image.
+  FileLoadDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the FileLoad operation, which reads an image from a file.
 
-   IDCTDescriptor                    Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the IDCT operation, which computes the inverse discrete cosine transform of an image.
+  FileStoreDescriptor               Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the FileStore operation, which stores an image to a file.
 
-   IDFTDescriptor                    Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the IDFT operation, which computes the inverse discrete Fourier transform of an image.
+  FormatDescriptor                  Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Format operation, which reformats an image.
 
-   IIPDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the IIP operation, which reads an image from an IIP server and creates a RenderedImage or a RenderableImage based on data from the server.
+  FPXDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the FPX operation, which reads FlashPix data from an input stream.
 
-   IIPResolutionDescriptor           Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the IIPResolution operation, which reads an image at a particular resolution from an IIP server and creates a RenderedImage based on the data from the server.
+  GIFDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the GIF operation, which reads GIF data from an input stream.
 
-   ImageFunctionDescriptor           Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the ImageFunction operation, which generates an image on the basis of a functional description provided by an object that is an instance of a class that implements the ImageFunction interface.
+  GradientMagnitudeDescriptor       Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Gradient operation, which is an edge detector that computes the magnitude of the image gradient vector in two orthogonal directions.
 
-   InvertDescriptor                  Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Invert operation, which inverts the pixel values of an image.
+  HistogramDecriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Histogram operation, which scans a specified region of an image and generates a histogram based on the pixel values within that region of the image.
 
-   JPEGDescriptor                    Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the JPEG operation, which reads a standard JPEG (JFIF) file.
+  IDCTDescriptor                    Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the IDCT operation, which computes the inverse discrete cosine transform of an image.
 
-   LogDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Log operation, which takes the logarithm of the pixel values of an image.
+  IDFTDescriptor                    Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the IDFT operation, which computes the inverse discrete Fourier transform of an image.
 
-   LookupDescriptor                  Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Lookup operation, which performs general table lookup on an image.
+  IIPDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the IIP operation, which reads an image from an IIP server and creates a RenderedImage or a RenderableImage based on data from the server.
 
-   MagnitudeDescriptor               Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Magnitude operation, which computes the magnitude of each pixel of an image.
+  IIPResolutionDescriptor           Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the IIPResolution operation, which reads an image at a particular resolution from an IIP server and creates a RenderedImage based on the data from the server.
 
-   MagnitudeSquaredDescriptor        Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the MagnitudeSquared operation, which computes the squared magnitude of each pixel of a complex image.
+  ImageFunctionDescriptor           Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the ImageFunction operation, which generates an image on the basis of a functional description provided by an object that is an instance of a class that implements the ImageFunction interface.
 
-   MatchCDFDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the MatchCDF operation, which matches pixel values to a supplied cumulative distribution function (CDF).
+  InvertDescriptor                  Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Invert operation, which inverts the pixel values of an image.
 
-   MaxDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Max operation, which computes the pixelwise maximum value of two images.
+  JPEGDescriptor                    Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the JPEG operation, which reads a standard JPEG (JFIF) file.
 
-   MeanDescriptor                    Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Mean operation, which scans a specified region of an image and computes the image-wise mean pixel value for each band within the region.
+  LogDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Log operation, which takes the logarithm of the pixel values of an image.
 
-   MedianFilterDescriptor            Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the MedianFilter operation, which is useful for removing isolated lines or pixels while preserving the overall appearance of an image.
+  LookupDescriptor                  Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Lookup operation, which performs general table lookup on an image.
 
-   MinDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Min operation, which computes the pixelwise minimum value of two images.
+  MagnitudeDescriptor               Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Magnitude operation, which computes the magnitude of each pixel of an image.
 
-   MultiplyComplexDescriptor         Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the MultiplyComplex operation, which multiplies two images representing complex data.
+  MagnitudeSquaredDescriptor        Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the MagnitudeSquared operation, which computes the squared magnitude of each pixel of a complex image.
 
-   MultiplyConstDescriptor           Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the MultiplyConst operation, which multiplies the pixel values of a source image with a constant on a per-band basis.
+  MatchCDFDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the MatchCDF operation, which matches pixel values to a supplied cumulative distribution function (CDF).
 
-   MultiplyDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Multiply operation, which multiplies the pixel values of two source images on a per-band basis.
+  MaxDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Max operation, which computes the pixelwise maximum value of two images.
 
-   NotDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Multiply operation, which performs a bitwise logical NOT operation on each pixel of a source image on a per-band basis.
+  MeanDescriptor                    Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Mean operation, which scans a specified region of an image and computes the image-wise mean pixel value for each band within the region.
 
-   OrConstDescriptor                 Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the OrConst operation, which performs a bitwise logical OR between the pixel values of a source image with a constant on a per-band basis.
+  MedianFilterDescriptor            Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the MedianFilter operation, which is useful for removing isolated lines or pixels while preserving the overall appearance of an image.
 
-   OrderedDitherDescriptor           Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the OrderedDither operation, which performs color quantization by finding the nearest color to each pixel in a supplied color cube and \"shifting\" the resulting index value by a pseudo-random amount determined by the values of a supplied dither mask.
+  MinDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Min operation, which computes the pixelwise minimum value of two images.
 
-   OrDescriptor                      Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Or operation, which performs a bitwise logical OR between the pixel values of the two source images on a per-band basis.
+  MultiplyComplexDescriptor         Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the MultiplyComplex operation, which multiplies two images representing complex data.
 
-   OverlayDescriptor                 Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Overlay operation, which overlays one image on top of another image.
+  MultiplyConstDescriptor           Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the MultiplyConst operation, which multiplies the pixel values of a source image with a constant on a per-band basis.
 
-   PatternDescriptor                 Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Pattern operation, which defines a tiled image consisting of a repeated pattern.
+  MultiplyDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Multiply operation, which multiplies the pixel values of two source images on a per-band basis.
 
-   PeriodicShiftDescriptor           Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the PeriodicShift operation, which computes the periodic translation of an image.
+  NotDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Multiply operation, which performs a bitwise logical NOT operation on each pixel of a source image on a per-band basis.
 
-   PhaseDescriptor                   Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Phase operation, which computes the phase angle of each pixel of an image.
+  OrConstDescriptor                 Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the OrConst operation, which performs a bitwise logical OR between the pixel values of a source image with a constant on a per-band basis.
 
-   PiecewiseDescriptor               Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Piecewise operation, which applies a piecewise pixel value mapping to an image.
+  OrderedDitherDescriptor           Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the OrderedDither operation, which performs color quantization by finding the nearest color to each pixel in a supplied color cube and \"shifting\" the resulting index value by a pseudo-random amount determined by the values of a supplied dither mask.
 
-   PNGDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the PNG operation, which reads a PNG input stream.
+  OrDescriptor                      Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Or operation, which performs a bitwise logical OR between the pixel values of the two source images on a per-band basis.
 
-   PNMDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the PNM operation, which reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats.
+  OverlayDescriptor                 Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Overlay operation, which overlays one image on top of another image.
 
-   PolarToComplexDescriptor          Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the PolarToComplex operation, which computes a complex image from a magnitude and a phase image.
+  PatternDescriptor                 Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Pattern operation, which defines a tiled image consisting of a repeated pattern.
 
-   RenderableDescriptor              Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Renderable operation, which produces a RenderableImage from a RenderedImage.
+  PeriodicShiftDescriptor           Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the PeriodicShift operation, which computes the periodic translation of an image.
 
-   RescaleDescriptor                 Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Rescale operation, which maps the pixel values of an image from one range to another range.
+  PhaseDescriptor                   Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Phase operation, which computes the phase angle of each pixel of an image.
 
-   RotateDescriptor                  Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Rotate operation, which rotates an image about a given point by a given angle.
+  PiecewiseDescriptor               Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Piecewise operation, which applies a piecewise pixel value mapping to an image.
 
-   ScaleDescriptor                   Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Scale operation, which translates and resizes an image.
+  PNGDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the PNG operation, which reads a PNG input stream.
 
-   ShearDescriptor                   Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Shear operation, which shears an image horizontally or vertically.
+  PNMDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the PNM operation, which reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats.
 
-   StreamDescriptor                  Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Stream operation, which reads java.io.InputStream files.
+  PolarToComplexDescriptor          Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the PolarToComplex operation, which computes a complex image from a magnitude and a phase image.
 
-   SubtractConstDescriptor           Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the SubtractConst operation, which subtracts one of a set of constant values from the pixel values of a source image on a per-band basis.
+  RenderableDescriptor              Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Renderable operation, which produces a RenderableImage from a RenderedImage.
 
-   SubtractDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Subtract operation, which subtracts the pixel values of the second source image from the first source image on a per-band basis.
+  RescaleDescriptor                 Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Rescale operation, which maps the pixel values of an image from one range to another range.
 
-   SubtractFromConstDescriptor       Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the SubtractFromConst operation, which subtracts the pixel values of a source image from one of a set of constant values on a per-band basis.
+  RotateDescriptor                  Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Rotate operation, which rotates an image about a given point by a given angle.
 
-   ThresholdDescriptor               Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Threshold operation, which maps all the pixel values of an image that fall within a given range to one of a set of per-band constants.
+  ScaleDescriptor                   Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Scale operation, which translates and resizes an image.
 
-   TIFFDescriptor                    Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the TIFF operation, which reads TIFF 6.0 data from an input stream.
+  ShearDescriptor                   Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Shear operation, which shears an image horizontally or vertically.
 
-   TranslateDescriptor               Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Translate operation, which copies an image to a new location in the plane.
+  StreamDescriptor                  Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Stream operation, which reads java.io.InputStream files.
 
-   TransposeDescriptor               Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Transpose operation, which flips or rotates an image.
+  SubtractConstDescriptor           Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the SubtractConst operation, which subtracts one of a set of constant values from the pixel values of a source image on a per-band basis.
 
-   URLDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the URL operation, which reads an image from a file, via a URL path.
+  SubtractDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Subtract operation, which subtracts the pixel values of the second source image from the first source image on a per-band basis.
 
-   WarpDescriptor                    Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Warp operation, which performs general warping on an image.
+  SubtractFromConstDescriptor       Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the SubtractFromConst operation, which subtracts the pixel values of a source image from one of a set of constant values on a per-band basis.
 
-   XorConstDescriptor                Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the XorConst operation, which performs a bitwise logical XOR between the pixel values of a source image with a constant.
+  ThresholdDescriptor               Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Threshold operation, which maps all the pixel values of an image that fall within a given range to one of a set of per-band constants.
 
-   XorDescriptor                     Extends: OperationDescriptorImpl
-                                                An OperationDescriptor for the Xor operation, which performs a bitwise logical XOR between the pixel values of two source images on a per-band basis.
-   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  TIFFDescriptor                    Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the TIFF operation, which reads TIFF 6.0 data from an input stream.
 
-   :  **[Table B-8 JAI Operator Classes]{#73482}**
+  TranslateDescriptor               Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Translate operation, which copies an image to a new location in the plane.
 
- 
- ### B.3.6 JAI Widget Interfaces
+  TransposeDescriptor               Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Transpose operation, which flips or rotates an image.
 
- [Table B-9](api-summary/index.html) lists the JAI widget
- interfaces (`javax.media.jai.widget`).
+  URLDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the URL operation, which reads an image from a file, via a URL path.
 
-   -----------------------------------------------------------------------------------------------------------------------------------------------
-   [Interface]{#79160}           [Description]{#79162}
-   ----------------------------- -----------------------------------------------------------------------------------------------------------------
-   ViewportListener   Used by the ScrollingImagePanel class to inform listeners of the current viewable area of the image.
+  WarpDescriptor                    Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Warp operation, which performs general warping on an image.
 
-   -----------------------------------------------------------------------------------------------------------------------------------------------
+  XorConstDescriptor                Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the XorConst operation, which performs a bitwise logical XOR between the pixel values of a source image with a constant.
 
-   :  **[Table B-9 JAI Widget Interfaces]{#79156}**
+  XorDescriptor                     Extends: OperationDescriptorImpl
+                                               An OperationDescriptor for the Xor operation, which performs a bitwise logical XOR between the pixel values of two source images on a per-band basis.
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
- ``
+  :  **[Table B-8 JAI Operator Classes]{#73482}**
 
- 
- ### B.3.7 JAI Widget Classes
 
- [Table B-10](api-summary/index.html) lists the JAI widget classes
- (`javax.media.jai.widget`).
+### B.3.6 JAI Widget Interfaces
 
-   -------------------------------------------------------------------------------------------------------------------------------------------------------------
-   [Class]{#73689}                  [Description]{#73691}
-   -------------------------------- ----------------------------------------------------------------------------------------------------------------------------
-   ImageCanvas           Extends: java.awt.Canvas
-                                    A simple output widget for a RenderedImage. This class can be used in any context that calls for a Canvas.
+[Table B-9](api-summary/index.html) lists the JAI widget
+interfaces (`javax.media.jai.widget`).
 
-   ScrollingImagePanel   Extends: java.awt.Panel
-                                    Implements: java.awt.event.AdjustmentListener, java.awt.event.MouseListener, java.awt.event.MouseMotionListener
-                                    An extension of java.awt.Panel that contains an ImageCanvas and vertical and horizontal scrollbars.
-   -------------------------------------------------------------------------------------------------------------------------------------------------------------
+  -----------------------------------------------------------------------------------------------------------------------------------------------
+  [Interface]{#79160}           [Description]{#79162}
+  ----------------------------- -----------------------------------------------------------------------------------------------------------------
+  ViewportListener   Used by the ScrollingImagePanel class to inform listeners of the current viewable area of the image.
 
-   :  **[Table B-10 JAI Widget Classes]{#73685}**
+  -----------------------------------------------------------------------------------------------------------------------------------------------
 
- ------------------------------------------------------------------------
+  :  **[Table B-9 JAI Widget Interfaces]{#79156}**
 
- \
+``
 
-   
- 
 
- \
+### B.3.7 JAI Widget Classes
 
- ##### [Copyright](copyright.html) ©1999 , Sun Microsystems, Inc. All rights reserved.
+[Table B-10](api-summary/index.html) lists the JAI widget classes
+(`javax.media.jai.widget`).
+
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------
+  [Class]{#73689}                  [Description]{#73691}
+  -------------------------------- ----------------------------------------------------------------------------------------------------------------------------
+  ImageCanvas           Extends: java.awt.Canvas
+                                   A simple output widget for a RenderedImage. This class can be used in any context that calls for a Canvas.
+
+  ScrollingImagePanel   Extends: java.awt.Panel
+                                   Implements: java.awt.event.AdjustmentListener, java.awt.event.MouseListener, java.awt.event.MouseMotionListener
+                                   An extension of java.awt.Panel that contains an ImageCanvas and vertical and horizontal scrollbars.
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  :  **[Table B-10 JAI Widget Classes]{#73685}**
+
+------------------------------------------------------------------------
+

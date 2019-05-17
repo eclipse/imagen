@@ -5,15 +5,11 @@ parent: Programming Guide
 nav_order: 10
 ---
 
-
-
-
 # Geometric Image Manipulation                                          
 
-**T**HIS chapter describes the basics of JAI\'s geometric image
+This chapter describes the basics of JAI\'s geometric image
 manipulation functions. The geometric image manipulation operators are
 all part of the `javax.media.operator` package.
-
 
 8.1 Introduction
 -------------------------------------
@@ -2876,12 +2872,4 @@ an affine-based warp operation.
       : 
 
 ------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-
 

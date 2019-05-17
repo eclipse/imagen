@@ -5,17 +5,9 @@ parent: Programming Guide
 nav_order: 14
 ---
 
-
-
-  -----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)12
-  -----------------------------------------
-
-
 # Client-Server Imaging                                                 
 
-**T**HIS chapter describes JAI\'s client-server imaging system.
-
+This chapter describes JAI\'s client-server imaging system.
 
 12.1 Introduction
 --------------------------------------
@@ -1008,12 +1000,3 @@ Example**
          
 
 ------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-
-
