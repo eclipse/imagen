@@ -4,6 +4,7 @@ exclude:  README.md
 # Theme
 remote_theme: pmarsceill/just-the-docs
 theme: "just-the-docs"
+exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "package-lock.json", "README.md", "Rakefile"]
 
 # Theme configuration
 title: Eclipse ImageN
