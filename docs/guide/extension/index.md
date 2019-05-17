@@ -5,16 +5,9 @@ parent: Programming Guide
 nav_order: 16
 ---
 
-
-  -----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)14
-  -----------------------------------------
-
-
 # Extending the API                                                     
 
-**T**HIS chapter describes how the JAI API may be extended.
-
+This chapter describes how the JAI API may be extended.
 
 14.1 Introduction
 --------------------------------------
@@ -1089,12 +1082,4 @@ returned.``
       : 
 
 ------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-
 

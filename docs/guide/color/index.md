@@ -5,11 +5,9 @@ parent: Programming Guide
 nav_order: 6
 ---
 
-
-
 # Color Space                                                           
 
-**T**HIS chapter describes the JAI color space, transparency, and the
+This chapter describes the JAI color space, transparency, and the
 color conversion operators. JAI follows the Java AWT color model.
 
 

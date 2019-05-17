@@ -45,3 +45,5 @@ Appendix:
 * [Programming Examples](examples)
 
 * [API Summary](api-summary)
+
+* [Image Data Codecs](codecs)
