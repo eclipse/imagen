@@ -5,30 +5,52 @@ parent: Programming Guide
 nav_order: 4
 ---
 
-
-# Programming Environment for ImageN
+# Programming Environment
 
 This chapter describes how to get started programming with Eclipse ImageN.
 
 3.1 Introduction
 -------------------------------------
 
-An imaging operation within ImageN is summarized in the following four
-steps:
+An imaging operation within ImageN is summarized in the following four steps:
 
-1. Obtain the source image or images. Images may be obtained in one of three ways (see [Chapter 4, \"Image Acquisition and Display](../acquisition)\"):
+1. Obtain the source image or images. Images may be obtained in one of three ways (see [Chapter 4, \"Image Acquisition and Display\"](../acquisition)):
+
+   a. Load from an image file such as GIF, TIFF, or JPEG
+
+   b. Fetch the image from another data source, such as a remote server
+
+   c. Generate the image internally
 
 2. Define the imaging graph. This is a two part process:
 
+   a. Define the image operators (see [Section 3.6, \"JAI API Operators\"](#operators) )
+
+   b. Define the parent/child relationship between sources and sinks
+
 3. Evaluate the graph using one of three execution models:
 
+   a. Rendered execution model (Immediate mode - see [Section 3.3.1, \"Rendered Graphs\"](#rendered)
+
+   b. Renderable execution model (Deferred mode - see [Section 3.3.2, \"Renderable Graphs\"](#renderable)
+
+   c. Remote execution model (Remote mode - see Section 3.4, "Remote Execution")
+
 4. Process the result. There are four possible destinations:
+
+   a. Save the image in a file
+
+   b. Display the image on the screen
+
+   c. Print the image on a printer or other output device
+
+   d. Send the image to another API, such as Swing
 
 
 3.2 An Overview of Graphs
 ----------------------------------------------
 
-In JAI, any operation is defined as an object. An operator object is
+In ImageN, any operation is defined as an object. An operator object is
 instantiated with zero or more image sources and other parameters that
 define the operation. Two or more operators may be strung together so
 that the first operator becomes an image source to the next operator.
@@ -40,8 +62,9 @@ with one or more image sources at one end and an image *sinc* (or
 \"user\") at the other end. The graph that is created is commonly
 known as a *directed acyclic graph* (DAG), where each object is a
 *node* in the graph and object references form the *edges* (see
-[Figure 3-1](../programming-environ)).
+[Figure 3-1](#figure-3-1)).
 
+<a name="figure-3-1"></a>
 
 ------------------------------------------------------------------------
 
@@ -49,8 +72,7 @@ known as a *directed acyclic graph* (DAG), where each object is a
 
 ------------------------------------------------------------------------
 
-
-***Figure 3-1*  An Example DAG**
+**Figure 3-1 An Example DAG**
 
 Most APIs simply leave the DAG structure of images and operators
 implicit. However, ImageN makes the notion of a *processing graph*
@@ -102,8 +124,8 @@ JAI introduces two different types of graphs: rendered and renderable.
 
 **Note:** The following two sections, \"[Rendered
 Graphs](../programming-environ)\" and \"[Renderable
-Graphs](../programming-environ),\" are for advanced JAI
-users. Most programmers will use JAI\'s Rendered mode and don\'t
+Graphs](../programming-environ),\" are for advanced ImageN
+users. Most programmers will use ImageN\'s Rendered mode and don\'t
 really need to know about the Renderable mode.
 
 ------------------------------------------------------------------------
@@ -111,7 +133,7 @@ really need to know about the Renderable mode.
 
 ### 3.3.1 Rendered Graphs
 
-Rendered graphs are the simplest form of rendering in JAI. Although
+Rendered graphs are the simplest form of rendering in ImageN. Although
 Renderable graphs have the advantage of rendering-independence,
 eliminating the need to deal directly with pixels, Rendered graphs are
 useful when it is necessary to work directly with the pixels.
@@ -124,7 +146,7 @@ its results immediately.
 
 A Rendered graph is composed of Rendered object nodes. These nodes are
 usually instances of the `RenderedOp` class, but could belong to any
-subclass of `PlanarImage`, JAI\'s version of `RenderedImage`.
+subclass of `PlanarImage`, ImageN\'s version of `RenderedImage`.
 
 Image sources are objects that implement the `RenderedImage`
 interface. These sources are specified as parameters in the
@@ -221,11 +243,12 @@ add the display widget to our frame.
          add(imagePanel1);
 
 Once pixels start flowing, the graph will look like [Figure
-3-2](../programming-environ). The display widget drives
+3-2](#figure-3-2). The display widget drives
 the process. We mention this because the source images are not loaded
 and no pixels are produced until the display widget actually requests
 them.
 
+<a name="figure-3-2"></a>
 
 ------------------------------------------------------------------------
 
@@ -233,9 +256,7 @@ them.
 
 ------------------------------------------------------------------------
 
-
-***Figure 3-2*  Rendered Chain Example**
-
+**Figure 3-2 Rendered Chain Example**
 
 ### 3.3.2 Renderable Graphs
 
@@ -263,83 +284,91 @@ file, inverts its pixel values, then adds a constant value to the
 pixels. Once again, this example is a code fragment rather than an
 entire class definition.
 
-**[]{#62194}**
-
 ***Listing 3-2*  Renderable Chain Example**
 
 ------------------------------------------------------------------------
 
-         // Get rendered source object from a TIFF source.
-         // The ParameterBlock `pb0' contains the name
-         // of the source (file, URL, etc.). The objects `hints0',
-         // `hints1', and `hints2' contain rendering hints and are
-         // assumed to be created outside of this code fragment.
-         RenderedOp sourceImg = 
-                   JAI.create("TIFF", pb0);
+```java
+  // Get rendered source object from a TIFF source.
+  // The ParameterBlock `pb0' contains the name
+  // of the source (file, URL, etc.). The objects `hints0',
+  // `hints1', and `hints2' contain rendering hints and are
+  // assumed to be created outside of this code fragment.
+  RenderedOp sourceImg = 
+            JAI.create("TIFF", pb0);
 
-         // Derive the RenderableImage from the source RenderedImage.
-         ParameterBlock pb = new ParameterBlock();
-         pb.addSource(sourceImg);
-         pb.add(null).add(null).add(null).add(null).add(null);
+  // Derive the RenderableImage from the source RenderedImage.
+  ParameterBlock pb = new ParameterBlock();
+  pb.addSource(sourceImg);
+  pb.add(null).add(null).add(null).add(null).add(null);
 
-         // Create the Renderable operation.
-         RenderableImage ren = JAI.createRenderable("renderable", pb);
+  // Create the Renderable operation.
+  RenderableImage ren = JAI.createRenderable("renderable", pb);
 
-         // Set up the parameter block for the first op.
-         ParameterBlock pb1 = new ParameterBlock();
-         pb1.addSource(ren);
+  // Set up the parameter block for the first op.
+  ParameterBlock pb1 = new ParameterBlock();
+  pb1.addSource(ren);
 
-         // Make first Op in Renderable chain an invert.
-         RenderableOp Op1 = JAI.createRenderable("invert", pb1);
+  // Make first Op in Renderable chain an invert.
+  RenderableOp Op1 = JAI.createRenderable("invert", pb1);
 
-         // Set up the parameter block for the second Op.
-         // The constant to be added is "2".
-         ParameterBlock pb2 = new ParameterBlock();
-         pb2.addSource(Op1);        // Op1 as the source
-         pb2.add(2.0f);             // 2.0f as the constant
+  // Set up the parameter block for the second Op.
+  // The constant to be added is "2".
+  ParameterBlock pb2 = new ParameterBlock();
+  pb2.addSource(Op1);        // Op1 as the source
+  pb2.add(2.0f);             // 2.0f as the constant
 
-         // Make a second Op a constant add operation.
-         RenderableOp Op2 = 
-                   JAI.createRenderable("addconst", pb2);
+  // Make a second Op a constant add operation.
+  RenderableOp Op2 = 
+            JAI.createRenderable("addconst", pb2);
 
-         // Set up a rendering context.
-         AffineTransform screenResolution = ...;
-         RenderContext rc = new RenderContext(screenResolution);
+  // Set up a rendering context.
+  AffineTransform screenResolution = ...;
+  RenderContext rc = new RenderContext(screenResolution);
 
-         // Get a rendering.
-         RenderedImage rndImg1 = Op2.createRendering(rc);
+  // Get a rendering.
+  RenderedImage rndImg1 = Op2.createRendering(rc);
 
-         // Display the rendering onscreen using screenResolution.
-         imagePanel1 = new ScrollingImagePanel(rndImg1, 100, 100);
+  // Display the rendering onscreen using screenResolution.
+  imagePanel1 = new ScrollingImagePanel(rndImg1, 100, 100);
+```
 
 ------------------------------------------------------------------------
 
 In this example, the image source is a TIFF image. A TIFF `RenderedOp`
 is created as a source for the subsequent operations:
 
-         RenderedOp sourceImg = 
-                   JAI.create("TIFF", pb0);
+```java
+  RenderedOp sourceImg = 
+            JAI.create("TIFF", pb0);
+```
 
 The rendered source image is then converted to a renderable image:
 
-         ParameterBlock pb = new ParameterBlock();
-         pb.addSource(sourceImg);
-         pb.add(null).add(null).add(null).add(null).add(null);
-         RenderableImage ren = JAI.createRenderable("renderable", pb);
+```java
+  ParameterBlock pb = new ParameterBlock();
+  pb.addSource(sourceImg);
+  pb.add(null).add(null).add(null).add(null).add(null);
+  RenderableImage ren = JAI.createRenderable("renderable", pb);
+```
 
 Next, a `ParameterBlock` is set up for the first operation. The
 parameter block contains sources for the operation and parameters or
 other objects that the operator may require.
 
-         ParameterBlock pb1 = new ParameterBlock();
-         pb1.addSource(sourceImage);
+```java
+  ParameterBlock pb1 = new ParameterBlock();
+  pb1.addSource(sourceImage);
+```
 
 An \"invert\" `RenderableOp` is then created with the TIFF image as
 the source. The `invert` operation inverts the pixel values of the
 source image and creates a `RenderableImage` as the result of applying
 the operation to a tuple (source and parameters).
 
-         RenderableOp Op1 = JAI.createRenderable("invert", pb1);
+```java
+  RenderableOp Op1 = JAI.createRenderable("invert", pb1);
+```
 
 The next part of the code example sets up a `ParameterBlock` for the
 next operation. The `ParameterBlock` defines the previous operation
@@ -347,21 +376,26 @@ next operation. The `ParameterBlock` defines the previous operation
 value of 2.0, which will be used in the next \"add constant\"
 operation.
 
-         ParameterBlock pb2 = new ParameterBlock();
-         pb2.addSource(Op1);        // Op1 as the source
-         pb2.add(2.0f);             // 2.0f as the constant
+```java
+  ParameterBlock pb2 = new ParameterBlock();
+  pb2.addSource(Op1);        // Op1 as the source
+  pb2.add(2.0f);             // 2.0f as the constant
+```
 
 The second operation (`Op2`) is an add constant (`addconst`), which
 adds the constant value (2.0) to the pixel values of a source image on
 a per-band basis. The `pb2` parameter is the `ParameterBlock` set up
 in the previous step.
 
-         RenderableOp Op2 = 
-                   JAI.createRenderable("addconst", pb2);
+```java
+  RenderableOp Op2 = 
+            JAI.createRenderable("addconst", pb2);
+```
 
 After `Op2` is created, the renderable chain thus far is shown in
-[Figure 3-3](../programming-environ).
+[Figure 3-3](#figure-3-3).
 
+<a name="figure-3-3"></a>
 
 ------------------------------------------------------------------------
 
@@ -369,8 +403,7 @@ After `Op2` is created, the renderable chain thus far is shown in
 
 ------------------------------------------------------------------------
 
-
-***Figure 3-3*  Renderable Chain Example**
+**Figure 3-3 Renderable Chain Example**
 
 Next, a `RenderContext` is created using an `AffineTransform` that
 will produce a screen-size rendering.
@@ -419,9 +452,9 @@ happens back up the rendering chain in our example:
     `ScrollingImagePanel` to display the result on the screen.
 
 After the creation of the `ScrollingImagePanel`, the Renderable and
-Rendered chains look like [Figure
-3-4](../programming-environ).
+Rendered chains look like [Figure 3-4](#figure-3-4).
 
+<a name="figure-3-4"></a>
 
 ------------------------------------------------------------------------
 
@@ -429,9 +462,7 @@ Rendered chains look like [Figure
 
 ------------------------------------------------------------------------
 
-
-***Figure 3-4*  Renderable and Rendered Graphs
-after the getImage Call**
+**Figure 3-4 Renderable and Rendered Graphs after the getImage Call**
 
 At this point in the chain, no pixels have been processed and no
 `OpImages`, which actually calculate the results, have been created.
@@ -439,8 +470,9 @@ Only when the `ScrollingImagePanel` needs to put pixels on the screen
 are the `OpImages` created and pixels pulled through the Rendered
 chain, as done in the final line of code.
 
-         imagePanel1 = new ScrollingImagePanel(rndImg1, 100, 100);
-
+```java
+ imagePanel1 = new ScrollingImagePanel(rndImg1, 100, 100);
+```
 
 ### 3.3.3 Reusing Graphs
 
@@ -502,7 +534,7 @@ server. To learn more about remote method invocation, refer to one of
 the books on Java described in [\"Related Documentation\" on page
 xv](../Preface).
 
-To do remote method invocation in JAI, a `RemoteImage` is set up on
+To do remote method invocation in ImageN, a `RemoteImage` is set up on
 the server and a `RenderedImage` chain is set up on the client. For
 more information, see [Chapter 12, \"Client-Server
 Imaging](../client-server).\"
@@ -551,7 +583,7 @@ automatically.
 ### 3.5.2 The PlanarImage Class
 
 The `PlanarImage` class is the main class for describing
-two-dimensional images in JAI. `PlanarImage` implements the
+two-dimensional images in ImageN. `PlanarImage` implements the
 `RenderedImage` interface from the Java 2D API. `TiledImage` and
 `OpImage`, described later, are subclasses of `PlanarImage`.``
 
@@ -746,29 +778,21 @@ be present on all platforms.
 The general categories of image processing operators supported
 include:
 
--   [Point Operators](../programming-environ)
-
+-   [Point Operators](#3.6.1-Point-Operators)
 
 -   [Area Operators](../programming-environ)
 
-
 -   [Geometric Operators](../programming-environ)
-
 
 -   [Color Quantization Operators](../programming-environ)
 
-
 -   [File Operators](../programming-environ)
-
 
 -   [Frequency Operators](../programming-environ)
 
-
 -   [Statistical Operators](../programming-environ)
 
-
 -   [Edge Extraction Operators](../programming-environ)
-
 
 -   [Miscellaneous Operators](../programming-environ)
 
@@ -787,95 +811,133 @@ into an output image in such a way that each output pixel depends only
 on the corresponding input pixel. Point operations do not modify the
 spatial relationships within an image.
 
-[Table 3-1](../programming-environ) lists the point
-operators.
+[Table 3-1](../programming-environ) lists the point operators.
 
-  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Operator]{#64596}               [Description]{#64598}                                                                                                                                                                                                                                                                                 [Reference]{#64600}
-  -------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -----------------------------------------------------------
-  Absolute              Takes one rendered or renderable source image, and computes the mathematical absolute value of each pixel.                                                                                                                                                                                 []{#64609} [page 177](../image-manipulation)\
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  Add                   Takes two rendered or renderable source images, and adds every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                                          []{#64618} [page 166](../image-manipulation)\
+Absolute
+: Takes one rendered or renderable source image, and computes the mathematical absolute value of each pixel.                                                                                                                                                                                 
 
-  AddCollection         Takes a collection of rendered source images, and adds every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                                            []{#64627} [page 168](../image-manipulation)\
+Add
+: Takes two rendered or renderable source images, and adds every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                                          
 
-  AddConst              Takes a collection of rendered images and an array of double constants, and for each rendered image in the collection adds a constant to every pixel of its corresponding band.                                                                                                            []{#64636} [page 167](../image-manipulation)\
+AddCollection
+: Takes a collection of rendered source images, and adds every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                                            
 
-  [AddConstToCollection]{#64638}   Takes a collection of rendered images and an array of double constants, and for each rendered image in the collection adds a constant to every pixel of its corresponding band.                                                                                                            []{#64645} [page 169](../image-manipulation)\
+AddConst
+: Takes a collection of rendered images and an array of double constants, and for each rendered image in the collection adds a constant to every pixel of its corresponding band.                                                                                                            
 
-  And                   Takes two rendered or renderable source images and performs a bit-wise logical AND on every pair of pixels, one from each source image, of the corresponding position and band.                                                                                                            []{#64654} [page 158](../image-manipulation)\
+AddConstToCollection
+: Takes a collection of rendered images and an array of double constants, and for each rendered image in the collection adds a constant to every pixel of its corresponding band.                                                                                                            
 
-  AndConst              Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical AND between every pixel in the same band of the source and the constant from the corresponding array entry.                                                               []{#64663} [page 159](../image-manipulation)\
+And
+: Takes two rendered or renderable source images and performs a bit-wise logical AND on every pair of pixels, one from each source image, of the corresponding position and band.                                                                                                            
 
-  BandCombine           Takes one rendered or renderable source image and computes a set of arbitrary linear combinations of the bands using a specified matrix.                                                                                                                                                   []{#64672} [page 141](../color)\
+AndConst:
+: Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical AND between every pixel in the same band of the source and the constant from the corresponding array entry.                                                               
 
-  BandSelect            Takes one rendered or renderable source image, chooses N bands from the image, and copies the pixel data of these bands to the destination image in the order specified.                                                                                                                   []{#64681} [page 185](../image-manipulation)\
+BandCombine
+: Takes one rendered or renderable source image and computes a set of arbitrary linear combinations of the bands using a specified matrix.                                                                                                                                                   
 
-  Clamp                 Takes one rendered or renderable source image and sets all the pixels whose value is below a low value to that low value and all the pixels whose value is above a high value to that high value. The pixels whose value is between the low value and the high value are left unchanged.   []{#64690} [page 184](../image-manipulation)\
+BandSelect
+: Takes one rendered or renderable source image, chooses N bands from the image, and copies the pixel data of these bands to the destination image in the order specified.                                                                                                                   
 
-  ColorConvert          Takes one rendered or renderable source image and performs a pixel-by-pixel color conversion of the data.                                                                                                                                                                                  []{#64699} [page 140](../color)\
+Clamp
+: Takes one rendered or renderable source image and sets all the pixels whose value is below a low value to that low value and all the pixels whose value is above a high value to that high value. The pixels whose value is between the low value and the high value are left unchanged.   
 
-  Composite             Takes two rendered or renderable source images and combines the two images based on their alpha values at each pixel.                                                                                                                                                                      []{#64708} [page 243](../image-enhance)\
+ColorConvert
+: Takes one rendered or renderable source image and performs a pixel-by-pixel color conversion of the data.                                                                                                                                                                                  
 
-  Constant              Takes one rendered or renderable source image and creates a multi-banded, tiled rendered image, where all the pixels from the same band have a constant value.                                                                                                                             []{#64717} [page 123](../acquisition)\
+Composite
+: Takes two rendered or renderable source images and combines the two images based on their alpha values at each pixel.                                                                                                                                                                      
 
-  Divide                Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, divides the pixel from the first source by the pixel from the second source.                                                              []{#64726} [page 171](../image-manipulation)\
+Constant
+: Takes one rendered or renderable source image and creates a multi-banded, tiled rendered image, where all the pixels from the same band have a constant value.                                                                                                                             
 
-  DivideByConst         Takes one rendered source image and divides the pixel values of the image by a constant.                                                                                                                                                                                                   []{#64735} [page 172](../image-manipulation)\
+Divide
+: Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, divides the pixel from the first source by the pixel from the second source.                                                              
 
-  DivideComplex         Takes two rendered or renderable source images representing complex data and divides them.                                                                                                                                                                                                 []{#64744} [page 174](../image-manipulation)\
+DivideByConst
+: Takes one rendered source image and divides the pixel values of the image by a constant.                                                                                                                                                                                                   
 
-  DivideIntoConst       Takes one rendered or renderable source image and an array of double constants, and divides every pixel of the same band of the source into the constant from the corresponding array entry.                                                                                               []{#64753} [page 173](../image-manipulation)\
+DivideComplex
+: Takes two rendered or renderable source images representing complex data and divides them.                                                                                                                                                                                                 
 
-  Exp                   Takes one rendered or renderable source image and computes the exponential of the pixel values.                                                                                                                                                                                            []{#64762} [page 177](../image-manipulation)\
+DivideIntoConst
+: Takes one rendered or renderable source image and an array of double constants, and divides every pixel of the same band of the source into the constant from the corresponding array entry.                                                                                               
 
-  Invert                Takes one rendered or renderable source image and inverts the pixel values.                                                                                                                                                                                                                []{#64771} [page 241](../image-enhance)\
+Exp
+: Takes one rendered or renderable source image and computes the exponential of the pixel values.                                                                                                                                                                                            
 
-  Log                   Takes one rendered or renderable source image and computes the natural logarithm of the pixel values. The operation is done on a per-pixel, per-band basis. For integral data types, the result will be rounded and clamped as needed.                                                     []{#64780} [page 241](../image-enhance)\
+Invert
+: Takes one rendered or renderable source image and inverts the pixel values.                                                                                                                                                                                                                
 
-  Lookup                Takes one rendered or renderable source image and a lookup table, and performs general table lookup by passing the source image through the table.                                                                                                                                         []{#64789} [page 205](../image-enhance)\
+Log
+: Takes one rendered or renderable source image and computes the natural logarithm of the pixel values. The operation is done on a per-pixel, per-band basis. For integral data types, the result will be rounded and clamped as needed.                                                     
 
-  MatchCDF              Takes one rendered or renderable source image and performs a piecewise linear mapping of the pixel values such that the Cumulative Distribution Function (CDF) of the destination image matches as closely as possible a specified Cumulative Distribution Function.                       []{#64798} [page 203](../image-enhance)\
+Lookup
+: Takes one rendered or renderable source image and a lookup table, and performs general table lookup by passing the source image through the table.                                                                                                                                         
 
-  Max                   Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, finds the maximum pixel value.                                                                                                            []{#64807} [page 156](../image-manipulation)\
+MatchCDF
+: Takes one rendered or renderable source image and performs a piecewise linear mapping of the pixel values such that the Cumulative Distribution Function (CDF) of the destination image matches as closely as possible a specified Cumulative Distribution Function.                       
 
-  Min                   Takes two rendered or renderable source images and for every pair of pixels, one from each source image of the corresponding position and band, finds the minimum pixel value.                                                                                                             []{#64816} [page 157](../image-manipulation)\
+Max
+: Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, finds the maximum pixel value.                                                                                                            
 
-  Multiply              Takes two rendered or renderable source images, and multiplies every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                                    []{#64825} [page 174](../image-manipulation)\
+Min
+: Takes two rendered or renderable source images and for every pair of pixels, one from each source image of the corresponding position and band, finds the minimum pixel value.                                                                                                             
 
-  MultiplyComplex       Takes two rendered source images representing complex data and multiplies the two images.                                                                                                                                                                                                  []{#64834} [page 176](../image-manipulation)\
+Multiply
+: Takes two rendered or renderable source images, and multiplies every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                                    
 
-  MultiplyConst         Takes one rendered or renderable source image and an array of double constants, and multiplies every pixel of the same band of the source by the constant from the corresponding array entry.                                                                                              []{#64843} [page 175](../image-manipulation)\
+MultiplyComplex
+: Takes two rendered source images representing complex data and multiplies the two images.                                                                                                                                                                                                  
 
-  Not                   Takes one rendered or renderable source image and performs a bit-wise logical NOT on every pixel from every band of the source image.                                                                                                                                                      []{#64852} [page 164](../image-manipulation)\
+MultiplyConst
+: Takes one rendered or renderable source image and an array of double constants, and multiplies every pixel of the same band of the source by the constant from the corresponding array entry.                                                                                              
 
-  Or                    Takes two rendered or renderable source images and performs bit-wise logical OR on every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                []{#64861} [page 160](../image-manipulation)\
+Not
+: Takes one rendered or renderable source image and performs a bit-wise logical NOT on every pixel from every band of the source image.                                                                                                                                                      
 
-  OrConst               Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical OR between every pixel in the same band of the source and the constant from the corresponding array entry.                                                                []{#64870} [page 161](../image-manipulation)\
+Or
+: Takes two rendered or renderable source images and performs bit-wise logical OR on every pair of pixels, one from each source image of the corresponding position and band.                                                                                                                
 
-  Overlay               Takes two rendered or renderable source images and overlays the second source image on top of the first source image.                                                                                                                                                                      []{#64879} [page 242](../image-enhance)\
+OrConst
+: Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical OR between every pixel in the same band of the source and the constant from the corresponding array entry.                                                                
 
-  Pattern               Takes a rendered source image and defines a tiled image consisting of a repeated pattern.                                                                                                                                                                                                  []{#64888} [page 80](../acquisition)\
+Overlay
+: Takes two rendered or renderable source images and overlays the second source image on top of the first source image.                                                                                                                                                                      
 
-  Piecewise             Takes one rendered or renderable source image and performs a piecewise linear mapping of the pixel values.                                                                                                                                                                                 []{#64897} [page 202](../image-enhance)\
+Pattern
+: Takes a rendered source image and defines a tiled image consisting of a repeated pattern.                                                                                                                                                                                                  
 
-  Rescale               Takes one rendered or renderable source image and maps the pixel values of an image from one range to another range by multiplying each pixel value by one of a set of constants and then adding another constant to the result of the multiplication.                                     []{#64906} [page 200](../image-enhance)\
+Piecewise
+: Takes one rendered or renderable source image and performs a piecewise linear mapping of the pixel values.                                                                                                                                                                                 
 
-  Subtract              Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, subtracts the pixel from the second source from the pixel from the first source.                                                          []{#64915} [page 169](../image-manipulation)\
+Rescale
+: Takes one rendered or renderable source image and maps the pixel values of an image from one range to another range by multiplying each pixel value by one of a set of constants and then adding another constant to the result of the multiplication.                                     
 
-  SubtractConst         Takes one rendered or renderable source image and an array of double constants, and subtracts a constant from every pixel of its corresponding band of the source.                                                                                                                         []{#64924} [page 170](../image-manipulation)\
+Subtract
+: Takes two rendered or renderable source images, and for every pair of pixels, one from each source image of the corresponding position and band, subtracts the pixel from the second source from the pixel from the first source.                                                          
 
-  SubtractFromConst     Takes one rendered or renderable source image and an array of double constants, and subtracts every pixel of the same band of the source from the constant from the corresponding array entry.                                                                                             []{#64933} [page 171](../image-manipulation)\
+SubtractConst
+: Takes one rendered or renderable source image and an array of double constants, and subtracts a constant from every pixel of its corresponding band of the source.                                                                                                                         
 
-  Threshold             Takes one rendered or renderable source image, and maps all the pixels of this image whose value falls within a specified range to a specified constant.                                                                                                                                   []{#64942} [page 245](../image-enhance)\
+SubtractFromConst
+: Takes one rendered or renderable source image and an array of double constants, and subtracts every pixel of the same band of the source from the constant from the corresponding array entry.                                                                                             
 
-  Xor                   Takes two rendered or renderable source images, and performs a bit-wise logical XOR on every pair of pixels, one from each source image of the corresponding position and band.                                                                                                            []{#64951} [page 162](../image-manipulation)\
+Threshold
+: Takes one rendered or renderable source image, and maps all the pixels of this image whose value falls within a specified range to a specified constant.                                                                                                                                   
 
-  XorConst              Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical XOR between every pixel in the same band of the source and the constant from the corresponding array entry.                                                               []{#64960} [page 163](../image-manipulation)\
-  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Xor
+: Takes two rendered or renderable source images, and performs a bit-wise logical XOR on every pair of pixels, one from each source image of the corresponding position and band.                                                                                                            
 
-  :  **[*Table 3-1*  Point
-  Operators]{#64590}**
+XorConst
+: Takes one rendered or renderable source image and an array of integer constants, and performs a bit-wise logical XOR between every pixel in the same band of the source and the constant from the corresponding array entry.                                                               
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+**Table 3-1 Point Operators**
 
 
 ### 3.6.2 Area Operators
@@ -890,25 +952,28 @@ Linear operations include translation, rotation, and scaling.
 Non-linear operations, also known as *warping transformations*,
 introduce curvatures and bends to the processed image.
 
-[Table 3-2](../programming-environ) lists the area
-operators.
+[Table 3-2](../programming-environ) lists the area operators.
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Operator]{#55487}       [Description]{#55489}                                                                                                                                                                                       [Reference]{#55491}
-  ------------------------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------
-  [Border]{#55502}         Takes one rendered source image and adds a border around it.                                                                                                                                     []{#55509} [page 191](../image-enhance)\
+-----------------------------------------------------------------------------------
 
-  [BoxFilter]{#60860}      Takes one rendered source image and determines the intensity of a pixel in the image by averaging the source pixels within a rectangular area around the pixel.                                  []{#60867} [page 224](../image-enhance)\
+Border
+: Takes one rendered source image and adds a border around it.                                                                                                                                     []{#55509} [page 191](../image-enhance)\
 
-  [Convolve]{#55511}       Takes one rendered source image and performs a spatial operation that computes each output sample by multiplying elements of a kernel with the samples surrounding a particular source sample.   []{#55518} [page 221](../image-enhance)\
+BoxFilter
+: Takes one rendered source image and determines the intensity of a pixel in the image by averaging the source pixels within a rectangular area around the pixel.                                  []{#60867} [page 224](../image-enhance)\
 
-  [Crop]{#61475}           Takes one rendered or renderable source image and crops the image to a specified rectangular area.                                                                                               []{#61479} [page 199](../image-enhance)\
+Convolve
+: Takes one rendered source image and performs a spatial operation that computes each output sample by multiplying elements of a kernel with the samples surrounding a particular source sample.   []{#55518} [page 221](../image-enhance)\
 
-  [MedianFilter]{#55538}   Takes a rendered source image and passes it through a non-linear filter that is useful for removing isolated lines or pixels while preserving the overall appearance of the image.               []{#55545} [page 226](../image-enhance)\
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Crop
+: Takes one rendered or renderable source image and crops the image to a specified rectangular area.                                                                                               []{#61479} [page 199](../image-enhance)\
 
-  :  **[*Table 3-2*  Area Operators]{#55481}**
+MedianFilter
+: Takes a rendered source image and passes it through a non-linear filter that is useful for removing isolated lines or pixels while preserving the overall appearance of the image.               []{#55545} [page 226](../image-enhance)\
 
+-----------------------------------------------------------------------------------
+
+**Table 3-2 Area Operators**
 
 ### 3.6.3 Geometric Operators
 
@@ -916,27 +981,32 @@ Geometric operators allow you to modify the orientation, size, and
 shape of an image. [Table 3-3](../programming-environ)
 lists the geometric operators.
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Operator]{#60640}     [Description]{#60642}                                                                                                                        [Reference]{#60644}
-  ---------------------- -------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------------------------------
-  Affine      Takes one rendered or renderable source image and performs (possibly filtered) affine mapping on it.                              []{#60657} [page 272](../geom-image-manip)\
+-------------------------------------------------------------------------
 
-  Rotate      Takes one rendered or renderable source image and rotates the image about a given point by a given angle, specified in radians.   []{#60706} [page 270](../geom-image-manip)\
+Affine
+: Takes one rendered or renderable source image and performs (possibly filtered) affine mapping on it.
 
-  Scale       Takes one rendered or renderable source image and translates and resizes the image.                                               []{#60697} [page 268](../geom-image-manip)\
+Rotate
+: Takes one rendered or renderable source image and rotates the image about a given point by a given angle, specified in radians. 
 
-  Shear       Takes one rendered source image and shears the image either horizontally or vertically.                                           []{#60688} [page 283](../geom-image-manip)\
+Scale
+: Takes one rendered or renderable source image and translates and resizes the image.                                          
 
-  Translate   Takes one rendered or renderable source image and copies the image to a new location in the plane.                                []{#60679} [page 266](../geom-image-manip)\
+Shear
+: Takes one rendered source image and shears the image either horizontally or vertically.                                          
 
-  Transpose   Takes one rendered or renderable source image and flips or rotates the image as specified.                                        []{#60670} [page 281](../geom-image-manip)\
+Translate
+: Takes one rendered or renderable source image and copies the image to a new location in the plane.                               
 
-  Warp        Takes one rendered source image and performs (possibly filtered) general warping on the image.                                    []{#60719} [page 285](../geom-image-manip)\
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Transpose
+: Takes one rendered or renderable source image and flips or rotates the image as specified.                                       
 
-  :  **[*Table 3-3*  Geometric
-  Operators]{#60622}**
+Warp
+: Takes one rendered source image and performs (possibly filtered) general warping on the image.                                   
 
+-------------------------------------------------------------------------
+
+**Table 3-3 Geometric Operators**
 
 ### 3.6.4 Color Quantization Operators
 
@@ -946,61 +1016,76 @@ with fewer than eight bits of depth or color frame buffers with fewer
 than 24 bits of depth. [Table 3-4](../programming-environ)
 lists the color quantization operators.
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Operator]{#60744}          [Description]{#60746}                                                                                                                                                                                                                                                     [Reference]{#60748}
-  --------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -----------------------------------------------------------
-  ErrorDiffusion   Takes one rendered source image and performs color quantization by finding the nearest color to each pixel in a supplied color map and \"diffusing\" the color quantization error below and to the right of the pixel.                                         []{#60761} [page 181](../image-manipulation)\
+-------------------------------------------------------------------------
 
-  OrderedDither    Takes one rendered source image and performs color quantization by finding the nearest color to each pixel in a supplied color cube and \"shifting\" the resulting index value by a pseudo-random amount determined by the values of a supplied dither mask.   []{#60788} [page 178](../image-manipulation)\
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ErrorDiffusion
+: Takes one rendered source image and performs color quantization by finding the nearest color to each pixel in a supplied color map and \"diffusing\" the color quantization error below and to the right of the pixel.                                         
 
-  :  **[*Table 3-4*  Color Quantization
-  Operators]{#60726}**
+OrderedDither
+: Takes one rendered source image and performs color quantization by finding the nearest color to each pixel in a supplied color cube and \"shifting\" the resulting index value by a pseudo-random amount determined by the values of a supplied dither mask.   
 
+-------------------------------------------------------------------------
+
+**Table 3-4*  Color Quantization Operators**
 
 ### 3.6.5 File Operators
 
 The file operators are used to read or write image files. [Table
 3-5](../programming-environ) lists the file operators.
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Operator]{#55632}         [Description]{#55634}                                                                                                                                                                                                                                                                             [Reference]{#55636}
-  -------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------
-  AWTImage        Converts a standard java.awt.Image into a rendered image.                                                                                                                                                                                                                              []{#55645} [page 118](../acquisition)\
+-------------------------------------------------------------------------
 
-  BMP             Reads a standard BMP input stream.                                                                                                                                                                                                                                                     []{#58065} [page 111](../acquisition)\
+AWTImage
+: Converts a standard java.awt.Image into a rendered image.                                                                                                                                                                                                                             
 
-  Encode          Takes one rendered source image and writes the image to a given OutputStream in a specified format using the supplied encoding parameters.                                                                                                                                             []{#62826} [page 362](../encode)\
+BMP
+: Reads a standard BMP input stream.                                                                                                                                                                                                                                                    
 
-  FileLoad        Reads an image from a file.                                                                                                                                                                                                                                                            []{#60324} [page 104](../acquisition)\
+Encode
+: Takes one rendered source image and writes the image to a given OutputStream in a specified format using the supplied encoding parameters.                                                                                                                                            
 
-  FileStore       Takes one rendered source image and writes the image to a given file in a specified format using the supplied encoding parameters.                                                                                                                                                     []{#62806} [page 361](../encode)\
+FileLoad
+: Reads an image from a file.                                                                                                                                                                                                                                                           
 
-  Format          Takes one rendered or renderable source image and reformats it. This operation is capable of casting the pixel values of an image to a given data type, replacing the SampleModel and ColorModel of an image, and restructuring the image\'s tile grid layout.                         []{#58097} [page 119](../acquisition)\
+FileStore
+: Takes one rendered source image and writes the image to a given file in a specified format using the supplied encoding parameters.                                                                                                                                                    
 
-  FPX             Reads an image from a FlashPix stream.                                                                                                                                                                                                                                                 []{#55654} [page 109](../acquisition)\
+Format
+: Takes one rendered or renderable source image and reformats it. This operation is capable of casting the pixel values of an image to a given data type, replacing the SampleModel and ColorModel of an image, and restructuring the image\'s tile grid layout.                        
 
-  GIF             Reads an image from a GIF stream.                                                                                                                                                                                                                                                      []{#55663} [page 110](../acquisition)\
+FPX
+: Reads an image from a FlashPix stream.                                                                                                                                                                                                                                                
 
-  IIP             Provides client-side support of the Internet Imaging Protocol (IIP) in both the rendered and renderable modes. It creates a RenderedImage or a RenderableImage based on the data received from the IIP server, and optionally applies a sequence of operations to the created image.   []{#64412} [page 352](../client-server)\
+GIF
+: Reads an image from a GIF stream.                                                                                                                                                                                                                                                     
 
-  IIPResolution   Provides client-side support of the Internet Imaging Protocol (IIP) in the rendered mode. It is resolution-specific. It requests from the IIP server an image at a particular resolution level, and creates a RenderedImage based on the data received from the server.                []{#64406} [page 357](../client-server)\
+IIP
+: Provides client-side support of the Internet Imaging Protocol (IIP) in both the rendered and renderable modes. It creates a RenderedImage or a RenderableImage based on the data received from the IIP server, and optionally applies a sequence of operations to the created image. 
 
-  JPEG            Reads an image from a JPEG (JFIF) stream.                                                                                                                                                                                                                                              []{#55681} [page 110](../acquisition)\
+IIPResolution
+: Provides client-side support of the Internet Imaging Protocol (IIP) in the rendered mode. It is resolution-specific. It requests from the IIP server an image at a particular resolution level, and creates a RenderedImage based on the data received from the server.             
 
-  PNG             Reads a standard PNG version 1.1 input stream.                                                                                                                                                                                                                                         []{#58175} [page 112](../acquisition)\
+JPEG
+: Reads an image from a JPEG (JFIF) stream.                                                                                                                                                                                                                                             
 
-  PNM             Reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats. It stores the image data into an appropriate SampleModel.                                                                                                                                 []{#58169} [page 117](../acquisition)\
+PNG
+: Reads a standard PNG version 1.1 input stream.                                                                                                                                                                                                                                        
 
-  Stream          Produces an image by decoding data from a SeekableStream. The allowable formats are those registered with the com.sun.media.jai.codec.ImageCodec class.                                                                                                                                []{#58218} [page 103](../acquisition)\
+PNM
+: Reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats. It stores the image data into an appropriate SampleModel.                                                                                                                                
 
-  TIFF            Reads TIFF 6.0 data from a SeekableStream.                                                                                                                                                                                                                                             []{#55690} [page 104](../acquisition)\
+Stream
+: Produces an image by decoding data from a SeekableStream. The allowable formats are those registered with the com.sun.media.jai.codec.ImageCodec class.                                                                                                                               
 
-  URL             Creates an output image whose source is specified by a Uniform Resource Locator (URL).                                                                                                                                                                                                 []{#61376} [page 119](../acquisition)\
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TIFF
+: Reads TIFF 6.0 data from a SeekableStream.                                                                                                                                                                                                                                            
 
-  :  **[*Table 3-5*  File Operators]{#55626}**
+URL
+: Creates an output image whose source is specified by a Uniform Resource Locator (URL).                                                                                                                                                                                                
 
+-------------------------------------------------------------------------
+
+**Table 3-5 File Operators**
 
 ### 3.6.6 Frequency Operators
 
@@ -1017,57 +1102,68 @@ discrete Fourier transform* can be used to convert the image back to a
 spatial image. Eclipse ImageN also supports the *discrete cosine transform* and
 its opposite, the *inverse discrete cosine transform*.
 
-[Table 3-6](../programming-environ) lists the JAI
-frequency operators.
+[Table 3-6](../programming-environ) lists the frequency operators.
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Operator]{#55715}            [Description]{#55717}                                                                                                                                                                                                                                                                                                                        [Reference]{#55719}
-  ----------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------
-  Conjugate          Takes one rendered or renderable source image containing complex data and negates the imaginary components of the pixel values.                                                                                                                                                                                                   []{#61408} [page 236](../image-enhance)\
 
-  DCT                Takes one rendered or renderable source image and computes the even discrete cosine transform (DCT) of the image. Each band of the destination image is derived by performing a two-dimensional DCT on the corresponding band of the source image.                                                                                []{#60831} [page 232](../image-enhance)\
+-------------------------------------------------------------------------
 
-  DFT                Takes one rendered or renderable source image and computes the discrete Fourier transform of the image.                                                                                                                                                                                                                           []{#55737} [page 228](../image-enhance)\
+Conjugate
+: Takes one rendered or renderable source image containing complex data and negates the imaginary components of the pixel values.                                                                                                                                                                                                   
 
-  IDCT               Takes one rendered or renderable source image and computes the inverse even discrete cosine transform (DCT) of the image. Each band of the destination image is derived by performing a two-dimensional inverse DCT on the corresponding band of the source image.                                                                []{#60844} [page 233](../image-enhance)\
+DCT
+: Takes one rendered or renderable source image and computes the even discrete cosine transform (DCT) of the image. Each band of the destination image is derived by performing a two-dimensional DCT on the corresponding band of the source image.                                                                                
 
-  IDFT               Takes one rendered or renderable source image and computes the inverse discrete Fourier transform of the image. A positive exponential is used as the basis function for the transform.                                                                                                                                           []{#55746} [page 231](../image-enhance)\
+DFT
+: Takes one rendered or renderable source image and computes the discrete Fourier transform of the image.                                                                                                                                                                                                                           
 
-  ImageFunction      Generates an image on the basis of a functional description provided by an object that is an instance of a class that implements the ImageFunction interface.                                                                                                                                                                     []{#61455} [page 237](../image-enhance)\
+IDCT
+: Takes one rendered or renderable source image and computes the inverse even discrete cosine transform (DCT) of the image. Each band of the destination image is derived by performing a two-dimensional inverse DCT on the corresponding band of the source image.                                                                
 
-  Magnitude          Takes one rendered or renderable source image containing complex data and computes the magnitude of each pixel.                                                                                                                                                                                                                   []{#55755} [page 234](../image-enhance)\
+IDFT
+: Takes one rendered or renderable source image and computes the inverse discrete Fourier transform of the image. A positive exponential is used as the basis function for the transform.                                                                                                                                           
 
-  MagnitudeSquared   Takes one rendered or renderable source image containing complex data and computes the squared magnitude of each pixel.                                                                                                                                                                                                           []{#55764} [page 235](../image-enhance)\
+ImageFunction
+: Generates an image on the basis of a functional description provided by an object that is an instance of a class that implements the ImageFunction interface.                                                                                                                                                                     
 
-  PeriodicShift      Takes a rendered or renderable source image and generates a destination image that is the infinite periodic extension of the source image, with horizontal and vertical periods equal to the image width and height, respectively, shifted by a specified amount along each axis and clipped to the bounds of the source image.   []{#61417} [page 236](../image-enhance)\
+Magnitude
+: Takes one rendered or renderable source image containing complex data and computes the magnitude of each pixel.                                                                                                                                                                                                                   
 
-  Phase              Takes one rendered or renderable source image containing complex data and computes the phase angle of each pixel.                                                                                                                                                                                                                 []{#55773} [page 235](../image-enhance)\
+MagnitudeSquared
+: Takes one rendered or renderable source image containing complex data and computes the squared magnitude of each pixel.                                                                                                                                                                                                           
 
-  PolarToComplex     Takes two rendered or renderable source images and creates an image with complex-valued pixels from the two images the respective pixel values of which represent the magnitude (modulus) and phase of the corresponding complex pixel in the destination image.                                                                  []{#61434} [page 237](../image-enhance)\
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PeriodicShift
+: Takes a rendered or renderable source image and generates a destination image that is the infinite periodic extension of the source image, with horizontal and vertical periods equal to the image width and height, respectively, shifted by a specified amount along each axis and clipped to the bounds of the source image.   
 
-  :  **[*Table 3-6*  Frequency
-  Operators]{#55709}**
+Phase
+: Takes one rendered or renderable source image containing complex data and computes the phase angle of each pixel.                                                                                                                                                                                                                 
+
+PolarToComplex
+: Takes two rendered or renderable source images and creates an image with complex-valued pixels from the two images the respective pixel values of which represent the magnitude (modulus) and phase of the corresponding complex pixel in the destination image.                                                                  
+
+-------------------------------------------------------------------------
+
+**Table 3-6*  Frequency Operators**
 
 
 ### 3.6.7 Statistical Operators
 
 Statistical operators provide the means to analyze the content of an
-image. [Table 3-7](../programming-environ) lists the JAI
-statistical operators.
+image. [Table 3-7](../programming-environ) lists the statistical operators.
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Operator]{#55793}     [Description]{#55795}                                                                                                                                                                                                                                                                                                                                                                                                                                                                            [Reference]{#55797}
-  ---------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -------------------------------------------------
-  Extrema     Takes one rendered source image, scans a specific region of the image, and finds the maximum and minimum pixel values for each band within that region of the image. The image data pass through this operation unchanged.                                                                                                                                                                                                                                                            []{#55806} [page 308](../analysis)\
+------------------------------------------------------------------------- 
 
-  Histogram   Takes one rendered source image, scans a specific region of the image, and generates a histogram based on the pixel values within that region of the image. The histogram data is stored in the user supplied javax.media.jai.Histogram object, and may be retrieved by calling the getProperty method on this operation with \"histogram\" as the property name. The return value will be of type javax.media.jai.Histogram. The image data pass through this operation unchanged.   []{#55815} [page 310](../analysis)\
+Extrema
+: Takes one rendered source image, scans a specific region of the image, and finds the maximum and minimum pixel values for each band within that region of the image. The image data pass through this operation unchanged.                                                                                                                                                                                                                                                            
 
-  Mean        Takes a rendered source image, scans a specific region, and computes the mean pixel value for each band within that region of the image. The image data pass through this operation unchanged.                                                                                                                                                                                                                                                                                        []{#55824} [page 307](../analysis)\
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Histogram
+: Takes one rendered source image, scans a specific region of the image, and generates a histogram based on the pixel values within that region of the image. The histogram data is stored in the user supplied javax.media.jai.Histogram object, and may be retrieved by calling the getProperty method on this operation with \"histogram\" as the property name. The return value will be of type javax.media.jai.Histogram. The image data pass through this operation unchanged.   
 
-  :  **[*Table 3-7*  Statistical
-  Operators]{#55787}**
+Mean
+: Takes a rendered source image, scans a specific region, and computes the mean pixel value for each band within that region of the image. The image data pass through this operation unchanged.                                                                                                                                                                                                                                                                                        
+
+-------------------------------------------------------------------------
+
+**Table 3-7*  Statistical Operators**
 
 
 ### 3.6.8 Edge Extraction Operators
@@ -1081,15 +1177,14 @@ image. A steep brightness slope indicates the presence of an edge.
 [Table 3-8](../programming-environ) lists the edge
 extraction operators.
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Operator]{#55841}             [Description]{#55843}                                                                                                              [Reference]{#55845}
-  ------------------------------ ---------------------------------------------------------------------------------------------------------------------------------- -------------------------------------------------
-  GradientMagnitude   Takes one rendered source image and computes the magnitude of the image gradient vector in two orthogonal directions.   []{#55854} [page 315](../analysis)\
+-------------------------------------------------------------------------
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+GradientMagnitude
+: Takes one rendered source image and computes the magnitude of the image gradient vector in two orthogonal directions.   []{#55854} [page 315](../analysis)\
 
-  :  **[*Table 3-8*  Edge Extraction
-  Operators]{#55835}**
+-------------------------------------------------------------------------
+
+**Table 3-8*  Edge Extraction Operators**
 
 
 ### 3.6.9 Miscellaneous Operators
@@ -1098,15 +1193,14 @@ The miscellaneous operators do not fall conveniently into any of the
 previous categories. [Table 3-9](../programming-environ)
 lists the miscellaneous operators.
 
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Operator]{#63146}      [Description]{#63148}                                                                                                                                         [Reference]{#63150}
-  ----------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------- ----------------------------------------------------
-  Renderable   Takes one rendered source image and produces a RenderableImage consisting of a \"pyramid\" of RenderedImages at progressively lower resolutions.   []{#63144} [page 122](../acquisition)\
+-------------------------------------------------------------------------
 
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Renderable
+: Takes one rendered source image and produces a RenderableImage consisting of a \"pyramid\" of RenderedImages at progressively lower resolutions.   []{#63144} [page 122](../acquisition)\
 
-  :  **[*Table 3-9*  Miscellaneous
-  Operators]{#63128}**
+-------------------------------------------------------------------------
+
+**Table 3-9 Miscellaneous Operators**
 
 
 3.7 Creating Operations
@@ -1118,171 +1212,89 @@ following methods:
 
 ##### For a renderable graph:
 
-There are four variations on methods for creating operations in the
-Renderable mode, as listed in [Table
-3-10](../programming-environ).
+There are two static methods for creating operations in the Renderable mode.
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Method]{#63851}                           [Parameters]{#63853}        [Description]{#63855}
-  ------------------------------------------ --------------------------- ------------------------------------------------------------------------------------------------------------------------------------------
-  createRenderable                opName           Creates a RenderableOp that represents the named operation, using the sources and parameters specified in the ParameterBlock.
-                                             parameterBlock   
+**API:** `org.eclipse.imagen.JAI`
 
-  createRenderableNS              opName           The same as the previous method, only this version is non-static.
-                                             parameterBlock   
+* `JAI.createRenderable( opName, parameterBlock)`
+* `JAI.createRenderableCollection( opName, parameterBlock)`
 
-  createRenderable-Collection     opName           Creates a Collection that represents the named operation, using the sources and parameters specified in the ParameterBlock.
-                                             parameterBlock   
+These call the non static:
 
-  createRenderable-CollectionNS   opName           The same as the previous method, only this version is non-static.
-                                             parameterBlock   
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**API:** `org.eclipse.imagen.JAI`
 
-  :  **[*Table 3-10*  JAI Class Renderable
-  Mode Methods]{#63845}**
+* `createRenderableNS( opName, parameterBlock)`
+* `createRenderableCollectionNS( opName, parameterBlock)`
 
 For example:
 
-         RenderableOp im = JAI.createRenderable("operationName",
-
-                                     paramBlock);
+```java
+   RenderableOp im = JAI.createRenderable("operationName",
+                               paramBlock);
+```
 
 The `JAI.createRenderable` method creates a renderable node operation
 that takes two parameters:
 
--   An operation name (see [Section 3.7.1, \"Operation
-    Name](../programming-environ)\")
-
+-   An operation name (see [Section 3.7.1, \"Operation Name\"](#section-3.7.1-operation-name) )
 
 -   A source and a set of parameters for the operation contained in a
-    parameter block (see [Section 3.7.2, \"Parameter
-    Blocks](../programming-environ)\")
+    parameter block (see [Section 3.7.2, \"Parameter Blocks\"](#section-3.7.2-parameter-blocks) )
 
 
 ##### For a rendered graph:
 
 There are a great many more variations on methods for creating
-operations in the Rendered mode, as listed in [Table
-3-11](../programming-environ). The first five methods in
-the table take sources and parameters specified in a `ParameterBlock`.
-The remaining methods are convenience methods that take various
+operations in the Rendered mode, as listed in below.
+
+The first static methods take sources and parameters specified in a `ParameterBlock`. 
+
+**API:** `org.eclipse.imagen.JAI`
+
+* `JAI.create( opName, parameterBlock)`
+* `JAI.create( opName, parameterBlock, hints)`
+* `JAI.createCollection( opName, parameterBlock)`
+* `JAI.createCollection( opName, parameterBlock, hints)`
+
+The remaining static methods are convenience methods that take various
 numbers of sources and parameters directly.
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Method]{#63911}                [Parameters]{#63913}        [Description]{#63915}
-  ------------------------------- --------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  create               opName           Creates a RenderedOp that represents the named operation, using the sources and parameters specified in the ParameterBlock, and applying the specified hints to the destination. This method is appropriate only when the final results return a single RenderedImage.
-                                  parameterBlock   
-                                  hints            
+**API:** `org.eclipse.imagen.JAI`
 
-  createNS             opName           The same as the previous method, only this version is non-static.
-                                  parameterBlock   
-                                  hints            
-
-  createCollection     opName           Creates a Collection that represents the named operation, using the sources and parameters specified in the ParameterBlock, and applying the specified hints to the destination. This method is appropriate only when the final results return a Collection.
-                                  parameterBlock   
-                                  hints            
-
-  createCollectionNS   opName           The same as the previous method, only this version is non-static.
-                                  parameterBlock   
-                                  hints            
-
-  create               opName           Creates a RenderedOp with null rendering hints.
-                                  parameterBlock   
-
-  create               opName           Creates a RenderedOp that takes one parameter.
-                                  param            
-
-  create               opName           Creates a RenderedOp that takes two parameters. There are two variations on this method, depending on the parameter data type (Object or int).
-                                  param1           
-                                  param2           
-
-  create               opName           Creates a RenderedOp that takes three parameters. There are two variations on this method, depending on the parameter data type (Object or int).
-                                  param1           
-                                  param2           
-                                  param3           
-
-  create               opName           Creates a RenderedOp that takes four parameters. There are two variations on this method, depending on the parameter data type (Object or int).
-                                  param1           
-                                  param2           
-                                  param3           
-                                  param4           
-
-  create               opName           Creates a RenderedOp that takes one source image.
-                                  renderedImage    
-
-  create               opName           Creates a RenderedOp that takes one source collection.
-                                  Collection       
-
-  create               opName           Creates a RenderedOp that takes one source and one parameter. There are two variations on this method, depending on the parameter data type (Object or int).
-                                  renderedImage    
-                                  param            
-
-  create               opName           Creates a RenderedOp that takes one source and two parameters. There are two variations on this method, depending on the parameter data type (Object or float).
-                                  renderedImage    
-                                  param1           
-                                  param2           
-
-  create               opName           Creates a RenderedOp that takes one source and three parameters. There are three variations on this method, depending on the parameter data type (Object, int, or float).
-                                  renderedImage    
-                                  param1           
-                                  param2           
-                                  param3           
-
-  create               opName           Creates a RenderedOp that takes one source and four parameters. There are four variations on this method, depending on the parameter data type (Object, int, or float).
-                                  renderedImage    
-                                  param1           
-                                  param2           
-                                  param3           
-                                  param4           
-
-  create               opName           Creates a RenderedOp that takes one source and five parameters. There are three variations on this method, depending on the parameter data type (Object, int, or float).
-                                  renderedImage    
-                                  param1           
-                                  param2           
-                                  param3           
-                                  param4           
-                                  param5           
-
-  create               opName           Creates a RenderedOp that takes one source and six parameters. There are two variations on this method, depending on the parameter data type (Object or int).
-                                  renderedImage    
-                                  param1           
-                                  param2           
-                                  param3           
-                                  param4           
-                                  param5           
-                                  param6           
-
-  create               opName           Creates a RenderedOp that takes two sources.
-                                  renderedImage1   
-                                  renderedImage2   
-
-  create               opName           Creates a RenderedOp that takes two sources and four parameters.
-                                  renderedImage1   
-                                  renderedImage2   
-                                  param1           
-                                  param2           
-
-  createCollection     opName           Creates a Collection with null rendering hints.
-                                  parameterBlock   
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 3-11*  JAI Class Rendered Mode
-  Methods]{#63905}**
+* `JAI.create( opName, param)`
+* `JAI.create( opName, param1, param2)`
+* `JAI.create( opName, param1, param2, param3)`
+* `JAI.create( opName, param1, param2, param3,param4)`
+* `JAI.create( opName, renderedImage)`
+* `JAI.create( opName, collection)`
+* `JAI.create( opName, renderedImage,param)`
+* `JAI.create( opName, renderedImage,param1,param2)`
+* `JAI.create( opName, renderedImage,param1,param2,param3)`
+* `JAI.create( opName, renderedImage,param1,param2,param3,param4)`
+* `JAI.create( opName, renderedImage,param1,param2,param3,param4,param5)`
+* `JAI.create( opName, renderedImage,param1,param2,param3,param4,param5,param6)`
+* `JAI.create( opName, renderedImage1,renderedImage2)`
+* `JAI.create( opName, renderedImage1,renderedImage2,param1,param2)`
 
 Two versions of the `create` method are non-static and are identified
 as `createNS`. These methods may be used with a specific instance of
 the `JAI` class and should only be used when the final result returned
 is a single `RenderedImage`. However, the source (or sources) supplied
-may be a collection of images or a collection of collections. The
-following is an example of one of these methods:
+may be a collection of images or a collection of collections.
 
-------------------------------------------------------------------------
+These call the non-static methods:
 
-         RenderedOp im = JAI.createNS("operationName", source, param1,
-                                    param2)
+**API:** `org.eclipse.imagen.JAI`
 
-------------------------------------------------------------------------
+* `createNS( opName, parameterBlock, hints)`
+* `createCollectionNS( opName, parameterBlock, hints)`
+
+The following is an example of one of these methods:
+
+```java
+  RenderedOp im = JAI.createNS("operationName", source, param1,
+                             param2)
+```
 
 The rendering hints associated with this instance of `JAI` are
 overlaid with the hints passed to this method. That is, the set of
@@ -1309,19 +1321,22 @@ operator names.
 
 The operation name is always enclosed in quotation marks. For example:
 
+```java
          "Mean"
          "BoxFilter"
          "UnsharpMask"
+```
 
 The operation name parsing is case-insensitive. All of the following
 variations are legal:
 
+```java
          "OrConst"
          "orConst"
          "ORconst"
          "ORCONST"
          "orconst"
-
+```
 
 ### 3.7.2 Parameter Blocks
 
@@ -1346,7 +1361,6 @@ There are two separate classes for specifying parameter blocks:
 
 -   `java.awt.image.renderable.ParameterBlock` - the main class for
     specifying and changing parameter blocks.
-
 
 -   `javax.media.jai.ParameterBlockJAI` - extends `ParameterBlock` by
     allowing the use of default parameter values and the use of
@@ -1375,24 +1389,19 @@ The following example creates a new `ParameterBlock` named `pb` and
 then the `addSource()` method is used to add the source image (`im0`)
 to the `ParameterBlock`.
 
-------------------------------------------------------------------------
-
-         ParameterBlock pb = new ParameterBlock();
-         pb.addSource(im0);
-
-------------------------------------------------------------------------
+```java
+  ParameterBlock pb = new ParameterBlock();
+  pb.addSource(im0);
+```
 
 To add two sources to a parameter block, use two `addSource()`
 methods.
 
-------------------------------------------------------------------------
-
-         ParameterBlock pb = new ParameterBlock();
-         pb.addSource(im0);
-         pb.addSource(im1);
-
-------------------------------------------------------------------------
-
+```java
+  ParameterBlock pb = new ParameterBlock();
+  pb.addSource(im0);
+  pb.addSource(im1);
+```
 
 #### 3.7.2.2 Adding or Setting Parameters
 
@@ -1410,57 +1419,31 @@ The operation parameters are added to a `ParameterBlock` with the
 (`150` and `200`) to the `ParameterBlock` named `pb`, which was
 created in the previous example.
 
-------------------------------------------------------------------------
-
-         pb.add(150);
-         pb.add(200);
-
-------------------------------------------------------------------------
+```java
+  pb.add(150);
+  pb.add(200);
+```
 
 The `add()` method can be used with all of the supported data types:
 byte, short, integer, long, float, and double. When using the
 `ParameterBlock` object, all parameters that an operation requires
 must be added, else the operation will fail.``
 
-**API:** 
-|                                   | `java.awt.image.renderable.Parame |
-|                                   | terBlock`                         |
+**API:** `java.awt.image.renderable.ParameterBlock`
 
-    ParameterBlock addSource(Object source)
+* `ParameterBlock addSource(Object source)`
 
-:   adds an image to the end of the list of sources. The image is
-    stored as an object to allow new node types in the future.
+* `ParameterBlock add(byte b)`
 
+* `ParameterBlock add(short s)`
 
-    ParameterBlock add(byte b)
+* `ParameterBlock add(int i)`
 
-:   adds a Byte to the list of parameters.
+* `ParameterBlock add(long l)`
 
+* `ParameterBlock add(float f)`
 
-    ParameterBlock add(short s)
-
-:   adds a Short to the list of parameters.
-
-
-    ParameterBlock add(int i)
-
-:   adds an Integer to the list of parameters.
-
-
-    ParameterBlock add(long l)
-
-:   adds a Long to the list of parameters.
-
-
-    ParameterBlock add(float f)
-
-:   adds a Float to the list of parameters.
-
-
-    ParameterBlock add(double d)
-
-:   adds a Double to the list of parameters.
-
+* `ParameterBlock add(double d)`
 
 ##### ParameterBlockJAI
 
@@ -1481,65 +1464,41 @@ other two parameters (`angle` and `interpolation`) have default values
 of `null` and must therefore be set. The source image must also be
 specified.
 
-**[]{#61952}**
-
 ***Listing 3-3*  Example ParameterBlockJAI**
 
 ------------------------------------------------------------------------
 
-         // Specify the interpolation method to be used
-         interp = Interpolation.create(Interpolation.INTERP_NEAREST);
+```java
+  // Specify the interpolation method to be used
+  interp = Interpolation.create(Interpolation.INTERP_NEAREST);
 
-         // Create the ParameterBlockJAI and add the interpolation to it
-         ParameterBlockJAI pb = new ParameterBlockJAI();
-         pb.addSource(im);                 // The source image
-         pb.set(1.2F, "angle");            // The rotation angle in radians
-         pb.set(interp, "interpolation");  // The interpolation method
+  // Create the ParameterBlockJAI and add the interpolation to it
+  ParameterBlockJAI pb = new ParameterBlockJAI();
+  pb.addSource(im);                 // The source image
+  pb.set(1.2F, "angle");            // The rotation angle in radians
+  pb.set(interp, "interpolation");  // The interpolation method
+```
 
 ------------------------------------------------------------------------
 
-**API:** `org.eclipse.imagen.ParameterBlockJA |
-|                                   | I`
-
-    ParameterBlock set(byte b, String paramName)
-
-:   sets a named parameter to a byte value.
+**API:** `org.eclipse.imagen.ParameterBlockJAI`
 
 
-    ParameterBlock set(char c, String paramName)
+* `ParameterBlock set(byte b, String paramName)`
 
-:   sets a named parameter to a char value.
+* `ParameterBlock set(char c, String paramName)`
 
+* `ParameterBlock set(int i, String paramName)`
 
-    ParameterBlock set(int i, String paramName)
+* `ParameterBlock set(short s, String paramName)`
 
-:   sets a named parameter to an int value.
+* `ParameterBlock set(long l, String paramName)`
 
+* `ParameterBlock set(float f, String paramName)`
 
-    ParameterBlock set(short s, String paramName)
+* `ParameterBlock set(double d, String paramName)`
 
-:   sets a named parameter to a short value.
-
-
-    ParameterBlock set(long l, String paramName)
-
-:   sets a named parameter to a long value.
-
-
-    ParameterBlock set(float f, String paramName)
-
-:   sets a named parameter to a float value.
-
-
-    ParameterBlock set(double d, String paramName)
-
-:   sets a named parameter to a double value.
-
-
-    ParameterBlock set(java.lang.Object obj, String paramName)
-
-:   sets a named parameter to an Object value.``
-
+* `ParameterBlock set(java.lang.Object obj, String paramName)`
 
 ### 3.7.3 Rendering Hints
 
@@ -1559,149 +1518,95 @@ There are two separate classes for specifying rendering hints:
     used by the `Graphics2D` class, and classes that implement
     `BufferedImageOp` and `Raster`.
 
-
 -   `javax.media.jai.JAI` - provides methods to define the
     RenderingHints keys specific to JAI.
 
-
 #### 3.7.3.1 Java AWT Rendering Hints
 
-[Table 3-12](../programming-environ) lists the rendering
+[Table 3-12](#table-3-12) lists the rendering
 hints inherited from `java.awt.RenderingHints`.
 
-**[*Table 3-12*  Java AWT Rendering
-Hints]{#60917}**
 
-[Key]{#60923}
+<a name="table-3-12">**Table 3-12 Java AWT Rendering Hints**</a>
 
-[Value]{#60925}
+-------------------------------------------------------------------------
 
-[Description]{#60927}
+`Alpha_Interpolation` values:
 
-Alpha\_Interpolation
+* `Alpha_Interpolation_Default` rendering is done with the platform default alpha
+  interpolation.
 
-Alpha\_Interpolation\_\
-Default
+* `Alpha\_Interpolation_Quality` appropriate rendering algorithms are chosen with a
+  preference for output quality.
 
-Rendering is done with the platform default alpha
-interpolation.
+* `Alpha_Interpolation_Speed` appropriate rendering algorithms are chosen with a
+  preference for output speed.
 
-Alpha\_Interpolation\_\
-Quality
+`Antialiasing` values:
 
-Appropriate rendering algorithms are chosen with a preference for
-output quality.
-
-Alpha\_Interpolation\_Speed
-
-Appropriate rendering algorithms are chosen with a preference for
-output speed.
-
-Antialiasing
-
-Antialias\_Default
-
-Rendering is done with the platform default antialiasing
+* `Antialias_Default` rendering is done with the platform default antialiasing
 mode.
 
-Antialias\_Off
+* `Antialias_Off` rendering is done without antialiasing.
 
-Rendering is done without antialiasing.
+* `Antialias_On` rendering is done with antialiasing
 
-Antialias\_On
+`Color_Rendering` values:
 
-Rendering is done with antialiasing
-
-Color\_Rendering
-
-Color\_Render\_Default
-
-Rendering is done with the platform default color
+* `Color_Render_Default` rendering is done with the platform default color
 rendering.
 
-Color\_Render\_Quality
-
-Appropriate rendering algorithms are chosen with a preference for
+* `Color_Render_Quality` appropriate rendering algorithms are chosen with a preference for
 output quality.
 
-Color\_Render\_Speed
-
-Appropriate rendering algorithms are chosen with a preference for
+* `Color_Render_Speed` appropriate rendering algorithms are chosen with a preference for
 output speed.
 
-Dithering
+`Dithering` values:
 
-Dither\_Default
+* `Dither_Default` use the platform default for dithering.
 
-Use the platform default for dithering.
+* `Dither_Disable` do not do dither when rendering.
 
-Dither\_Disable
+* `Dither_Enable` dither with rendering when needed.
 
-Do not do dither when rendering.
+`FractionalMetrics` values:
 
-Dither\_Enable
+* `FractionalMetrics_Default` use the platform default for fractional metrics.
 
-Dither with rendering when needed.
+* `FractionalMetrics_Off` disable fractional metrics.
 
-FractionalMetrics
+* `FractionalMetrics_On` enable fractional metrics.
 
-FractionalMetrics\_Default
+`Interpolation` values:
 
-Use the platform default for fractional metrics.
+* `Interpolation_Bicubic` perform bicubic interpolation.
 
-FractionalMetrics\_Off
+* `Interpolation_Bilinear` perform bilinear interpolation.
 
-Disable fractional metrics.
+* `Interpolation_Nearest_Neighbor` perform nearest-neighbor interpolation.
 
-FractionalMetrics\_On
+`Rendering` values:
 
-Enable fractional metrics.
+* `Render_Default` the platform default rendering algorithms will be chosen.
 
-Interpolation
-
-Interpolation\_Bicubic
-
-Perform bicubic interpolation.
-
-Interpolation\_Bilinear
-
-Perform bilinear interpolation.
-
-Interpolation\_Nearest\_\
-Neighbor
-
-Perform nearest-neighbor interpolation.
-
-Rendering
-
-Render\_Default
-
-The platform default rendering algorithms will be chosen.
-
-Render\_Quality
-
-Appropriate rendering algorithms are chosen with a preference for
+* `Render_Quality` appropriate rendering algorithms are chosen with a preference for
 output quality.
 
-Render\_Speed
-
-Appropriate rendering algorithms are chosen with a preference for
+* `Render_Speed` appropriate rendering algorithms are chosen with a preference for
 output speed.
 
-Text\_Antialiasing
+`Text_Antialiasing` values:
 
-Text\_Antialias\_Default
-
-Text rendering is done using the platform default text antialiasing
+* `Text_Antialias_Default` text rendering is done using the platform default text antialiasing
 mode.
 
-Text\_Antialias\_Off
+* `Text_Antialias_Off` text rendering is done without antialiasing.
 
-Text rendering is done without antialiasing.
+* `Text_Antialias_On`
+ text rendering is done with antialiasing.
 
-Text\_Antialias\_On
-
-Text rendering is done with antialiasing.
+----------------------------
 
 To set the rendering hints, create a `RenderingHints` object and pass
 it to the `JAI.create` method you want to affect. Setting a rendering
@@ -1712,9 +1617,11 @@ In the following example, the rendering preference is set to quality.
 
 ------------------------------------------------------------------------
 
-         qualityHints = new
-                        RenderingHints(RenderingHints.KEY_RENDERING,
-                        RenderingHints.VALUE_RENDER_QUALITY);
+```java
+qualityHints = new
+               RenderingHints(RenderingHints.KEY_RENDERING,
+               RenderingHints.VALUE_RENDER_QUALITY);
+```
 
 ------------------------------------------------------------------------
 
@@ -1737,184 +1644,116 @@ methods. As a convenience, `getRenderingHint`, `setRenderingHint`, and
 to be manipulated. [Table 3-13](../programming-environ)
 lists the JAI rendering hints.
 
-**[*Table 3-13*  JAI Rendering
-hints]{#61091}**
+<a name="table-3-13">**Table 3-13 JAI Rendering hints**</a>
 
-[Key]{#61097}
+-------------------------------------------------------------------------
 
-[Value]{#61099}
+`HINT_BORDER_EXTENDER` values:
 
-[Description]{#61101}
-
-HINT\_BORDER\_EXTENDER
-
-BorderExtenderZero
-
-Extends an image\'s border by filling all pixels outside the image
+* `BorderExtenderZero` extends an image\'s border by filling all pixels outside the image
 bounds with zeros.
 
-BorderExtenderConstant
-
-Extends an image\'s border by filling all pixels outside the image
+* `BorderExtenderConstant` extends an image\'s border by filling all pixels outside the image
 bounds with constant values.
 
-BorderExtenderCopy
+* `BorderExtenderCopy` extends an image\'s border by filling all pixels outside the image bounds with copies of the edge pixels.
 
-Extends an image\'s border by filling all pixels outside the image
-bounds with copies of the edge pixels.
-
-BorderExtenderWrap
-
-Extends an image\'s border by filling all pixels outside the image
+* `BorderExtenderWrap` extends an image\'s border by filling all pixels outside the image
 bounds with copies of the whole image.
 
-BorderExtenderReflect
-
-Extends an image\'s border by filling all pixels outside the image
+* `BorderExtenderReflect` extends an image\'s border by filling all pixels outside the image
 bounds with copies of the whole image.
 
-HINT\_IMAGE\_LAYOUT
+`HINT_IMAGE_LAYOUT` values:
 
-Width
+* `Width` the image\'s width.
 
-The image\'s width.
+* `Height` the image\'s height
 
-Height
+* `MinX` the image\'s minimum *x* coordinate.
 
-The image\'s height
+* `MinY` the image\'s minimum *y* coordinate
 
-MinX
+* `TileGridXOffset` the *x* coordinate of tile (0, 0).
 
-The image\'s minimum *x* coordinate.
+* `TileGridYOffset` the *y* coordinate of tile (0, 0).
 
-MinY
+* `TileWidth` the width of a tile.
 
-The image\'s minimum *y* coordinate
+* `TileHeight` the height of a tile.
 
-TileGridXOffset
+* `SampleModel` the image\'s SampleModel.
 
-The *x* coordinate of tile (0, 0).
+* `ColorModel` the image\'s ColorModel.
 
-TileGridYOffset
+`HINT_INTERPOLATION` values:
 
-The *y* coordinate of tile (0, 0).
+* `InterpolationNearest` perform nearest-neighbor interpolation.
 
-TileWidth
+* `InterpolationBilinear` perform bilinear interpolation.
 
-The width of a tile.
+* `InterpolationBicubic` perform bicubic interpolation.
 
-TileHeight
+* `InterpolationBicubic2` perform bicubic interpolation.
 
-The height of a tile.
+`HINT_OPERATION_BOUND` values:
 
-[SampleModel]{#61196}
-
-The image\'s SampleModel.
-
-ColorModel
-
-The image\'s ColorModel.
-
-HINT\_INTERPOLATION
-
-[InterpolationNearest]{#61209}
-
-Perform nearest-neighbor interpolation.
-
-[InterpolationBilinear]{#61215}
-
-Perform bilinear interpolation.
-
-InterpolationBicubic
-
-Perform bicubic interpolation.
-
-InterpolationBicubic2
-
-Perform bicubic interpolation.
-
-HINT\_OPERATION\_BOUND
-
-OpImage.OP\_COMPUTE\_\
-BOUND
-
-An operation is likely to spend its time mainly performing
+* `OpImage.OP_COMPUTE_BOUND` an operation is likely to spend its time mainly performing
 computation.
 
-[OpImage.OP\_IO\_BOUND]{#61633}
-
-An operation is likely to spend its time mainly performing local
+* `OpImage.OP_IO_BOUND` an operation is likely to spend its time mainly performing local
 I/O.
 
-OpImage.OP\_NETWORK\_\
-BOUND
-
-An operation is likely to spend its time mainly performing network
+* `OpImage.OP_NETWORK_BOUND` an operation is likely to spend its time mainly performing network
 I/O.
 
-HINT\_OPERATION\_REGISTRY
+`HINT_OPERATION_REGISTRY` key for OperationRegistry object values.
 
-Key for OperationRegistry object values.
+`HINT_PNG_EMIT_SQUARE_PIXELS` values:
 
-HINT\_PNG\_EMIT\_SQUARE\_\
-PIXELS
-
-True
-
-Scale non-square pixels read from a PNG format image file to square
+* `True` scale non-square pixels read from a PNG format image file to square
 pixels.
 
-False
+* `False` do not scale non-square pixels.
 
-Do not scale non-square pixels.
+`HINT_TILE_CACHE` values:
 
-HINT\_TILE\_CACHE
+* `capacity` the capacity of the cache in tiles.
 
-capacity
+* `elementCount` the number of elements in the cache.
 
-The capacity of the cache in tiles.
+* `revolver` offset to check for tile cache victims.
 
-elementCount
+* `multiplier` number of checks to make for tile cache victims.
 
-The number of elements in the cache.
+-------------------------------------------------------------------------
 
-revolver
-
-Offset to check for tile cache victims.
-
-multiplier
-
-Number of checks to make for tile cache victims.
-
-[Listing 3-4](../programming-environ) shows an example of
+[Listing 3-4](#listing-3-4) shows an example of
 image layout rendering hints being specified for a Scale operation.
 The image layout rendering hint specifies that the origin of the
 destination opimage is set to 200 x 200.
 
-**[]{#62534}**
-
-***Listing 3-4*  Example of JAI Rendering
-Hints**
+<a name="listing-3-4">**Listing 3-4 Example of Rendering Hints**</a>
 
 ------------------------------------------------------------------------
 
-         // Create the parameter block for the scale operation.
-         ParameterBlock pb = new ParameterBlock();
-             pb.addSource(im0);      // The source image
-             pb.add(4.0F);           // The x scale factor
-             pb.add(4.0F);           // The y scale factor
-             pb.add(interp);         // The interpolation method
+```java
+  // Create the parameter block for the scale operation.
+  ParameterBlock pb = new ParameterBlock();
+      pb.addSource(im0);      // The source image
+      pb.add(4.0F);           // The x scale factor
+      pb.add(4.0F);           // The y scale factor
+      pb.add(interp);         // The interpolation method
 
-         // Specify the rendering hints.
-             layout = new ImageLayout();
-             layout.setMinX(200);
-             layout.setMinY(200);
-             RenderingHints rh =
-                     new RenderingHints(JAI.KEY_IMAGE_LAYOUT, layout);
+  // Specify the rendering hints.
+      layout = new ImageLayout();
+      layout.setMinX(200);
+      layout.setMinY(200);
+      RenderingHints rh =
+              new RenderingHints(JAI.KEY_IMAGE_LAYOUT, layout);
 
-         // Create the scale operation.
-         PlanarImage im2 = (PlanarImage)JAI.create("scale", pb, layout)
-
-------------------------------------------------------------------------
+  // Create the scale operation.
+  PlanarImage im2 = (PlanarImage)JAI.create("scale", pb, layout)
+```
 
 ------------------------------------------------------------------------
