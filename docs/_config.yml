@@ -1,10 +1,9 @@
 # ImageN Jekyll Configuration
-exclude:  README.md
+exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "package-lock.json", "README.md", "Rakefile"]
 
 # Theme
 remote_theme: pmarsceill/just-the-docs
 theme: "just-the-docs"
-exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "package-lock.json", "README.md", "Rakefile"]
 
 # Theme configuration
 title: Eclipse ImageN
@@ -19,3 +18,9 @@ aux_links:
 # site configuration
 
 imagen_version: "0.4-SNAPSHOT"
+
+defaults:
+ - scope:
+     path: "assets/images"
+   values:
+     image: true
