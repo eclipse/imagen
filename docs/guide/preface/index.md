@@ -25,9 +25,9 @@ codebase. Method compatibility has been maintained using new packages and librar
 Disclaimer
 ----------
 
-This version of is based on release {{site.imagen_version}} of the Eclipse ImageN API.
+This version of is based on release {{site.imagen_version}} of the Eclipse ImageN API:
 
-If any discrepancies between this guide and the javadocs are noted, always
+> If any discrepancies between this guide and the javadocs are noted, always
 consider the javadocs to be the most accurate, since they are
 generated directly from the source files and are always the most up to
 date.
@@ -120,3 +120,10 @@ Throughout the book, we introduce many API calls with the following format:
 
 When introducing an API call for the first time, we add a short
 list of the methods, tagged with the API heading.
+
+Code Examples
+-------------
+
+Notice:
+
+> Example content is intended to demonstrate usage of Eclipse technology. It is provided to you under the terms and conditions of the Eclipse Distribution License v1.0 which is available at http://www.eclipse.org/org/documents/edl-v10.php
