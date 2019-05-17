@@ -96,7 +96,7 @@ Since Eclipse ImageN continues to evolve and periodically add
 new operators, it is always a good idea to occasionally check the
 project page for the latest information.
 
-:   `https://projects.eclipse.org/projects/technology.imagen`
+* `https://projects.eclipse.org/projects/technology.imagen`
 
 The web site contains links to the latest version of ImageN, email
 list to take part in the community, and tutorial and demos 
