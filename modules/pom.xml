@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     
     <modules>
+        <module>codec</module>
         <module>core</module>
         <module>builder</module>
     </modules>
