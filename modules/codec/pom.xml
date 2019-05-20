@@ -7,16 +7,8 @@
         <artifactId>imagen-modules</artifactId>
         <version>0.4-SNAPSHOT</version>
     </parent>
-    <artifactId>imagen-core</artifactId>
+    <artifactId>imagen-codec</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>ImageN core interfaces</description>
+    <description>ImageN encode/decode codecs</description>
     <packaging>jar</packaging>
-    
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.imagen</groupId>
-            <artifactId>imagen-codec</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
 </project>
