@@ -15,7 +15,8 @@ This is a [Eclipse Foundation](https://www.eclipse.org) open source project usin
 
 For more information:
 
-* [ImageN](https://projects.eclipse.org/projects/technology.imagen) - Eclipse Project Page
+* [ImageN](http://eclipse.github.io/imagen) - website generated from [docs](docs) GitHub pages folder
+* [ImageN Project](https://projects.eclipse.org/projects/technology.imagen) - Eclipse Project Page
 * [Replace JAI](https://github.com/geotools/geotools/wiki/Replace-JAI) - GeoTools Wiki
 
 ## Maven Build
@@ -26,7 +27,26 @@ Use maven to build on the command line:
 
 The build uses the `javac` compiler argument `-XDignore.symbol.file` to reference JDK codecs directly. This functionality is only available from the `javac` command line and requires maven (or your IDE) to fork each call to `javac`.
 
-### MediaLab Profile
+## Supported Java Environment
+
+The *ImageN* codebase is in the process of being migrated from a Java Extension to a jar compatible with both Java 8 and Java 11 "jigsaw" module system.
+
+This process is incomplete, the supported build environments are outlined below:
+
+| module | Oracle JDK 8 | OpenJDK 8 | OpenJDK 11 |
+|--------|--------------|-----------|------------|
+| codec  | compiles     |           |            |
+| core   | compiles     |           |            |
+| mlib   | compiles     |           |            |
+
+If using an unsupported environment:
+
+```
+COMPILATION ERROR : 
+TIFFImage.java:[59,31] error: package com.sun.image.codec.jpeg does not exist
+```
+
+### MediaLab
 
 MediaLib integration requires `mlibwrapper_jai.jar` and is available using:
 
@@ -37,3 +57,5 @@ To install `mlibwrapper_jai.jar` into your local repository use:
     mvn install:install-file -Dfile=mlibwrapper_jai.jar \
         -DgroupId=javax.media -DartifactId=mlibwrapper_jai \
         -Dversion=1.1.3 -Dpackaging=jar -DgeneratePom=true
+
+The functionality is unsupported and maintained for historic interest only. The MediaLib library is no longer readily available.
