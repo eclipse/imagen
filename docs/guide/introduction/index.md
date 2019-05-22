@@ -260,8 +260,8 @@ Before proceeding any further, let's take a look at an example ImageN program to
 
 ------------------------------------------------------------------------
 
-{% highlight java%}
+```java
 {% include src/ImageNSampleProgram.java %}
-{% endhighlight %}
+```
 
 ------------------------------------------------------------------------

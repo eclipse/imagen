@@ -3,7 +3,8 @@ layout: default
 title: JAI Migration
 nav_order: 5
 ---
-# JAI Migration
+
+# {{ page.title }}
 
 Eclipse ImageN offers a migration path for developers using the Java Advanced Imaging Framework.
 
@@ -11,7 +12,7 @@ To upgrade:
 
 1. To migrate from a project depending on JAI 1.1.3:
    
-   ```XML
+   ```xml
    <properties>
       <jai.version>1.1.3</jai.version>
    </properties>
@@ -27,7 +28,7 @@ To upgrade:
    
    Replacing:
    
-   ```XML
+   ```xml
    <properties>
       <jai.version>0.4-SNAPSHOT</jai.version>
    </properties>
@@ -46,7 +47,7 @@ To upgrade:
 
 3. Source code imports:
    
-   ```Java
+   ```java
      import java.awt.Frame;
      import java.awt.image.renderable.ParameterBlock;
      import java.io.IOException;
@@ -66,7 +67,7 @@ To upgrade:
    * Replace `javax.jai` with package `org.eclipse.imagen`
    * Replace `com.sun.media.jai` with package `org.eclipse.imagen.media`
    
-   ```Java
+   ```java
    import java.awt.Frame;
    import java.awt.image.renderable.ParameterBlock;
    import java.io.IOException;
@@ -81,15 +82,11 @@ To upgrade:
    }
    ```
 
-# Java 8 Image Formats
+# Java Image Formats
 
-Java 8 is a Long Term Support release, and includes the internal `com.sun.image.codec.jpeg` packages used by `imagen_codec`. These packages are not available in Java 11.
+Both the Java platform and ImageN include encoding/decoding codecs for image formats:
 
-When running in Java 8 `imagen_codec` supports:
-
-----------
-
-Format         | [Java 8 ImageIO](https://docs.oracle.com/javase/8/docs/api/javax/imageio/package-summary.html) | imagen_codec   | [Java 11 ImageIO](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/imageio/package-summary.html)
+Format         | [Java 8 ImageIO](https://docs.oracle.com/javase/8/docs/api/javax/imageio/package-summary.html) | ImageN Codec   | [Java 11 ImageIO](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/imageio/package-summary.html)
 -------------- | -------------- | -------------- | -------------- 
 BMP            | read/write     | read/write     | read/write
 FlashPix       |                | read           | 
@@ -100,11 +97,11 @@ PNM            |                | read/write     |
 TIFF           |                | read/write     | read/write
 WBMP           | read/write     | read           | read/write
 
-----------
+Oracle JDK 8 includes the internal `com.sun.image.codec.jpeg` packages used by `imagen-codec` JPEG read/write support listed above. These packages are not available in OpenJDK 8 or Java 11.
 
-The key format missing from Java 8 is TIFF, which is included in `ImageIO` from Java 9 onward. You may wish to continue to use `imagen_codec` to provide TIFF support when operating in a Java 8 environment:
+The key format missing from Java 8 is TIFF, which is included in `ImageIO` from Java 9 onward. You may wish to continue to use `imagen-codec` to provide TIFF support when operating in a Java 8 environment:
 
-```XML
+```xml
 <profiles>
  <profile>
    <id>java8</id>
@@ -114,7 +111,7 @@ The key format missing from Java 8 is TIFF, which is included in `ImageIO` from 
    <dependencies>
      <dependency>
        <groupId>org.eclipse.imagen</groupId>
-       <artifactId>jai_codec</artifactId>
+       <artifactId>jai-codec</artifactId>
        <version>${jai.version}</version>
      </dependency>
    </dependencies>
@@ -128,7 +125,7 @@ This work is provided to aid those migrating to Eclipse ImageN and is not suppor
 
 The operations taking advantage of `mlibwrapper_jai` have been factored out into a seperate `imagen_mlib` dependency:
 
-```XML
+```xml
 <dependency>
     <groupId>javax.media</groupId>
     <artifactId>mlibwrapper_jai</artifactId>

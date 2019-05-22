@@ -97,6 +97,7 @@ nav_order: 11
 
  ------------------------------------------------------------------------
 
+```java
           // Set up the parameter block for the source image and
           // the three parameters.
           ParameterBlock pb = new ParameterBlock();
@@ -111,6 +112,7 @@ nav_order: 11
           // Retrieve and report the mean pixel value.
           double[] mean = (double[])meanImage.getProperty("mean");
           System.out.println("Band 0 mean = " + mean[0]);
+```
 
  ------------------------------------------------------------------------
 

@@ -42,9 +42,9 @@ Display](../acquisition).\"
 <a name="listing-4-1"></a
 
 ------------------------------------------------------------------------
-{% highlight java linenos%}
+```java
 {% include src/FileTest.java %}
-{% endhighlight %}
+```
 ------------------------------------------------------------------------
 
 ***Listing 4-1* Example Program to Read and Display an Image File**
