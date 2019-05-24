@@ -3,7 +3,6 @@ exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "pac
 
 # Theme
 remote_theme: pmarsceill/just-the-docs
-theme: "just-the-docs"
 
 # Theme configuration
 title: Eclipse ImageN
