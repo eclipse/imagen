@@ -1,10 +1,11 @@
-Contributing to Raster Processing Engine
-========================================
+Contributing to Eclipse ImageN
+==============================
 
-Raster Processing Engine is an image processing library providing a modern java api and a pure java implementation. 
+Eclipse ImageN is an image processing library providing a modern java api and a pure java implementation. 
 
-- project: [Raster Processing Engine](https://www.locationtech.org/projects/technology.rasterprocessingengine)
-- contact: [rasterprocessingengine-dev](https://dev.locationtech.org/mailman/listinfo/rasterprocessingengine-dev)
+* website: [Eclipse ImageN](http://eclipse.github.io/imagen)
+* project: [Eclipse ImageN Project](https://projects.eclipse.org/projects/technology.imagen)
+- contact: [mailing list](https://locationtech.org/mailman/listinfo/rpe-dev)
 
 Before you start
 ----------------
@@ -20,9 +21,9 @@ Please use the same email address for the Eclipse website and GitHub. We have a 
 Repository and Branches
 -----------------------
 
-The project repository is located on GitHub: [github.com/locationtech/rasterprocessingengine](https://github.com/locationtech/rasterprocessingengine)
+The project repository is located on GitHub: [github.com/eclipse/imagen](https://github.com/eclipse/imagen)
 
-We maintain a single branch:
+We maintain a single branch, tagging each release:
 
 * master - this is where live development happens, we ask that incoming pull requests be made against this branch
 
