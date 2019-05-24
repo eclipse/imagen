@@ -22,6 +22,11 @@ To upgrade:
      <artifactId>jai_core</artifactId>
      <version>1.1.3</version>
    </dependency>
+   <dependency>
+     <groupId>org.eclipse.imagen</groupId>
+     <artifactId>jai_codec</artifactId>
+     <version>${jai.version}</version>
+   </dependency>
    ```
 
 2. Replace with Eclipse ImageN dependency:
@@ -30,20 +35,17 @@ To upgrade:
    
    ```xml
    <properties>
-      <jai.version>0.4-SNAPSHOT</jai.version>
+      <imagen.version>0.4-SNAPSHOT</imagen.version>
    </properties>
    ...
    <dependency>
      <groupId>org.eclipse.imagen</groupId>
-     <artifactId>imagen_core</artifactId>
-     <version>${jai.version}</version>
-   </dependency>
-   <dependency>
-     <groupId>org.eclipse.imagen</groupId>
-     <artifactId>jai_codec</artifactId>
-     <version>${jai.version}</version>
+     <artifactId>imagen-core</artifactId>
+     <version>${imagen.version}</version>
    </dependency>
    ```
+   
+   Note `imagen-core` is includes `imagen-codec` as a transitive dependency.
 
 3. Source code imports:
    
