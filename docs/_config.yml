@@ -9,6 +9,8 @@ title: Eclipse ImageN
 description: Java Image Processing API
 search_enabled: true
 aux_links:
+    "Version 0.4.0":
+     - "https://github.com/eclipse/imagen/tags"
     "Eclipse Project":
       - "https://projects.eclipse.org/projects/technology.imagen"
     "GitHub":
