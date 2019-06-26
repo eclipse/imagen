@@ -23,13 +23,11 @@ The Eclipse ImageN API supports three imaging models:
 
 -   The pipeline (pull) model - The ImageN model
 
-[Table 2-1](../j2d-concepts#table-2-1) lists the interfaces and
+[Table 2-1](#table-2-1) lists the interfaces and
 classes for each of the three models.
 
-
 <a name="table-2-1"></a>
-
------------------------------------------------------------------------- 
+**Table 2-1 Imaging Model Interfaces and Classes**
 
 | AWT Push Model | Java 2D Immediate Mode Model  | Pull Model         |
 | ---------------| ----------------------------- | ------------------ |
@@ -38,10 +36,6 @@ classes for each of the three models.
 | ImageConsumer  | BufferedImageOp               | RenderedOp         |
 | ImageObserver  | RasterOp                      | RenderableOp       |
 |                |                               | TiledImage         |
-
-------------------------------------------------------------------------
-
-**Table 2-1 Imaging Model Interfaces and Classes**
 
 ### 2.1.1 The AWT Push Model
 
@@ -106,21 +100,15 @@ region of interest in an image.
 The following are the Java interfaces and classes associated with the
 AWT push model of imaging.
 
-<a name="table-2-1"></a>
-
--------------------------------------------------------------------------------------------------
+<a name="table-2-2"></a>
+**Table 2-2 Push Model Imaging Interfaces**
 
 | Interface | Description |
 | --------- | ----------- |
-| Image     | Extends: `Object` \n The superclass of all classes that represent graphical images. |
-
--------------------------------------------------------------------------------------------------
-
-**Table 2-2 Push Model Imaging Interfaces**
+| Image     | Extends: `Object` <br/> The superclass of all classes that represent graphical images. |
 
 <a name="table-2-2"></a>
-
--------------------------------------------------------------------------------------------------
+**Table 2-3 Push Model Imaging Classes**
 
 | Class | Description |
 | --------- | ----------- |
@@ -130,8 +118,6 @@ AWT push model of imaging.
 | ImageConsumer       | The interface for objects expressing interest in image data through the ImageProducer interfaces. When a consumer is added to an image producer, the producer delivers all of the data about the image using the method calls defined in this interface.
 |  ImageObserver      | An asynchronous update interface for receiving notifications about Image information as the Image is constructed.
 | --------- | ----------- |
-
-**Table 2-3 Push Model Imaging Classes**
 
 2.2 The Immediate Mode Model
 -------------------------------------------------
@@ -282,17 +268,18 @@ layers is housed in a single class. This simplifies the task of
 writing new operators and makes extension of the architecture
 manageable.
 
-[Figure 2-1](../j2d-concepts) shows a renderable chain.
+[Figure 2-1](#figure-2-1) shows a renderable chain.
 The chain has a sink attached (a Graphics2D object), but no pixels
 flow through the chain yet.
 
+
+<a name="figure-2-1"></a>
 
 ------------------------------------------------------------------------
 
 ![](J2D-concepts.doc.anc.gif)
 
 ------------------------------------------------------------------------
-
 
 ***Figure 2-1*  A Renderable Chain**
 
@@ -379,59 +366,20 @@ instantiation of `RenderableImageOp` derives its specific
 functionality from the named class. In this way, the Renderable layer
 is heavily dependent on the Rendered layer.
 
-**[*Table 2-4*  The Renderable Layer
-Interfaces and Classes]{#53782}**
+<a name="table-2-4"></a>
 
-[Type]{#53788}
+**Table 2-4 The Renderable Layer Interfaces and Classes**
 
-[Name]{#53790}
-
-[Description]{#53792}
-
-Interface
-
-RenderableImage
-
-A common interface for rendering-independent images (a notion that
-subsumes resolution independence).
-
-ContextualRenderedImage-Factory
-
-Extends: RenderedImageFactory
-Provides an interface for the functionality that may differ between
-instances of RenderableImageOp.
-
-Class
-
-ParameterBlock
-
-Extends: Object
-Implements: Cloneable, Serializable
-Encapsulates all the information about sources and parameters
-(expressed as base types or Objects) required by a RenderableImageOp
-and other future classes that manipulate chains of imaging
-operators.
-
-RenderableImageOp
-
-Extends: Object
-Implements: RenderableImage
-Handles the renderable aspects of an operation with help from its
-associated instance of a ContextualRenderedImageFactory.
-
-RenderableImageProducer
-
-Extends: Object
-Implements: ImageProducer, Runnable
-An adapter class that implements ImageProducer to allow the
-asynchronous production of a RenderableImage.
-
-RenderContext
-
-Extends: Object
-Implements: Cloneable
-Encapsulates the information needed to produce a specific rendering
-from a RenderableImage.
+| Type | Name | Description |
+| ---- | ---- | ----- |
+| Interface | RenderableImage | A common interface for rendering-independent images (a notion that
+subsumes resolution independence). |
+| Interface | ContextualRenderedImage-Factory | Extends: RenderedImageFactory Provides an interface for the functionality that may differ between
+instances of RenderableImageOp. |
+| Class | ParameterBlock | Extends: Object <br/> Implements: Cloneable, Serializable <br/> Encapsulates all the information about sources and parameters (expressed as base types or Objects) required by a RenderableImageOp and other future classes that manipulate chains of imaging operators. |
+| Class | RenderableImageOp | Extends: Object <br/> Implements: RenderableImage </br> Handles the renderable aspects of an operation with help from its associated instance of a ContextualRenderedImageFactory. |
+| Class | RenderableImageProducer | Extends: Object <br/> Implements: ImageProducer, Runnable <br/> An adapter class that implements ImageProducer to allow the asynchronous production of a RenderableImage. |
+| Class | RenderContext | Extends: Object <br/> Implements: Cloneable <br/> Encapsulates the information needed to produce a specific rendering  from a RenderableImage. |
 
 The other block involved in the construction of `RenderableImageOp` is
 a `ParameterBlock`. The `ParameterBlock` houses the source(s) for the
@@ -454,7 +402,6 @@ chain below the edits. `RenderedImage`s that were previously obtained
 from the Renderable chain are immutable and completely independent
 from the chain from which they were derived.
 
-
 ### 2.3.2 The Rendered Layer
 
 The Rendered layer is designed to work in concert with the Renderable
@@ -469,7 +416,7 @@ much the same manner as those of the Renderable layer. A sequence of
 `RenderedImage`s is instantiated, each taking the last `RenderedImage`
 as a source.
 
-In [Figure 2-2](../j2d-concepts), when the user calls
+In [Figure 2-2](#figure-2-2), when the user calls
 `Graphics2D.drawImage()`, a render context is constructed and used to
 call the `getImage()` method of the renderable operator. A rendered
 operator to actually do the pixel processing is constructed and
@@ -493,15 +440,11 @@ whenever its `getImage()` method is called.
 
 **Table 2-5 The Rendered Layer Interfaces and Classes**
 
-------------------------------------------------------------------------
-
 | Type        | Name          | Description |
 | ----------- | ------------- | ------------------ |
 | Interface  | RenderedImage | A common interface for objects that contain or can produce image data in the form of Rasters. |
-| Class      | BufferedImage | Extends: `Image` \n Implements: `WritableRenderedImage` \n A subclass that describes an Image with an accessible buffer of image data. |
-| Class | WritableRenderedImage | Extends: `RenderedImage` \n A common interface for objects that contain or can produce image data that can be modified and/or written over. |
-
-------------------------------------------------------------------------
+| Class      | BufferedImage | Extends: `Image` <br/> Implements: `WritableRenderedImage` <br/> A subclass that describes an Image with an accessible buffer of image data. |
+| Class | WritableRenderedImage | Extends: `RenderedImage` <br/> A common interface for objects that contain or can produce image data that can be modified and/or written over. |
 
 A rendered image represents a virtual image with a coordinate system
 that maps directly to pixels. A Rendered image does not have to have
@@ -531,16 +474,12 @@ contains four bands; one each for cyan, magenta, yellow, and black
 
 **Table 2-6 Java 2D Image Data Classes**
 
----------------------------
-
 | Type | Name | Extends | Description |
 | ---- | ---- | ------- | ----- |
 | Class | DataBuffer | Object | Wraps one or more data arrays. Each data array in the DataBuffer is referred to as a bank. |
 | Class | Raster     | Object | Represents a rectanglular array of pixels and provides methods for retrieving image data. |
 | Class | SampleModel | Object | Extracts samples of pixels in images. |
 | Class | WriteableRaster | Raster | Provides methods for storing image data and inherits methods for retrieving image data from it\'s parent class Raster. |
-
----------------------------
 
 The basic unit of image data storage is the `DataBuffer`. The
 `DataBuffer` is a kind of raw storage that contains all of the samples
@@ -680,8 +619,8 @@ Eclipse ImageN provides two data classes, which extend the Java 2D `DataBuffer` 
 
 | Type  | Name             | Description                |
 | ----- | ---------------- | -------------------------- |
-| Class | DataBufferFloat  | Extends: `DataBuffer` \n Stores data internally in float form. |
-| Class | DataBufferDouble | Extends: `DataBuffer` \n Stores data internally in double form. |
+| Class | DataBufferFloat  | Extends: `DataBuffer` <br/> Stores data internally in float form. |
+| Class | DataBufferDouble | Extends: `DataBuffer` <br/> Stores data internally in double form. |
 
 --------------------------------
 
