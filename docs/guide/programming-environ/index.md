@@ -163,9 +163,9 @@ constant images and then adds them together.
 
 ***Listing 3-1*  Rendered Chain Example** <a name="listing-3-1"></a>
 
-{% highlight java linenos%}
-{% include src/AddTest.java %}
-{% endhighlight %}
+```java
+{% include src/AddExample.java %}
+```
 
 The first three lines of the example code specify which classes to
 import. The classes prefixed with `org.eclipse.imagen` are the Eclipse ImageN classes. The `java.awt` prefix specifies the core Java API
@@ -523,21 +523,21 @@ Imaging](../client-server).\"
 
 ## 3.5 Basic ImageN API Classes
 
-JAI consists of several classes grouped into five packages:
+ImageN consists of several classes grouped into five packages:
 
--   `javax.media.jai` - contains the \"core\" ImageN interfaces and
+-   `org.eclipse.imagen` - contains the \"core\" ImageN interfaces and
     classes
 
 
--   `javax.media.jai.iterator` - contains special iterator interfaces
+-   `org.eclipse.imagen.iterator` - contains special iterator interfaces
     and classes, which are useful for writing extension operations
 
 
--   `javax.media.jai.operator` - contains classes that describe all of
+-   `org.eclipse.imagen.operator` - contains classes that describe all of
     the image operators
 
 
--   `javax.media.jai.widget` - contains interfaces and classes for
+-   `org.eclipse.imagen.widget` - contains interfaces and classes for
     creating simple image canvases and scrolling windows for image
     display
 
@@ -1055,7 +1055,7 @@ PNM
 : Reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats. It stores the image data into an appropriate SampleModel.                                                                                                                                
 
 Stream
-: Produces an image by decoding data from a SeekableStream. The allowable formats are those registered with the com.sun.media.jai.codec.ImageCodec class.                                                                                                                               
+: Produces an image by decoding data from a SeekableStream. The allowable formats are those registered with the org.eclipse.imagen.media.codec.ImageCodec class.                                                                                                                               
 
 TIFF
 : Reads TIFF 6.0 data from a SeekableStream.                                                                                                                                                                                                                                            
@@ -1134,7 +1134,7 @@ Extrema
 : Takes one rendered source image, scans a specific region of the image, and finds the maximum and minimum pixel values for each band within that region of the image. The image data pass through this operation unchanged.                                                                                                                                                                                                                                                            
 
 Histogram
-: Takes one rendered source image, scans a specific region of the image, and generates a histogram based on the pixel values within that region of the image. The histogram data is stored in the user supplied javax.media.jai.Histogram object, and may be retrieved by calling the getProperty method on this operation with \"histogram\" as the property name. The return value will be of type javax.media.jai.Histogram. The image data pass through this operation unchanged.   
+: Takes one rendered source image, scans a specific region of the image, and generates a histogram based on the pixel values within that region of the image. The histogram data is stored in the user supplied org.eclipse.imagen.Histogram object, and may be retrieved by calling the getProperty method on this operation with \"histogram\" as the property name. The return value will be of type org.eclipse.imagen.Histogram. The image data pass through this operation unchanged.   
 
 Mean
 : Takes a rendered source image, scans a specific region, and computes the mean pixel value for each band within that region of the image. The image data pass through this operation unchanged.                                                                                                                                                                                                                                                                                        
@@ -1333,7 +1333,7 @@ There are two separate classes for specifying parameter blocks:
 -   `java.awt.image.renderable.ParameterBlock` - the main class for
     specifying and changing parameter blocks.
 
--   `javax.media.jai.ParameterBlockJAI` - extends `ParameterBlock` by
+-   `org.eclipse.imagen.ParameterBlockJAI` - extends `ParameterBlock` by
     allowing the use of default parameter values and the use of
     parameter names.
 
@@ -1439,8 +1439,6 @@ specified.
 
 ***Listing 3-3*  Example ParameterBlockJAI**
 
-------------------------------------------------------------------------
-
 ```java
   // Specify the interpolation method to be used
   interp = Interpolation.create(Interpolation.INTERP_NEAREST);
@@ -1451,8 +1449,6 @@ specified.
   pb.set(1.2F, "angle");            // The rotation angle in radians
   pb.set(interp, "interpolation");  // The interpolation method
 ```
-
-------------------------------------------------------------------------
 
 **API:** `org.eclipse.imagen.ParameterBlockJAI`
 
@@ -1491,7 +1487,7 @@ There are two separate classes for specifying rendering hints:
     used by the `Graphics2D` class, and classes that implement
     `BufferedImageOp` and `Raster`.
 
--   `javax.media.jai.JAI` - provides methods to define the
+-   `org.eclipse.imagen.JAI` - provides methods to define the
     RenderingHints keys specific to JAI.
 
 #### 3.7.3.1 Java AWT Rendering Hints
@@ -1704,8 +1700,6 @@ destination opimage is set to 200 x 200.
 
 <a name="listing-3-4">**Listing 3-4 Example of Rendering Hints**</a>
 
-------------------------------------------------------------------------
-
 ```java
   // Create the parameter block for the scale operation.
   ParameterBlock pb = new ParameterBlock();
@@ -1724,5 +1718,3 @@ destination opimage is set to 200 x 200.
   // Create the scale operation.
   PlanarImage im2 = (PlanarImage)JAI.create("scale", pb, layout)
 ```
-
-------------------------------------------------------------------------
