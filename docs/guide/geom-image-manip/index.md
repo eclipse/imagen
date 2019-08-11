@@ -1850,7 +1850,7 @@ JAI supports seven warping functions:
 -   Affine warp - affine-based warp (`WarpAffine`).
 
 
-|                                   | **API:** `javax.media.jai.Warp`   |
+|                                   | **API:** `org.eclipse.imagen.Warp`   |
 
     int[] warpRect(int x, int y, int width, int height, 
            int  subsampleBitsH, int subsampleBitsV, int[] destRect)

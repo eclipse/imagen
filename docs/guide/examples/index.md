@@ -42,12 +42,12 @@ into a byte type image. Finally, the program displays the byte image.
          import java.awt.image.DataBuffer;
          import java.awt.image.renderable.ParameterBlock;
          import java.io.IOException;
-         import javax.media.jai.JAI;
-         import javax.media.jai.LookupTableJAI;
-         import javax.media.jai.RenderedOp;
-         import com.sun.media.jai.codec.FileSeekableStream;
-         import com.sun.media.jai.codec.TIFFDecodeParam;
-         import javax.media.jai.widget.ScrollingImagePanel;
+         import org.eclipse.imagen.JAI;
+         import org.eclipse.imagen.LookupTableJAI;
+         import org.eclipse.imagen.RenderedOp;
+         import org.eclipse.imagen.media.codec.FileSeekableStream;
+         import org.eclipse.imagen.media.codec.TIFFDecodeParam;
+         import org.eclipse.imagen.widget.ScrollingImagePanel;
 
          public class LookupSampleProgram {
 
@@ -163,11 +163,11 @@ for the operation.
          import java.awt.image.WritableRaster;
          import java.awt.image.renderable.ParameterBlock;
          import java.awt.image.renderable.RenderedImageFactory;
-         import javax.media.jai.ImageLayout;
-         import javax.media.jai.OperationDescriptorImpl;
-         import javax.media.jai.OpImage;
-         import javax.media.jai.PointOpImage;
-         import javax.media.jai.RasterAccessor;
+         import org.eclipse.imagen.ImageLayout;
+         import org.eclipse.imagen.OperationDescriptorImpl;
+         import org.eclipse.imagen.OpImage;
+         import org.eclipse.imagen.PointOpImage;
+         import org.eclipse.imagen.RasterAccessor;
 
          // A single class that is both an OperationDescriptor and
          // a RenderedImageFactory along with the one OpImage it is

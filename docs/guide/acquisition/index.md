@@ -788,7 +788,7 @@ example of the use of `ImageMIPMap`.
          import org.eclipse.imagen.ImageMIPMap;
          import org.eclipse.imagen.PlanarImage;
          import org.eclipse.imagen.RenderedOp;
-         import com.sun.media.jai.codec.FileSeekableStream;
+         import org.eclipse.imagen.media.codec.FileSeekableStream;
 
          public class ImageMIPMapTest extends Test {
 
@@ -1047,7 +1047,7 @@ example of the use of `ImagePyramid`.
          import org.eclipse.imagen.ImagePyramid;
          import org.eclipse.imagen.PlanarImage;
          import org.eclipse.imagen.RenderedOp;
-         import com.sun.media.jai.codec.FileSeekableStream;
+         import org.eclipse.imagen.media.codec.FileSeekableStream;
 
          public class ImagePyramidTest extends ImageMIPMapTest {
 
@@ -1470,7 +1470,7 @@ others may not offer this feature in the interest of efficiency for
 those users who do not require backward seeking.
 
 Several concrete subclasses of `SeekableStream` are supplied in the
-`com.sun.media.jai.codec` package. Three classes are provided for the
+`org.eclipse.imagen.media.codec` package. Three classes are provided for the
 purpose of adapting a standard `InputStream` to the `SeekableStream`
 interface. The `ForwardSeekableStream` class does not allow seeking
 backwards, but is inexpensive to use. The `FileCacheSeekableStream`
@@ -1784,7 +1784,7 @@ image is of short data type and no dithering is performed, use the
 `setDecodePaletteAsShorts` method.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.TIFFDeco |
+|                                   | `org.eclipse.imagen.media.codec.TIFFDeco |
 |                                   | deParam`                          |
 
     void setDecodePaletteAsShorts(boolean decodePaletteAsShorts)
@@ -1817,7 +1817,7 @@ To determine the number of images in a TIFF file, use the
 `TIFFDirectory.getNumDirectories()` method.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.TIFFDire |
+|                                   | `org.eclipse.imagen.media.codec.TIFFDire |
 |                                   | ctory`                            |
 
     static int getNumDirectories(SeekableStream stream)
@@ -1884,7 +1884,7 @@ number of elements in the IFD. The count (also known as *length* in
 earlier TIFF specifications) is the number of values.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.TIFFFiel |
+|                                   | `org.eclipse.imagen.media.codec.TIFFFiel |
 |                                   | d`                                |
 
     int getTag()
@@ -1914,7 +1914,7 @@ first image, index 1 to the second, and so on. The index defaults to
 0.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.TIFFDire |
+|                                   | `org.eclipse.imagen.media.codec.TIFFDire |
 |                                   | ctory`                            |
 
     TIFFDirectory(SeekableStream stream, int directory)
@@ -2141,7 +2141,7 @@ Image**
 ------------------------------------------------------------------------
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.Seekable |
+|                                   | `org.eclipse.imagen.media.codec.Seekable |
 |                                   | Stream`                           |
 
     static SeekableStream wrapInputStream(java.io.InputStream is, 
@@ -2256,7 +2256,7 @@ of the decode process:
     simplify further processing and display.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGDecod |
+|                                   | `org.eclipse.imagen.media.codec.PNGDecod |
 |                                   | eParam`                           |
 
     public void setSuppressAlpha(boolean suppressAlpha)
@@ -2350,7 +2350,7 @@ true file gamma is *Y*, setting a user exponent of *Y*/*X* will
 produce the same result as changing the file gamma.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGDecod |
+|                                   | `org.eclipse.imagen.media.codec.PNGDecod |
 |                                   | eParam`                           |
 
     boolean getPerformGammaCorrection()
@@ -2394,7 +2394,7 @@ type 4 (explicit alpha) and images of color type 0 (grayscale) that
 contain transparency information.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGDecod |
+|                                   | `org.eclipse.imagen.media.codec.PNGDecod |
 |                                   | eParam`                           |
 
     void setExpandGrayAlpha(boolean expandGrayAlpha)

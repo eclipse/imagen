@@ -292,7 +292,7 @@ nav_order: 11
  | ![](shared/cistine.gif)           | -------------------------------   |
  |                                   |                                   |
  |                                   | **API:**                          |
- |                                   | `javax.media.jai.Histogram`       |
+ |                                   | `org.eclipse.imagen.Histogram`       |
  |                                   |                                   |
  |                                   | -------------------------------   |
  +-----------------------------------+-----------------------------------+
@@ -391,7 +391,7 @@ nav_order: 11
  | ![](shared/cistine.gif)           | -------------------------------   |
  |                                   |                                   |
  |                                   | **API:**                          |
- |                                   | `javax.media.jai.Histogram`       |
+ |                                   | `org.eclipse.imagen.Histogram`       |
  |                                   |                                   |
  |                                   | -------------------------------   |
  +-----------------------------------+-----------------------------------+
@@ -772,7 +772,7 @@ nav_order: 11
  | ![](shared/cistine.gif)           | -------------------------------   |
  |                                   |                                   |
  |                                   | **API:**                          |
- |                                   | `javax.media.jai.StatisticsOpImag |
+ |                                   | `org.eclipse.imagen.StatisticsOpImag |
  |                                   | e`                                |
  |                                   |                                   |
  |                                   | -------------------------------   |

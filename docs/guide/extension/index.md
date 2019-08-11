@@ -178,20 +178,20 @@ and addconst).
 
 ------------------------------------------------------------------------
 
-         odesc   javax.media.jai.operator.AbsoluteDescriptor     absolute
-         odesc   javax.media.jai.operator.AddConstDescriptor     addconst
+         odesc   org.eclipse.imagen.operator.AbsoluteDescriptor     absolute
+         odesc   org.eclipse.imagen.operator.AddConstDescriptor     addconst
 
-         rif com.sun.media.jai.opimage.AbsoluteCRIF
-                        com.sun.media.jai   absolute   sunabsoluterif
-         rif com.sun.media.jai.mlib.MlibAbsoluteRIF
-                        com.sun.media.jai   absolute   mlibabsoluterif
-         rif com.sun.media.jai.opimage.AddConstCRIF
-                        com.sun.media.jai   addconst   sunaddconstrif
-         rif com.sun.media.jai.mlib.MlibAddConstRIF
-                        com.sun.media.jai   addconst   mlibaddconstrif
+         rif org.eclipse.imagen.media.opimage.AbsoluteCRIF
+                        org.eclipse.imagen.media   absolute   sunabsoluterif
+         rif org.eclipse.imagen.media.mlib.MlibAbsoluteRIF
+                        org.eclipse.imagen.media   absolute   mlibabsoluterif
+         rif org.eclipse.imagen.media.opimage.AddConstCRIF
+                        org.eclipse.imagen.media   addconst   sunaddconstrif
+         rif org.eclipse.imagen.media.mlib.MlibAddConstRIF
+                        org.eclipse.imagen.media   addconst   mlibaddconstrif
 
-         crif    com.sun.media.jai.opimage.AbsoluteCRIF      absolute
-         crif    com.sun.media.jai.opimage.AddConstCRIF      addconst
+         crif    org.eclipse.imagen.media.opimage.AbsoluteCRIF      absolute
+         crif    org.eclipse.imagen.media.opimage.AddConstCRIF      addconst
 
 ------------------------------------------------------------------------
 
@@ -299,11 +299,11 @@ Clamp Operation**
          private static final String[][] resources = {
              {"GlobalName",  "Clamp"},
              {"LocalName",   "Clamp"},
-             {"Vendor",      "com.sun.javax.media.jai"},
+             {"Vendor",      "com.sun.org.eclipse.imagen"},
              {"Description", "Clamps the pixel values of a rendered image"},
              {"DocURL",      "http://java.sun.com/products/java-media/jai/
     forDevelopers/jaiapi/
-    javax.media.jai.operator.ClampDescriptor.html"},
+    org.eclipse.imagen.operator.ClampDescriptor.html"},
              {"Version",     "Beta")},
              {"arg0Desc",    "The lower boundary for each band."},
              {"arg1Desc",    "The upper boundary for each band."}
@@ -834,8 +834,8 @@ construction of a new `RectIter`.
          import java.awt.image.PixelInterleavedSampleModel;
          import java.awt.image.SampleModel;
          import java.util.Random;
-         import javax.media.jai.*;
-         import javax.media.jai.iterator.*;
+         import org.eclipse.imagen.*;
+         import org.eclipse.imagen.iterator.*;
 
          class RectIterTest {
 
@@ -1003,7 +1003,7 @@ name. If no codec is registered with the given name, `null` is
 returned.``
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.ImageCod |
+|                                   | `org.eclipse.imagen.media.codec.ImageCod |
 |                                   | ec`                               |
 
     static ImageEncoder createImageEncoder(String name, 

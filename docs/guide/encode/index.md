@@ -190,7 +190,7 @@ The BMP version parameters are as follows:
 If not specifically set, `VERSION_3` is the default version.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.BMPEncod |
+|                                   | `org.eclipse.imagen.media.codec.BMPEncod |
 |                                   | eParam`                           |
 
     void setVersion(int versionNumber)
@@ -215,7 +215,7 @@ The in-memory layout of the image data to be encoded is specified with
 class.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.BMPEncod |
+|                                   | `org.eclipse.imagen.media.codec.BMPEncod |
 |                                   | eParam`                           |
 
     void setTopDown(boolean topDown)
@@ -325,7 +325,7 @@ thumbnail. The `setWriteJFIFHeader` method controls whether the
 encoder writes a JFIF header using the APP0 marker.``
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.JPEGEnco |
+|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
 |                                   | deParam`                          |
 
     void setWriteJFIFHeader(boolean writeJFIF)
@@ -417,7 +417,7 @@ using the `setLumaQTable` (table 0) and `setChromaQTable` (table 1)
 methods. Tables 2 and 3 are not normally used.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.JPEGEnco |
+|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
 |                                   | deParam`                          |
 
     void setQTable(int component, int tableNum, int[] qTable)
@@ -476,7 +476,7 @@ errors By default, the sampling factors for YCC input images are set
 to {1, 2, 2} for both horizontal and vertical axes.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.JPEGEnco |
+|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
 |                                   | deParam`                          |
 
     void setHorizontalSubsampling(int component, int subsample)
@@ -543,7 +543,7 @@ image quality and compression ratio. See also [Section 13.5.3,
 ------------------------------------------------------------------------
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.JPEGEnco |
+|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
 |                                   | deParam`                          |
 
     void setQuality(float quality)
@@ -579,7 +579,7 @@ methods to set the restart interval in JPEG Minimum Coded Units
 (MCUs). The default is zero (no restart interval markers).
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.JPEGEnco |
+|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
 |                                   | deParam`                          |
 
     void setRestartInterval(int restartInterval)
@@ -608,7 +608,7 @@ instructs the encoder to write only the compressed image data to the
 output stream.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.JPEGEnco |
+|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
 |                                   | deParam`                          |
 
     void setWriteTablesOnly(boolean tablesOnly)
@@ -649,9 +649,9 @@ a JPEG image.
          import java.awt.image.*;
          import java.awt.image.renderable.*;
          import java.io.*;
-         import javax.media.jai.*;
-         import javax.media.jai.widget.*;
-         import com.sun.media.jai.codec.*;
+         import org.eclipse.imagen.*;
+         import org.eclipse.imagen.widget.*;
+         import org.eclipse.imagen.media.codec.*;
 
          public class JPEGWriterTest extends WindowContainer {
 
@@ -854,11 +854,11 @@ the subclass of `PNGEncodeParam`, as follows:
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Pixel Type]{#51717}                [Description]{#51719}
   ----------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  PNGEncodeParam.Palette   Also known as *indexed-color*, where each pixel is represented by a single sample that is an index into a supplied color palette. The com.sun.media.jai.codec.PNGEncodeParam.Palette class supports the encoding of palette pixel images.
+  PNGEncodeParam.Palette   Also known as *indexed-color*, where each pixel is represented by a single sample that is an index into a supplied color palette. The org.eclipse.imagen.media.codec.PNGEncodeParam.Palette class supports the encoding of palette pixel images.
 
-  PNGEncodeParam.Gray      Each pixel is represented by a single sample that is a grayscale level. The com.sun.media.jai.codec.PNGEncodeParam.Gray class supports the encoding of grayscale pixel images.
+  PNGEncodeParam.Gray      Each pixel is represented by a single sample that is a grayscale level. The org.eclipse.imagen.media.codec.PNGEncodeParam.Gray class supports the encoding of grayscale pixel images.
 
-  PNGEncodeParam.RGB       Also known as *truecolor*, where each pixel is represented by three samples: red, green, and blue. The com.sun.media.jai.codec.PNGEncodeParam.RGB class supports the encoding of RGB pixel images.
+  PNGEncodeParam.RGB       Also known as *truecolor*, where each pixel is represented by three samples: red, green, and blue. The org.eclipse.imagen.media.codec.PNGEncodeParam.RGB class supports the encoding of RGB pixel images.
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   : 
@@ -882,7 +882,7 @@ encoded by the PNG encoder, since the encoder only performs a
 superficial analysis of the image structure.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     static PNGEncodeParam getDefaultEncodeParam(RenderedImage im)
@@ -953,7 +953,7 @@ implemented (non-optimally) as follows:
 ------------------------------------------------------------------------
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     int filterRow(byte[] currRow, byte[] prevRow, 
@@ -1009,7 +1009,7 @@ The bit depth is specified by the `setBithDepth` method in the class
 type.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.Palette`                   |
 
     void setBitDepth(int bitDepth)
@@ -1018,7 +1018,7 @@ type.
     be 1, 2, 4, or 8.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.Gray`                      |
 
     public void setBitDepth(int bitDepth)
@@ -1027,7 +1027,7 @@ type.
     must be 1, 2, 4, 8, or 16.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.RGB`                       |
 
     void setBitDepth(int bitDepth)
@@ -1047,7 +1047,7 @@ of seven distinct passes over the image; each pass transmits a subset
 of the pixels in the image.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     void setInterlacing(boolean useInterlacing)
@@ -1089,7 +1089,7 @@ image can be quantized in case the viewing system cannot display RGB
 directly.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     void setPalette(int[] rgb)
@@ -1144,7 +1144,7 @@ each for red, green, and blue. Each value has the range of 0 to
 2^bitdepth^ - 1.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.Palette`                   |
 
     void setBackgroundPaletteIndex(int index)
@@ -1157,7 +1157,7 @@ each for red, green, and blue. Each value has the range of 0 to
 :   returns the palette index of the suggested background color.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.Gray`                      |
 
     void setBackgroundGray(int gray)
@@ -1170,7 +1170,7 @@ each for red, green, and blue. Each value has the range of 0 to
 :   returns the suggested gray level of the background.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.RGB`                       |
 
     void setBackgroundRGB(int[] rgb)
@@ -1196,7 +1196,7 @@ containing the white point *X* and *Y*, red *X* and *Y*, green *X* and
 *Y*, and blue *X* and *Y* values in order.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     void setChromaticity(float[] chromaticity)
@@ -1230,7 +1230,7 @@ suppressed. The absence of the gAMA chunk indicates that the gamma is
 unknown.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     void setGamma(float gamma)
@@ -1257,7 +1257,7 @@ help decide how to choose a subset of colors for display. The hIST
 chunk is only valid with Palette images.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.Palette`                   |
 
     void setPaletteHistogram(int[] paletteHistogram)
@@ -1282,7 +1282,7 @@ presented by the embedded International Color Consortium profile. The
 color space of the ICC profile must be an RGB color space.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     void setICCProfileData(byte[] ICCProfileData)
@@ -1323,7 +1323,7 @@ When the unit specifier is 0, the pHYS chunk defines pixel aspect
 ratio only; the actual size of the pixels remains unspecified.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     void setPhysicalDimension(int[] physicalDimension)
@@ -1365,7 +1365,7 @@ the number of output bands in the image:
 -   4 - for RGB images with alpha
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.RGB`                       |
 
     void setSignificantBits(int[] significantBits)
@@ -1418,7 +1418,7 @@ class, consists of the following:
     before the image has been composited against any background
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.Palette`                   |
 
     void setSuggestedPalette(PNGSuggestedPaletteEntry[] palette)
@@ -1459,7 +1459,7 @@ colorimetric accuracy. There are four rendering intents:
   Intent]{#53902}**
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.RGB`                       |
 
     void setSRGBIntent(int SRGBIntent)
@@ -1505,7 +1505,7 @@ The following keywords are defined:
   : 
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     void setText(String[] text)
@@ -1531,7 +1531,7 @@ format uses UTC regardless of how the `modificationTime` parameter was
 created.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     void setModificationTime(Date modificationTime)
@@ -1575,7 +1575,7 @@ the RGB image has an alpha value, setting the gray level causes the
 image\'s alpha channel to be ignored.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.Palette`                   |
 
     void setPaletteTransparency(byte[] alpha)
@@ -1590,7 +1590,7 @@ image\'s alpha channel to be ignored.
 :   returns the alpha values associated with each palette entry.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.Gray`                      |
 
     void setTransparentGray(int transparentGray)
@@ -1605,7 +1605,7 @@ image\'s alpha channel to be ignored.
 :   returns the gray value to be used to denote transparency.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam.RGB`                       |
 
     void setTransparentRGB(int[] transparentRGB)
@@ -1627,7 +1627,7 @@ the tEXt chunk. The zTXt chunk is intended for storing large blocks of
 text, since the text is compressed.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     void setCompressedText(String[] text)
@@ -1655,7 +1655,7 @@ information. See the PNG specification for more information on chunk
 naming conventions.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNGEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
 |                                   | eParam`                           |
 
     synchronized void addPrivateChunk(String type, byte[] data)
@@ -1743,7 +1743,7 @@ a PNM image.
 ------------------------------------------------------------------------
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.PNMEncod |
+|                                   | `org.eclipse.imagen.media.codec.PNMEncod |
 |                                   | eParam`                           |
 
     void setRaw(boolean raw)
@@ -1785,7 +1785,7 @@ Writing of tiled TIFF images can be enabled by calling the
 `setWriteTiled` method.
 
 **API:** 
-|                                   | `com.sun.media.jai.codec.TIFFEnco |
+|                                   | `org.eclipse.imagen.media.codec.TIFFEnco |
 |                                   | deParam`                          |
 
     void setWriteTiled(boolean writeTiled)

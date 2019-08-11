@@ -193,7 +193,7 @@ policy of the `BorderImage` subclass. The subclasses are described in
 [Table 7-1](Image-enhance.doc.html#68640).
 
 **API:** 
-|                                   | `javax.media.jai.Planarimage`     |
+|                                   | `org.eclipse.imagen.Planarimage`     |
 
     Raster getExtendedData(Rectangle region, 
            BorderExtender  extender)
@@ -220,7 +220,7 @@ policy of the `BorderImage` subclass. The subclasses are described in
     An instance of `BorderExtender`.
 
 **API:** 
-|                                   | `javax.media.jai.BorderExtender`  |
+|                                   | `org.eclipse.imagen.BorderExtender`  |
 
     static BorderExtender createInstance(int extenderType)
 
@@ -268,7 +268,7 @@ the top and bottom and two extra columns on the left and right sides.
 ***Figure 7-2* ![](shared/sm-blank.gif) BorderExtenderZero Example**
 
 **API:** 
-|                                   | `javax.media.jai.BorderExtenderZe |
+|                                   | `org.eclipse.imagen.BorderExtenderZe |
 |                                   | ro`                               |
 
     final void extend(WritableRaster raster, PlanarImage im)
@@ -308,7 +308,7 @@ fill out the constants array.
 Example**
 
 **API:** 
-|                                   | `javax.media.jai.BorderExtenderCo |
+|                                   | `org.eclipse.imagen.BorderExtenderCo |
 |                                   | nstant`                           |
 
     BorderExtenderConstant(double[] constants)
@@ -350,7 +350,7 @@ rotation.
 ***Figure 7-4* ![](shared/sm-blank.gif) BorderExtenderCopy Example**
 
 **API:** 
-|                                   | `javax.media.jai.BorderExtenderCo |
+|                                   | `org.eclipse.imagen.BorderExtenderCo |
 |                                   | py`                               |
 
     final void extend(WritableRaster raster, PlanarImage im)
@@ -385,7 +385,7 @@ pattern.
 ***Figure 7-5* ![](shared/sm-blank.gif) BorderExtenderWrap Example**
 
 **API:** 
-|                                   | `javax.media.jai.BorderExtenderWr |
+|                                   | `org.eclipse.imagen.BorderExtenderWr |
 |                                   | ap`                               |
 
     final void extend(WritableRaster raster, PlanarImage im)
@@ -420,7 +420,7 @@ image.
 Example**
 
 **API:** 
-|                                   | `javax.media.jai.BorderExtenderRe |
+|                                   | `org.eclipse.imagen.BorderExtenderRe |
 |                                   | flect`                            |
 
     final void extend(WritableRaster raster, PlanarImage im)
@@ -875,7 +875,7 @@ Table**
 ------------------------------------------------------------------------
 
 **API:** 
-|                                   | `javax.media.jai.LookupTableJAI`  |
+|                                   | `org.eclipse.imagen.LookupTableJAI`  |
 
     LookupTableJAI(byte[] data)
 
@@ -1033,7 +1033,7 @@ Table**
 ------------------------------------------------------------------------
 
 **API:** 
-|                                   | `javax.media.jai.LookupTableJAI`  |
+|                                   | `org.eclipse.imagen.LookupTableJAI`  |
 
     LookupTableJAI(byte[][] data)
 
@@ -1247,7 +1247,7 @@ These color cubes are specified by the `colorMap` parameter that is
 required by the `OrderedDither` operation.
 
 **API:** 
-|                                   | `javax.media.jai.ColorCube`       |
+|                                   | `org.eclipse.imagen.ColorCube`       |
 
     static ColorCube createColorCube(int dataType, int offset, 
            int[] dimensions)
@@ -1471,7 +1471,7 @@ lookup table. The choice of method depends on the data format: byte,
 short, integer, floating-point, or double floating-point.
 
 **API:** 
-|                                   | `javax.media.jai.LookupTableJAI`  |
+|                                   | `org.eclipse.imagen.LookupTableJAI`  |
 
     java.awt.image.DataBuffer getData()
 
@@ -1534,7 +1534,7 @@ There are three methods for reading the offset values within the
 current lookup table.
 
 **API:** 
-|                                   | `javax.media.jai.LookupTableJAI`  |
+|                                   | `org.eclipse.imagen.LookupTableJAI`  |
 
     int[] getOffsets()
 
@@ -1562,7 +1562,7 @@ A single method is used to read the number of bands in the lookup
 table.
 
 **API:** 
-|                                   | `javax.media.jai.LookupTableJAI`  |
+|                                   | `org.eclipse.imagen.LookupTableJAI`  |
 
     int getNumBands()
 
@@ -1575,7 +1575,7 @@ A single method is used to read the number of entries per band in the
 lookup table.
 
 **API:** 
-|                                   | `javax.media.jai.LookupTableJAI`  |
+|                                   | `org.eclipse.imagen.LookupTableJAI`  |
 
     int getNumEntries()
 
@@ -1587,7 +1587,7 @@ lookup table.
 A single method is used to read the data type of the lookup table.
 
 **API:** 
-|                                   | `javax.media.jai.LookupTableJAI`  |
+|                                   | `org.eclipse.imagen.LookupTableJAI`  |
 
     int getDataType()
 
@@ -1597,7 +1597,7 @@ A single method is used to read the data type of the lookup table.
 #### 7.6.3.6 ![](shared/space.gif)Reading the Destination Bands and SampleModel
 
 **API:** 
-|                                   | `javax.media.jai.LookupTableJAI`  |
+|                                   | `org.eclipse.imagen.LookupTableJAI`  |
 
     int getDestNumBands(int sourceNumBands)
 
@@ -2520,7 +2520,7 @@ The `ImageFunction` operation generates an image from a functional
 description. This operation permits the creation of images on the
 basis of a functional specification, which is provided by an object
 that is an instance of a class that implements the
-`javax.media.jai.ImageFunction` interface. In other words, to use this
+`org.eclipse.imagen.ImageFunction` interface. In other words, to use this
 operation, a class containing the functional information must be
 created and this class must implement the `ImageFunction` interface.
 
@@ -2534,7 +2534,7 @@ exponential
 
              exp(-|x| - |y|)
 
-The `javax.media.jai.ImageFunction` implementation would return the
+The `org.eclipse.imagen.ImageFunction` implementation would return the
 following values:
 
 -   `isComplex()` would return false
@@ -2608,7 +2608,7 @@ These values override the width and height specified by an
 `ImageLayout` if such is provided.
 
 **API:** 
-|                                   | `javax.media.jai.ImageFunction`   |
+|                                   | `org.eclipse.imagen.ImageFunction`   |
 
     boolean isComplex();
 

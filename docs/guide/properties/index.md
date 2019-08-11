@@ -108,7 +108,7 @@ implements `ImageJAI`, all images may be assumed to implement
 `PropertySource`.
 
 **API:** 
-|                                   | `javax.media.jai.PropertySource`  |
+|                                   | `org.eclipse.imagen.PropertySource`  |
 
     String[] getPropertyNames()
 
@@ -154,7 +154,7 @@ API](Extension.doc.html#47285),\" for more information on the
 `OperationRegistry`.
 
 **API:** 
-|                                   | `javax.media.jai.PropertyGenerato |
+|                                   | `org.eclipse.imagen.PropertyGenerato |
 |                                   | r`                                |
 
     String[] getPropertyNames()

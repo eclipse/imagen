@@ -228,22 +228,22 @@ B.3 Java Advanced Imaging
 
 The Java Advanced Imaging API consists of the following packages:
 
--   `javax.media.jai` - contains the \"core\" JAI interfaces and
+-   `org.eclipse.imagen` - contains the \"core\" JAI interfaces and
     classes
 
 <!-- --
 
--   `javax.media.jai.iterator` - contains special iterator interfaces
+-   `org.eclipse.imagen.iterator` - contains special iterator interfaces
     and classes, which are useful for writing extension operations
 
 <!-- --
 
--   `javax.media.jai.operator` - contains classes that describe all of
+-   `org.eclipse.imagen.operator` - contains classes that describe all of
     the image operators
 
 <!-- --
 
--   `javax.media.jai.widget` - contains interfaces and classes for
+-   `org.eclipse.imagen.widget` - contains interfaces and classes for
     creating simple image canvases and scrolling windows for image
     display
 
@@ -252,7 +252,7 @@ The Java Advanced Imaging API consists of the following packages:
 
 [Table B-4](api-summary/index.html) lists and briefly describes
 the interfaces defined in the Java Advanced Imaging API
-(`javax.media.jai`).
+(`org.eclipse.imagen`).
 
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Interface]{#72535}                 [Description]{#72537}
@@ -282,7 +282,7 @@ the interfaces defined in the Java Advanced Imaging API
 
 [Table B-5](api-summary/index.html) lists and briefly describes
 the classes defined in the Java Advanced Imaging API
-(`javax.media.jai`).
+(`org.eclipse.imagen`).
 
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Class]{#72627}                              [Description]{#72629}
@@ -521,7 +521,7 @@ the classes defined in the Java Advanced Imaging API
 ### B.3.3 JAI Iterator Interfaces
 
 [Table B-6](api-summary/index.html) lists the JAI iterator classes
-(`javax.media.jai.iterator`).
+(`org.eclipse.imagen.iterator`).
 
   ------------------------------------------------------------------------------------------------------------------------------------------
   [Interface]{#77310}             [Description]{#77312}
@@ -548,7 +548,7 @@ the classes defined in the Java Advanced Imaging API
 ### B.3.4 JAI Iterator Classes
 
 [Table B-7](api-summary/index.html) lists the JAI iterator classes
-(`javax.media.jai.iterator`).
+(`org.eclipse.imagen.iterator`).
 
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Class]{#77431}                [Description]{#77433}
@@ -842,7 +842,7 @@ OperationDescriptor class.
 ### B.3.6 JAI Widget Interfaces
 
 [Table B-9](api-summary/index.html) lists the JAI widget
-interfaces (`javax.media.jai.widget`).
+interfaces (`org.eclipse.imagen.widget`).
 
   -----------------------------------------------------------------------------------------------------------------------------------------------
   [Interface]{#79160}           [Description]{#79162}
@@ -859,7 +859,7 @@ interfaces (`javax.media.jai.widget`).
 ### B.3.7 JAI Widget Classes
 
 [Table B-10](api-summary/index.html) lists the JAI widget classes
-(`javax.media.jai.widget`).
+(`org.eclipse.imagen.widget`).
 
   -------------------------------------------------------------------------------------------------------------------------------------------------------------
   [Class]{#73689}                  [Description]{#73691}

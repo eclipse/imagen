@@ -92,7 +92,7 @@ representation of the `ROI` is not available. In this case,
 `getAsImage()` should be called as a fallback.
 
 
-|                                   | **API:** `javax.media.jai.ROI`    |
+|                                   | **API:** `org.eclipse.imagen.ROI`    |
 
     ROI(RenderedImage im)
 
@@ -147,7 +147,7 @@ The `getBounds` methods in the `ROI` class read the bounds of the
 `ROI`, as either a `Rectangle` or a `Rectangle2D`.
 
 
-|                                   | **API:** `javax.media.jai.ROI`    |
+|                                   | **API:** `org.eclipse.imagen.ROI`    |
 
     Rectangle getBounds()
 
@@ -166,7 +166,7 @@ or rectangular region lie within the `ROI`. The `intersects` methods
 test whether a given rectangular region intersect with the `ROI`.
 
 
-|                                   | **API:** `javax.media.jai.ROI`    |
+|                                   | **API:** `org.eclipse.imagen.ROI`    |
 
     boolean contains(Point p)
 
@@ -311,7 +311,7 @@ Several methods allow the creation of a new `ROI` from an existing
 a new ROI.
 
 
-|                                   | **API:** `javax.media.jai.ROI`    |
+|                                   | **API:** `org.eclipse.imagen.ROI`    |
 
     ROI add(ROI im)
 

@@ -172,9 +172,9 @@ Program (Sheet 1 of 4)**
          import java.awt.image.*;
          import java.awt.image.renderable.*;
          import java.util.*;
-         import javax.media.jai.*;
-         import javax.media.jai.operator.*;
-         import javax.media.jai.widget.*;
+         import org.eclipse.imagen.*;
+         import org.eclipse.imagen.operator.*;
+         import org.eclipse.imagen.widget.*;
          public class RemoteImagingTest extends WindowContainer {
 
          /** Default remote server. */
@@ -355,8 +355,8 @@ Program Using Two Nodes (Sheet 1 of 2)**
 
          import java.awt.image.*;
          import java.awt.image.renderable.ParameterBlock;
-         import javax.media.jai.*;
-         import javax.media.jai.widget.*;
+         import org.eclipse.imagen.*;
+         import org.eclipse.imagen.widget.*;
 
          /**
           * This test creates an imaging chain spread across two remote 
@@ -552,7 +552,7 @@ the `INSTALL` file) and start the remote imaging server. For example:
               file:$JAI/lib/jai.jar \
          -Djava.rmi.server.useCodebaseOnly=false \
          -Djava.security.policy=file:$JAI/policy \
-               com.sun.media.jai.rmi.RMIImageImpl
+               org.eclipse.imagen.media.rmi.RMIImageImpl
 
 For example, when the above steps are executed on a machine with IP
 address 123.456.78.90 the following is printed:

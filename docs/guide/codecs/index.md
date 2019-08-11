@@ -13,7 +13,7 @@ This appendix describes the ImageN image data compression coders and decoders (c
 11.1 Introduction
 --------------------------------------
 
-The `javax.media.jai.codec` package provides a set of interfaces and
+The `org.eclipse.imagen.codec` package provides a set of interfaces and
 classes for encoding and decoding compressed image data files. Java
 Advanced Imaging currently supports the following codecs:
 
@@ -27,7 +27,7 @@ Advanced Imaging currently supports the following codecs:
 
   : 
 
-The `javax.media.jai.codec` package also enables you to create your
+The `org.eclipse.imagen.codec` package also enables you to create your
 own additional codecs if those listed above are not sufficient. See
 [Chapter 12, \"Extending the API](../extension),\" for
 more information.
@@ -61,7 +61,7 @@ Documentation](Preface)\" in the Preface.
 
 The following tables list the interfaces and classes used for image
 data compression and decompression. These interfaces and classes are
-all part of the `javax.media.jai.codec` package.
+all part of the `org.eclipse.imagen.codec` package.
 
   [Interface]{#52066}          [Description]{#52068}
   ---------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1324,7 +1324,7 @@ two-dimensional DCT on the corresponding band of the source image.
 The `DCT` operation does not take any parameters.
 
 
-|                                   | **API:** `javax.media.jai.JAI`    |
+|                                   | **API:** `org.eclipse.imagen.JAI`    |
 
     static RenderedOp create("dct", RenderedImage im)
 
@@ -1350,7 +1350,7 @@ of the source image.
 The `IDCT` operation does not take any parameters.
 
 
-|                                   | **API:** `javax.media.jai.JAI`    |
+|                                   | **API:** `org.eclipse.imagen.JAI`    |
 
     static RenderedOp create("idct", RenderedImage im)
 
