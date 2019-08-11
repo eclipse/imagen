@@ -6,14 +6,17 @@ nav_order: 3
 ---
 
 # Java AWT Imaging
+{:.no_toc}
 
 Digital imaging in Java has been supported since its first
 release, through the **java.awt** and **java.awt.image** class
 packages. The image-oriented part of these class packages is referred
 to as *AWT Imaging* throughout this guide.
 
-2.1 Introduction
--------------------------------------
+* Contents
+{:toc}
+
+## 2.1 Introduction
 
 The Eclipse ImageN API supports three imaging models:
 
@@ -119,8 +122,7 @@ AWT push model of imaging.
 |  ImageObserver      | An asynchronous update interface for receiving notifications about Image information as the Image is constructed.
 | --------- | ----------- |
 
-2.2 The Immediate Mode Model
--------------------------------------------------
+## 2.2 The Immediate Mode Model
 
 To alleviate some of the restrictions of the original AWT imaging
 model and to provide a higher level of abstraction, a new
@@ -327,8 +329,7 @@ the specific context, the `RenderedImage` object at the end of the
 chain being returned to the user.
 
 
-2.3 Renderable and Rendered Classes
---------------------------------------------------------
+## 2.3 Renderable and Rendered Classes
 
 Many users will be able to employ the Renderable layer, with the
 advantages of its rendering-independent properties for most imaging
@@ -341,7 +342,6 @@ The architecture of the provided classes is discussed in this section.
 Extending the model by writing new operators or algorithms in the Java
 2D API is discussed. Details of how the Rendered layer functions
 internally within the Renderable layer are also covered.
-
 
 ### 2.3.1 The Renderable Layer
 
@@ -455,8 +455,7 @@ page buffer that can be accessed and written to. Data can be accessed
 in a variety of ways, each with different properties.
 
 
-2.4 Java Image Data Representation
--------------------------------------------------------
+## 2.4 Java Image Data Representation
 
 In the Java AWT API, a sample is the most basic unit of image data.
 Each pixel is composed of a set of samples. For an RGB pixel, there
@@ -530,8 +529,7 @@ which is different from the `SampleModel`. The `ColorModel` determines
 how the bands are interpreted in a colorimetric sense.
 
 
-2.5 Introducing the Eclipse ImageN
-------------------------------------------------------------------
+## 2.5 Introducing the Eclipse ImageN
 
 Eclipse ImageN builds on the foundation of the Java 2D API to allow more
 powerful and general imaging applications. ImageN adds the
@@ -615,14 +613,10 @@ Eclipse ImageN provides two data classes, which extend the Java 2D `DataBuffer` 
 
 **Table 2-7 Data Classes**
 
---------------------------------
-
 | Type  | Name             | Description                |
 | ----- | ---------------- | -------------------------- |
 | Class | DataBufferFloat  | Extends: `DataBuffer` <br/> Stores data internally in float form. |
 | Class | DataBufferDouble | Extends: `DataBuffer` <br/> Stores data internally in double form. |
-
---------------------------------
 
 #### 2.5.2.1 The DataBufferFloat Class
 
@@ -642,7 +636,7 @@ Eclipse ImageN provides two data classes, which extend the Java 2D `DataBuffer` 
 
 #### 2.5.2.2 The DataBufferDouble Class
 
-**API:** `org.eclipse.imagen.DataBufferDouble |
+**API:** `org.eclipse.imagen.DataBufferDouble`
 
 * `DataBufferDouble(int size)`
 

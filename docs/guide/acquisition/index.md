@@ -8,7 +8,7 @@ nav_order: 5
 # Chapter 4 Image Acquisition and Display
 {: .no_toc }
 
-**This chapter describes the ImageN image data types and the API
+This chapter describes the ImageN image data types and the API
 constructors and methods for image acquisition and display.
 
 * Contents
@@ -22,12 +22,12 @@ from many sources, including a disk file, the network, a CD, and so
 on. Images may be acquired, processed, and immediately displayed, or
 written to a disk file for display at a later time.
 
-As described in [Chapter 3](../programming-environ), JAI
+As described in [Chapter 3](../programming-environ), ImageN
 offers the programmer the flexibility to render and display an image
 immediately or to defer the display of the rendered image until there
 is a specific request for it.
 
-Image acquisition and display are relatively easy in JAI, in spite of
+Image acquisition and display are relatively easy in ImageN, in spite of
 all the high-level information presented in the next several sections.
 Take for example, the sample code in [Listing
 4-1](../acquisition). This is a complete code example for
@@ -39,15 +39,13 @@ FileLoad Operation](../acquisition).\" The
 `ScrollingImagePanel` is described in [Section 4.8, \"Image
 Display](../acquisition).\"
 
-<a name="listing-4-1"></a
+***Listing 4-1 Example Program to Read and Display an Image File*** <a name="listing-4-1"></a>
 
 ------------------------------------------------------------------------
 ```java
 {% include src/FileTest.java %}
 ```
 ------------------------------------------------------------------------
-
-***Listing 4-1* Example Program to Read and Display an Image File**
 
 ### 4.1.1 Image Data
 
@@ -74,7 +72,7 @@ red, green, and blue.
 An image is sampled into a rectangular array of pixels. Each pixel has
 an (*x*,*y*) coordinate that corresponds to its location within the
 image. The *x* coordinate is the pixel\'s horizontal location; the *y*
-coordinate is the pixel\'s vertical location. Within JAI, the pixel at
+coordinate is the pixel\'s vertical location. Within ImageN, the pixel at
 location (0,0) is in the upper left corner of the image, with the *x*
 coordinates increasing in value to the right and *y* coordinates
 increasing in value downward. Sometimes the *x* coordinate is referred
@@ -90,7 +88,7 @@ to as the pixel number and the *y* coordinate as the line number.
 
 ### 4.1.2 Basic Storage Types
 
-In the JAI API, the basic unit of data storage is the `DataBuffer`
+In the ImageN API, the basic unit of data storage is the `DataBuffer`
 object. The `DataBuffer` object is a kind of raw storage that holds
 all the samples that make up the image, but does not contain any
 information on how those samples are put together as pixels. How the
@@ -98,7 +96,7 @@ samples are put together is contained in a `SampleModel` object. The
 `SampleModel` class contains methods for deriving pixel data from a
 `DataBuffer`.
 
-JAI supports several image data types, so the `DataBuffer` class has
+ImageN supports several image data types, so the `DataBuffer` class has
 the following subclasses, each representing a different data type:
 
 -   `DataBufferByte` - stores data internally as bytes (8-bit values)
@@ -118,32 +116,9 @@ the following subclasses, each representing a different data type:
 -   `DataBufferDouble` - stores data internally as double-precision
     floating-point values.
 
-[Table 4-1](index#table-4-1) lists the `DataBuffer` type elements.
+[Table 4-1](#table-4-1) lists the `DataBuffer` type elements.
 
-<a name="table-4-1"></a
-
-------------------------------------------------------------------------
-
-`TYPE_INT`
-: Tag for int data.
-
-`TYPE_BYTE`
-: Tag for unsigned byte data.
-
-`TYPE_SHORT`
-: Tag for signed short data.
-
-`TYPE_USHORT`
-: Tag for unsigned short data.
-
-`TYPE_DOUBLE`
-: Tag for double data.
-
-`TYPE_FLOAT`
-: Tag for float data.
-
-`TYPE_UNDEFINED`
-: Tag for undefined data.
+<a name="table-4-1"></a>
 
 | Name              | Description                               |  
 | ----------------- | ----------------------------------------- |
@@ -155,17 +130,16 @@ the following subclasses, each representing a different data type:
 | TYPE\_FLOAT       | Tag for float data. |
 | TYPE\_UNDEFINED   | Tag for undefined data. |
 
-------------------------------------------------------------------------
-**Table 4-1 Data Buffer Type Elements**
+***Table 4-1 Data Buffer Type Elements***
 
-JAI also supports a large number of image data formats, so the
+ImageN also supports a large number of image data formats, so the
 `SampleModel` class provides the following types of sample models:
 
 -   `ComponentSampleModel` - used to extract pixels from images that
     store sample data in separate data array elements in one bank of a
     `DataBuffer` object.
 
--   `ComponentSampleModelJAI` - used to extract pixels from images
+-   `ComponentSampleModelImageN` - used to extract pixels from images
     that store sample data such that each sample of a pixel occupies
     one data element of the `DataBuffer`.
 
@@ -217,14 +191,13 @@ defines methods for turning an image\'s pixel data into a color value
 in its associated `ColorSpace`. See [Section 5.2.1, \"Color
 Models](../color).\"
 
-<a name="figure-4-1"></a
-
+***Figure 4-2* BufferedImage** <a name="figure-4-1"></a> 
 ------------------------------------------------------------------------
 
 ![](Acquisition.doc.anc4.gif)
 
 ------------------------------------------------------------------------
-***Figure 4-2* BufferedImage** 
+
 
 As shown in [Figure 4-2](index#figure-4-1), the combination
 of a `Raster` and a `ColorModel` define a `BufferedImage`. The
@@ -299,7 +272,7 @@ shown in [Figure 4-3](../acquisition).
 
 ------------------------------------------------------------------------
 
-***Figure 4-3*  JAI Image Type Hierarchy**
+***Figure 4-3*  ImageN Image Type Hierarchy**
 
 ### 4.2.1 Planar Image
 
@@ -312,7 +285,7 @@ instance variables they inherit from `PlanarImage`, such as the image
 size, origin, tile dimensions, and tile grid offsets, as well as the
 Vectors containing the sources and sinks of the image.
 
-All non-JAI `RenderedImages` that are to be used in JAI must be
+All non-ImageN `RenderedImages` that are to be used in ImageN must be
 converted into `PlanarImages` by means of the `RenderedImageAdapter`
 class and the `WriteableRenderedImageAdapter` class. The
 `wrapRenderedImage()` method provides a convenient interface to both
@@ -323,11 +296,11 @@ be returned unchanged by `wrapRenderedImage()`.
 
 Going in the other direction, existing code that makes use of the
 `RenderedImage` interface will be able to use `PlanarImage`s directly,
-without any changes or recompilation. Therefore within JAI, images are
+without any changes or recompilation. Therefore within ImageN, images are
 returned from methods as `PlanarImages`, even though incoming
 `RenderedImage`s are accepted as arguments directly.
 
-**API:** `javax.media.jai.PlanarImage`
+**API:** `org.eclipse.imagen.PlanarImage`
 
 * `PlanarImage()`
 * `PlanarImage createSnapshot()`
@@ -352,7 +325,7 @@ ImageN expands on the tile data concept introduced in the Java 2D
 API. In Java 2D, a tile is one of a set of rectangular regions that
 span an image on a regular grid. ImageN expands on the tile image
 with the `TiledImage` class, which is the main class for writable
-images in JAI.
+images in ImageN.
 
 A tile represents all of the storage for its spatial region of the
 image. If an image contains three bands, every tile represents all
@@ -380,14 +353,14 @@ mask.
 the `getWritableTile` method. This method returns a `WritableRaster`
 that can be modified directly. Such changes become visible to readers
 according to the regular thread synchronization rules of the Java
-virtual machine; JAI makes no additional guarantees. When a writer is
+virtual machine; ImageN makes no additional guarantees. When a writer is
 finished modifying a tile, it should call the `releaseWritableTile`
 method. A shortcut is to call the `setData()` method, which copies a
 rectangular region from a supplied `Raster` directly into the
 `TiledImage`.
 
 A final way to modify the contents of a `TiledImage` is through calls
-to the `createGraphics()` method. This method returns a `GraphicsJAI`
+to the `createGraphics()` method. This method returns a `GraphicsImageN`
 object that can be used to draw line art, text, and images in the
 usual AWT manner.
 
@@ -405,7 +378,7 @@ recomputed identically from the source. The `lockTile()` method forces
 a tile to be computed and maintained for the lifetime of the
 `TiledImage`.
 
-**API:** `javax.media.jai.TiledImage`
+**API:** `org.eclipse.imagen.TiledImage`
 
 * `TiledImage(Point origin, SampleModel sampleModel, int  tileWidth, int tileHeight)`
 * `TiledImage(SampleModel sampleModel, int tileWidth, int  tileHeight)`
@@ -439,8 +412,7 @@ computation. In various implementations, tile computation may make use
 of multithreading and multiple simultaneous network connections for
 improved performance.
 
-**API:** `javax.media.jai.JAI`
-
+**API:** `org.eclipse.imagen.JAI`
 
 * `static TileCache createTileCache(int tileCapacity, long  memCapacity)`
 * `static TileCache createTileCache()`
@@ -478,39 +450,41 @@ The `pattern` operation takes three parameters:
 
 ------------------------------------------------------------------------
 
-         // Create the raster.
-         WritableRaster raster;
-         int[] bandOffsets = new int[3];
-         bandOffsets[0] = 2;
-         bandOffsets[1] = 1;
-         bandOffsets[2] = 0;
+```java
+// Create the raster.
+WritableRaster raster;
+int[] bandOffsets = new int[3];
+bandOffsets[0] = 2;
+bandOffsets[1] = 1;
+bandOffsets[2] = 0;
 
-         // width, height=64.
-         PixelInterleavedSampleModel sm;
-         sm = new PixelInterleavedSampleModel(DataBuffer.TYPE_BYTE, 100,
-                                            100, 3, 3*100, bandOffsets);
+// width, height=64.
+PixelInterleavedSampleModel sm;
+sm = new PixelInterleavedSampleModel(DataBuffer.TYPE_BYTE, 100,
+                                   100, 3, 3*100, bandOffsets);
 
-         // Origin is 0,0.
-         WritableRaster pattern = Raster.createWritableRaster(sm,
-                                      new Point(0, 0));
-         int[] bandValues = new int[3];
-         bandValues[0] = 90;
-         bandValues[1] = 45;
-         bandValues[2] = 45
+// Origin is 0,0.
+WritableRaster pattern = Raster.createWritableRaster(sm,
+                             new Point(0, 0));
+int[] bandValues = new int[3];
+bandValues[0] = 90;
+bandValues[1] = 45;
+bandValues[2] = 45
 
-         // Set values for the pattern raster.
-         for (int y = 0; y < pattern.getHeight(); y++) {
-         for (int x = 0; x < pattern.getWidth(); x++) {
-             pattern.setPixel(x, y, bandValues);
-             bandValues[1] = (bandValues[1]+1)%255;
-             bandValues[2] = (bandValues[2]+1)%255;
-             }
-         }
+// Set values for the pattern raster.
+for (int y = 0; y < pattern.getHeight(); y++) {
+for (int x = 0; x < pattern.getWidth(); x++) {
+    pattern.setPixel(x, y, bandValues);
+    bandValues[1] = (bandValues[1]+1)%255;
+    bandValues[2] = (bandValues[2]+1)%255;
+    }
+}
 
-         // Create a 100x100 image with the given raster.
-         PlanarImage im0 = (PlanarImage)JAI.create("pattern",
-                                                    100, 100,
-                                                    pattern);
+// Create a 100x100 image with the given raster.
+PlanarImage im0 = (PlanarImage)JAI.create("pattern",
+                                           100, 100,
+                                           pattern);
+```java
 
 ------------------------------------------------------------------------
 
@@ -698,10 +672,10 @@ The `ImageStack` class represents a stack of images, each with a
 defined spatial orientation in a common coordinate system. This class
 can be used to represent CT scans or seismic volumes.
 
-The images are of the type `javax.media.jai.PlanarImage`; the
-coordinates are of the type `javax.media.jai.Coordinate`. The tuple
+The images are of the type `org.eclipse.imagen.PlanarImage`; the
+coordinates are of the type `org.eclipse.imagen.Coordinate`. The tuple
 (image, coordinate) is represented by class
-`javax.media.jai.CoordinateImage`.
+`org.eclipse.imagen.CoordinateImage`.
 
 **API:** `org.eclipse.imagen.ImageStack`
 
@@ -808,12 +782,12 @@ example of the use of `ImageMIPMap`.
          import java.awt.geom.AffineTransform;
          import java.awt.image.RenderedImage;
          import java.awt.image.renderable.ParameterBlock;
-         import javax.media.jai.JAI;
-         import javax.media.jai.Interpolation;
-         import javax.media.jai.InterpolationNearest;
-         import javax.media.jai.ImageMIPMap;
-         import javax.media.jai.PlanarImage;
-         import javax.media.jai.RenderedOp;
+         import org.eclipse.imagen.JAI;
+         import org.eclipse.imagen.Interpolation;
+         import org.eclipse.imagen.InterpolationNearest;
+         import org.eclipse.imagen.ImageMIPMap;
+         import org.eclipse.imagen.PlanarImage;
+         import org.eclipse.imagen.RenderedOp;
          import com.sun.media.jai.codec.FileSeekableStream;
 
          public class ImageMIPMapTest extends Test {
@@ -1067,12 +1041,12 @@ example of the use of `ImagePyramid`.
 
          import java.awt.image.RenderedImage;
          import java.awt.image.renderable.ParameterBlock;
-         import javax.media.jai.JAI;
-         import javax.media.jai.Interpolation;
-         import javax.media.jai.ImageMIPMap;
-         import javax.media.jai.ImagePyramid;
-         import javax.media.jai.PlanarImage;
-         import javax.media.jai.RenderedOp;
+         import org.eclipse.imagen.JAI;
+         import org.eclipse.imagen.Interpolation;
+         import org.eclipse.imagen.ImageMIPMap;
+         import org.eclipse.imagen.ImagePyramid;
+         import org.eclipse.imagen.PlanarImage;
+         import org.eclipse.imagen.RenderedOp;
          import com.sun.media.jai.codec.FileSeekableStream;
 
          public class ImagePyramidTest extends ImageMIPMapTest {
@@ -2987,7 +2961,7 @@ panning, as well as expose events, and requests image data from a
 computed on demand.
 
 It is for this purpose that JAI provides a widget, available in the
-`javax.media.jai.widget` package, called a `ScrollingImagePanel`. The
+`org.eclipse.imagen.widget` package, called a `ScrollingImagePanel`. The
 `ScrollingImagePanel` takes a `RenderedImage` and a specified width
 and height and creates a panel with scrolling bars on the right and
 bottom. The image is placed in the center of the panel.

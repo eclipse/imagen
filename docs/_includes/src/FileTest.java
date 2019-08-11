@@ -1,10 +1,10 @@
 // Specify the classes to import.
 import java.awt.image.renderable.ParameterBlock;
 import java.io.File;
-import javax.media.jai.JAI;
-import javax.media.jai.PlanarImage;
-import javax.media.jai.RenderedOp;
-import javax.media.jai.widget.ScrollingImagePanel;
+import org.eclipse.imagen.JAI;
+import org.eclipse.imagen.PlanarImage;
+import org.eclipse.imagen.RenderedOp;
+import org.eclipse.imagen.widget.ScrollingImagePanel;
 public class FileTest extends WindowContainer {
 // Specify a default image in case the user fails to specify
 // one at run time.
