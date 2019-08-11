@@ -66,7 +66,7 @@ To upgrade:
 
 3. Can be directly replaced:
    
-   * Replace `javax.jai` with package `org.eclipse.imagen`
+   * Replace `javax.media.jai` with package `org.eclipse.imagen`
    * Replace `com.sun.media.jai` with package `org.eclipse.imagen.media`
    
    ```java
@@ -136,6 +136,6 @@ The operations taking advantage of `mlibwrapper_jai` have been factored out into
 <dependency>
   <groupId>org.eclipse.imagen</groupId>
   <artifactId>imagen_mlib</artifactId>
-  <version>${jai.version}</version>
+  <version>${imagen.version}</version>
 </dependency>
 ```
