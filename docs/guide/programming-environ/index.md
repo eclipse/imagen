@@ -6,11 +6,14 @@ nav_order: 4
 ---
 
 # Programming Environment
+{: .no_toc }
 
 This chapter describes how to get started programming with Eclipse ImageN.
 
-3.1 Introduction
--------------------------------------
+* Contents
+{:toc}
+
+## 3.1 Introduction
 
 An imaging operation within ImageN is summarized in the following four steps:
 
@@ -24,15 +27,15 @@ An imaging operation within ImageN is summarized in the following four steps:
 
 2. Define the imaging graph. This is a two part process:
 
-   a. Define the image operators (see [Section 3.6, \"JAI API Operators\"](#operators) )
+   a. Define the image operators (see [Section 3.6, \"JAI API Operators\"](#36-operators) )
 
    b. Define the parent/child relationship between sources and sinks
 
 3. Evaluate the graph using one of three execution models:
 
-   a. Rendered execution model (Immediate mode - see [Section 3.3.1, \"Rendered Graphs\"](#rendered)
+   a. Rendered execution model (Immediate mode - see [Section 3.3.1, \"Rendered Graphs\"](#331-rendered-graphs)
 
-   b. Renderable execution model (Deferred mode - see [Section 3.3.2, \"Renderable Graphs\"](#renderable)
+   b. Renderable execution model (Deferred mode - see [Section 3.3.2, \"Renderable Graphs\"](#332-renderable-graphs)
 
    c. Remote execution model (Remote mode - see Section 3.4, "Remote Execution")
 
@@ -92,7 +95,7 @@ a graph, you must be careful not to introduce cycles into the graph.
 3.3 Processing Graphs
 ------------------------------------------
 
-JAI extends rendering independence, which was introduced in the Java
+ImageN extends rendering independence, which was introduced in the Java
 2D API. With rendering independence, you have the ability to describe
 an image as you want it to appear, independent of any specific
 instance of it.
@@ -113,23 +116,24 @@ to know the resolution of the output device. The PostScript file is
 essentially rendering independent in that it displays properly no
 matter what the resolution of the output device is.
 
-JAI has a \"renderable\" mode in which it treats all image sources as
+ImageN has a \"renderable\" mode in which it treats all image sources as
 rendering independent. You can set up a graph (or chain) of renderable
 operations without any concern for the source image resolution or
 size; ImageN takes care of the details of the operations.
 
-JAI introduces two different types of graphs: rendered and renderable.
+ImageN introduces two different types of graphs: rendered and renderable.
 
 ------------------------------------------------------------------------
 
 **Note:** The following two sections, \"[Rendered
-Graphs](../programming-environ)\" and \"[Renderable
-Graphs](../programming-environ),\" are for advanced ImageN
+Graphs](#331-rendered-graphs)\" and \"[Renderable
+Graphs](#332=renderable-graphs),\" are for advanced ImageN
 users. Most programmers will use ImageN\'s Rendered mode and don\'t
 really need to know about the Renderable mode.
 
 ------------------------------------------------------------------------
 
+<a name="rendered"></a>
 
 ### 3.3.1 Rendered Graphs
 
@@ -153,94 +157,73 @@ interface. These sources are specified as parameters in the
 construction of new image objects.
 
 Let\'s take a look at an example of a rendered graph in [Listing
-3-1](../programming-environ). This example, which is a
+3-1](#listing-3-1). This example, which is a
 code fragment rather than an entire class definition, creates two
 constant images and then adds them together.
 
-**[]{#61982}**
+***Listing 3-1*  Rendered Chain Example** <a name="listing-3-1"></a>
 
-***Listing 3-1*  Rendered Chain Example**
-
-------------------------------------------------------------------------
-
-         import javax.jai.*;
-         import javax.jai.widget.*;
-         import java.awt.Frame;
-
-         public class AddExample extends Frame {
-
-              // ScrollingImagePanel is a utility widget that
-              // contains a Graphics2D (i.e., is an image sink).
-              ScrollingImagePanel imagePanel1;
-
-              // For simplicity, we just do all the work in the
-              // class constructor.
-              public AddExample(ParameterBlock param1,
-                                ParameterBlock param2) {
-
-                   // Create a constant image
-                   RenderedOp im0 = JAI.create("constant", param1);
-
-                   // Create another constant image.
-                   RenderedOp im1 = JAI.create("constant", param2);
-                   // Add the two images together.
-
-                   RenderedOp im2 = JAI.create("add", im0, im1);
-
-                   // Display the original in a scrolling window
-                   imagePanel1 = new ScrollingImagePanel(im2, 100, 100);
-
-                   // Add the display widget to our frame.
-                   add(imagePanel1);
-              }
-         }
-
-------------------------------------------------------------------------
+{% highlight java linenos%}
+{% include src/AddTest.java %}
+{% endhighlight %}
 
 The first three lines of the example code specify which classes to
-import. The classes prefixed with `javax.jai` are the Java Advanced
-Imaging classes. The `java.awt` prefix specifies the core Java API
+import. The classes prefixed with `org.eclipse.imagen` are the Eclipse ImageN classes. The `java.awt` prefix specifies the core Java API
 classes.
 
-         import javax.jai.*;
-         import javax.jai.widget.*;
-         import java.awt.Frame;
+```java
+import org.eclipse.imagen.*;
+import org.eclipse.imagen.widget.*;
+import java.awt.Frame;
+```
 
 The next line declares the name of the program and that it runs in a
 `Frame`, a window with a title and border.
 
-         public class AddExample extends Frame {
+```java
+public class AddExample extends Frame {
+```
 
 The next line of code creates a `ScrollingImagePanel`, which is the
 ultimate destination of our image:
 
-         ScrollingImagePanel imagePanel1;
+```java
+  ScrollingImagePanel imagePanel1;
+```
 
 Next, a `ParameterBlock` for each source image is defined. The
 parameters specify the image height, width, origin, tile size, and so
 on.
 
-         public AddExample(ParameterBlock param1,
-                           ParameterBlock param2) {
+```java
+   public AddExample(ParameterBlock param1,
+                     ParameterBlock param2) {
+```
 
 The next two lines define two operations that create the two
 \"constant\" images that will be added together to create the
 destination image (see [Section 4.7, \"Creating a Constant
-Image](../acquisition)\").
+Image](../acquisition#47-creating-a-constant-image)\").
 
-         RenderedOp im0 = JAI.create("constant", param1);
-         RenderedOp im1 = JAI.create("constant", param2);
+```java
+   RenderedOp im0 = JAI.create("constant", param1);
+   RenderedOp im1 = JAI.create("constant", param2);
+```
 
 Next, our example adds the two images together (see [Section 6.5.1,
 \"Adding Two Source Images](../image-manipulation)\").
 
+```java
          RenderedOp im2 = JAI.create("add", im0, im1);
+```
 
 Finally, we display the destination image in a scrolling window and
 add the display widget to our frame.
 
+```java
          imagePanel1 = new ScrollingImagePanel(im2, 100, 100);
          add(imagePanel1);
+```
 
 Once pixels start flowing, the graph will look like [Figure
 3-2](#figure-3-2). The display widget drives
@@ -284,9 +267,9 @@ file, inverts its pixel values, then adds a constant value to the
 pixels. Once again, this example is a code fragment rather than an
 entire class definition.
 
-***Listing 3-2*  Renderable Chain Example**
+<a name="listing-3-2"></a>
 
-------------------------------------------------------------------------
+***Listing 3-2*  Renderable Chain Example**
 
 ```java
   // Get rendered source object from a TIFF source.
@@ -332,8 +315,6 @@ entire class definition.
   // Display the rendering onscreen using screenResolution.
   imagePanel1 = new ScrollingImagePanel(rndImg1, 100, 100);
 ```
-
-------------------------------------------------------------------------
 
 In this example, the image source is a TIFF image. A TIFF `RenderedOp`
 is created as a source for the subsequent operations:
@@ -403,13 +384,15 @@ After `Op2` is created, the renderable chain thus far is shown in
 
 ------------------------------------------------------------------------
 
-**Figure 3-3 Renderable Chain Example**
+***Figure 3-3 Renderable Chain Example***
 
 Next, a `RenderContext` is created using an `AffineTransform` that
 will produce a screen-size rendering.
 
-         AffineTransform screenResolution = ...;
-         RenderContext rc = new RenderContext(screenResolution);
+```java
+  AffineTransform screenResolution = ...;
+  RenderContext rc = new RenderContext(screenResolution);
+```
 
 This rendering is created by calling the
 `RenderableImage.createRendering` method on `Op2`. The
@@ -417,7 +400,9 @@ This rendering is created by calling the
 does instantiate a `RenderedOp` chain that will produce a rendering at
 the appropriate pixel dimensions.
 
-         RenderedImage rndImg1 = Op2.createRendering(rc);
+```java
+  RenderedImage rndImg1 = Op2.createRendering(rc);
+```
 
 The Renderable graph can be thought of as a *template* that, when
 rendered, causes the instantiation of a parallel Rendered graph to
@@ -480,7 +465,6 @@ Many times, it is more desirable to make changes to an existing graph
 and reuse it than to create another nearly identical graph. Both
 Rendered and Renderable graphs are editable, with certain limitations.
 
-
 #### 3.3.3.1 Editing Rendered Graphs
 
 Initially, a node in a Rendered graph is mutable; it may be assigned
@@ -501,7 +485,6 @@ node\'s parameters to a `byte`, `char`, `short`, `int`, `long`,
 be used to change the operation name. The `setParameterBlock` method
 can be used to change the nodes\'s `ParameterBlock`.
 
-
 #### 3.3.3.2 Editing Renderable Graphs
 
 Since Renderable graphs are not evaluated until there is a specific
@@ -517,9 +500,7 @@ be used to change the nodes\'s `ParameterBlock`. The `setProperty`
 method can be used to change a node\'s local property. The `setSource`
 method can be used to set one of the node\'s sources to an `Object`.
 
-
-3.4 Remote Execution
------------------------------------------
+## 3.4 Remote Execution
 
 Up to this point, we have been talking about standalone image
 processing. ImageN also provides for client-server image processing
@@ -540,8 +521,7 @@ more information, see [Chapter 12, \"Client-Server
 Imaging](../client-server).\"
 
 
-3.5 Basic ImageN API Classes
-----------------------------------------------
+## 3.5 Basic ImageN API Classes
 
 JAI consists of several classes grouped into five packages:
 
@@ -767,8 +747,7 @@ parameters altered. Sources are considered evaluated as soon as they
 are connected to a `RenderedOp`.
 
 
-3.6 Operators
-------------------------------------------
+## 3.6 Operators
 
 Eclipse ImageN specifies a core set of image processing operators. These
 operators provide a common ground for applications programmers, since
@@ -778,23 +757,23 @@ be present on all platforms.
 The general categories of image processing operators supported
 include:
 
--   [Point Operators](#3.6.1-Point-Operators)
+-   [Point Operators](#361-point-operators)
 
--   [Area Operators](../programming-environ)
+-   [Area Operators](#362-area-operators)
 
--   [Geometric Operators](../programming-environ)
+-   [Geometric Operators](#363-geometric-operators)
 
--   [Color Quantization Operators](../programming-environ)
+-   [Color Quantization Operators](#364-color-quantization-operators)
 
--   [File Operators](../programming-environ)
+-   [File Operators](#365-file-operators)
 
--   [Frequency Operators](../programming-environ)
+-   [Frequency Operators](#366-frequency-operators)
 
--   [Statistical Operators](../programming-environ)
+-   [Statistical Operators](#367-statistical-operators)
 
--   [Edge Extraction Operators](../programming-environ)
+-   [Edge Extraction Operators](#368-edge-extraction-operations)
 
--   [Miscellaneous Operators](../programming-environ)
+-   [Miscellaneous Operators](#369-miscellaneous-operators)
 
 ImageN also supports abstractions for many common types of image
 collections, such as time-sequential data and image pyramids. These
@@ -811,7 +790,9 @@ into an output image in such a way that each output pixel depends only
 on the corresponding input pixel. Point operations do not modify the
 spatial relationships within an image.
 
-[Table 3-1](../programming-environ) lists the point operators.
+[Table 3-1](#table-3-1) lists the point operators.
+
+<a name="table-3-1"></a> **Table 3-1 Point Operators**
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -937,9 +918,6 @@ XorConst
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-**Table 3-1 Point Operators**
-
-
 ### 3.6.2 Area Operators
 
 The area operators perform geometric transformations, which result in
@@ -952,7 +930,9 @@ Linear operations include translation, rotation, and scaling.
 Non-linear operations, also known as *warping transformations*,
 introduce curvatures and bends to the processed image.
 
-[Table 3-2](../programming-environ) lists the area operators.
+[Table 3-2](#table-3-2) lists the area operators.
+
+<a name="table-3-2"></a> **Table 3-2 Area Operators**
 
 -----------------------------------------------------------------------------------
 
@@ -973,13 +953,13 @@ MedianFilter
 
 -----------------------------------------------------------------------------------
 
-**Table 3-2 Area Operators**
-
 ### 3.6.3 Geometric Operators
 
 Geometric operators allow you to modify the orientation, size, and
-shape of an image. [Table 3-3](../programming-environ)
+shape of an image. [Table 3-3](#table-3-3)
 lists the geometric operators.
+
+<a name="table-3-3"></a> **Table 3-3 Geometric Operators**
 
 -------------------------------------------------------------------------
 
@@ -1006,15 +986,15 @@ Warp
 
 -------------------------------------------------------------------------
 
-**Table 3-3 Geometric Operators**
-
 ### 3.6.4 Color Quantization Operators
 
 Color quantization, also known as *dithering*, is often used to reduce
 the appearance of amplitude contouring on monochrome frame buffers
 with fewer than eight bits of depth or color frame buffers with fewer
-than 24 bits of depth. [Table 3-4](../programming-environ)
+than 24 bits of depth. [Table 3-4](#table-3-4)
 lists the color quantization operators.
+
+<a name="table-3-4"></a> **Table 3-4 Color Quantization Operators**
 
 -------------------------------------------------------------------------
 
@@ -1026,12 +1006,12 @@ OrderedDither
 
 -------------------------------------------------------------------------
 
-**Table 3-4*  Color Quantization Operators**
-
 ### 3.6.5 File Operators
 
 The file operators are used to read or write image files. [Table
-3-5](../programming-environ) lists the file operators.
+3-5](#table-3-4) lists the file operators.
+
+<a name="table-3-5"></a> **Table 3-5 File Operators**
 
 -------------------------------------------------------------------------
 
@@ -1085,8 +1065,6 @@ URL
 
 -------------------------------------------------------------------------
 
-**Table 3-5 File Operators**
-
 ### 3.6.6 Frequency Operators
 
 Frequency operators are used to decompose an image from its
@@ -1102,8 +1080,9 @@ discrete Fourier transform* can be used to convert the image back to a
 spatial image. Eclipse ImageN also supports the *discrete cosine transform* and
 its opposite, the *inverse discrete cosine transform*.
 
-[Table 3-6](../programming-environ) lists the frequency operators.
+[Table 3-6](#table-3-6) lists the frequency operators.
 
+<a name="table-3-6"></a> **Table 3-6 Frequency Operators**
 
 -------------------------------------------------------------------------
 
@@ -1142,13 +1121,12 @@ PolarToComplex
 
 -------------------------------------------------------------------------
 
-**Table 3-6*  Frequency Operators**
-
-
 ### 3.6.7 Statistical Operators
 
 Statistical operators provide the means to analyze the content of an
-image. [Table 3-7](../programming-environ) lists the statistical operators.
+image. [Table 3-7](#table-3-7) lists the statistical operators.
+
+<a name="table-3-7"></a> **Table 3-7 Statistical Operators**
 
 ------------------------------------------------------------------------- 
 
@@ -1163,9 +1141,6 @@ Mean
 
 -------------------------------------------------------------------------
 
-**Table 3-7*  Statistical Operators**
-
-
 ### 3.6.8 Edge Extraction Operators
 
 The edge extraction operators allow image edge enhancement. Edge
@@ -1174,8 +1149,9 @@ enhancement is implemented through spatial filters that detect a
 specific *pixel brightness slope* within a group of pixels in an
 image. A steep brightness slope indicates the presence of an edge.
 
-[Table 3-8](../programming-environ) lists the edge
-extraction operators.
+[Table 3-8](#table-3-8) lists the edge extraction operators.
+
+<a name="table-3-8"></a> **Table 3-8 Edge Extraction Operators**
 
 -------------------------------------------------------------------------
 
@@ -1184,14 +1160,13 @@ GradientMagnitude
 
 -------------------------------------------------------------------------
 
-**Table 3-8*  Edge Extraction Operators**
-
-
 ### 3.6.9 Miscellaneous Operators
 
 The miscellaneous operators do not fall conveniently into any of the
-previous categories. [Table 3-9](../programming-environ)
+previous categories. [Table 3-9](#table-3-9)
 lists the miscellaneous operators.
+
+<a name="table-3-9"></a> **Table 3-9 Miscellaneous Operators**
 
 -------------------------------------------------------------------------
 
@@ -1200,11 +1175,7 @@ Renderable
 
 -------------------------------------------------------------------------
 
-**Table 3-9 Miscellaneous Operators**
-
-
-3.7 Creating Operations
---------------------------------------------
+## 3.7 Creating Operations
 
 Most image operation objects are created with some variation on the
 following methods:
@@ -1316,7 +1287,7 @@ failure to supply a required parameter results in a
 The operation name describes the operator to be created. The operation
 name is a string, such as `"add"` for the operation to add two images.
 See [Section 3.6, \"JAI API
-Operators](../programming-environ),\" for a list of the
+Operators](#36-operators),\" for a list of the
 operator names.
 
 The operation name is always enclosed in quotation marks. For example:
@@ -1464,6 +1435,8 @@ other two parameters (`angle` and `interpolation`) have default values
 of `null` and must therefore be set. The source image must also be
 specified.
 
+<a name="listing-3-3"></a>
+
 ***Listing 3-3*  Example ParameterBlockJAI**
 
 ------------------------------------------------------------------------
@@ -1527,7 +1500,7 @@ There are two separate classes for specifying rendering hints:
 hints inherited from `java.awt.RenderingHints`.
 
 
-<a name="table-3-12">**Table 3-12 Java AWT Rendering Hints**</a>
+<a name="table-3-12"></a> **Table 3-12 Java AWT Rendering Hints**
 
 -------------------------------------------------------------------------
 
@@ -1615,15 +1588,11 @@ used; not all platforms support modification of the rendering code.
 
 In the following example, the rendering preference is set to quality.
 
-------------------------------------------------------------------------
-
 ```java
 qualityHints = new
                RenderingHints(RenderingHints.KEY_RENDERING,
                RenderingHints.VALUE_RENDER_QUALITY);
 ```
-
-------------------------------------------------------------------------
 
 Now that a `RenderingHints` object, `qualityHints`, has been created,
 the hints can be used in an operation using a `JAI.create` method.
@@ -1644,7 +1613,7 @@ methods. As a convenience, `getRenderingHint`, `setRenderingHint`, and
 to be manipulated. [Table 3-13](../programming-environ)
 lists the JAI rendering hints.
 
-<a name="table-3-13">**Table 3-13 JAI Rendering hints**</a>
+<a name="table-3-13"></a> **Table 3-13 JAI Rendering hints**
 
 -------------------------------------------------------------------------
 
