@@ -5,70 +5,48 @@ parent: Programming Guide
 nav_order: 8
 ---
 
+# Image Enhancement
+{:.no_toc}
 
-
-  ----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)7
-  ----------------------------------------
-
-
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Image Enhancement                                                     |
-+-----------------------------------------------------------------------+
-
-\
-\
-\
-
-**T**HIS chapter describes the basics of improving the visual
+Chapter describes the basics of improving the visual
 appearance of images through enhancement operations.
 
+* Contents
+{:toc}
 
-7.1 ![](shared/space.gif)Introduction
+7.1 Introduction
 -------------------------------------
 
-The JAI API image enhancement operations include:
+The ImageN API image enhancement operations include:
 
 -   Adding borders
 
-
 -   Cropping an image
-
 
 -   Amplitude rescaling
 
-
 -   Histogram equalization
-
 
 -   Lookup table modification
 
-
 -   Convolution filtering
-
 
 -   Median filtering
 
-
 -   Frequency domain processing
-
 
 -   Pixel point processing
 
-
 -   Thresholding (binary contrast enhancement)
 
-
-7.2 ![](shared/space.gif)Adding Borders to Images
+7.2 Adding Borders to Images
 -------------------------------------------------
 
-JAI provides two different ways of adding a border to an image. These
+ImageN provides two different ways of adding a border to an image. These
 two ways are described in the following paragraphs.
 
 
-### 7.2.1 ![](shared/space.gif)The Border Operation
+### 7.2.1 The Border Operation
 
 The `Border` operation allows you to add a simple filled border around
 a source image. The border extends the source image\'s boundaries by a
@@ -79,7 +57,6 @@ following types of border fill may be specified:
 -   Zero fill - the border area is extended with zeros
     (`BORDER_ZERO_FILL`).
 
-
 -   Constant fill - the border area is extended with a specified
     constant value (`BORDER_CONST_FILL`). An array of constants must
     be supplied. The array must have at least one element, in which
@@ -88,19 +65,17 @@ following types of border fill may be specified:
     band. For all other border types, this `constants` parameter may
     be `null`.
 
-
 -   Extend - the border area is created by copying the edge and corner
     pixels (`BORDER_COPY`).
 
-
 -   Reflection - the border area is created by reflection of the
     image\'s outer edge (`BORDER_REFLECT`).
-
 
 -   Wrap - the border area is extended by \"wrapping\" the image plane
     toroidally, that is, joining opposite edges of the image
     (`BORDER_WRAP`).
 
+<a name="figure-7-1"></a>
 
 ------------------------------------------------------------------------
 
@@ -108,33 +83,23 @@ following types of border fill may be specified:
 
 ------------------------------------------------------------------------
 
-
-***Figure 7-1* ![](shared/sm-blank.gif) Image Borders**
+***Figure 7-1* Image Borders**
 
 The image layout (tile width, height, and offsets; `SampleModel` and
 `ColorModel`) is copied from the source. The `Border` operation takes
 one rendered source image and six parameters:
 
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameters]{#68390}   [Type]{#68392}       [Description]{#68394}
-  ---------------------- -------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------
-  [leftPad]{#68396}\     [Integer]{#68398}\   [The image\'s left padding.]{#68400}\
-
-  [rightPad]{#68402}\    [Integer]{#68404}\   [The image\'s right padding.]{#68406}\
-
-  [topPad]{#68408}\      [Integer]{#68410}\   [The image\'s top padding.]{#68412}\
-
-  [bottomPad]{#68414}\   [Integer]{#68416}\   [The image\'s bottom padding.]{#68418}\
-
-  [type]{#68420}\        [Integer]{#68422}\   [The border type. One of BORDER\_ZERO, BORDER\_CONST\_FILL, BORDER\_COPY, BORDER\_REFLECT, or BORDER\_WRAP. The default is BORDER\_ZERO.]{#68424}\
-
-  [constant]{#68426}\    [double]{#68428}\    [The constants used by the BORDER\_CONST\_FILL.]{#68430}\
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| Parameters | Type | Description |
+|------------|------|-------------|
+| leftPad | Integer | The image\'s left padding. |
+| rightPad | Integer | The image\'s right padding. |
+| topPad | Integer | The image\'s top padding. |
+| bottomPad | Integer | The image\'s bottom padding. |
+| type | Integer | The border type. One of BORDER\_ZERO, BORDER\_CONST\_FILL, BORDER\_COPY, BORDER\_REFLECT, or BORDER\_WRAP. The default is BORDER\_ZERO. |
+| constant | double | The constants used by the BORDER\_CONST\_FILL. |
 
 
-### 7.2.2 ![](shared/space.gif)Extending the Edge of an Image
+### 7.2.2 Extending the Edge of an Image
 
 Some area operations, such as convolve, scale, and rotate, benefit
 from the addition of an extended border around the source image. The
@@ -145,22 +110,15 @@ A `BorderExtender` may be applied to an operation using a suitable
 hint. The hints are defined in [Table
 7-1](Image-enhance.doc.html#68640).
 
-  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Name]{#68644}                      [Description]{#68646}
-  ----------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [BorderExtenderZero]{#68648}\       [Extends an image\'s border by filling all pixels outside the image bounds with zeros. See]{#68650} [Section 7.2.2.1, \"BorderExtenderZero](Image-enhance.doc.html#72409).\"\
 
-  [BorderExtenderConstant]{#70811}\   [Extends an image\'s border by filling all pixels outside the image bounds with constant values. See]{#70813} [Section 7.2.2.2, \"BorderExtenderConstant](Image-enhance.doc.html#72000).\"\
+***Table 7-1*  BorderExtender Hints** <a name="table-7-1"></a>
 
-  [BorderExtenderCopy]{#68652}\       [Extends an image\'s border by filling all pixels outside the image bounds with copies of the edge pixels. Useful as a way of padding source images prior to area or geometric operations, such as convolution, scaling, or rotation. See]{#68697} [Section 7.2.2.3, \"BorderExtenderCopy](Image-enhance.doc.html#72770).\"\
-
-  [BorderExtenderWrap]{#68656}\       [Extends an image\'s border by filling all pixels outside the image bounds with copies of the whole image. This form of extension is appropriate for data that is inherently periodic, such as the Fourier transform of an image, or a wallpaper pattern. See]{#68658} [Section 7.2.2.4, \"BorderExtenderWrap](Image-enhance.doc.html#73128).\"\
-
-  [BorderExtenderReflect]{#68660}\    [Extends an image\'s border by filling all pixels outside the image bounds with copies of the whole image. This form of extension avoids discontinuities around the edges of the image. See]{#68662} [Section 7.2.2.5, \"BorderExtenderReflect](Image-enhance.doc.html#73456).\"\
-  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 7-1* ![](shared/sm-blank.gif) BorderExtender
-  Hints]{#68640}**
+| Name | Description |
+| BorderExtenderZero | Extends an image\'s border by filling all pixels outside the image bounds with zeros. See [Section 7.2.2.1, \"BorderExtenderZero](Image-enhance.doc.html#72409).\"\ |
+| BorderExtenderConstant | Extends an image\'s border by filling all pixels outside the image bounds with constant values. See [Section 7.2.2.2, \"BorderExtenderConstant](Image-enhance.doc.html#72000).\"\ |
+| BorderExtenderCopy | Extends an image\'s border by filling all pixels outside the image bounds with copies of the edge pixels. Useful as a way of padding source images prior to area or geometric operations, such as convolution, scaling, or rotation. See [Section 7.2.2.3, \"BorderExtenderCopy](Image-enhance.doc.html#72770).\"\ |
+| BorderExtenderWrap | Extends an image\'s border by filling all pixels outside the image bounds with copies of the whole image. This form of extension is appropriate for data that is inherently periodic, such as the Fourier transform of an image, or a wallpaper pattern. See [Section 7.2.2.4, \"BorderExtenderWrap](Image-enhance.doc.html#73128).\"\ |
+| BorderExtenderReflect | Extends an image\'s border by filling all pixels outside the image bounds with copies of the whole image. This form of extension avoids discontinuities around the edges of the image. See [Section 7.2.2.5, \"BorderExtenderReflect](Image-enhance.doc.html#73456).\"\ |
 
 The `BorderExtender` class is the superclass for four classes that
 extend a `WritableRaster` with additional pixel data taken from a
@@ -190,65 +148,19 @@ Each instance of `BorderExtender` has an `extend` method that takes a
 intersects the bounds of the image will already contain a copy of the
 image data. The remaining area is to be filled in according to the
 policy of the `BorderImage` subclass. The subclasses are described in
-[Table 7-1](Image-enhance.doc.html#68640).
+[Table 7-1](#table-7-1).
 
-**API:** 
-|                                   | `org.eclipse.imagen.Planarimage`     |
+**API:** `org.eclipse.imagen.Planarimage`
 
-    Raster getExtendedData(Rectangle region, 
-           BorderExtender  extender)
+* `Raster getExtendedData(Rectangle region, BorderExtender  extender)`
+* `void copyExtendedData(WritableRaster dest, BorderExtender  extender)`
 
-:   returns a copy of an arbitrary rectangular region of this image in
-    a Raster.
-    *Parameters*:
-    `region`
-    The region of the image to be returned.
-    `extender`
-    An instance of `BorderExtender`, used only if the region exceeds
-    the image bounds.
+**API:** `org.eclipse.imagen.BorderExtender`
 
+* `static BorderExtender createInstance(int extenderType)`
+* `abstract void extend(WritableRaster raster, PlanarImage im)`
 
-    void copyExtendedData(WritableRaster dest, 
-           BorderExtender  extender)
-
-:   copies an arbitrary rectangular region of the `RenderedImage` into
-    a caller-supplied `WritableRaster`.
-    *Parameters*:
-    `dest`
-    A `WritableRaster` to hold the returned portion of the image.
-    `extender`
-    An instance of `BorderExtender`.
-
-**API:** 
-|                                   | `org.eclipse.imagen.BorderExtender`  |
-
-    static BorderExtender createInstance(int extenderType)
-
-:   returns an instance of `BorderExtender` that implements a given
-    extension policy. The policies understood by this method are:
-      ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-      [Policy]{#68880}             [Description]{#68882}
-      ---------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-      [BORDER\_ZERO]{#68884}\      [Set sample values to zero.]{#68886}\
-
-      [BORDER\_COPY]{#68888}\      [Set sample values to copies of the nearest valid pixel. For example, pixels to the left of the valid rectangle will take on the value of the valid edge pixel in the same row. Pixels both above and to the left of the valid rectangle will take on the value of the upper-left pixel.]{#68890}\
-
-      [BORDER\_REFLECT]{#68892}\   [The output image is defined as if mirrors were placed along the edges of the source image. Thus if the left edge of the valid rectangle lies at *x* = 10, pixel (9, *y*) will be a copy of pixel (10, *y*); pixel (6, *y*) will be a copy of pixel (13, *y*).]{#68918}\
-
-      [BORDER\_WRAP]{#68896}\      [The source image is tiled repeatedly in the plane.]{#68938}\
-      ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-      : 
-
-
-    abstract void extend(WritableRaster raster, PlanarImage im)
-
-:   fills in the portions of a given `Raster` that lie outside the
-    bounds of a given `PlanarImage` with data derived from that
-    `PlanarImage`.
-
-
-#### 7.2.2.1 ![](shared/space.gif)BorderExtenderZero
+#### 7.2.2.1 BorderExtenderZero
 
 The `BorderExtenderZero` class is a subclass of `BorderExtender` that
 implements border extension by filling all pixels outside of the image
@@ -257,6 +169,7 @@ bounds with zeros. For example, [Figure
 `BorderExtenderZero` to extend an image by adding two extra rows to
 the top and bottom and two extra columns on the left and right sides.
 
+<a name="figure-7-2"></a>
 
 ------------------------------------------------------------------------
 
@@ -264,21 +177,13 @@ the top and bottom and two extra columns on the left and right sides.
 
 ------------------------------------------------------------------------
 
+***Figure 7-2* BorderExtenderZero Example**
 
-***Figure 7-2* ![](shared/sm-blank.gif) BorderExtenderZero Example**
+**API:** `org.eclipse.imagen.BorderExtenderZero`
 
-**API:** 
-|                                   | `org.eclipse.imagen.BorderExtenderZe |
-|                                   | ro`                               |
+* `final void extend(WritableRaster raster, PlanarImage im)`
 
-    final void extend(WritableRaster raster, PlanarImage im)
-
-:   fills in the portions of a given `Raster` that lie outside the
-    bounds of a given `PlanarImage` with zeros. The portion of Raster
-    that lies within `im.getBounds` is not altered.
-
-
-#### 7.2.2.2 ![](shared/space.gif)BorderExtenderConstant
+#### 7.2.2.2 BorderExtenderConstant
 
 The `BorderExtenderConstant` class is a subclass of `BorderExtender`
 that implements border extension by filling all pixels outside of the
@@ -296,6 +201,7 @@ bands of the `Raster`. If the `Raster` has *b* bands, and there are
 ![](shared/chars/lt_equal.gif) *c*. If *b* \*c*, zeros are used to
 fill out the constants array.
 
+<a name="figure-7-3"></a>
 
 ------------------------------------------------------------------------
 
@@ -304,28 +210,14 @@ fill out the constants array.
 ------------------------------------------------------------------------
 
 
-***Figure 7-3* ![](shared/sm-blank.gif) BorderExtenderConstant
-Example**
+***Figure 7-3* BorderExtenderConstant Example**
 
-**API:** 
-|                                   | `org.eclipse.imagen.BorderExtenderCo |
-|                                   | nstant`                           |
+**API:** `org.eclipse.imagen.BorderExtenderConstant`
 
-    BorderExtenderConstant(double[] constants)
+* `BorderExtenderConstant(double[] constants)`
+* `final void extend(WritableRaster raster, PlanarImage im)`
 
-:   constructs an instance of `BorderExtenderConstant` with a given
-    set of constants. The constants are specified as an array of
-    `double`s.
-
-
-    final void extend(WritableRaster raster, PlanarImage im)
-
-:   fills in the portions of a given `Raster` that lie outside the
-    bounds of a given `PlanarImage` with constant values. The portion
-    of `Raster` that lies within `im.getBounds` is not altered.
-
-
-#### 7.2.2.3 ![](shared/space.gif)BorderExtenderCopy
+#### 7.2.2.3 BorderExtenderCopy
 
 The `BorderExtenderCopy` class is a subclass of `BorderExtender` that
 implements border extension by filling all pixels outside of the image
@@ -339,6 +231,7 @@ appealing, it is useful as a way of padding source images prior to
 area or geometric operations, such as convolution, scaling, or
 rotation.
 
+<a name="figure-7-4"></a>
 
 ------------------------------------------------------------------------
 
@@ -346,22 +239,13 @@ rotation.
 
 ------------------------------------------------------------------------
 
+***Figure 7-4*  BorderExtenderCopy Example**
 
-***Figure 7-4* ![](shared/sm-blank.gif) BorderExtenderCopy Example**
+**API:** `org.eclipse.imagen.BorderExtenderCopy`
 
-**API:** 
-|                                   | `org.eclipse.imagen.BorderExtenderCo |
-|                                   | py`                               |
+* `final void extend(WritableRaster raster, PlanarImage im)`
 
-    final void extend(WritableRaster raster, PlanarImage im)
-
-:   fills in the portions of a given `Raster` that lie outside the
-    bounds of a given `PlanarImage` with copies of the edge pixels of
-    the image. The portion of `Raster` that lies within `im.getBounds`
-    is not altered.
-
-
-#### 7.2.2.4 ![](shared/space.gif)BorderExtenderWrap
+#### 7.2.2.4 BorderExtenderWrap
 
 The `BorderExtenderWrap` class is a subclass of `BorderExtender` that
 implements border extension by filling all pixels outside of the image
@@ -374,6 +258,7 @@ This form of extension is appropriate for data that is inherently
 periodic, such as the Fourier transform of an image or a wallpaper
 pattern.
 
+<a name="figure-7-5"></a>
 
 ------------------------------------------------------------------------
 
@@ -381,22 +266,13 @@ pattern.
 
 ------------------------------------------------------------------------
 
+***Figure 7-5*  BorderExtenderWrap Example**
 
-***Figure 7-5* ![](shared/sm-blank.gif) BorderExtenderWrap Example**
+**API:** `org.eclipse.imagen.BorderExtenderWrap`
 
-**API:** 
-|                                   | `org.eclipse.imagen.BorderExtenderWr |
-|                                   | ap`                               |
+* `final void extend(WritableRaster raster, PlanarImage im)`
 
-    final void extend(WritableRaster raster, PlanarImage im)
-
-:   Fills in the portions of a given `Raster` that lie outside the
-    bounds of a given `PlanarImage` with copies of the entire image.
-    The portion of `Raster` that lies within `im.getBounds` is not
-    altered.
-
-
-#### 7.2.2.5 ![](shared/space.gif)BorderExtenderReflect
+#### 7.2.2.5 BorderExtenderReflect
 
 The `BorderExtenderReflect` class is a subclass of `BorderExtender`
 that implements border extension by filling all pixels outside the
@@ -408,6 +284,7 @@ the top and bottom and one extra column on the left and right sides.
 This form of extension avoids discontinuities around the edges of the
 image.
 
+<a name="figure-7-6"></a>
 
 ------------------------------------------------------------------------
 
@@ -415,23 +292,13 @@ image.
 
 ------------------------------------------------------------------------
 
+***Figure 7-6* BorderExtenderReflect Example**
 
-***Figure 7-6* ![](shared/sm-blank.gif) BorderExtenderReflect
-Example**
+**API:** `org.eclipse.imagen.BorderExtenderReflect`
 
-**API:** 
-|                                   | `org.eclipse.imagen.BorderExtenderRe |
-|                                   | flect`                            |
+* `final void extend(WritableRaster raster, PlanarImage im)`
 
-    final void extend(WritableRaster raster, PlanarImage im)
-
-:   Fills in the portions of a given `Raster` that lie outside the
-    bounds of a given `PlanarImage` with suitably reflected copies of
-    the entire image. The portion of `Raster` that lies within
-    `im.getBounds` is not altered.
-
-
-7.3 ![](shared/space.gif)Cropping an Image
+7.3 Cropping an Image
 ------------------------------------------
 
 The `Crop` operation crops a rendered or renderable image to a
@@ -443,20 +310,14 @@ The `Crop` operation takes one rendered or renderable source image and
 four parameters. None of the parameters have default values; all must
 be supplied.
 
-  -----------------------------------------------------------------------------------
-  [Parameter]{#76471}   [Type]{#76473}     [Description]{#76475}
-  --------------------- ------------------ ------------------------------------------
-  [x]{#76477}\          [Float]{#76479}\   [The *x* origin for each band.]{#76481}\
+| Parameters | Type | Description |
+|------------|------|-------------|
+| x          | Float | The *x* origin for each band. |
+| y          | Float | The *y* origin for each band. |
+| width      | Float | The width for each band. |
+| height     | Float | The height for each band. |
 
-  [y]{#76483}\          [Float]{#76485}\   [The *y* origin for each band.]{#76487}\
-
-  [width]{#76489}\      [Float]{#76491}\   [The width for each band.]{#76493}\
-
-  [height]{#76495}\     [Float]{#76497}\   [The height for each band.]{#76499}\
-  -----------------------------------------------------------------------------------
-
-  : 
-
+<a name="figure-7-7"></a>
 
 ------------------------------------------------------------------------
 
@@ -464,11 +325,10 @@ be supplied.
 
 ------------------------------------------------------------------------
 
+***Figure 7-7* Crop Operation**
 
-***Figure 7-7* ![](shared/sm-blank.gif) Crop Operation**
 
-
-7.4 ![](shared/space.gif)Amplitude Rescaling
+7.4 Amplitude Rescaling
 --------------------------------------------
 
 Amplitude rescaling provides a linear amplitude transformation of
@@ -497,12 +357,14 @@ arrays.
 The pixel values of the destination image are defined by the following
 pseudocode:
 
-         constant = (constants.length < dstNumBands) ?
-                     constants[0] : constants[b];
-         offset = (offsets.length < dstNumBands) ?
-                   offsets[0] : offsets[b];
-         
-         dst[x][y][b] = src[x][y][b]*constant + offset;
+```
+constant = (constants.length < dstNumBands) ?
+            constants[0] : constants[b];
+offset = (offsets.length < dstNumBands) ?
+          offsets[0] : offsets[b];
+
+dst[x][y][b] = src[x][y][b]*constant + offset;
+```
 
 The pixel arithmetic is performed using the data type of the
 destination image. By default, the destination will have the same data
@@ -526,18 +388,13 @@ the scale and offset factors.
 The `rescale` operation takes one rendered or renderable source image
 and two parameters:
 
-  ----------------------------------------------------------------------------------------------
-  [Parameter]{#61691}    [Type]{#61693}      [Description]{#61695}
-  ---------------------- ------------------- ---------------------------------------------------
-  [constants]{#61697}\   [double]{#61699}\   [The per-band constants to multiply by.]{#61701}\
-
-  [offsets]{#61703}\     [double]{#61705}\   [The per-band offsets to be added.]{#61707}\
-  ----------------------------------------------------------------------------------------------
-
-  : 
+| Parameters | Type | Description |
+|------------|------|-------------|
+| constants  | double | The per-band constants to multiply by. |
+| offsets    | double | The per-band offsets to be added. |
 
 
-7.5 ![](shared/space.gif)Histogram Equalization
+7.5 Histogram Equalization
 -----------------------------------------------
 
 An image histogram is an analytic tool used to measure the amplitude
@@ -552,20 +409,21 @@ relatively narrow range.
 
 See [Section 9.4, \"Histogram Generation](Analysis.doc.html#54836),\"
 for information on how to generate a histogram for an image. The next
-two sections describe JAI operations that use an image histogram to
+two sections describe ImageN operations that use an image histogram to
 enhance an image\'s appearance.
 
 
-### 7.5.1 ![](shared/space.gif)Piecewise Linear Mapping
+### 7.5.1 Piecewise Linear Mapping
 
 The `Piecewise` operation performs a piecewise linear mapping of an
 image\'s pixel values. The piecewise linear mapping is described by a
 set of breakpoints that are provided as an array of the form:
 
-         float breakPoints[N][2][numBreakPoints]
+```
+float breakPoints[N][2][numBreakPoints]
+```
 
-:   where the value of *N* may be either unity or the number of bands
-    in the source image.
+Where the value of *N* may be either unity or the number of bands in the source image.
 
 If *N* is unity, the same set of breakpoints will be applied to all
 bands in the image. The abscissas of the supplied breakpoints must be
@@ -573,58 +431,49 @@ monotonically increasing.
 
 The pixel values of the destination image are defined by the following
 pseudocode:
-
-         if(src[x][y][b] < breakPoints[b][0][0])
-             dst[x][y][b] = breakPoints[b][1][0]);
-         } else if(src[x][y][b] breakPoints[b][0][numBreakPoints-1]) {
-             dst[x][y][b] = breakPoints[b][1][numBreakPoints-1]);
-         } else {
-             int i = 0;
-             while(breakPoints[b][0][i+1] < src[x][y][b]) {
-                 i++;
-             }
-             dst[x][y][b] = breakPoints[b][1][i] +
-                             (src[x][y][b] - breakPoints[b][0][i])*
-                             (breakPoints[b][1][i+1] - breakPoints[b][1][i])/
-                             (breakPoints[b][0][i+1] - breakPoints[b][0][i]);
+```
+if(src[x][y][b] < breakPoints[b][0][0])
+    dst[x][y][b] = breakPoints[b][1][0]);
+} else if(src[x][y][b] breakPoints[b][0][numBreakPoints-1]) {
+    dst[x][y][b] = breakPoints[b][1][numBreakPoints-1]);
+} else {
+    int i = 0;
+    while(breakPoints[b][0][i+1] < src[x][y][b]) {
+        i++;
+    }
+    dst[x][y][b] = breakPoints[b][1][i] +
+                    (src[x][y][b] - breakPoints[b][0][i])*
+                    (breakPoints[b][1][i+1] - breakPoints[b][1][i])/
+                    (breakPoints[b][0][i+1] - breakPoints[b][0][i]);
+```
 
 The `Piecewise` operation takes one rendered or renderable source
 image and one parameter:
 
-  ------------------------------------------------------------------------------
-  [Parameter]{#71037}      [Type]{#71039}     [Description]{#71041}
-  ------------------------ ------------------ ----------------------------------
-  [breakPoints]{#71043}\   [Float]{#71045}\   [The breakpoint array.]{#71047}\
+| Parameters | Type | Description |
+|------------|------|-------------|
+| breakPoints | Float | The breakpoint array. |
 
-  ------------------------------------------------------------------------------
-
-  : 
-
-[Listing 7-1](Image-enhance.doc.html#74848) shows a code sample of a
+[Listing 7-1](#listing-7-1) shows a code sample of a
 `Piecewise` operation, showing only the construction of the
 piecewise-mapped image and the operation. The generation of the source
 image, fmt, is not shown.
 
-**[]{#74848}**
+***Listing 7-1*  Example Piecewise Operation** <a name="listing-7-1"></a>
 
-***Listing 7-1* ![](shared/sm-blank.gif) Example Piecewise Operation**
+```java
+// Create a piecewise-mapped image emphasizing low values.
+float[][][] bp = new float[numBands][2][];
+for(int b = 0; b < numBands; b++) {
+    bp[b][0] = new float[] {0.0F, 32.0F, 64.0F, 255.0F};
+    bp[b][1] = new float[] {0.0F, 64.0F, 112.0F, 255.0F};
+}
 
-------------------------------------------------------------------------
+// Create the Piecewise operation.
+RenderedOp pw = JAI.create("piecewise", fmt, bp);
+```
 
-         // Create a piecewise-mapped image emphasizing low values.
-         float[][][] bp = new float[numBands][2][];
-         for(int b = 0; b < numBands; b++) {
-             bp[b][0] = new float[] {0.0F, 32.0F, 64.0F, 255.0F};
-             bp[b][1] = new float[] {0.0F, 64.0F, 112.0F, 255.0F};
-         }
-
-         // Create the Piecewise operation.
-         RenderedOp pw = JAI.create("piecewise", fmt, bp);
-
-------------------------------------------------------------------------
-
-
-### 7.5.2 ![](shared/space.gif)Histogram Matching
+### 7.5.2 Histogram Matching
 
 It is sometimes desirable to transform an image so that its histogram
 matches that of a specified functional form. The `MatchCDF` operation
@@ -637,10 +486,11 @@ The CDF of an image is its area-normalized threshold area function.
 The desired CDF for the `MatchCDF` operation is described by an array
 of the form:
 
-         float CDF[numBands][numBins[b]]
+```
+float CDF[numBands][numBins[b]]
+```
 
-:   where `numBins` denotes the number of bins in the histogram of the
-    source image for band *b*.
+Where `numBins` denotes the number of bins in the histogram of the source image for band *b*.
 
 Each element in the array `CDF[b]` must be non-negative, the array
 must represent a non-decreasing sequence, and the last element of the
@@ -650,103 +500,93 @@ available via its `getProperty` method.
 The `MatchCDF` operation takes one rendered or renderable source image
 and one parameter:
 
-  ---------------------------------------------------------------------------------------------------
-  [Parameter]{#71456}   [Type]{#71458}     [Description]{#71460}
-  --------------------- ------------------ ----------------------------------------------------------
-  [CDF]{#71462}\        [Float]{#71464}\   [The desired cumulative distribution function.]{#71466}\
-
-  ---------------------------------------------------------------------------------------------------
-
-  : 
+| Parameters | Type | Description |
+|------------|------|-------------|
+| CDF        | Float | The desired cumulative distribution function. |
 
 The operation requires that the image histogram be available.
 
-[Listing 7-2](Image-enhance.doc.html#74900) shows a code sample of a
+[Listing 7-2](#listing-7-2) shows a code sample of a
 `MatchCDF` operation, showing only the histogram operation,
 construction of two different CDFs, and the operations that use them.
 
-**[]{#74900}**
+***Listing 7-2* Example MatchCDF Operation**  <a name="listing-7-2"></a>
 
-***Listing 7-2* ![](shared/sm-blank.gif) Example MatchCDF Operation**
+```java
+// Retrieves a histogram for the image.
+private static Histogram getHistogram(RenderedOp img,
+                                     int binCount) {
 
-------------------------------------------------------------------------
+    // Get the band count.
+    int numBands = img.getSampleModel().getNumBands();
 
-         // Retrieves a histogram for the image.
-         private static Histogram getHistogram(RenderedOp img,
-                                              int binCount) {
+    // Allocate histogram memory.
+    int[] numBins = new int[numBands];
+    double[] lowValue = new double[numBands];
+    double[] highValue = new double[numBands];
+    for(int i = 0; i < numBands; i++) {
+        numBins[i] = binCount;
+        lowValue[i] = 0.0;
+        highValue[i] = 255.0;
+    }
 
-             // Get the band count.
-             int numBands = img.getSampleModel().getNumBands();
+    // Create the Histogram object.
+    Histogram hist = new Histogram(numBins, lowValue, highValue);
 
-             // Allocate histogram memory.
-             int[] numBins = new int[numBands];
-             double[] lowValue = new double[numBands];
-             double[] highValue = new double[numBands];
-             for(int i = 0; i < numBands; i++) {
-                 numBins[i] = binCount;
-                 lowValue[i] = 0.0;
-                 highValue[i] = 255.0;
-             }
+    // Set the ROI to the entire image.
+    ROIShape roi = new ROIShape(img.getBounds());
 
-             // Create the Histogram object.
-             Histogram hist = new Histogram(numBins, lowValue, highValue);
+    // Create the histogram op.
+    RenderedOp histImage =
+        JAI.create("histogram", img,
+                    hist, roi, new Integer(1), new Integer(1));
 
-             // Set the ROI to the entire image.
-             ROIShape roi = new ROIShape(img.getBounds());
+    // Retrieve the histogram.
+    hist = (Histogram)histImage.getProperty("histogram");
 
-             // Create the histogram op.
-             RenderedOp histImage =
-                 JAI.create("histogram", img,
-                             hist, roi, new Integer(1), new Integer(1));
+    return hist;
+}
 
-             // Retrieve the histogram.
-             hist = (Histogram)histImage.getProperty("histogram");
+// Create an equalization CDF.
+float[][] CDFeq = new float[numBands][];
+for(int b = 0; b < numBands; b++) {
+    CDFeq[b] = new float[binCount];
+    for(int i = 0; i < binCount; i++) {
+        CDFeq[b][i] = (float)(i+1)/(float)binCount;
+    }
+}
 
-             return hist;
-         }
+// Create a normalization CDF.
+double[] mean = new double[] {128.0, 128.0, 128.0};
+double[] stDev = new double[] {64.0, 64.0, 64.0};
+float[][] CDFnorm = new float[numBands][];
+for(int b = 0; b < numBands; b++) {
+    CDFnorm[b] = new float[binCount];
+    double mu = mean[b];
+    double twoSigmaSquared = 2.0*stDev[b]*stDev[b];
+    CDFnorm[b][0] =
+        (float)Math.exp(-mu*mu/twoSigmaSquared);
+    for(int i = 1; i < binCount; i++) {
+        double deviation = i - mu;
+        CDFnorm[b][i] = CDFnorm[b][i-1] +
+           (float)Math.exp(-deviation*deviation/twoSigmaSquared);
+    }
+}
+for(int b = 0; b < numBands; b++) {
+    double CDFnormLast = CDFnorm[b][binCount-1];
+   for(int i = 0; i < binCount; i++) {
+       CDFnorm[b][i] /= CDFnormLast;
+   }
+}
 
-         // Create an equalization CDF.
-         float[][] CDFeq = new float[numBands][];
-         for(int b = 0; b < numBands; b++) {
-             CDFeq[b] = new float[binCount];
-             for(int i = 0; i < binCount; i++) {
-                 CDFeq[b][i] = (float)(i+1)/(float)binCount;
-             }
-         }
+// Create a histogram-equalized image.
+RenderedOp eq = JAI.create("matchcdf", fmt, CDFeq);
 
-         // Create a normalization CDF.
-         double[] mean = new double[] {128.0, 128.0, 128.0};
-         double[] stDev = new double[] {64.0, 64.0, 64.0};
-         float[][] CDFnorm = new float[numBands][];
-         for(int b = 0; b < numBands; b++) {
-             CDFnorm[b] = new float[binCount];
-             double mu = mean[b];
-             double twoSigmaSquared = 2.0*stDev[b]*stDev[b];
-             CDFnorm[b][0] =
-                 (float)Math.exp(-mu*mu/twoSigmaSquared);
-             for(int i = 1; i < binCount; i++) {
-                 double deviation = i - mu;
-                 CDFnorm[b][i] = CDFnorm[b][i-1] +
-                    (float)Math.exp(-deviation*deviation/twoSigmaSquared);
-             }
-         }
-         for(int b = 0; b < numBands; b++) {
-             double CDFnormLast = CDFnorm[b][binCount-1];
-            for(int i = 0; i < binCount; i++) {
-                CDFnorm[b][i] /= CDFnormLast;
-            }
-         }
+// Create a histogram-normalized image.
+RenderedOp nm = JAI.create("matchcdf", fmt, CDFnorm);
+```
 
-         // Create a histogram-equalized image.
-         RenderedOp eq = JAI.create("matchcdf", fmt, CDFeq);
-
-         // Create a histogram-normalized image.
-         RenderedOp nm = JAI.create("matchcdf", fmt, CDFnorm);
-
-------------------------------------------------------------------------
-
-
-7.6 ![](shared/space.gif)Lookup Table Modification
+7.6 Lookup Table Modification
 --------------------------------------------------
 
 The lookup table modification provides a non-linear amplitude
@@ -765,14 +605,15 @@ in the lookup table stores the desired output value for that
 particular address.
 
 
+<a name="figure-7-8"></a>
+
 ------------------------------------------------------------------------
 
 ![](Image-enhance.doc.anc.gif)
 
 ------------------------------------------------------------------------
 
-
-***Figure 7-8* ![](shared/sm-blank.gif) Lookup Table**
+***Figure 7-8* Lookup Table**
 
 The lookup table is first loaded with the necessary data. [Table
 7-2](Image-enhance.doc.html#51279) shows a partial listing of an
@@ -780,29 +621,20 @@ example lookup table. In this example, the input values range from 0
 to 255. The output values provide a scaled square root transformation
 between the input and output, according to the following equation:
 
-:   ![](Image-enhance.doc.anc1.gif)
-      ------------------------------------
-      [Input]{#51283}   [Output]{#51285}
-      ----------------- ------------------
-      [0]{#51287}\      [0]{#51289}\
+![](Image-enhance.doc.anc1.gif)
 
-      [1]{#51291}\      [16]{#51293}\
+***Table 7-2*  Example Lookup Table**  <a name="table-7-2"></a>
 
-      [2]{#51295}\      [23]{#51297}\
-
-      [3]{#51299}\      [28]{#51301}\
-
-      [.]{#51303}\      [.]{#51305}\
-
-      [253]{#51307}\    [254]{#51309}\
-
-      [254]{#51332}\    [255]{#51334}\
-
-      [255]{#51336}\    [255]{#51338}\
-      ------------------------------------
-
-      :  **[*Table 7-2* ![](shared/sm-blank.gif) Example Lookup
-      Table]{#51279}**
+| Input | Output |
+|-------|--------|
+| 0     | 0   |
+| 1     | 16  |
+| 2     | 23  |
+| 3     | 28  |
+| .     | .   |
+| 253   | 254 |
+| 254   | 255 |
+| 255   | 255 |
 
 This example provides a non-linear amplitude transformation between
 input and output pixel values, in which the smaller input amplitude
@@ -811,7 +643,7 @@ types of lookup values can be used to solve nearly any non-linear
 amplitude scaling problem.
 
 
-### 7.6.1 ![](shared/space.gif)Creating the Lookup Table
+### 7.6.1 Creating the Lookup Table
 
 The `LookupTableJAI` object represents a single- or multi-banded table
 or a color cube of any supported data types. A single- or multi-banded
@@ -834,7 +666,7 @@ For a multi-band image, you construct a single lookup table with
 entries for each band.
 
 
-#### 7.6.1.1 ![](shared/space.gif)Creating a Single-band Lookup Table
+#### 7.6.1.1 Creating a Single-band Lookup Table
 
 The single-banded lookup table contains data for a single channel or
 image component. To create a lookup table for a single-band input
@@ -844,150 +676,43 @@ up to three parameters:
 -   A pointer to the data to be stored in the table. The data may be
     of type `Byte`, `Short`, `UShort`, `Int`, `Float`, or `Double`.
 
-
 -   The offset. The offset selects the lookup table subrange. The
     offset value is subtracted from the input value before indexing
     into the table array.
 
-
 -   A boolean flag that indicates whether Short data is of type Short
     or UShort.
 
-[Listing 7-3](Image-enhance.doc.html#69572) shows an example of the
+[Listing 7-3](#listing-7-3) shows an example of the
 construction of a single-band byte lookup table.
 
-**[]{#69572}**
+***Listing 7-3* Example Single-band Lookup Table**  <a name="listing-7-3"></a>
 
-***Listing 7-3* ![](shared/sm-blank.gif) Example Single-band Lookup
-Table**
+```java
+byte[] tableData = new byte[0x10000];
+for (int i = 0; i < 0x10000; i++) {
+tableData[i] = (byte)(i >8);
+}
 
-------------------------------------------------------------------------
+// Create a LookupTableJAI object to be used with the
+// "lookup" operator.
+LookupTableJAI table = new LookupTableJAI(tableData);
+```
 
-         byte[] tableData = new byte[0x10000];
-         for (int i = 0; i < 0x10000; i++) {
-         tableData[i] = (byte)(i >8);
-         }
-         
-         // Create a LookupTableJAI object to be used with the
-         // "lookup" operator.
-         LookupTableJAI table = new LookupTableJAI(tableData);
+**API:** `org.eclipse.imagen.LookupTableJAI`
 
-------------------------------------------------------------------------
+* `LookupTableJAI(byte[] data)`
+* `LookupTableJAI(byte[] data, int offset)`
+* `LookupTableJAI(short[] data, boolean isUShort)`
+* `LookupTableJAI(short[] data, int offset, boolean isUShort)`
+* `LookupTableJAI(int[] data)`
+* `LookupTableJAI(int[] data, int offset)`
+* `LookupTableJAI(float[] data)`
+* `LookupTableJAI(float[] data, int offset)`
+* `LookupTableJAI(double[] data)`
+* `LookupTableJAI(double[] data, int offset)`
 
-**API:** 
-|                                   | `org.eclipse.imagen.LookupTableJAI`  |
-
-    LookupTableJAI(byte[] data)
-
-:   constructs a single-banded byte lookup table with an index offset
-    of 0.
-      --------------- -------- -----------------------------
-      *Parameters*:   `data`   The single-banded byte data
-      --------------- -------- -----------------------------
-
-      : 
-
-
-    LookupTableJAI(byte[] data, int offset)
-
-:   constructs a single-banded byte lookup table with an index offset.
-    *Parameters*:
-    `data`
-    The single-banded byte data
-    `offset`
-    The offset
-
-
-    LookupTableJAI(short[] data, boolean isUShort)
-
-:   constructs a single-banded short or unsigned short lookup table
-    with an index offset of 0.
-    *Parameters*:
-    `data`
-    The single-banded short data
-    `isUShort`
-    True if the data type is `DataBuffer.TYPE_USHORT`; false if the
-    data type is `DataBuffer.TYPE_SHORT`.
-
-
-    LookupTableJAI(short[] data, int offset, boolean isUShort)
-
-:   constructs a single-banded short or unsigned short lookup table
-    with an index offset.
-    *Parameters*:
-    `data`
-    The single-banded short data
-    `offset`
-    The offset
-    `isUShort`
-    True if the data type is `DataBuffer.TYPE_USHORT`; false if the
-    data type is `DataBuffer.TYPE_SHORT`.
-
-
-    LookupTableJAI(int[] data)
-
-:   constructs a single-banded int lookup table with an index offset
-      --------------- -------- ----------------------------
-      *Parameters*:   `data`   The single-banded int data
-      --------------- -------- ----------------------------
-
-      : 
-
-
-    LookupTableJAI(int[] data, int offset)
-
-:   constructs a single-banded int lookup table with an index offset
-    *Parameters*:
-    `data`
-    The single-banded int data
-    `offset`
-    The offset
-
-
-    LookupTableJAI(float[] data)
-
-:   constructs a single-banded float lookup table with an index offset
-    of 0
-      --------------- -------- ------------------------------
-      *Parameters*:   `data`   The single-banded float data
-      --------------- -------- ------------------------------
-
-      : 
-
-
-    LookupTableJAI(float[] data, int offset)
-
-:   constructs a single-banded float lookup table with an index offset
-    *Parameters*:
-    `data`
-    The single-banded float data
-    `offset`
-    The offset
-
-
-    LookupTableJAI(double[] data)
-
-:   constructs a single-banded double lookup table with an index
-    offset of 0
-      --------------- -------- -------------------------------
-      *Parameters*:   `data`   The single-banded double data
-      --------------- -------- -------------------------------
-
-      : 
-
-
-    LookupTableJAI(double[] data, int offset)
-
-:   constructs a single-banded double lookup table with an index
-    offset
-    *Parameters*:
-    `data`
-    The single-banded double data
-    `offset`
-    The offset
-
-
-#### 7.6.1.2 ![](shared/space.gif)Creating a Multi-band Lookup Table
+#### 7.6.1.2 Creating a Multi-band Lookup Table
 
 The multi-band lookup table contains data for more than one channels
 or image components, such as separate arrays for R, G, and B. To
@@ -1008,206 +733,43 @@ multi-band constructors take up to three parameters:
 -   A boolean flag that indicates whether Short data is of type Short
     or UShort.
 
-[Listing 7-4](Image-enhance.doc.html#69599) shows an example of the
+[Listing 7-4](#listing-7-4) shows an example of the
 construction of a multi-banded byte lookup table.
 
-**[]{#69599}**
+***Listing 7-4*  Example Multi-band Lookup Table**  <a name="listing-7-4"></a>
 
-***Listing 7-4* ![](shared/sm-blank.gif) Example Multi-band Lookup
-Table**
+```java
+// Create the table data.
+byte[][] tableData = new byte[3][0x10000];
+for (int i = 0; i < 0x10000; i++) {
+tableData[0][i] = (byte)(i >8); // this may be different
+tableData[1][i] = (byte)(i >8); // for each band
+tableData[2][i] = (byte)(i >8);
+}
 
-------------------------------------------------------------------------
+// Create a LookupTableJAI object to be used with the
+// "lookup" operator.
+LookupTableJAI table = new LookupTableJAI(tableData);
+```
 
-         // Create the table data.
-         byte[][] tableData = new byte[3][0x10000];
-         for (int i = 0; i < 0x10000; i++) {
-         tableData[0][i] = (byte)(i >8); // this may be different
-         tableData[1][i] = (byte)(i >8); // for each band
-         tableData[2][i] = (byte)(i >8);
-         }
+**API:** `org.eclipse.imagen.LookupTableJAI`
 
-         // Create a LookupTableJAI object to be used with the
-         // "lookup" operator.
-         LookupTableJAI table = new LookupTableJAI(tableData);
+* `LookupTableJAI(byte[][] data)`
+* `LookupTableJAI(byte[][] data, int offset)`
+* `LookupTableJAI(byte[][] data, int[] offsets)`
+* `LookupTableJAI(short[][] data, boolean isUShort)`
+* `LookupTableJAI(short[][] data, int offset, boolean isUShort)`
+* `LookupTableJAI(short[][] data, int[] offsets, boolean isUShort)`
+* `LookupTableJAI(int[][] data)`
+* `LookupTableJAI(int[][] data, int offset)`
+* `LookupTableJAI(int[][] data, int[] offsets)`
+* `LookupTableJAI(float[][] data)`
+* `LookupTableJAI(float[][] data, int offset)`
+* `LookupTableJAI(float[][] data, int[] offsets)`
+* `LookupTableJAI(double[][] data)`
+* `LookupTableJAI(double[][] data, int[] offsets)`
 
-------------------------------------------------------------------------
-
-**API:** 
-|                                   | `org.eclipse.imagen.LookupTableJAI`  |
-
-    LookupTableJAI(byte[][] data)
-
-:   constructs a multi-banded byte lookup table with an index offset
-    for each band of 0.
-      --------------- -------- --------------------------------------------------------
-      *Parameters*:   `data`   The multi-banded byte data in \[band\]\[index\] format
-      --------------- -------- --------------------------------------------------------
-
-      : 
-
-
-    LookupTableJAI(byte[][] data, int offset)
-
-:   constructs a multi-banded byte lookup table where all bands have
-    the same index offset.
-    *Parameters*:
-    `data`
-    The multi-banded byte data in \[band\]\[index\] format
-    `offset`
-    The common offset for all bands
-
-
-    LookupTableJAI(byte[][] data, int[] offsets)
-
-:   constructs a multi-banded byte lookup table where each band has a
-    different index offset.
-    *Parameters*:
-    `data`
-    The multi-banded byte data in \[band\]\[index\] format
-    `offsets`
-    The offsets for the bands
-
-
-    LookupTableJAI(short[][] data, boolean isUShort)
-
-:   constructs a multi-banded short or unsigned short lookup table.
-    The index offset for each band is 0
-    *Parameters*:
-    `data`
-    The multi-banded short data in \[band\]\[index\] format.
-    `isUShort`
-    True if the data type is `DataBuffer.TYPE_USHORT`; false if the
-    data type is `DataBuffer.TYPE_SHORT`.
-
-
-    LookupTableJAI(short[][] data, int offset, boolean isUShort)
-
-:   constructs a multi-banded short or unsigned short lookup table
-    where all bands have the same index offset
-    *Parameters*:
-    `data`
-    The multi-banded short data in \[band\]\[index\] format
-    `offset`
-    The common offset for all bands
-    `isUShort`
-    True if the data type is `DataBuffer.TYPE_USHORT`; false if the
-    data type is `DataBuffer.TYPE_SHORT`.
-
-
-    LookupTableJAI(short[][] data, int[] offsets, boolean isUShort)
-
-:   constructs a multi-banded short or unsigned short lookup table
-    where each band has a different index offset
-    *Parameters*:
-    `data`
-    The multi-banded short data in \[band\]\[index\] format
-    `offset`
-    The offsets for the bands
-    `isUShort`
-    True if the data type is `DataBuffer.TYPE_USHORT`; false if the
-    data type is `DataBuffer.TYPE_SHORT`.
-
-
-    LookupTableJAI(int[][] data)
-
-:   constructs a multi-banded int lookup table. The index offset for
-    each band is 0
-      --------------- -------- -------------------------------------------------------
-      *Parameters*:   `data`   The multi-banded int data in \[band\]\[index\] format
-      --------------- -------- -------------------------------------------------------
-
-      : 
-
-
-    LookupTableJAI(int[][] data, int offset)
-
-:   constructs a multi-banded int lookup table where all bands have
-    the same index offset
-    *Parameters*:
-    `data`
-    The multi-banded int data in \[band\]\[index\] format
-    `offset`
-    The common offset for all bands
-
-
-    LookupTableJAI(int[][] data, int[] offsets)
-
-:   constructs a multi-banded int lookup table where each band has a
-    different index offset
-    *Parameters*:
-    `data`
-    The multi-banded int data in \[band\]\[index\] format
-    `offset`
-    The offsets for the bands
-
-
-    LookupTableJAI(float[][] data)
-
-:   constructs a multi-banded float lookup table. The index offset for
-    each band is 0
-      --------------- -------- ---------------------------------------------------------
-      *Parameters*:   `data`   The multi-banded float data in \[band\]\[index\] format
-      --------------- -------- ---------------------------------------------------------
-
-      : 
-
-
-    LookupTableJAI(float[][] data, int offset)
-
-:   constructs a multi-banded float lookup table where all bands have
-    the same index offset
-    *Parameters*:
-    `data`
-    The multi-banded float data in \[band\]\[index\] format
-    `offset`
-    The common offset for all bands
-
-
-    LookupTableJAI(float[][] data, int[] offsets)
-
-:   constructs a multi-banded float lookup table where each band has a
-    different index offset
-    *Parameters*:
-    `data`
-    The multi-banded float data in \[band\]\[index\] format
-    `offset`
-    The offsets for the bands
-
-
-    LookupTableJAI(double[][] data)
-
-:   constructs a multi-banded double lookup table. The index offset
-    for each band is 0
-      --------------- -------- ----------------------------------------------------------
-      *Parameters*:   `data`   The multi-banded double data in \[band\]\[index\] format
-      --------------- -------- ----------------------------------------------------------
-
-      : 
-
-
-    LookupTableJAI(double[][] data, int offset)
-
-:   constructs a multi-banded double lookup table where all bands have
-    the same index offset
-    *Parameters*:
-    `data`
-    The multi-banded double data in \[band\]\[index\] format
-    `offset`
-    The common offset for all bands
-
-
-    LookupTableJAI(double[][] data, int[] offsets)
-
-:   constructs a multi-banded double lookup table where each band has
-    a different index offset
-    *Parameters*:
-    `data`
-    The multi-banded double data in \[band\]\[index\] format
-    `offsets`
-    The offsets for the bands
-
-
-#### 7.6.1.3 ![](shared/space.gif)Creating a Color-cube Lookup Table
+#### 7.6.1.3 Creating a Color-cube Lookup Table
 
 Dithering operations that use a color cube are considerably faster
 than those that use a generic lookup table. However, the color cube
@@ -1229,147 +791,42 @@ The values in the `dimensions` parameter are signed. A positive value
 indicates that the corresponding color ramp increases. A negative
 value indicates that the ramp decreases.
 
-JAI provides two predefined color cubes, which can be used for the
+ImageN provides two predefined color cubes, which can be used for the
 ordered dither operation (see [Section 6.6.1, \"Ordered
 Dither](Image-manipulation.doc.html#56241)\"):
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [ColorCube]{#64972}    [Description]{#64974}
-  ---------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [BYTE\_496]{#64977}\   [A ColorCube with dimensions 4:9:6, useful for dithering RGB images into 216 colors. The offset of this ColorCube is 38. This color cube dithers blue values in the source image to one of 4 blue levels, green values to one of 9 green levels, and red values to one of 6 red levels. This is the default color cube for the ordered dither operation.]{#64979}\
-
-  [BYTE\_855]{#64982}\   [A ColorCube with dimensions 8:5:5, useful for dithering YC~b~C~r~ images into 200 colors. The offset of this ColorCube is 54. This color cube dithers blue values in the source image to one of 8 blue levels, green values to one of 5 green levels, and red values to one of 5 red levels.]{#64984}\
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| ColorCube | Description |
+|-----------|-------------|
+| BYTE\_496 | A ColorCube with dimensions 4:9:6, useful for dithering RGB images into 216 colors. The offset of this ColorCube is 38. This color cube dithers blue values in the source image to one of 4 blue levels, green values to one of 9 green levels, and red values to one of 6 red levels. This is the default color cube for the ordered dither operation. |
+| BYTE\_855 | A ColorCube with dimensions 8:5:5, useful for dithering YC~b~C~r~ images into 200 colors. The offset of this ColorCube is 54. This color cube dithers blue values in the source image to one of 8 blue levels, green values to one of 5 green levels, and red values to one of 5 red levels. |
 
 These color cubes are specified by the `colorMap` parameter that is
 required by the `OrderedDither` operation.
 
-**API:** 
-|                                   | `org.eclipse.imagen.ColorCube`       |
+**API:** `org.eclipse.imagen.ColorCube`
 
-    static ColorCube createColorCube(int dataType, int offset, 
-           int[] dimensions)
+* `static ColorCube createColorCube(int dataType, int offset, int[] dimensions)`
+* `static ColorCube createColorCube(int dataType, int[]  dimensions)`
+* `static ColorCube createColorCubeByte(int[] dimensions)`
+* `static ColorCube createColorCubeByte(int offset, int[]  dimensions)`
+* `static ColorCube createColorCubeShort(int[] dimensions)`
+* `static ColorCube createColorCubeShort(int offset, int[]  dimensions)`
+* `static ColorCube createColorCubeUShort(int[] dimensions)`
+* `static ColorCube createColorCubeUShort(int offset, int[]  dimensions)`
+* `static ColorCube createColorCubeInt(int[] dimensions)`
+* `static ColorCube createColorCubeInt(int offset, int[]  dimensions)`
+* `static ColorCube createColorCubeFloat(int[] dimensions)`
+* `static ColorCube createColorCubeFloat(int offset, int[]  dimensions)`
+* `static ColorCube createColorCubeDouble(int[] dimensions)`
+* `static ColorCube createColorCubeDouble(int offset, int[]  dimensions)`
 
-:   creates a multi-banded `ColorCube` of a specified data type.
-    *Parameters*:
-    `dataType`
-    The data type of the `ColorCube`. One of `DataBuffer.TYPE_BYTE`,
-    `DataBuffer.TYPE_SHORT`, `DataBuffer.TYPE_USHORT`,
-    `DataBuffer.TYPE_INT`, `DataBuffer.TYPE_FLOAT`, or
-    `DataBuffer.TYPE_DOUBLE`.
-    `offset`
-    The common offset for all bands.
-    `dimensions`
-    The signed dimensions for each band.
-
-
-    static ColorCube createColorCube(int dataType, 
-           int[]  dimensions)
-
-:   create a multi-banded `ColorCube` of a specified data type with
-    zero offset for all bands.
-    *Parameters*:
-    `dataType`
-    The data type of the `ColorCube`. One of `DataBuffer.TYPE_BYTE`,
-    `DataBuffer.TYPE_SHORT`, `DataBuffer.TYPE_USHORT`,
-    `DataBuffer.TYPE_INT`, `DataBuffer.TYPE_FLOAT`, or
-    `DataBuffer.TYPE_DOUBLE`.
-    `dimensions`
-    The signed dimensions for each band.
-
-
-    static ColorCube createColorCubeByte(int[] dimensions)
-
-:   constructs a multi-banded byte `ColorCube`.
-      --------------- -------------- --------------------------------------------------------
-      *Parameters*:   `dimensions`   A list of signed sizes of each side of the color cube.
-      --------------- -------------- --------------------------------------------------------
-
-      : 
-
-
-    static ColorCube createColorCubeByte(int offset, 
-           int[]  dimensions)
-
-:   constructs a multi-banded byte ColorCube with an index offset
-    common to all bands.
-    *Parameters*:
-    `offset`
-    The common offset for all bands.
-    `dimensions`
-    A list of signed sizes of each side of the color cube.
-
-
-    static ColorCube createColorCubeShort(int[] dimensions)
-
-:   constructs a multi-banded short `ColorCube`.
-
-
-    static ColorCube createColorCubeShort(int offset, 
-           int[]  dimensions)
-
-:   constructs a multi-banded short `ColorCube` with an index offset
-    common to all bands.
-
-
-    static ColorCube createColorCubeUShort(int[] dimensions)
-
-:   constructs a multi-banded unsigned short `ColorCube`.
-
-
-    static ColorCube createColorCubeUShort(int offset, 
-           int[]  dimensions)
-
-:   constructs a multi-banded unsigned short `ColorCube` with an index
-    offset common to all bands.
-
-
-    static ColorCube createColorCubeInt(int[] dimensions)
-
-:   constructs a multi-banded int `ColorCube`.
-
-
-    static ColorCube createColorCubeInt(int offset, 
-           int[]  dimensions)
-
-:   constructs a multi-banded int `ColorCube` with an index offset
-    common to all bands.
-
-
-    static ColorCube createColorCubeFloat(int[] dimensions)
-
-:   constructs a multi-banded float `ColorCube`.
-
-
-    static ColorCube createColorCubeFloat(int offset, 
-           int[]  dimensions)
-
-:   constructs a multi-banded float ColorCube with an index offset
-    common to all bands.
-
-
-    static ColorCube createColorCubeDouble(int[] dimensions)
-
-:   constructs a multi-banded double `ColorCube` with an index offset
-    common to all bands.
-
-
-    static ColorCube createColorCubeDouble(int offset, 
-           int[]  dimensions)
-
-:   constructs a multi-banded double `ColorCube` with an index offset
-    common to all bands.
-
-
-### 7.6.2 ![](shared/space.gif)Performing the Lookup
+### 7.6.2 Performing the Lookup
 
 The `lookup` operation performs a general table lookup on a rendered
 or renderable image. The destination image is obtained by passing the
 source image through the lookup table. The source image may be single-
 or multi-banded of data types `byte`, `ushort`, `short`, or `int`. The
-lookup table may be single- or multi-banded of any JAI-supported data
+lookup table may be single- or multi-banded of any ImageN-supported data
 types.
 
 The destination image must have the same data type as the lookup
@@ -1446,9 +903,9 @@ The `lookup` operation takes one rendered or renderable source image
 and one parameter:
 
   -------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#61187}   [Type]{#61189}              [Description]{#61191}
+  Parameter   Type              Description
   --------------------- --------------------------- -----------------------------------------------------------------------
-  [table]{#61193}\      [LookupTableJAI]{#61195}\   [The lookup table through which the source image is passed.]{#61197}\
+  table      LookupTableJAI   The lookup table through which the source image is passed.
 
   -------------------------------------------------------------------------------------------------------------------------
 
@@ -1461,190 +918,75 @@ For a complete example of the `Lookup` operation, see [Listing A-1 on
 page 417](Examples.doc.html#73865).
 
 
-### 7.6.3 ![](shared/space.gif)Other Lookup Table Operations
+### 7.6.3 Other Lookup Table Operations
 
 
-#### 7.6.3.1 ![](shared/space.gif)Reading the Table Data
+#### 7.6.3.1 Reading the Table Data
 
 Several methods are available to read the current contents of the
 lookup table. The choice of method depends on the data format: byte,
 short, integer, floating-point, or double floating-point.
 
-**API:** 
-|                                   | `org.eclipse.imagen.LookupTableJAI`  |
+**API:** `org.eclipse.imagen.LookupTableJAI`
 
-    java.awt.image.DataBuffer getData()
+* `java.awt.image.DataBuffer getData()`
+* `byte[][] getByteData()`
+* `byte[] getByteData(int band)`
+* `short[][] getShortData()`
+* `short[] getShortData(int band)`
+* `int[][] getIntData()`
+* `int[] getIntData(int band)`
+* `float[][] getFloatData()`
+* `float[] getFloatData(int band)`
+* `double[][] getDoubleData()`
+* `double[] getDoubleData(int band)`
 
-:   returns the table data as a `DataBuffer`.
-
-
-    byte[][] getByteData()
-
-:   returns the byte table data in array format.
-
-
-    byte[] getByteData(int band)
-
-:   returns the byte table data of a specific band in array format.
-
-
-    short[][] getShortData()
-
-:   returns the short table data in array format.
-
-
-    short[] getShortData(int band)
-
-:   returns the short table data of a specific band in array format.
-
-
-    int[][] getIntData()
-
-:   returns the integer table data in array format.
-
-
-    int[] getIntData(int band)
-
-:   returns the integer table data of a specific band in array format.
-
-
-    float[][] getFloatData()
-
-:   returns the float table data in array format.
-
-
-    float[] getFloatData(int band)
-
-:   returns the float table data of a specific band in array format.
-
-
-    double[][] getDoubleData()
-
-:   returns the double table data in array format.
-
-
-    double[] getDoubleData(int band)
-
-:   returns the double table data of a specific band in array format.
-
-
-#### 7.6.3.2 ![](shared/space.gif)Reading the Table Offsets
+#### 7.6.3.2 Reading the Table Offsets
 
 There are three methods for reading the offset values within the
 current lookup table.
 
-**API:** 
-|                                   | `org.eclipse.imagen.LookupTableJAI`  |
+**API:** `org.eclipse.imagen.LookupTableJAI`
 
-    int[] getOffsets()
+* `int[] getOffsets()`
+* `int getOffset()`
+* `int getOffset(int band)`
 
-:   returns the index offsets of entry 0 for all bands.
-
-
-    int getOffset()
-
-:   returns the index offset of entry 0 for the default band.
-
-
-    int getOffset(int band)
-
-:   returns the index offset of entry 0 for a specific band.
-      --------------- -------- ------------------
-      *Parameters*:   `band`   The band to read
-      --------------- -------- ------------------
-
-      : 
-
-
-#### 7.6.3.3 ![](shared/space.gif)Reading the Number of Bands
+#### 7.6.3.3 Reading the Number of Bands
 
 A single method is used to read the number of bands in the lookup
 table.
 
-**API:** 
-|                                   | `org.eclipse.imagen.LookupTableJAI`  |
+**API:** `org.eclipse.imagen.LookupTableJAI`
 
-    int getNumBands()
+* `int getNumBands()`
 
-:   returns the number of bands of the table.
-
-
-#### 7.6.3.4 ![](shared/space.gif)Reading the Number of Entries Per Band
+#### 7.6.3.4 Reading the Number of Entries Per Band
 
 A single method is used to read the number of entries per band in the
 lookup table.
 
-**API:** 
-|                                   | `org.eclipse.imagen.LookupTableJAI`  |
+**API:** `org.eclipse.imagen.LookupTableJAI`
 
-    int getNumEntries()
+* `int getNumEntries()`
 
-:   returns the number of entries per band of the table.
-
-
-#### 7.6.3.5 ![](shared/space.gif)Reading the Data Type
+#### 7.6.3.5 Reading the Data Type
 
 A single method is used to read the data type of the lookup table.
 
-**API:** 
-|                                   | `org.eclipse.imagen.LookupTableJAI`  |
+**API:** `org.eclipse.imagen.LookupTableJAI`
 
-    int getDataType()
+* `int getDataType()`
 
-:   returns the data type of the table data.
+#### 7.6.3.6 Reading the Destination Bands and SampleModel
 
+**API:** `org.eclipse.imagen.LookupTableJAI`
 
-#### 7.6.3.6 ![](shared/space.gif)Reading the Destination Bands and SampleModel
+* `int getDestNumBands(int sourceNumBands)`
+* `java.awt.image.SampleModel getDestSampleModel(java.awt.image.SampleModel srcSampleModel)`
+* `java.awt.image.SampleModel getDestSampleModel(java.awt.image.SampleModel srcSampleModel, int width, int height)`
 
-**API:** 
-|                                   | `org.eclipse.imagen.LookupTableJAI`  |
-
-    int getDestNumBands(int sourceNumBands)
-
-:   returns the number of bands of the destination image, based on the
-    number of bands of the source image and lookup table.
-      --------------- ------------------- ------------------------------------------
-      *Parameters*:   `sourceNum-Bands`   The number of bands of the source image.
-      --------------- ------------------- ------------------------------------------
-
-      : 
-
-
-    java.awt.image.SampleModel 
-           getDestSampleModel(java.awt.image.SampleModel 
-           srcSampleModel)
-
-:   returns a `SampleModel` suitable for holding the output of a
-    lookup operation on the source data described by a given
-    `SampleModel` with this table. The width and height of the
-    destination `SampleModel` are the same as that of the source. This
-    method returns null if the source `SampleModel` has a non-integral
-    data type.
-      --------------- ------------------- ----------------------------------------
-      *Parameters*:   `srcSample-Model`   The `SampleModel` of the source image.
-      --------------- ------------------- ----------------------------------------
-
-      : 
-
-
-    java.awt.image.SampleModel 
-           getDestSampleModel(java.awt.image.SampleModel 
-           srcSampleModel, int width, int height)
-
-:   returns a `SampleModel` suitable for holding the output of a
-    lookup operation on the source data described by a given
-    `SampleModel` with this table. This method will return null if the
-    source `SampleModel` has a non-integral data type.
-    *Parameters*:
-    `srcSample-Model`
-    The `SampleModel` of the source image.
-    `width`
-    The width of the destination `SampleModel`.
-    `height`
-    The height of the destination `SampleModel`.
-
-
-7.7 ![](shared/space.gif)Convolution Filtering
+7.7 Convolution Filtering
 ----------------------------------------------
 
 Convolution filtering is often used to reduce the effects of noise in
@@ -1667,7 +1009,7 @@ the brightness based on the spatial frequency of the area.
 
 Convolution filtering uses a *convolve kernel*, containing an array of
 convolution coefficient values, called *key elements*, as shown in
-[Figure 7-9](Image-enhance.doc.html#52989). The array is not
+[Figure 7-9](#figure-7-9). The array is not
 restricted to any particular size, and does not even have to be
 square. The kernel can be 1 x 1, 3 x 3, 5 x 5, `M` x `N, `and so on. A
 larger kernel size affords a more precise filtering operation by
@@ -1697,6 +1039,7 @@ decreased influence in the average. [Figure
 7-10](Image-enhance.doc.html#53832) shows three example convolve
 filters, low-pass, high-pass, and Laplacian.
 
+<a name="figure-7-9"></a>
 
 ------------------------------------------------------------------------
 
@@ -1704,9 +1047,10 @@ filters, low-pass, high-pass, and Laplacian.
 
 ------------------------------------------------------------------------
 
+***Figure 7-9* Convolve Kernel**
 
-***Figure 7-9* ![](shared/sm-blank.gif) Convolve Kernel**
 
+<a name="figure-7-9"></a>
 
 ------------------------------------------------------------------------
 
@@ -1714,8 +1058,7 @@ filters, low-pass, high-pass, and Laplacian.
 
 ------------------------------------------------------------------------
 
-
-***Figure 7-10* ![](shared/sm-blank.gif) Convolve Filter Samples**
+***Figure 7-10*  Convolve Filter Samples**
 
 The low-pass filter, also known as a *box filter*, attenuates the
 high-spatial frequency components of an image and has little affect on
@@ -1737,7 +1080,7 @@ values of the four neighboring pixels from the central pixel. The
 result of applying this filter is to reduce the gray level to zero.
 
 
-### 7.7.1 ![](shared/space.gif)Performing the Convolve Operation
+### 7.7.1 Performing the Convolve Operation
 
 The following example code shows a `convolve` operation on a single
 sample `dst[x][y]`, which assumes that the kernel is of size `M` x `N`
@@ -1767,9 +1110,9 @@ The `convolve` operation takes one rendered source image and one
 parameter:
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#69382}   [Type]{#69384}         [Description]{#69386}
+  Parameter   Type         Description
   --------------------- ---------------------- ---------------------------------------------------------------------------------------------------------------------
-  [kernel]{#69388}\     [KernelJAI]{#69390}\   [The convolution kernel. See]{#69394} [Section 6.9, \"Constructing a Kernel](Image-manipulation.doc.html#70882).\"\
+  kernel     KernelJAI   The convolution kernel. See [Section 6.9, \"Constructing a Kernel](Image-manipulation.doc.html#70882).\"\
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1777,28 +1120,22 @@ parameter:
 
 The default `kernel` is `null`.
 
-[Listing 7-5](Image-enhance.doc.html#69630) shows a code sample for a
-`Convolve` operation.
+[Listing 7-5](#listing-7-5) shows a code sample for a `Convolve` operation.
 
-**[]{#69630}**
+***Listing 7-5*  Example Convolve Operation**  <a name="listing-7-5"></a>
 
-***Listing 7-5* ![](shared/sm-blank.gif) Example Convolve Operation**
+```java
+// Create the kernel.
+kernel = new KernelJAI
+float[] = {  0.0F, -1.0F,  0.0F,
+            -1.0F,  5.0F, -1.0F,
+             0.0F, -1.0F,  0.0F };
 
-------------------------------------------------------------------------
+// Create the convolve operation.
+im1 = JAI.create("convolve", im, kernel);
+```
 
-         // Create the kernel.
-         kernel = new KernelJAI
-         float[] = {  0.0F, -1.0F,  0.0F,
-                     -1.0F,  5.0F, -1.0F,
-                      0.0F, -1.0F,  0.0F };
-
-         // Create the convolve operation.
-         im1 = JAI.create("convolve", im, kernel);
-
-------------------------------------------------------------------------
-
-
-### 7.7.2 ![](shared/space.gif)Box Filter
+### 7.7.2 Box Filter
 
 The `BoxFilter` operation is a special case of convolve operation in
 which each source pixel contributes the same weight to the destination
@@ -1807,16 +1144,18 @@ an image by averaging the source pixels within a rectangular area
 around the pixel. The pixel values of the destination image are
 defined by the following pseudocode:
 
-         int count = width * height; // # of pixels in the box
-         for (int b = 0; b < numBands; b++) {
-              int total = 0;
-              for (int j = -yKey; j < -yKey + height; j++) {
-                   for (int i = -xKey; i < -xKey + width; i++) {
-                       total += src[x+i][y+j][b];
-                    }
-               }
-              dst[x][y][b] = (total + count/2) / count; // round
-         }
+```
+int count = width * height; // # of pixels in the box
+for (int b = 0; b < numBands; b++) {
+     int total = 0;
+     for (int j = -yKey; j < -yKey + height; j++) {
+          for (int i = -xKey; i < -xKey + width; i++) {
+              total += src[x+i][y+j][b];
+           }
+      }
+     dst[x][y][b] = (total + count/2) / count; // round
+}
+```
 
 The `BoxFilter` operation uses a low-pass filter that passes (leaves
 untouched) the low spatial frequency components of the image and
@@ -1840,64 +1179,46 @@ The kernel may not be bigger in any dimension than the image data.
 The `BoxFilter` operation takes one rendered source image and four
 parameters:
 
-  --------------------------------------------------------------------------------------------
-  [Parameter]{#61238}   [Type]{#61240}       [Description]{#61242}
-  --------------------- -------------------- -------------------------------------------------
-  [width]{#76667}\      [Integer]{#76669}\   [The width of the box.]{#76671}\
-
-  [height]{#76673}\     [Integer]{#76675}\   [The height of the box.]{#76677}\
-
-  [xKey]{#61244}\       [Integer]{#61246}\   [The *x* position of the key element.]{#61248}\
-
-  [yKey]{#61250}\       [Integer]{#61252}\   [The *y* position of the key element.]{#61254}\
-  --------------------------------------------------------------------------------------------
-
-  : 
+| Parameters | Type | Description |
+|------------|------|-------------| 
+| width    | Integer | The width of the box. |
+| height   | Integer | The height of the box. |
+| xKey     | Integer | The *x* position of the key element. |
+| yKey     | Integer | The *y* position of the key element. |
 
 The `width` parameter is required. The remaining parameters may be
 `null` and, if not supplied, default to the following values:
 
-:   
+![](Image-enhance.doc.anc13.gif)
 
-    ------------------------------------------------------------------------
-
-    ![](Image-enhance.doc.anc13.gif)
-
-    ------------------------------------------------------------------------
-
-[Listing 7-6](Image-enhance.doc.html#69683) shows a code sample for a
+[Listing 7-6](#listing-7-7) shows a code sample for a
 `BoxFilter` operation.
 
-**[]{#69683}**
+***Listing 7-6*  Example BoxFilter Operation**  <a name="listing-7-6"></a>
 
-***Listing 7-6* ![](shared/sm-blank.gif) Example BoxFilter Operation**
+```java
+// Read the arguments.
+String fileName = args.length 0 ? args[0] : DEFAULT_FILE;
+int width = args.length 1 ?
+    Integer.decode(args[1]).intValue() : DEFAULT_SIZE;
+int height = args.length 2 ?
+    Integer.decode(args[2]).intValue() : width;
 
-------------------------------------------------------------------------
+new BoxFilterExample(fileName, width, height);
+}
 
-         // Read the arguments.
-         String fileName = args.length 0 ? args[0] : DEFAULT_FILE;
-         int width = args.length 1 ?
-             Integer.decode(args[1]).intValue() : DEFAULT_SIZE;
-         int height = args.length 2 ?
-             Integer.decode(args[2]).intValue() : width;
+public BoxFilterExample(String fileName, int width, int height)
 
-         new BoxFilterExample(fileName, width, height);
-         }
+// Load the image.
+RenderedOp src =  JAI.create("fileload", fileName);
 
-         public BoxFilterExample(String fileName, int width, int height)
+// Create the BoxFilter operation.
+RenderedOp dst = JAI.create("boxfilter", src,
+                            width, height,
+                            width/2, height/2);
+```
 
-         // Load the image.
-         RenderedOp src =  JAI.create("fileload", fileName);
-
-         // Create the BoxFilter operation.
-         RenderedOp dst = JAI.create("boxfilter", src,
-                                     width, height,
-                                     width/2, height/2);
-
-------------------------------------------------------------------------
-
-
-7.8 ![](shared/space.gif)Median Filtering
+7.8 Median Filtering
 -----------------------------------------
 
 A median filter is used to remove impulse noise spikes from an image
@@ -1920,6 +1241,7 @@ depends on two related things: the spatial extent of the neighborhood
 square, a plus, and an X-shape, as shown in [Figure
 7-11](Image-enhance.doc.html#66848).
 
+<a name="figure-7-11"></a>
 
 ------------------------------------------------------------------------
 
@@ -1927,8 +1249,7 @@ square, a plus, and an X-shape, as shown in [Figure
 
 ------------------------------------------------------------------------
 
-
-***Figure 7-11* ![](shared/sm-blank.gif) Median Filter Masks**
+***Figure 7-11*  Median Filter Masks**
 
 The `MedianFilter` operation may also be used to compute the
 *separable median* of a 3 x 3 or 5 x 5 region of pixels. The separable
@@ -1951,33 +1272,19 @@ specifying a mask of type `MEDIAN_MASK_SQUARE_SEPARABLE`.
 The `MedianFilter` operation takes one rendered source image and two
 parameters:
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#66877}    [Type]{#66879}       [Default]{#66881}   [Description]{#66883}
-  ---------------------- -------------------- ------------------- ------------------------------------------------------------------------------------
-  [maskShape]{#66885}\   [Integer]{#66887}\   [MASK\_\            [The shape of the mask to be used for Median Filtering]{#66891}\
-                                              SQUARE]{#66889}\    
-
-  [maskSize]{#66893}\    [Integer]{#66895}\   [3]{#66897}\        [The size (width and height) of the mask to be used in Median Filtering.]{#66899}\
-  ----------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| Parameters | Type | Default |Description |
+|------------|------|---------|------------|
+| maskShape | Integer | MASK\_SQUARE | The shape of the mask to be used for Median Filtering |
+| maskSize  | Integer | 3            | The size (width and height) of the mask to be used in Median Filtering. |
 
 The `maskShape` parameter is one of the following:
 
-  ----------------------------------------------------------------------------------------------------------------
-  [maskShape]{#66904}               [Description]{#66906}
-  --------------------------------- ------------------------------------------------------------------------------
-  [MEDIAN\_MASK\_SQUARE]{#66909}\   [A square-shaped mask. The default.]{#66911}\
-
-  [MEDIAN\_MASK\_PLUS]{#66914}\     [A plus-shaped mask.]{#66916}\
-
-  [MEDIAN\_MASK\_X]{#66919}\        [An X-shaped mask.]{#66921}\
-
-  [MEDIAN\_MASK\_SQUARE\_\          [A separable square mask, used for the separable median operation.]{#66925}\
-  SEPARABLE]{#66923}\               
-  ----------------------------------------------------------------------------------------------------------------
-
-  : 
+| maskShape      |        Description      |
+|----------------|-------------------------|
+| MEDIAN\_MASK\_SQUARE   | A square-shaped mask. The default. |
+| MEDIAN\_MASK\_PLUS     | A plus-shaped mask. |
+| MEDIAN\_MASK\_X        | An X-shaped mask. |
+| MEDIAN\_MASK\_SQUARE\_SEPARABLE | A separable square mask, used for the separable median operation. |
 
 The `maskSize` parameter must be 1 (1 x 1) or greater. The default
 value, if one is not provided, is 3 (3 x 3). For large masks, the
@@ -1986,7 +1293,7 @@ median value reaches a point of diminishing returns. Typical mask
 sizes are 3 x 3 and 5 x 5.
 
 
-7.9 ![](shared/space.gif)Frequency Domain Processing
+7.9 Frequency Domain Processing
 ----------------------------------------------------
 
 Images contain spatial details that are seen as brightness
@@ -2006,9 +1313,9 @@ and phase value. An *inverse frequency transform* converts an image
 from its frequency form back to its spatial form.
 
 
-### 7.9.1 ![](shared/space.gif)Fourier Transform
+### 7.9.1 Fourier Transform
 
-JAI supports the most common type of frequency transform, the
+ImageN supports the most common type of frequency transform, the
 *discrete Fourier transform* and its inverse, the inverse discrete
 Fourier transform. The discrete Fourier transform of an image is a
 two-dimensional process. The result of the transform is a
@@ -2024,7 +1331,7 @@ showing the frequency components of the source image. The result is in
 frequencies at the center.
 
 
-#### 7.9.1.1 ![](shared/space.gif)Discrete Fourier Transform
+#### 7.9.1.1 Discrete Fourier Transform
 
 The `DFT` (discrete Fourier transform) operation computes the discrete
 Fourier transform of an image. A negative exponential is used as the
@@ -2042,49 +1349,30 @@ to the original width and height, respectively.
 The `dft` operation takes one rendered or renderable source image and
 two parameters.
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#64052}      [Type]{#64054}       [Description]{#64056}
-  ------------------------ -------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------
-  [scalingType]{#64058}\   [Integer]{#64060}\   [The type of scaling to perform. One of DFTDescriptor.SCALING\_NONE, DFTDescriptor.SCALING\_UNITARY, or DFTDescriptor.SCALING\_DIMENSIONS.]{#64062}\
+| Parameters | Type | Description |
+|------------|------|-------------| 
+| scalingType | Integer | The type of scaling to perform. One of DFTDescriptor.SCALING\_NONE, DFTDescriptor.SCALING\_UNITARY, or DFTDescriptor.SCALING\_DIMENSIONS. |
+| dataNature | Integer | The nature of the data. One of DFTDescriptor.REAL\_TO\_COMPLEX, DFTDescriptor.COMPLEX\_TO\_COMPLEX, or DFTDescriptor.COMPLEX\_TO\_REAL. |
 
-  [dataNature]{#70169}\    [Integer]{#70171}\   [The nature of the data. One of DFTDescriptor.REAL\_TO\_COMPLEX, DFTDescriptor.COMPLEX\_TO\_COMPLEX, or]{#70173}\
-                                                [DFTDescriptor.COMPLEX\_TO\_REAL.]{#70208}\
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
-
-The default parameters for this operation are `SCALING_NONE` and
-`REAL_TO_COMPLEX`.
+The default parameters for this operation are `SCALING_NONE` and `REAL_TO_COMPLEX`.
 
 The `scalingType` parameter defines how the image dimensions may be
 scaled, as follows:
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------
-  [scalingType]{#64767}                          [Description]{#64769}
-  ---------------------------------------------- -----------------------------------------------------------------------------------------------
-  [DFTDescriptor.SCALING\_NONE]{#64772}\         [The transform is not to be scaled (the default).]{#64774}\
-
-  [DFTDescriptor.SCALING\_UNITARY]{#64777}\      [The transform is to be scaled by the square root of the product of its dimensions.]{#64779}\
-
-  [DFTDescriptor.SCALING\_DIMENSIONS]{#64782}\   [The transform is to be scaled by the product of its dimensions.]{#64784}\
-  ----------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| scalingType      | Description |
+|------------------|-------------|
+| DFTDescriptor.SCALING\_NONE       | The transform is not to be scaled (the default). |
+| DFTDescriptor.SCALING\_UNITARY    | The transform is to be scaled by the square root of the product of its dimensions. |
+| DFTDescriptor.SCALING\_DIMENSIONS | The transform is to be scaled by the product of its dimensions. |
 
 The `dataNature` parameter specifies the nature of the source and
 destination data, as follows.
 
-  -----------------------------------------------------------------------------------------------------------------------
-  [dataNature]{#76420}                            [Description]{#76422}
-  ----------------------------------------------- -----------------------------------------------------------------------
-  [DFTDescriptor.REAL\_TO\_COMPLEX]{#76425}\      [The source data are real and the destination data complex.]{#76427}\
-
-  [DFTDescriptor.COMPLEX\_TO\_COMPLEX]{#76430}\   [The source and destination data are both complex.]{#76432}\
-
-  [DFTDescriptor.COMPLEX\_TO\_REAL]{#76435}\      [The source data are complex and the destination data real.]{#76437}\
-  -----------------------------------------------------------------------------------------------------------------------
-
-  : 
+| dataNature      | Description |
+|-----------------|-------------|
+| DFTDescriptor.REAL\_TO\_COMPLEX     | The source data are real and the destination data complex. |
+| DFTDescriptor.COMPLEX\_TO\_COMPLEX  | The source and destination data are both complex. |
+| DFTDescriptor.COMPLEX\_TO\_REAL     | The source data are complex and the destination data real. |
 
 If the source data are complex, the number of bands in the source
 image must be a multiple of 2. The number of bands in the destination
@@ -2103,53 +1391,48 @@ parameter is `REAL_TO_COMPLEX` or `COMPLEX_TO_COMPLEX`. The value of
 this property may be retrieved by calling the getProperty() method
 with `COMPLEX` as the property name.
 
-[Listing 7-7](Image-enhance.doc.html#70321) shows a code sample for a
+[Listing 7-7](#listing-707) shows a code sample for a
 `DFT` operation.
 
-**[]{#70321}**
+***Listing 7-7*  Example DFT Operation**  <a name="listing-7-7"></a>
 
-***Listing 7-7* ![](shared/sm-blank.gif) Example DFT Operation**
+```java
+// Create the ParameterBlock.
+ParameterBlock pb = new ParameterBlock();
+pb.addSource(src)
+pb.add(DFTDescriptor.SCALING_NONE);
+pb.add(DFTDescriptor.REAL_TO_COMPLEX);
 
-------------------------------------------------------------------------
+// Create the DFT operation.
+PlanarImage dft = (PlanarImage)JAI.create("dft", pb, null);
 
-         // Create the ParameterBlock.
-         ParameterBlock pb = new ParameterBlock();
-         pb.addSource(src)
-         pb.add(DFTDescriptor.SCALING_NONE);
-         pb.add(DFTDescriptor.REAL_TO_COMPLEX);
+// Get the DFT image information.
+int width = dft.getWidth();
+int height = dft.getHeight();
+int numBands = dft.getSampleModel().getNumBands();
+int dataType = dft.getSampleModel().getDataType();
 
-         // Create the DFT operation.
-         PlanarImage dft = (PlanarImage)JAI.create("dft", pb, null);
+// Calculate the cutoff "frequencies" from the threshold.
+threshold /= 200.0F;
+int minX = (int)(width*threshold);
+int maxX = width - 1 - minX;
+int minY = (int)(height*threshold);
+int maxY = height - 1 - minY;
 
-         // Get the DFT image information.
-         int width = dft.getWidth();
-         int height = dft.getHeight();
-         int numBands = dft.getSampleModel().getNumBands();
-         int dataType = dft.getSampleModel().getDataType();
+// Retrieve the DFT data.
+Raster dftData = dft.getData();
+double[] real =
+     dftData.getSamples(0, 0, width, height, 0, (double[])null);
+double[] imag =
+     dftData.getSamples(0, 0, width, height, 1, (double[])null);
 
-         // Calculate the cutoff "frequencies" from the threshold.
-         threshold /= 200.0F;
-         int minX = (int)(width*threshold);
-         int maxX = width - 1 - minX;
-         int minY = (int)(height*threshold);
-         int maxY = height - 1 - minY;
+double[] HR = new double[real.length];
+double[] HI = new double[imag.length];
+double[] LR = new double[real.length];
+double[] LI = new double[imag.length];
+```
 
-         // Retrieve the DFT data.
-         Raster dftData = dft.getData();
-         double[] real =
-              dftData.getSamples(0, 0, width, height, 0, (double[])null);
-         double[] imag =
-              dftData.getSamples(0, 0, width, height, 1, (double[])null);
-
-         double[] HR = new double[real.length];
-         double[] HI = new double[imag.length];
-         double[] LR = new double[real.length];
-         double[] LI = new double[imag.length];
-
-------------------------------------------------------------------------
-
-
-#### 7.9.1.2 ![](shared/space.gif)Inverse Discrete Fourier Transform
+#### 7.9.1.2 Inverse Discrete Fourier Transform
 
 The `IDFT` (inverse discrete Fourier transform) operation computes the
 inverse discrete Fourier transform of an image. A positive exponential
@@ -2167,49 +1450,30 @@ to the original width and height, respectively.
 The `IDFT` operation takes one rendered or renderable source image and
 two parameters.
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#64139}      [Type]{#64141}       [Description]{#64143}
-  ------------------------ -------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------
-  [scalingType]{#64145}\   [Integer]{#64147}\   [The type of scaling to perform. One of DFTDescriptor.SCALING\_NONE, DFTDescriptor.SCALING\_UNITARY, or DFTDescriptor.SCALING\_DIMENSIONS.]{#64149}\
+| Parameters | Type | Description |
+|------------|------|-------------| 
+| scalingType | Integer | The type of scaling to perform. One of DFTDescriptor.SCALING\_NONE, DFTDescriptor.SCALING\_UNITARY, or DFTDescriptor.SCALING\_DIMENSIONS. |
+| dataNature | Integer | The nature of the data. One of DFTDescriptor.REAL\_TO\_COMPLEX, DFTDescriptor.COMPLEX\_TO\_COMPLEX, or DFTDescriptor.COMPLEX\_TO\_REAL. |
 
-  [dataNature]{#70383}\    [Integer]{#70385}\   [The nature of the data. One of DFTDescriptor.REAL\_TO\_COMPLEX, DFTDescriptor.COMPLEX\_TO\_COMPLEX, or]{#70387}\
-                                                [DFTDescriptor.COMPLEX\_TO\_REAL.]{#70388}\
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
-
-The default parameters for this operation are `SCALING_DIMENSIONS` and
-`COMPLEX_TO_REAL`.
+The default parameters for this operation are `SCALING_DIMENSIONS` and `COMPLEX_TO_REAL`.
 
 The `scalingType` parameter defines how the image dimensions may be
 scaled, as follows:
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------
-  [scalingType]{#64684}                          [Description]{#64686}
-  ---------------------------------------------- -----------------------------------------------------------------------------------------------
-  [DFTDescriptor.SCALING\_NONE]{#64688}\         [The transform is not to be scaled.]{#64690}\
-
-  [DFTDescriptor.SCALING\_UNITARY]{#64692}\      [The transform is to be scaled by the square root of the product of its dimensions.]{#64694}\
-
-  [DFTDescriptor.SCALING\_DIMENSIONS]{#64696}\   [The transform is to be scaled by the product of its dimensions (the default).]{#64698}\
-  ----------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| scalingType      | Description |
+|------------------|-------------|
+| DFTDescriptor.SCALING\_NONE       | The transform is not to be scaled. |
+| DFTDescriptor.SCALING\_UNITARY    | The transform is to be scaled by the square root of the product of its dimensions. |
+| DFTDescriptor.SCALING\_DIMENSIONS | The transform is to be scaled by the product of its dimensions (the default). |
 
 The `dataNature` parameter specifies the nature of the source and
 destination data, as follows.
 
-  -----------------------------------------------------------------------------------------------------------------------
-  [dataNature]{#76394}                            [Description]{#76396}
-  ----------------------------------------------- -----------------------------------------------------------------------
-  [DFTDescriptor.REAL\_TO\_COMPLEX]{#76399}\      [The source data are real and the destination data complex.]{#76401}\
-
-  [DFTDescriptor.COMPLEX\_TO\_COMPLEX]{#76404}\   [The source and destination data are both complex.]{#76406}\
-
-  [DFTDescriptor.COMPLEX\_TO\_REAL]{#76409}\      [The source data are complex and the destination data real.]{#76411}\
-  -----------------------------------------------------------------------------------------------------------------------
-
-  : 
+| dataNature      | Description |
+|-----------------|-------------|
+| DFTDescriptor.REAL\_TO\_COMPLEX    | The source data are real and the destination data complex. |
+| DFTDescriptor.COMPLEX\_TO\_COMPLEX | The source and destination data are both complex. |
+| DFTDescriptor.COMPLEX\_TO\_REAL    | The source data are complex and the destination data real. |
 
 If the source data are complex, the number of bands in the source
 image must be a multiple of 2. The number of bands in the destination
@@ -2229,7 +1493,7 @@ this property may be retrieved by calling the getProperty() method
 with `COMPLEX` as the property name.
 
 
-### 7.9.2 ![](shared/space.gif)Cosine Transform
+### 7.9.2 Cosine Transform
 
 The discrete cosine transform (DCT) is similar to the discrete Fourier
 transform (see [Section 7.9.1.1, \"Discrete Fourier
@@ -2239,7 +1503,7 @@ Fourier transform (DFT), the DCT also has an inverse operation, the
 *inverse discrete cosine transform* (IDCT).
 
 
-#### 7.9.2.1 ![](shared/space.gif)Discrete Cosine Transform (DCT)
+#### 7.9.2.1 Discrete Cosine Transform (DCT)
 
 The `DCT` operation computes the even discrete cosine transform of an
 image. Each band of the destination image is derived by performing a
@@ -2248,37 +1512,32 @@ two-dimensional DCT on the corresponding band of the source image.
 The `DCT` operation takes one rendered or renderable source image and
 no parameters.
 
-[Listing 7-8](Image-enhance.doc.html#69770) shows a code sample for a
+[Listing 7-8](#listing-7-8) shows a code sample for a
 DCT operation.
 
-**[]{#69770}**
+***Listing 7-8*  Example DCT Operation**  <a name="listing-7-8"></a>
 
-***Listing 7-8* ![](shared/sm-blank.gif) Example DCT Operation**
+```java
+// Load the source image.
+RenderedImage src = (RenderedImage)JAI.create("fileload",
+                    fileName);
 
-------------------------------------------------------------------------
+// Calculate a DCT image from the source image.
+ParameterBlock pb = (new ParameterBlock()).addSource(src);
+PlanarImage dct = JAI.create("dct", pb, null);
 
-         // Load the source image.
-         RenderedImage src = (RenderedImage)JAI.create("fileload",
-                             fileName);
+// Get the DCT image data.
+int width = dct.getWidth();
+int height = dct.getHeight();
+int numBands = dct.getSampleModel().getNumBands();
+int dataType = dct.getSampleModel().getDataType();
+double[] dctData =
+    dct.getData().getPixels(0, 0, width, height,
+                           (double[])null);
+double[] pixels = new double[dctData.length];
+```
 
-         // Calculate a DCT image from the source image.
-         ParameterBlock pb = (new ParameterBlock()).addSource(src);
-         PlanarImage dct = JAI.create("dct", pb, null);
-
-         // Get the DCT image data.
-         int width = dct.getWidth();
-         int height = dct.getHeight();
-         int numBands = dct.getSampleModel().getNumBands();
-         int dataType = dct.getSampleModel().getDataType();
-         double[] dctData =
-             dct.getData().getPixels(0, 0, width, height,
-                                    (double[])null);
-         double[] pixels = new double[dctData.length];
-
-------------------------------------------------------------------------
-
-
-#### 7.9.2.2 ![](shared/space.gif)Inverse Discrete Cosine Transform (IDCT)
+#### 7.9.2.2 Inverse Discrete Cosine Transform (IDCT)
 
 The `IDCT` operation computes the inverse even discrete cosine
 transform of an image. Each band of the destination image is derived
@@ -2288,36 +1547,31 @@ of the source image.
 The `IDCT` operation takes one rendered or renderable source image and
 no parameters.
 
-[Listing 7-9](Image-enhance.doc.html#69814) shows a code sample for an
+[Listing 7-9](#listing-7-9) shows a code sample for an
 operation that first takes the discrete cosine transform of an image,
 then computes the inverse discrete cosine transform.
 
-**[]{#69814}**
+***Listing 7-9*  Example IDCT Operation**  <a name="listing-7-9"></a>
 
-***Listing 7-9* ![](shared/sm-blank.gif) Example IDCT Operation**
+```java
+// Calculate a DCT image from the source image.
+System.out.println("Creating DCT of source image ...");
+ParameterBlock pb = (new ParameterBlock()).addSource(src);
+PlanarImage dct = JAI.create("dct", pb, null);
 
-------------------------------------------------------------------------
+// Calculate an IDCT image from the DCT image.
+System.out.println("Creating IDCT of DCT of source image ...");
+pb = (new ParameterBlock()).addSource(dct);
+PlanarImage idct = JAI.create("idct", pb, null);
 
-         // Calculate a DCT image from the source image.
-         System.out.println("Creating DCT of source image ...");
-         ParameterBlock pb = (new ParameterBlock()).addSource(src);
-         PlanarImage dct = JAI.create("dct", pb, null);
+// Create display image for inverse DCT of DCT of source image.
+System.out.println("Creating display image for IDCT of DCT");
+pixels = idct.getData().getPixels(0, 0, width, height,
+                                  (double[])pixels);
+BufferedImage bi = createBI(colorImage, width, height, pixels);
+```
 
-         // Calculate an IDCT image from the DCT image.
-         System.out.println("Creating IDCT of DCT of source image ...");
-         pb = (new ParameterBlock()).addSource(dct);
-         PlanarImage idct = JAI.create("idct", pb, null);
-
-         // Create display image for inverse DCT of DCT of source image.
-         System.out.println("Creating display image for IDCT of DCT");
-         pixels = idct.getData().getPixels(0, 0, width, height,
-                                           (double[])pixels);
-         BufferedImage bi = createBI(colorImage, width, height, pixels);
-
-------------------------------------------------------------------------
-
-
-### 7.9.3 ![](shared/space.gif)Magnitude Enhancement
+### 7.9.3 Magnitude Enhancement
 
 The `magnitude` operation computes the magnitude of each pixel of a
 complex image. The source image must have an even number of bands,
@@ -2341,32 +1595,25 @@ needed.
 The `magnitude` operation takes one rendered or renderable source
 image containing complex data and no parameters.
 
-[Listing 7-10](Image-enhance.doc.html#69889) shows a code sample for a
-`magnitude` operation.
+[Listing 7-10](#listing-7-10) shows a code sample for a `magnitude` operation.
 
-**[]{#69889}**
+***Listing 7-10*  Example Magnitude Operation**  <a name="listing-7-10"></a>
 
-***Listing 7-10* ![](shared/sm-blank.gif) Example Magnitude
-Operation**
+```java
+// Calculate a DFT image from the source image.
+pb = new ParameterBlock();
+pb.addSource(src).add(DFTDescriptor.SCALING_NONE);
+PlanarImage dft = JAI.create("dft", pb, null);
 
-------------------------------------------------------------------------
+// Create the ParameterBlock specifying the source image.
+pb = new ParameterBlock();
+pb.addSource(dft);
 
-         // Calculate a DFT image from the source image.
-         pb = new ParameterBlock();
-         pb.addSource(src).add(DFTDescriptor.SCALING_NONE);
-         PlanarImage dft = JAI.create("dft", pb, null);
+// Calculate the magnitude.
+PlanarImage magnitude = JAI.create("magnitude", pb, null);
+```
 
-         // Create the ParameterBlock specifying the source image.
-         pb = new ParameterBlock();
-         pb.addSource(dft);
-
-         // Calculate the magnitude.
-         PlanarImage magnitude = JAI.create("magnitude", pb, null);
-
-------------------------------------------------------------------------
-
-
-### 7.9.4 ![](shared/space.gif)Magnitude-squared Enhancement
+### 7.9.4 Magnitude-squared Enhancement
 
 The `MagnitudeSquared` operation computes the squared magnitude of
 each pixel of a complex image. The source image must have an even
@@ -2379,10 +1626,10 @@ magnitude of the corresponding complex source sample.
 The squared magnitude values of the destination image are defined by
 the following pseudocode:
 
-         dstPixel[x][y][b] = src[x][y][2b]2 + src[x][y][2b + 1]2
-
-:   where the number of bands *b* varies from zero to one less than
-    the number of bands in the destination image.
+```
+dstPixel[x][y][b] = src[x][y][2b]2 + src[x][y][2b + 1]2
+```
+Where the number of bands *b* varies from zero to one less than the number of bands in the destination image.
 
 For integral image data types, the result is rounded and clamped as
 needed.
@@ -2391,7 +1638,7 @@ The `MagnitudeSquared` operation takes one rendered or renderable
 source image containing complex data and no parameters.
 
 
-### 7.9.5 ![](shared/space.gif)Phase Enhancement
+### 7.9.5 Phase Enhancement
 
 The `Phase` operation computes the phase angle of each pixel of a
 complex image. The source image must have an even number of bands,
@@ -2419,7 +1666,7 @@ The `phase` operation takes one rendered or renderable source image
 containing complex data and no parameters.
 
 
-### 7.9.6 ![](shared/space.gif)Complex Conjugate
+### 7.9.6 Complex Conjugate
 
 The `Conjugate` operation computes the complex conjugate of a complex
 image. The operation negates the imaginary components of a rendered or
@@ -2440,7 +1687,7 @@ The `Conjugate` operation takes one rendered or renderable source
 image containing complex data and no parameters.
 
 
-### 7.9.7 ![](shared/space.gif)Periodic Shift
+### 7.9.7 Periodic Shift
 
 The `PeriodicShift` operation computes the periodic translation of an
 image. The destination image of the `PeriodicShift` operation is the
@@ -2472,17 +1719,17 @@ The `PeriodicShift` operation takes one rendered or renderable source
 image and two parameters.
 
   ----------------------------------------------------------------------------------------------
-  [Parameter]{#67392}   [Type]{#67394}       [Description]{#67396}
+  Parameter   Type       Description
   --------------------- -------------------- ---------------------------------------------------
-  [shiftX]{#67398}\     [Integer]{#67400}\   [The displacement in the *x* direction.]{#67402}\
+  shiftX     Integer   The displacement in the *x* direction.
 
-  [shiftY]{#67404}\     [Integer]{#67406}\   [The displacement in the *y* direction.]{#67408}\
+  shiftY     Integer   The displacement in the *y* direction.
   ----------------------------------------------------------------------------------------------
 
   : 
 
 
-### 7.9.8 ![](shared/space.gif)Polar to Complex
+### 7.9.8 Polar to Complex
 
 The `PolarToComplex` operation computes a complex image from a
 magnitude and a phase image. The operation creates an image with
@@ -2514,7 +1761,7 @@ The `PolarToComplex` operation takes two rendered or renderable source
 images and no parameters.
 
 
-### 7.9.9 ![](shared/space.gif)Images Based on a Functional Description
+### 7.9.9 Images Based on a Functional Description
 
 The `ImageFunction` operation generates an image from a functional
 description. This operation permits the creation of images on the
@@ -2583,82 +1830,32 @@ be clamped to the data type of the image.
 
 The `ImageFunction` operation takes seven parameters.
 
-  -----------------------------------------------------------------------------------------
-  [Parameter]{#67738}   [Type]{#67740}             [Description]{#67742}
-  --------------------- -------------------------- ----------------------------------------
-  [function]{#67744}\   [ImageFunction]{#67746}\   [The functional description.]{#67748}\
-
-  [width]{#67750}\      [Integer]{#67752}\         [The image width.]{#67754}\
-
-  [height]{#67756}\     [Integer]{#67797}\         [The image height.]{#67760}\
-
-  [xScale]{#67762}\     [Float]{#67799}\           [The *x* scale factor.]{#67766}\
-
-  [yScale]{#67768}\     [Float]{#67803}\           [The *y* scale factor.]{#67772}\
-
-  [xTrans]{#67774}\     [Float]{#67805}\           [The *x* translation.]{#67778}\
-
-  [yTrans]{#67780}\     [Float]{#67807}\           [The *y* translation.]{#67784}\
-  -----------------------------------------------------------------------------------------
-
-  : 
+| Parameter      | Type | Description |
+|----------------|------|-------------|
+| function | ImageFunction | The functional description. |
+| width    | Integer       | The image width. |
+| height   | Integer       | The image height. |
+| xScale   | Float         | The *x* scale factor. |
+| yScale   | Float         | The *y* scale factor. |
+| xTrans   | Float         | The *x* translation. |
+| yTrans   | Float         | The *y* translation. |
 
 The image width and height are provided explicitly as parameters.
 These values override the width and height specified by an
 `ImageLayout` if such is provided.
 
-**API:** 
-|                                   | `org.eclipse.imagen.ImageFunction`   |
+**API:** `org.eclipse.imagen.ImageFunction`
 
-    boolean isComplex();
+* `boolean isComplex();`
+* `int getNumElements();`
+* `void getElements(float startX, float startY, float deltaX, 
+       float deltaY, int countX, int countY, int element, 
+       float[]  real, float[] imag);`
+* `void getElements(double startX, double startY, double deltaX, 
+       double deltaY, int countX, int countY, int element, 
+       double[]  real, double[] imag);`
 
-:   returns whether or not each value\'s elements are complex.
-
-
-    int getNumElements();
-
-:   returns the number of elements per value at each position.
-
-
-    void getElements(float startX, float startY, float deltaX, 
-           float deltaY, int countX, int countY, int element, 
-           float[]  real, float[] imag);
-
-:   returns all values of a given element for a specified set of
-    coordinates.
-    *Parameters*:
-    `startX`
-    The *x* coordinate of the upper left location to evaluate.
-    `startY`
-    The *y* coordinate of the upper left location to evaluate.
-    `deltaX`
-    The horizontal increment.
-    `deltaY`
-    The vertical increment.
-    `countX`
-    The number of points in the horizontal direction.
-    `countY`
-    The number of points in the vertical direction.
-    `element`
-    The element.
-    `real`
-    A pre-allocated float array of length at least `countX`\*`countY`
-    in which the real parts of all elements will be returned.
-    `imag`
-    A pre-allocated float array of length at least `countX`\*`countY`
-    in which the imaginary parts of all elements will be returned; may
-    be null for real data, i.e., when `isComplex()` returns false.
-
-
-    void getElements(double startX, double startY, double deltaX, 
-           double deltaY, int countX, int countY, int element, 
-           double[]  real, double[] imag);
-
-:   returns all values of a given element for a specified set of
-    coordinates.
-
-
-7.10 ![](shared/space.gif)Single-image Pixel Point Processing
+7.10 Single-image Pixel Point Processing
 -------------------------------------------------------------
 
 Pixel point operations are the most basic, yet necessary image
@@ -2668,29 +1865,31 @@ image\'s pixels. One-by-one, the gray level of each pixel in the
 source image is modified to a new value, usually by a mathematical
 relationship.
 
-JAI supports the following single-image pixel point operations:
+ImageN supports the following single-image pixel point operations:
 
 -   Pixel inverting (`Invert`)
-
 
 -   Logarithmic enhancement (`Log`)
 
 
-### 7.10.1 ![](shared/space.gif)Pixel Inverting
+### 7.10.1 Pixel Inverting
 
 The `Invert` operation inverts the pixel values of an image. For
 source images with signed data types, the pixel values of the
 destination image are defined by the following pseudocode:
 
-         dst[x][y][b] = -src[x][y][b]
+```
+dst[x][y][b] = -src[x][y][b]
+```
 
 For unsigned data types, the destination values are defined by the
 following pseudocode:
 
-         dst[x][y][b] = MAX_VALUE - src[x][y][b]
+```
+dst[x][y][b] = MAX_VALUE - src[x][y][b]
+```
 
-:   where `MAX_VALUE` is the maximum value supported by the system of
-    the data type of the source pixel.
+Where `MAX_VALUE` is the maximum value supported by the system of the data type of the source pixel.
 
 The `Invert` operation takes one rendered or renderable source image
 and no parameters.
@@ -2698,6 +1897,7 @@ and no parameters.
 [Figure 7-12](Image-enhance.doc.html#76289) shows a simple example of
 an `Invert` operation.
 
+<a name="figure-7-12"></a>
 
 ------------------------------------------------------------------------
 
@@ -2705,11 +1905,10 @@ an `Invert` operation.
 
 ------------------------------------------------------------------------
 
+***Figure 7-12* Pixel Inverting**
 
-***Figure 7-12* ![](shared/sm-blank.gif) Pixel Inverting**
 
-
-### 7.10.2 ![](shared/space.gif)Logarithmic Enhancement
+### 7.10.2 Logarithmic Enhancement
 
 Occasionally, it is desirable to quantize an image on a logarithmic
 scale rather than a linear scale. The human eye has a logarithmic
@@ -2722,7 +1921,9 @@ The `Log` operation takes the logarithm of the pixel values of the
 source image. The pixel values of the destination image are defined by
 the following pseudocode:
 
-         dst[x][y][b] = java.lang.Math.log(src[x][y][b])
+```
+dst[x][y][b] = java.lang.Math.log(src[x][y][b])
+```
 
 For integral image data types, the result is rounded and clamped as
 needed. For all integral data types, the log of 0 is set to 0. For
@@ -2734,26 +1935,20 @@ negative pixel value is set to `NaN`.
 The `Log` operation takes one rendered or renderable source image and
 no parameters.
 
-[Listing 7-11](Image-enhance.doc.html#69925) shows a code sample for a
-`Log` operation.
+[Listing 7-11](#listing-7-11) shows a code sample for a `Log` operation.
 
-**[]{#69925}**
+***Listing 7-11*  Example Log Operation**  <a name="listing-7-11"></a>
 
-***Listing 7-11* ![](shared/sm-blank.gif) Example Log Operation**
+```java
+// Create the ParameterBlock specifying the source image.
+pb = new ParameterBlock();
+pb.addSource(image);
 
-------------------------------------------------------------------------
+// Create the Log operation.
+RenderedImage dst = JAI.create("log", pb);
+```
 
-         // Create the ParameterBlock specifying the source image.
-         pb = new ParameterBlock();
-         pb.addSource(image);
-
-         // Create the Log operation.
-         RenderedImage dst = JAI.create("log", pb);
-
-------------------------------------------------------------------------
-
-
-7.11 ![](shared/space.gif)Dual Image Pixel Point Processing
+7.11 Dual Image Pixel Point Processing
 -----------------------------------------------------------
 
 The previous section described pixel point operations for single
@@ -2762,7 +1957,7 @@ also known as *dual-image point processing*. Dual-image point
 processing maps two pixel brightnesses, one from each image, to an
 output image.
 
-JAI supports the following dual-image pixel point operations:
+ImageN supports the following dual-image pixel point operations:
 
 -   Overlay images (`Overlay` operation)
 
@@ -2770,7 +1965,7 @@ JAI supports the following dual-image pixel point operations:
 -   Image compositing (`Composite` operation)
 
 
-### 7.11.1 ![](shared/space.gif)Overlay Images
+### 7.11.1 Overlay Images
 
 The `Overlay` operation takes two rendered or renderable source
 images, and overlays the second source image on top of the first
@@ -2797,7 +1992,7 @@ The `Overlay` operation takes two rendered or renderable source images
 and no parameters.
 
 
-### 7.11.2 ![](shared/space.gif)Image Compositing
+### 7.11.2 Image Compositing
 
 The `Composite` operation merges unrelated objects from two images.
 The result is a new image that didn\'t exist before. The `Composite`
@@ -2811,8 +2006,10 @@ channel.
 The destination pixel values may be viewed as representing a
 fractional pixel coverage or transparency factor. Specifically, the
 `Composite` operation implements the Porter-Duff \"over\"
-rule[^1^](#61010), in which the output color of a pixel with source
+rule <sup>1</sup>, in which the output color of a pixel with source
 value and alpha tuples (*A*, *a*) and (*B*, *b*) is given by:
+
+<sup>1</sup> See *Computer Graphics*, July 1984 pp. 253-259.
 
 :   *a*\**A* + (1 - *a*)\*(*b*\**B*)
 
@@ -2833,19 +2030,12 @@ alpha or not. Alpha channel should not be included in `source1` and
 The `Composite` operation takes two rendered or renderable source
 images and four parameters:
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#61126}             [Type]{#61128}           [Description]{#61130}
-  ------------------------------- ------------------------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [source1Alpha]{#61132}\         [PlanarImage]{#61134}\   [An alpha image to override the alpha for the first source.]{#61136}\
-
-  [source2Alpha]{#61138}\         [PlanarImage]{#61140}\   [An alpha image to override the alpha for the second source.]{#61142}\
-
-  [alphaPremultiplied]{#61144}\   [Boolean]{#61146}\       [True if alpha has been premultiplied to both sources and the destination.]{#61148}\
-
-  [destAlpha]{#61150}\            [Integer]{#61152}\       [Indicates if the destination image should include an extra alpha channel, and if so, whether it should be the first or last band. One of: CompositeDescriptor.DESTINATION\_ALPHA\_FIRST CompositeDescriptor.DESTINATION\_ALPHA\_LAST CompositeDescriptor.NO\_DESTINATION\_ALPHA]{#76916}\
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| Parameter      | Type | Description |
+|----------------|------|-------------|
+| source1Alpha        | PlanarImage | An alpha image to override the alpha for the first source.
+| source2Alpha        | PlanarImage | An alpha image to override the alpha for the second source.
+| alphaPremultiplied  | Boolean     | True if alpha has been premultiplied to both sources and the destination.
+| destAlpha           | Integer     | Indicates if the destination image should include an extra alpha channel, and if so, whether it should be the first or last band. One of: CompositeDescriptor.DESTINATION\_ALPHA\_FIRST CompositeDescriptor.DESTINATION\_ALPHA\_LAST CompositeDescriptor.NO\_DESTINATION\_ALPHA |
 
 The alpha channel of the first source images must be supplied via the
 `source1Alpha` parameter. This parameter may not be null. The alpha
@@ -2864,40 +2054,34 @@ index depends on the `alphaFirst` parameter). Whether the alpha value
 is pre-multiplied to the color channels also depends on the value of
 `alphaPremultiplied` (pre-multiplied if true).
 
-[Listing 7-12](Image-enhance.doc.html#69950) shows a code sample for a
+[Listing 7-12](#listing-7-12) shows a code sample for a
 composite operation.
 
-**[]{#69950}**
+***Listing 7-12*  Example Composite Operation**  <a name="listing-7-12"></a>
 
-***Listing 7-12* ![](shared/sm-blank.gif) Example Composite
-Operation**
+```java
+// Get the first image.
+pb = new ParameterBlock();
+pb.add(s1);
+RenderedImage src1 = (RenderedImage)JAI.create("jpeg", pb);
 
-------------------------------------------------------------------------
+// Get the second image
+pb = new ParameterBlock();
+pb.add(s2);
+RenderedImage src2 = (RenderedImage)JAI.create("jpeg", pb);
 
-         // Get the first image.
-         pb = new ParameterBlock();
-         pb.add(s1);
-         RenderedImage src1 = (RenderedImage)JAI.create("jpeg", pb);
+// Create the ParameterBlock
+pb = new ParameterBlock();
+pb.addSource(src1);
+pb.addSource(src2);
+pb.add(new Boolean(false));
+pb.add(new Boolean(false));
 
-         // Get the second image
-         pb = new ParameterBlock();
-         pb.add(s2);
-         RenderedImage src2 = (RenderedImage)JAI.create("jpeg", pb);
+// Create the composite operation.
+RenderedImage dst = (RenderedImage)JAI.create("composite", pb);
+```
 
-         // Create the ParameterBlock
-         pb = new ParameterBlock();
-         pb.addSource(src1);
-         pb.addSource(src2);
-         pb.add(new Boolean(false));
-         pb.add(new Boolean(false));
-
-         // Create the composite operation.
-         RenderedImage dst = (RenderedImage)JAI.create("composite", pb);
-
-------------------------------------------------------------------------
-
-
-7.12 ![](shared/space.gif)Thresholding
+7.12 Thresholding
 --------------------------------------
 
 Thresholding, also known as *binary contrast enhancement*, provides a
@@ -2910,33 +2094,29 @@ low value and a high value.
 The pixel values of the destination image are defined by the following
 pseudocode:
 
-         lowVal = (low.length < dstNumBands) ?
-                   low[0] : low[b];
-         highVal = (high.length < dstNumBands) ?
-                    high[0] : high[b];
-         const = (constants.length < dstNumBands) ?
-                  constants[0] : constants[b];
-         
-         if (src[x][y][b] >= lowVal && src[x][y][b] <= highVal) {
-             dst[x][y][b] = const;
-         } else {
-             dst[x][y][b] = src[x][y][b];
-         }
+```
+lowVal = (low.length < dstNumBands) ?
+          low[0] : low[b];
+highVal = (high.length < dstNumBands) ?
+           high[0] : high[b];
+const = (constants.length < dstNumBands) ?
+         constants[0] : constants[b];
+
+if (src[x][y][b] >= lowVal && src[x][y][b] <= highVal) {
+    dst[x][y][b] = const;
+} else {
+    dst[x][y][b] = src[x][y][b];
+}
+```
 
 The `Threshold` operation takes one rendered or renderable source
 image and three parameters:
 
-  --------------------------------------------------------------------------------------------------
-  [Parameters]{#76955}   [Type]{#76957}          [Description]{#76959}
-  ---------------------- ----------------------- ---------------------------------------------------
-  [low]{#76961}\         [double\[\]]{#76963}\   [The low value.]{#76965}\
-
-  [high]{#76967}\        [double\[\]]{#76969}\   [The high value]{#76971}\
-
-  [constants]{#76973}\   [double\[\]]{#76975}\   [The constant the pixels are mapped to.]{#76977}\
-  --------------------------------------------------------------------------------------------------
-
-  : 
+| Parameter      | Type | Description |
+|----------------|------|-------------|
+| low            | double\[\] | The low value. |
+| high           | double\[\] | The high value |
+| constants      | double\[\] | The constant the pixels are mapped to. |
 
 If the number of elements supplied via the `high`, `low`, and
 `constants` arrays are less than the number of bands of the source
@@ -2956,50 +2136,33 @@ parameters is to perform an `extrema` operation on the image (see
 [Section 9.3, \"Finding the Extrema of an
 Image](Analysis.doc.html#54907)\").
 
-[Listing 7-13](Image-enhance.doc.html#69988) shows a code sample for a
+[Listing 7-13](#listing-7-13) shows a code sample for a
 `threshold` operation in which the three parameters are passed as
 arguments to the operation.
 
-**[]{#69988}**
+***Listing 7-13*  Example Threshold Operation** <a name="listing-7-13"></a>
 
-***Listing 7-13* ![](shared/sm-blank.gif) Example Threshold
-Operation**
+```java
+// Set up the operation parameters.
+PlanarImage src, dst;
+Integer [] low, high, map;
+int bands;
 
-------------------------------------------------------------------------
+low  = new Integer[bands];
+high = new Integer[bands];
+map  = new Integer[bands];
 
-         // Set up the operation parameters.
-         PlanarImage src, dst;
-         Integer [] low, high, map;
-         int bands;
+for (int i = 0; i < bands; i++) {
+   low[i]  = new Integer(args[1]);
+   high[i] = new Integer(args[2]);
+   map[i]  = new Integer(args[3]);
+}
 
-         low  = new Integer[bands];
-         high = new Integer[bands];
-         map  = new Integer[bands];
-
-         for (int i = 0; i < bands; i++) {
-            low[i]  = new Integer(args[1]);
-            high[i] = new Integer(args[2]);
-            map[i]  = new Integer(args[3]);
-         }
-
-         // Create the threshold operation.
-         pb = new ParameterBlock();
-         pb.addSource(src);
-         pb.add(low);
-         pb.add(high);
-         pb.add(map);
-         RenderedImage dst = JAI.create("threshold", pb);
-
-------------------------------------------------------------------------
-
-------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-^1^ [See *Computer Graphics*, July 1984 pp. 253-259.]{#61010}
-
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+// Create the threshold operation.
+pb = new ParameterBlock();
+pb.addSource(src);
+pb.add(low);
+pb.add(high);
+pb.add(map);
+RenderedImage dst = JAI.create("threshold", pb);
+```
