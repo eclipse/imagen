@@ -39,13 +39,11 @@ FileLoad Operation](../acquisition).\" The
 `ScrollingImagePanel` is described in [Section 4.8, \"Image
 Display](../acquisition).\"
 
-***Listing 4-1 Example Program to Read and Display an Image File*** <a name="listing-4-1"></a>
+***Listing 4-1* Example Program to Read and Display an Image File** <a name="listing-4-1"></a>
 
-------------------------------------------------------------------------
 ```java
 {% include src/FileTest.java %}
 ```
-------------------------------------------------------------------------
 
 ### 4.1.1 Image Data
 
@@ -78,13 +76,15 @@ coordinates increasing in value to the right and *y* coordinates
 increasing in value downward. Sometimes the *x* coordinate is referred
 to as the pixel number and the *y* coordinate as the line number.
 
+<a name="figure-4-1"></a>
+
 ------------------------------------------------------------------------
 
 ![](Acquisition.doc.anc3.gif)
 
 ------------------------------------------------------------------------
 
-***Figure 4-1*  Multi-band Image Structure**
+***Figure 4-1* Multi-band Image Structure**
 
 ### 4.1.2 Basic Storage Types
 
@@ -120,6 +120,8 @@ the following subclasses, each representing a different data type:
 
 <a name="table-4-1"></a>
 
+***Table 4-1 Data Buffer Type Elements*** 
+
 | Name              | Description                               |  
 | ----------------- | ----------------------------------------- |
 | TYPE\_INT         | Tag for int data. |
@@ -129,8 +131,6 @@ the following subclasses, each representing a different data type:
 | TYPE\_DOUBLE      | Tag for double data. |
 | TYPE\_FLOAT       | Tag for float data. |
 | TYPE\_UNDEFINED   | Tag for undefined data. |
-
-***Table 4-1 Data Buffer Type Elements***
 
 ImageN also supports a large number of image data formats, so the
 `SampleModel` class provides the following types of sample models:
@@ -191,13 +191,15 @@ defines methods for turning an image\'s pixel data into a color value
 in its associated `ColorSpace`. See [Section 5.2.1, \"Color
 Models](../color).\"
 
-***Figure 4-2* BufferedImage** <a name="figure-4-1"></a> 
+<a name="figure-4-2"></a> 
+
 ------------------------------------------------------------------------
 
 ![](Acquisition.doc.anc4.gif)
 
 ------------------------------------------------------------------------
 
+***Figure 4-2* BufferedImage***
 
 As shown in [Figure 4-2](index#figure-4-1), the combination
 of a `Raster` and a `ColorModel` define a `BufferedImage`. The
@@ -207,7 +209,9 @@ mode imaging.
 The `BufferedImage` class supports the following predefined image
 types:
 
-<a name="table-4-2"></a
+<a name="table-4-2"></a>
+
+***Table 4-2*  Supported Image Types**
 
 ------------------------------------------------------------------------
 
@@ -255,20 +259,19 @@ TYPE_USHORT_GRAY
 
 ------------------------------------------------------------------------
 
-***Table 4-2*  Supported Image Types**
 
 4.2 Image Types
 ----------------------------------------
 
 The API provides a set of classes for describing image data of
 various kinds. These classes are organized into a class hierarchy, as
-shown in [Figure 4-3](../acquisition).
+shown in [Figure 4-3](#figure-4-3).
 
-<a name="table-4-4"></a
+<a name="figure-4-3"></a>
 
 ------------------------------------------------------------------------
 
-![](../Acquisition.doc.anc5.gif)
+![](Acquisition.doc.anc5.gif)
 
 ------------------------------------------------------------------------
 
@@ -429,26 +432,15 @@ a reference to a shared instance of the pattern.
 
 The `pattern` operation takes three parameters:
 
-  ------------------------------------------------------------------------------------------
-  [Parameter]{#60563}   [Type]{#60565}       [Description]{#60567}
-  --------------------- -------------------- -----------------------------------------------
-  width      Integer   The width of the image in pixels.
+| Parameter  | Type             | Description                |
+| ---------- | ---------------- | -------------------------- |
+| width      | Integer | The width of the image in pixels. |
+| height     | Integer | The height of the image in pixels. |
+| pattern    | Raster  | The Pattern pixel band values. |
 
-  height     Integer   The height of the image in pixels.
+[Listing 4-2](#listing-4-2) shows a code sample for a `pattern` operation.
 
-  pattern    Raster    The Pattern pixel band values.
-  ------------------------------------------------------------------------------------------
-
-  : 
-
-[Listing 4-2](acquisition) shows a code sample for a
-`pattern` operation.
-
-****
-
-***Listing 4-2*  Example Pattern Operation**
-
-------------------------------------------------------------------------
+***Listing 4-2* Example Pattern Operation** <a name="listing-4-2"></a>
 
 ```java
 // Create the raster.
@@ -484,11 +476,7 @@ for (int x = 0; x < pattern.getWidth(); x++) {
 PlanarImage im0 = (PlanarImage)JAI.create("pattern",
                                            100, 100,
                                            pattern);
-```java
-
-------------------------------------------------------------------------
-
-
+```
 
 ### 4.2.3 Snapshot Image
 
@@ -540,50 +528,13 @@ tile is requested from the real source image.
 
 **API:** `org.eclipse.imagen.SnapShotImage`
 
-    SnapshotImage(PlanarImage source)
+* `SnapshotImage(PlanarImage source)`
 
-:   constructs a `SnapshotImage` from a `PlanarImage` source.
-      --------------- ---------- -------------------------
-      *Parameters*:   `source`   a `PlanarImage` source.
-      --------------- ---------- -------------------------
+* `Raster getTile(int tileX, int tileY)`
 
-      : 
+* `void tileUpdate(java.awt.image.WritableRenderedImage source, int tileX, int tileY, boolean willBeWritable)`
 
-    Raster getTile(int tileX, int tileY)
-
-:   returns a non-snapshotted tile from the source.
-    *Parameters*:
-    `tileX`
-    the X index of the tile.
-    `tileY`
-    the Y index of the tile.
-
-    void tileUpdate(java.awt.image.WritableRenderedImage source, 
-           int tileX, int tileY, boolean willBeWritable)
-
-:   receives the information that a tile is either about to become
-    writable, or is about to become no longer writable.
-    *Parameters*:
-    `source`
-    the `WritableRenderedImage` for which we are an observer.
-    `tileX`
-    the *x* index of the tile.
-    `tileY`
-    the *y* index of the tile.
-    `willBeWrit-able`
-    true if the tile is becoming writable.
-
-    PlanarImage createSnapshot()
-
-:   creates a snapshot of this image. This snapshot may be used
-    indefinitely, and will always appear to have the pixel data that
-    this image has currently. The snapshot is semantically a copy of
-    this image but may be implemented in a more efficient manner.
-    Multiple snapshots taken at different times may share tiles that
-    have not changed, and tiles that are currently static in this
-    image\'s source do not need to be copied at all.
-
-
+* `PlanarImage createSnapshot()`
 
 #### 4.2.3.3 Disposing of a Snapshot Image
 
@@ -600,16 +551,7 @@ is not needed by any other `Snapshot` to be disposed of as well.
 
 **API:** `org.eclipse.imagen.PlanarImage`
 
-    void dispose()
-
-:   provides a hint that an image will no longer be accessed from a
-    reference in user space. The results are equivalent to those that
-    occur when the program loses its last reference to this image, the
-    garbage collector discovers this, and finalize is called. This can
-    be used as a hint in situations where waiting for garbage
-    collection would be overly conservative.
-
-
+* `void dispose()`
 
 ### 4.2.4 Remote Image
 
@@ -618,8 +560,6 @@ image on a remote server. A `RemoteImage` may be constructed from a
 `RenderedImage` or from an imaging chain in either the rendered or
 renderable modes. For more information, see [Chapter 12,
 \"Client-Server Imaging](../client-server).\"
-
-
 
 ### 4.2.5 Collection Image
 
@@ -630,21 +570,7 @@ planar slices stacked to form a volume (`ImageStack`).
 
 **API:** `org.eclipse.imagen.CollectionImage`
 
-    CollectionImage()
-
-:   the default constructor.
-
-    CollectionImage(java.util.Collection images)
-
-:   constructs a `CollectionImage` object from a Vector of `ImageJAI`
-    objects.
-      --------------- ---------- ---------------------------------
-      *Parameters*:   `images`   A Vector of `ImageJAI` objects.
-      --------------- ---------- ---------------------------------
-
-      : 
-
-
+* `CollectionImage()`
 
 ### 4.2.6 Image Sequence
 
@@ -659,12 +585,7 @@ The images are of the type `ImageJAI`. The timestamps are of the type
 
 **API:** `org.eclipse.imagen.ImageSequence`
 
-    ImageSequence(Collection images)
-
-:   constructs a class that represents a sequence of images from a
-    collection of `SequentialImage`.
-
-
+* `ImageSequence(Collection images)`
 
 ### 4.2.7 Image Stack
 
@@ -679,20 +600,11 @@ coordinates are of the type `org.eclipse.imagen.Coordinate`. The tuple
 
 **API:** `org.eclipse.imagen.ImageStack`
 
-    ImageStack(Collection images)
+* `ImageStack(Collection images)`
 
-:   constructs an `ImageStack` object from a collection of
-    `CoordinateImage`.
+* `ImageJAI getImage(Coordinate coordinate)`
 
-    ImageJAI getImage(Coordinate coordinate)
-
-:   returns the image associated with the specified coordinate.
-
-    Coordinate getCoordinate(ImageJAI image)
-
-:   returns the coordinate associated with the specified image.
-
-
+* `Coordinate getCoordinate(ImageJAI image)`
 
 ### 4.2.8 Image MIP Map
 
@@ -720,41 +632,20 @@ image at the current resolution level.
 
 There are three `ImageMIPMap` constructors:
 
-    ImageMIPMap(RenderedImage image, AffineTransform transform, 
-           Interpolation interpolation)
+* `ImageMIPMap(RenderedImage image, AffineTransform transform, Interpolation interpolation)`
 
-:   This constructor assumes that the operation used to derive the
-    next lower resolution is a standard *affine* operation.
-    *Parameters*:
-    `image`
-    The image at the highest resolution level.
-    `transform`
-    The affine transform matrix used by \"affine\" operation.
-    `interpolation`
-    The interpolation method used by \"affine\" operation.
-    
+  This constructor assumes that the operation used to derive the next lower resolution is a standard *affine* operation.
 
-:   Any number of versions of the original image may be derived by an
-    affine transform representing the geometric relationship between
-    levels of the MIP map. The affine transform may include
-    translation, scaling, and rotation (see [\"Affine Transformation\"
-    on page 272](../geom-image-manip)).
+  Any number of versions of the original image may be derived by an affine transform representing the geometric relationship between levels of the MIP map. The affine transform may include translation, scaling, and rotation (see [\"Affine Transformation\"
+    ](../geom-image-manip)).
 
-    ImageMIPMap(RenderedImage image, RenderedOp downSampler)
+* `ImageMIPMap(RenderedImage image, RenderedOp downSampler)`
 
-:   This constructor specifies the `downSampler`, which points to the
-    RenderedOp chain used to derive the next lower resolution level.
-    *Parameters*:
-    `image`
-    The image at the highest resolution level.
-    `downsampler`
-    The RenderedOp chain used to derive the next lower resolution
-    level. The first operation of this chain must take one source, but
-    must not have a source specified.
+  This constructor specifies the `downSampler`, which points to the RenderedOp chain used to derive the next lower resolution level.
 
-    ImageMIPMap(RenderedOp downSampler)
+* `ImageMIPMap(RenderedOp downSampler)`
 
-:   This constructor specifies only the `downSampler`.``
+  This constructor specifies only the `downSampler`.``
 
 The `downSampler` is a chain of operations used to derive the image at
 the next lower resolution level from the image at the current
@@ -773,130 +664,18 @@ This parameter is saved by reference.
 [Listing 4-3](../acquisition) shows a complete code
 example of the use of `ImageMIPMap`.
 
-****
+***Listing 4-3*  Example use of ImageMIPMap** <a name="listing-4-3"></a>
 
-***Listing 4-3*  Example use of ImageMIPMap**
-
-------------------------------------------------------------------------
-
-         import java.awt.geom.AffineTransform;
-         import java.awt.image.RenderedImage;
-         import java.awt.image.renderable.ParameterBlock;
-         import org.eclipse.imagen.JAI;
-         import org.eclipse.imagen.Interpolation;
-         import org.eclipse.imagen.InterpolationNearest;
-         import org.eclipse.imagen.ImageMIPMap;
-         import org.eclipse.imagen.PlanarImage;
-         import org.eclipse.imagen.RenderedOp;
-         import org.eclipse.imagen.media.codec.FileSeekableStream;
-
-         public class ImageMIPMapTest extends Test {
-
-         protected static String
-            file = "/import/jai/JAI_RP/src/share/sample/images/pond.jpg";
-
-         protected Interpolation interp = new InterpolationNearest();
-
-         protected ImageMIPMap MIPMap;
-
-         protected RenderedOp image;
-         protected RenderedOp downSampler;
-
-         private void test1() {
-         AffineTransform at = new AffineTransform(0.8, 0.0, 0.0, 0.8,
-                                                  0.0, 0.0);
-         InterpolationNearest interp = new InterpolationNearest();
-
-         MIPMap = new ImageMIPMap(image, at, interp);
-
-            display(MIPMap.getDownImage());
-            display(MIPMap.getImage(4));
-            display(MIPMap.getImage(1));
-             }
-
-         public void test2() {
-         downSampler = createScaleOp(image, 0.9F);
-         downSampler.removeSources();
-         downSampler = createScaleOp(downSampler, 0.9F);
-
-         MIPMap = new ImageMIPMap(image, downSampler);
-
-         display(MIPMap.getImage(0));
-         display(MIPMap.getImage(5));
-         display(MIPMap.getImage(2));
-         }
-
-         public void test3() {
-             downSampler = createScaleOp(image, 0.9F);
-             downSampler = createScaleOp(downSampler, 0.9F);
-
-         MIPMap = new ImageMIPMap(downSampler);
-
-             display(MIPMap.getImage(5));
-             System.out.println(MIPMap.getCurrentLevel());
-             display(MIPMap.getCurrentImage());
-             System.out.println(MIPMap.getCurrentLevel());
-             display(MIPMap.getImage(1));
-             System.out.println(MIPMap.getCurrentLevel());
-         }
-
-         protected RenderedOp createScaleOp(RenderedImage src,
-                                            float factor) {
-            ParameterBlock pb = new ParameterBlock();
-            pb.addSource(src);
-            pb.add(factor);
-            pb.add(factor);
-            pb.add(1.0F);
-            pb.add(1.0F);
-            pb.add(interp);
-            return JAI.create("scale", pb);
-         }
-
-         public ImageMIPMapTest(String name) {
-                super(name);
-
-            try {
-                FileSeekableStream stream = new FileSeekableStream(file);
-                image = JAI.create("stream", stream);
-            } catch (Exception e) {
-                System.exit(0);
-            }
-         }
-
-         public static void main(String args[]) {
-             ImageMIPMapTest test = new ImageMIPMapTest("ImageMIPMap");
-             // test.test1();
-             // test.test2();
-             test.test3();
-           }
-         }
-
-------------------------------------------------------------------------
+```java
+{% include src/ImageMIPMapTest.java %}
+```
 
 **API:** `org.eclipse.imagen.ImageMIPMap`
 
-    int getCurrentLevel()
-
-:   returns the current resolution level. The highest resolution level
-    is defined as level 0.
-
-    RenderedImage getCurrentImage()
-
-:   returns the image at the current resolution level.
-
-    RenderedImage getImage(int level)
-
-:   returns the image at the specified resolution level. The requested
-    level must be greater than or equal to the current resolution
-    level or `null` will be returned.
-
-    RenderedImage getDownImage()
-
-:   returns the image at the next lower resolution level, obtained by
-    applying the `downSampler` on the image at the current resolution
-    level.
-
-
+* `int getCurrentLevel()`
+* `RenderedImage getCurrentImage()`
+* `RenderedImage getImage(int level)`
+* `RenderedImage getDownImage()`
 
 ### 4.2.9 Image Pyramid
 
@@ -920,19 +699,11 @@ sampling the original slice.
 This brings us to the discussion of the parameters required of this
 class:
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#82663}      [Description]{#82665}
-  ------------------------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  downSampler   [A RenderedOp chain used to derive the lower resolution images. The first operation in the chain must take only one source. See]{#82736} [Section 4.2.9.1, \"The Down Sampler](../acquisition).\"\
-
-  upSampler     [A RenderedOp chain that derives the image at a resolution level higher than the current level. The first operation in the chain must take only one source. See]{#82669} [Section 4.2.9.2, \"The Up Sampler](../acquisition).\"\
-
-  differencer   [A RenderedOp chain that finds the difference of two images. The first operation in the chain must take exactly two sources. See]{#82673} [Section 4.2.9.3, \"The Differencer](../acquisition).\"\
-
-  combiner      [A RenderedOp chain that combines two images. The first operation in the chain must take exactly two sources. See]{#82677} [Section 4.2.9.4, \"The Combiner](../acquisition).\"\
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| Parameter   | Description                |
+| downSampler | A RenderedOp chain used to derive the lower resolution images. The first operation in the chain must take only one source. See Section [4.2.9.1](#4291-the-down-sampler)
+| upSampler   | A RenderedOp chain that derives the image at a resolution level higher than the current level. The first operation in the chain must take only one source. See Section [4.2.9.2](#4292-the-up-sampler) |
+| differencer | A RenderedOp chain that finds the difference of two images. The first operation in the chain must take exactly two sources. See Section [4.2.9.3](#4293-the-differencer) |
+| combiner    | A RenderedOp chain that combines two images. The first operation in the chain must take exactly two sources. See Section [4.2.9.4](#4294-the-combiner) |
 
 Starting with the image at the highest resolution level, to find an
 image at a lower resolution level we use the `downSampler`. But, at
@@ -945,16 +716,16 @@ To find an image at a higher resolution, we use the `upSampler`, then
 combine the earlier saved difference image with the resulting image
 using the `combiner` to get the final higher resolution level.
 
-For example:
+For example
 
-:   We have an image at level *n\
-    n* + 1 = downSampler(*n*)\
-    diff *n* = upSampler(*n* + 1)\
-    *diff n* = differencer(*n*, *n*\') - This diff *n* is saved for
-    each level\
-    Later we want to get *n* from *n* + 1\
-    *n*\' = upSampler(*n* + 1)\
-    *n* = combiner(*n*\', diff *n*)
+:  We have an image at level *n* \\
+   *n* + 1 = downSampler(*n*) \\
+   diff *n* = upSampler(*n* + 1) \\
+   *diff n* = differencer(*n*, *n*\') - This diff *n* is saved for
+   each level \\
+   Later we want to get *n* from *n* + 1 \\
+   *n*\' = upSampler(*n* + 1) \\
+   *n* = combiner(*n*\', diff *n*)
 
 
 
@@ -1030,196 +801,34 @@ parameter.
 
 #### 4.2.9.5 Example
 
-[Listing 4-4](../acquisition) shows a complete code
-example of the use of `ImagePyramid`.
+[Listing 4-4](#listing-4-4) shows a complete code example of the use of `ImagePyramid`.
 
-****
+***Listing 4-4*  Example use of ImagePyramid** <a name="listing-4-3"></a>
 
-***Listing 4-4*  Example use of ImagePyramid**
+```java
+{% include_relative ImagePyramidTest.java %}
+```
 
-------------------------------------------------------------------------
-
-         import java.awt.image.RenderedImage;
-         import java.awt.image.renderable.ParameterBlock;
-         import org.eclipse.imagen.JAI;
-         import org.eclipse.imagen.Interpolation;
-         import org.eclipse.imagen.ImageMIPMap;
-         import org.eclipse.imagen.ImagePyramid;
-         import org.eclipse.imagen.PlanarImage;
-         import org.eclipse.imagen.RenderedOp;
-         import org.eclipse.imagen.media.codec.FileSeekableStream;
-
-         public class ImagePyramidTest extends ImageMIPMapTest {
-
-             protected RenderedOp upSampler;
-             protected RenderedOp differencer;
-             protected RenderedOp combiner;
-
-             protected ImagePyramid pyramid;
-
-             private void test1() {
-             }
-
-             public void test2() {
-                 downSampler = createScaleOp(image, 0.9F);
-                 downSampler.removeSources();
-                 downSampler = createScaleOp(downSampler, 0.9F);
-
-                 upSampler = createScaleOp(image, 1.2F);
-                 upSampler.removeSources();
-                 upSampler = createScaleOp(upSampler, 1.2F);
-
-                 differencer = createSubtractOp(image, image);
-                 differencer.removeSources();
-
-                 combiner = createAddOp(image, image);
-                 combiner.removeSources();
-
-                 pyramid = new ImagePyramid(image, downSampler, upSampler,
-                                            differencer, combiner);
-                 display(pyramid.getImage(0));
-                 display(pyramid.getImage(4));
-                 display(pyramid.getImage(1));
-                 display(pyramid.getImage(6));
-             }
-
-             public void test3() {
-                 downSampler = createScaleOp(image, 0.9F);
-                 downSampler = createScaleOp(downSampler, 0.9F);
-
-                 upSampler = createScaleOp(image, 1.2F);
-                 upSampler.removeSources();
-
-                 differencer = createSubtractOp(image, image);
-                 differencer.removeSources();
-
-                 combiner = createAddOp(image, image);
-                 combiner.removeSources();
-
-                 pyramid = new ImagePyramid(downSampler, upSampler,
-                                            differencer, combiner);
-                 // display(pyramid.getCurrentImage());
-                 display(pyramid.getDownImage());
-                 // display(pyramid.getDownImage());
-                 display(pyramid.getUpImage());
-             }
-
-             public void test4() {
-                 downSampler = createScaleOp(image, 0.5F);
-
-                 upSampler = createScaleOp(image, 2.0F);
-                 upSampler.removeSources();
-
-                 differencer = createSubtractOp(image, image);
-                 differencer.removeSources();
-
-                 combiner = createAddOp(image, image);
-                 combiner.removeSources();
-
-                 pyramid = new ImagePyramid(downSampler, upSampler,
-                                            differencer, combiner);
-                 pyramid.getDownImage();
-
-                 display(pyramid.getCurrentImage());
-                 display(pyramid.getDiffImage());
-                 display(pyramid.getCurrentImage());
-             }
-
-             protected RenderedOp createSubtractOp(RenderedImage src1,
-                                                   RenderedImage src2) {
-                 ParameterBlock pb = new ParameterBlock();
-                 pb.addSource(src1);
-                 pb.addSource(src2);
-                 return JAI.create("subtract", pb);
-             }
-
-             protected RenderedOp createAddOp(RenderedImage src1,
-                                              RenderedImage src2) {
-                 ParameterBlock pb = new ParameterBlock();
-                 pb.addSource(src1);
-                 pb.addSource(src2);
-                 return JAI.create("add", pb);
-             }
-
-             public ImagePyramidTest(String name) {
-                 super(name);
-             }
-
-             public static void main(String args[]) {
-                 ImagePyramidTest test = new 
-    ImagePyramidTest("ImagePyramid");
-                 // test.test2();
-                 test.test3();
-                 // test.test4();
-             }
-         }
-
-------------------------------------------------------------------------
 
 **API:** `org.eclipse.imagen.ImagePyramid`
 
-    ImagePyramid(RenderedImage image, RenderedOp downsampler, 
+* `ImagePyramid(RenderedImage image, RenderedOp downsampler, 
            RenderedOp upSampler, RenderedOp differencer, 
-           RenderedOp  combiner)
-
-:   constructs an `ImagePyramid` object. The parameters point to the
-    last operation in each chain. The first operation in each chain
-    must not have any source images specified; that is, its number of
-    sources must be 0.
-    *Parameters*:
-    `image`
-    The image with the highest resolution.
-    `downsampler`
-    The operation chain used to derive the lower-resolution images.
-    `upsampler`
-    The operation chain used to derive the higher-resolution images.
-    `differencer`
-    The operation chain used to differ two images.
-    `combiner`
-    The operation chain used to combine two images.
-
-    ImagePyramid(RenderedOp downSampler, RenderedOp upSampler, 
-           RenderedOp differencer, RenderedOp combiner)
-
-:   constructs an `ImagePyramid` object. The `RenderedOp` parameters
-    point to the last operation node in each chain. The first
-    operation in the `downSampler` chain must have the image with the
-    highest resolution as its source. The first operation in all other
-    chains must not have any source images specified; that is, its
-    number of sources must be 0. All input parameters are saved by
-    reference.
-
-    public RenderedImage getImage(int level)
-
-:   returns the image at the specified resolution level. The requested
-    level must be greater than or equal to 0 or null will be returned.
-    The image is obtained by either down sampling or up sampling the
-    current image.
-
-    public RenderedImage getDownImage()
-
-:   returns the image at the next lower resolution level, obtained by
-    applying the `downSampler` on the image at the current resolution
-    level.
-
-    public RenderedImage getUpImage()
-
-:   returns the image at the previous higher resolution level. If the
-    current image is already at level 0, the current image is returned
-    without further up sampling. The image is obtained by first up
-    sampling the current image, then combining the result image with
-    the previously saved different image using the `combiner` op
-    chain.
-
-    public RenderedImage getDiffImage()
-
-:   returns the difference image between the current image and the
-    image obtained by first down sampling the current image then up
-    sampling the result image of down sampling. This is done using the
-    `differencer` op chain. The current level and current image will
-    not be changed.
+           RenderedOp  combiner)`
+           
+* `ImagePyramid(RenderedOp downSampler, RenderedOp upSampler, 
+           RenderedOp differencer, RenderedOp combiner)`
 
 
+* `public RenderedImage getImage(int level)`
+
+* `public RenderedImage getDownImage()`
+
+
+* `public RenderedImage getUpImage()`
+
+
+* `public RenderedImage getDiffImage()`
 
 ### 4.2.10 Multi-resolution Renderable Images
 
@@ -1230,121 +839,50 @@ dimension (height; the width is derived by the source image aspect
 ratio and is not specified) and a vector of renderedImages of
 progressively lower resolution.
 
-**API:** `org.eclipse.imagen.MultiResolutionR |
-|                                   | enderableImage`
+**API:** `org.eclipse.imagen.MultiResolutionRenderableImage`
 
-    public MultiResolutionRenderableImage(Vector renderedSources, 
-           float minX, float minY, float height)
+* `public MultiResolutionRenderableImage(Vector renderedSources, 
+           float minX, float minY, float height)`
 
-:   constructs a `MultiResolutionRenderableImage` with given
-    dimensions from a `Vector` of progressively lower resolution
-    versions of a RenderedImage.
-    *Parameters*:
-    `rendered-Sources`
-    A `Vector` of `RenderedImages`.
-    `minX`
-    The minimum *x* coordinate of the Renderable, as a float.
-    `minY`
-    The minimum *y* coordinate of the Renderable, as a float.
-    `height`
-    The height of the Renderable, as a float.
+* `RenderedImage createScaledRendering(int width, int height, 
+           RenderingHints hints)`
 
-    RenderedImage createScaledRendering(int width, int height, 
-           RenderingHints hints)
+* `RenderedImage createDefaultRendering()`
 
-:   returns a rendering with a given width, height, and rendering
-    hints. If a JAI rendering hint named `JAI.KEY_INTERPOLATION` is
-    provided, its corresponding `Interpolation` object is used as an
-    argument to the operator used to scale the image. If no such
-    hint is present, an instance of `InterpolationNearest` is used.
-    *Parameters*:
-    `width`
-    The width of the rendering in pixels.
-    `height`
-    The height of the rendering in pixels.
-    `hints`
-    A `Hashtable` of rendering hints.
+* `RenderedImage createRendering(RenderContext renderContext)`
 
-    RenderedImage createDefaultRendering()
+* `Object getProperty(String name)`
 
-:   returns a 100-pixel high rendering with no rendering hints.
+* `String[] getPropertyNames()`
 
-    RenderedImage createRendering(RenderContext renderContext)
+* `float getWidth()`
 
-:   returns a rendering based on a `RenderContext`. If a JAI rendering
-    hint named `JAI.KEY_INTERPOLATION` is provided, its corresponding
-    `Interpolation` object is used as an argument to the operator
-    used to scale the image. If no such hint is present, an instance
-    of `InterpolationNearest` is used.
-      --------------- ------------------ -----------------------------------------------------------------
-      *Parameters*:   `render-Context`   A `RenderContext` describing the transform and rendering hints.
-      --------------- ------------------ -----------------------------------------------------------------
+* `float getHeight()`
 
-      : 
+* `float getMinX()`
 
-    Object getProperty(String name)
+* `float getMaxX()`
 
-:   gets a property from the property set of this image. If the
-    property name is not recognized,
-    `java.awt.Image.UndefinedProperty` will be returned.
-      --------------- -------- -----------------------------------------------
-      *Parameters*:   `name`   The name of the property to get, as a String.
-      --------------- -------- -----------------------------------------------
+* `float getMinY()`
 
-      : 
-
-    String[] getPropertyNames()
-
-:   returns a list of the properties recognized by this image.
-
-    float getWidth()
-
-:   returns the floating-point width of the `RenderableImage`.
-
-    float getHeight()
-
-:   returns the floating-point height of the `RenderableImage`.
-
-    float getMinX()
-
-:   returns the floating-point minimum *x* coordinate of the
-    `RenderableImage`.
-
-    float getMaxX()
-
-:   returns the floating-point maximum *x* coordinate of the
-    `RenderableImage`.
-
-    float getMinY()
-
-:   returns the floating-point minimum *y* coordinate of the
-    `RenderableImage`.
-
-    float getMaxY()
-
-:   returns the floating-point maximum *y* coordinate of the
-    `RenderableImage`.
-
-
+* `float getMaxY()`
 
 4.3 Streams
 --------------------------------
 
 The Java Advanced Imaging API extends the Java family of stream types
 with the addition of seven \"seekable\" stream classes, as shown in
-[Figure 4-4](../acquisition). [Table
-4-3](../acquisition) briefly describes each of the new
-classes.
+[Figure 4-4](#figure-4-4).
 
+[Table 4-3](#table-4-3) briefly describes each of the new classes.
 
-
-------------------------------------------------------------------------
-
-![](../Acquisition.doc.anc1.gif)
+<a name="figure-4-4"></a>
 
 ------------------------------------------------------------------------
 
+![](Acquisition.doc.anc1.gif)
 
+------------------------------------------------------------------------
 
 ***Figure 4-4*  JAI Stream Classes**
 
@@ -1354,34 +892,19 @@ data without having to re-read the data. This is especially important
 for image data types that are segmented or that cannot be easily
 re-read to locate important information.
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Class]{#68246}                        [Description]{#68248}
-  -------------------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  SeekableStream              Extends: InputStream
-                                         Implements: DataInput
-                                         An abstract class that combines the functionality of InputStream and RandomAccessFile, along with the ability to read primitive data types in little-endian format.
+<a name="table-4-3"></a>
 
-  FileSeekableStream          Extends: SeekableStream
-                                         Implements SeekableStream functionality on data stored in a File.
-
-  ByteArraySeekableStream     Extends: SeekableStream
-                                         Implements SeekableStream functionality on data stored in an array of bytes.
-
-  SegmentedSeekableStream     Extends: SeekableStream
-                                         Provides a view of a subset of another SeekableStream consisting of a series of segments with given starting positions in the source stream and lengths. The resulting stream behaves like an ordinary SeekableStream.
-
-  ForwardSeekableStream       Extends: SeekableStream
-                                         Provides SeekableStream functionality on data from an InputStream with minimal overhead, but does not allow seeking backwards. ForwardSeekableStream may be used with input formats that support streaming, avoiding the need to cache the input data.
-
-  FileCacheSeekableStream     Extends: SeekableStream
-                                         Provides SeekableStream functionality on data from an InputStream with minimal overhead, but does not allow seeking backwards. ForwardSeekableStream may be used with input formats that support streaming, avoiding the need to cache the input data. In circumstances that do not allow the creation of a temporary file (for example, due to security consideration or the absence of local disk), the MemoryCacheSeekableStream class may be used.
-
-  MemoryCacheSeekableStream   Extends: SeekableStream
-                                         Provides SeekableStream functionality on data from an InputStream, using an in-memory cache to allow seeking backwards. MemoryCacheSeekableStream should be used when security or lack of access to local disk precludes the use of FileCacheSeekableStream.
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 4-3*  JAI Stream
-  Classes]{#68242}**
+***Table 4-3*  JAI Stream Classes**
+  
+| Class   | Description |
+|---------|-------------|
+| SeekableStream |  Extends: `InputStream` <br/> Implements: `DataInput` <br/> An abstract class that combines the functionality of InputStream and RandomAccessFile, along with the ability to read primitive data types in little-endian format. |
+| FileSeekableStream | Extends: `SeekableStream` <br/> Implements SeekableStream functionality on data stored in a File. |
+| ByteArraySeekableStream | Extends: `SeekableStream` <br/> Implements SeekableStream functionality on data stored in an array of bytes. |
+| SegmentedSeekableStream | Extends: `SeekableStream` <br/> Provides a view of a subset of another SeekableStream consisting of a series of segments with given starting positions in the source stream and lengths. The resulting stream behaves like an ordinary SeekableStream. |
+| ForwardSeekableStream | Extends: `SeekableStream` <br/> Provides SeekableStream functionality on data from an InputStream with minimal overhead, but does not allow seeking backwards. ForwardSeekableStream may be used with input formats that support streaming, avoiding the need to cache the input data.
+| FileCacheSeekableStream | Extends: `SeekableStream` <br/> Provides SeekableStream functionality on data from an InputStream with minimal overhead, but does not allow seeking backwards. ForwardSeekableStream may be used with input formats that support streaming, avoiding the need to cache the input data. In circumstances that do not allow the creation of a temporary file (for example, due to security consideration or the absence of local disk), the MemoryCacheSeekableStream class may be used. |
+| MemoryCacheSeekableStream | Extends: `SeekableStream` <br/> Provides SeekableStream functionality on data from an InputStream, using an in-memory cache to allow seeking backwards. MemoryCacheSeekableStream should be used when security or lack of access to local disk precludes the use of FileCacheSeekableStream. ||
 
 To properly read some image data files requires the ability to seek
 forward and backward through the data so as to read information that
@@ -1407,58 +930,38 @@ produce data in the little-endian fashion. [Table
 4-4](acquisition) is a complete list of the methods to
 read data:
 
-  -----------------------------------------------------------------------------------------------------------------------
-  [Method]{#68924}                 [Description]{#68926}
-  -------------------------------- --------------------------------------------------------------------------------------
-  readInt               Reads a signed 32-bit integer
+<a name="table-4-4"></a>
 
-  readIntLE             Reads a signed 32-bit integer in little-endian order
+***Table 4-4* Read Data Methods**
+  
+| Class   | Description |
+|---------|-------------|
+| readInt               | Reads a signed 32-bit integer
+| readIntLE             | Reads a signed 32-bit integer in little-endian order |
+| readShort             | Reads a signed 16-bit number |
+| readShortLE           | Reads a 16-bit number in little-endian order |
+| readLong              | Reads a signed 64-bit integer |
+| readLongLE            | Reads a signed 64-bit integer in little-endian order |
+| readFloat             | Reads a 32-bit float |
+| readFloatLE           | Reads a 32-bit float in little-endian order |
+| readDouble            | Reads a 64-bit double |
+| readDoubleLE          | Reads a 64-bit double in little-endian order |
+| readChar              | Reads a 16-bit Unicode character |
+| readCharLE            | Reads a 16-bit Unicode character in little-endian order |
+| readByte              | Reads an signed 8-bit byte |
+| readBoolean           | Reads a Boolean value |
+| readUTF               | Reads a string of characters in UTF (Unicode Text Format) |
+| readUnsignedShort     | Reads an unsigned 16-bit short integer |
+| readUnsignedShortLE   | Reads an unsigned 16-bit short integer in little-endian order |
+| readUnsignedInt       | Reads an unsigned 32-bit integer |
+| readUnsignedIntLE     | Reads an unsigned 32-bit integer in little-endian order |
+| readUnsignedByte      | Reads an unsigned 8-bit byte |
+| readLine              | Reads in a line that has been terminated by a line-termination character. |
+| readFully             | Reads a specified number of bytes, starting at the current stream pointer |
+| read()                | Reads the next byte of data from the input stream. |
 
-  readShort             Reads a signed 16-bit number
 
-  readShortLE           Reads a 16-bit number in little-endian order
 
-  readLong              Reads a signed 64-bit integer
-
-  readLongLE            Reads a signed 64-bit integer in little-endian order
-
-  readFloat             Reads a 32-bit float
-
-  readFloatLE           Reads a 32-bit float in little-endian order
-
-  readDouble            Reads a 64-bit double
-
-  readDoubleLE          Reads a 64-bit double in little-endian order
-
-  readChar              Reads a 16-bit Unicode character
-
-  readCharLE            Reads a 16-bit Unicode character in little-endian order
-
-  readByte              Reads an signed 8-bit byte
-
-  readBoolean           Reads a Boolean value
-
-  readUTF               Reads a string of characters in UTF (Unicode Text Format)
-
-  readUnsignedShort     Reads an unsigned 16-bit short integer
-
-  readUnsignedShortLE   Reads an unsigned 16-bit short integer in little-endian order
-
-  readUnsignedInt       Reads an unsigned 32-bit integer
-
-  readUnsignedIntLE     Reads an unsigned 32-bit integer in little-endian order
-
-  readUnsignedByte      Reads an unsigned 8-bit byte
-
-  readLine              Reads in a line that has been terminated by a line-termination character.
-
-  readFully             Reads a specified number of bytes, starting at the current stream pointer
-
-  read()                Reads the next byte of data from the input stream.
-  -----------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 4-4*  Read Data
-  Methods]{#68920}**
 
 In addition to the familiar methods from `InputStream`, the methods
 `getFilePointer`() and `seek()`, are defined as in the
@@ -1500,11 +1003,10 @@ required.
 4.4 Reading Image Files
 --------------------------------------------
 
-The JAI codec architecture consists of encoders and decoders capable
+The ImageN codec architecture consists of encoders and decoders capable
 of writing and reading several different raster image file formats.
 This chapter describes reading image files. For information on writing
-image files, see [Chapter 13, \"Writing Image
-Files](../encode).\"
+image files, see [Chapter 13, \"Writing Image Files](../encode).\"
 
 There are many raster image file formats, most of which have been
 created to support both image storage and interchange. Some formats
@@ -1512,33 +1014,26 @@ have become widely used and are considered de facto standards. Other
 formats, although very important to individual software vendors, are
 less widely used.
 
-JAI directly supports several of the most common image file formats,
-listed in [Table 4-5](../acquisition). If your favorite
-file format is not listed in [Table 4-5](../acquisition),
+ImageN directly supports several of the most common image file formats,
+listed in [Table 4-5](#table-4-5). If your favorite
+file format is not listed in [Table 4-5](#table-4-5),
 you may either be able to create your own file codec (see [Chapter 14,
 \"Extending the API](../extension)\") or use one obtained
 from a third party developer.
 
-  ---------------------------------------------------------------------------------------------------------
-  [File Format Name]{#74219}   [Description]{#74221}
-  ---------------------------- ----------------------------------------------------------------------------
-  BMP               Microsoft Windows bitmap image file
+<a name="table-4-5"></a>
 
-  FPX               FlashPix format
-
-  GIF               Compuserve\'s Graphics Interchange Format
-
-  JPEG              A file format developed by the Joint Photographic Experts Group
-
-  PNG               Portable Network Graphics
-
-  PNM               Portable aNy Map file format. Includes PBM, PGM, and PPM.
-
-  TIFF              Tag Image File Format
-  ---------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 4-5*  Image File
-  Formats]{#74215}**
+***Table 4-5* Image File Formats**
+  
+| File Format Name | Description |
+|------------------|-------------|
+| BMP | Microsoft Windows bitmap image file |
+| FPX | FlashPix format |
+| GIF | Compuserve\'s Graphics Interchange Format |
+| JPEG | A file format developed by the Joint Photographic Experts Group |
+| PNG | Portable Network Graphics |
+| PNM | Portable aNy Map file format. Includes PBM, PGM, and PPM. |
+| TIFF | Tag Image File Format |
 
 An image file usually has at least two parts: a file header and the
 image data. The header contains fields of pertinent information
@@ -1564,45 +1059,31 @@ the detected image format. If no codec is registered with the name,
 `null` is returned. The name of the codec defines the subclass that is
 called, which decodes the image.
 
-For most image types, JAI offers the option of reading an image data
+For most image types, ImageN offers the option of reading an image data
 file as a `java.io.File` object or as one of the subclasses of
 `java.io.InputStream`.
 
-JAI offers several file operators for reading image data files, as
-listed in [Table 4-6](../acquisition).
+ImageN offers several file operators for reading image data files, as
+listed in [Table 4-6](#table-4-6).
 
-  -------------------------------------------------------------------------------------------------------------------------------
-  [Operator]{#66431}    [Description]{#66433}
-  --------------------- ---------------------------------------------------------------------------------------------------------
-  AWTImage   Imports a standard AWT image into JAI.
+<a name="table-4-6"></a>
 
-  BMP        Reads BMP data from an input stream.
+***Table 4-6* Image File Operators**
 
-  FileLoad   Reads an image from a file.
-
-  FPX        Reads FlashPix data from an input stream.
-
-  FPXFile    Reads a standard FlashPix file.
-
-  GIF        Reads GIF data from an input stream.
-
-  JPEG       Reads a standard JPEG (JFIF) file.
-
-  PNG        Reads a PNG input stream.
-
-  PNM        Reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats.
-
-  Stream     Reads java.io.InputStream files.
-
-  TIFF       Reads TIFF 6.0 data from an input stream.
-
-  URL        Creates an image the source of which is specified by a Uniform Resource Locator (URL).
-  -------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 4-6*  Image File
-  Operators]{#66297}**
-
-
+| Operator | Description |
+|----------|-------------|
+| AWTImage | Imports a standard AWT image into JAI. |
+| BMP | Reads BMP data from an input stream. |
+| FileLoad | Reads an image from a file. |
+| FPX | Reads FlashPix data from an input stream. |
+| FPXFile | Reads a standard FlashPix file. |
+| GIF | Reads GIF data from an input stream. |
+| JPEG | Reads a standard JPEG (JFIF) file. |
+| PNG | Reads a PNG input stream. |
+| PNM | Reads a standard PNM file, including PBM, PGM, and PPM images of both ASCII and raw formats. |
+| Stream | Reads java.io.InputStream files. |
+| TIFF | Reads TIFF 6.0 data from an input stream. |
+| URL | Creates an image the source of which is specified by a Uniform Resource Locator (URL). |
 
 ### 4.4.1 Standard File Readers for Most Data Types
 
@@ -1642,32 +1123,18 @@ invoked since the input will have been consumed.
 
 The `Stream` operation takes a single parameter:
 
-  -----------------------------------------------------------------------------------------------
-  [Parameter]{#65589}   [Type]{#65591}              [Description]{#65593}
-  --------------------- --------------------------- ---------------------------------------------
-  stream     SeekableStream   The SeekableStream to read from.
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| stream    | SeekableStream  | The SeekableStream to read from. |
 
-  -----------------------------------------------------------------------------------------------
+[Listing 4-5](#listing-4-5) shows a code sample for a `Stream` operation.
 
-  : 
+***Listing 4-5*  Example Stream Operation** <a name="listing-4-5"></a>
 
-[Listing 4-5](../acquisition) shows a code sample for a
-`Stream` operation.
-
-****
-
-***Listing 4-5*  Example Stream Operation**
-
-------------------------------------------------------------------------
-
-         // Load the source image from a Stream.
-         RenderedImage im = JAI.create("stream", stream);
-
-------------------------------------------------------------------------
-
-``
-
-
+```java
+   // Load the source image from a Stream.
+   RenderedImage im = JAI.create("stream", stream);
+```
 
 #### 4.4.1.2 The FileLoad Operation
 
@@ -1678,31 +1145,18 @@ operation will be invoked since the input will have been consumed.
 
 The `FileLoad` operation takes a single parameter:
 
-  -----------------------------------------------------------------------------------------
-  [Parameter]{#69974}   [Type]{#69976}      [Description]{#69978}
-  --------------------- ------------------- -----------------------------------------------
-  filename   String   The path of the file to read from.
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| filename | String | The path of the file to read from. |
 
-  -----------------------------------------------------------------------------------------
+[Listing 4-6](#listing-4-6) shows a code sample for a `FileLoad` operation.
 
-  : 
+***Listing 4-6*  Example FileLoad Operation** <a name="listing-4-6"></a>
 
-[Listing 4-6](../acquisition) shows a code sample for a
-`FileLoad` operation.
-
-****
-
-***Listing 4-6*  Example FileLoad Operation**
-
-------------------------------------------------------------------------
-
-         // Load the source image from a file.
-         RenderedImage src = (RenderedImage)JAI.create("fileload",
-                              fileName);
-
-------------------------------------------------------------------------
-
-
+```java
+  // Load the source image from a file.
+  RenderedImage src = (RenderedImage)JAI.create("fileload", fileName);
+```
 
 ### 4.4.2 Reading TIFF Images
 
@@ -1717,14 +1171,9 @@ which also makes it fairly complex.
 The `TIFF` operation reads TIFF data from a TIFF `SeekableStream`. The
 `TIFF` operation takes one parameter:
 
-  -----------------------------------------------------------------------------------------------
-  [Parameter]{#65154}   [Type]{#65156}              [Description]{#65158}
-  --------------------- --------------------------- ---------------------------------------------
-  file       SeekableStream   The SeekableStream to read from.
-
-  -----------------------------------------------------------------------------------------------
-
-  : 
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| file      | SeekableStream | The SeekableStream to read from. |
 
 The `TIFF` operation reads the following TIFF image types:
 
@@ -1758,8 +1207,6 @@ The `TIFF` operation supports the following compression types:
 For an example of reading a TIFF file, see [Listing A-1 on page
 417](../Examples).
 
-
-
 #### 4.4.2.1 Palette Color Images
 
 For TIFF Palette color images, the `colorMap` always has entries of
@@ -1783,31 +1230,13 @@ If it is desired that the Palette be decoded such that the output
 image is of short data type and no dithering is performed, use the
 `setDecodePaletteAsShorts` method.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.TIFFDeco |
-|                                   | deParam`                          |
+**API:** `org.eclipse.imagen.media.codec.TIFFDecodeParam`
 
-    void setDecodePaletteAsShorts(boolean decodePaletteAsShorts)
+* `void setDecodePaletteAsShorts(boolean decodePaletteAsShorts)`
 
-:   if set, the entries in the palette will be decoded as shorts and
-    no short-to-byte lookup will be applied to them.
+* `boolean getDecodePaletteAsShorts()`
 
-    boolean getDecodePaletteAsShorts()
-
-:   returns `true` if palette entries will be decoded as shorts,
-    resulting in a output image with short datatype.
-
-    byte decode16BitsTo8Bits(int s)
-
-:   returns an unsigned 8-bit value computed by dithering the unsigned
-    16-bit value. Note that the TIFF specified short datatype is an
-    unsigned value, while Java\'s `short` datatype is a signed value.
-    Therefore the Java `short` datatype cannot be used to store the
-    TIFF specified short value. A Java `int` is used as input instead
-    to this method. The method deals correctly only with 16-bit
-    unsigned values.
-
-
+* `byte decode16BitsTo8Bits(int s)`
 
 #### 4.4.2.2 Multiple Images per TIFF File
 
@@ -1816,16 +1245,9 @@ IFD defines a *subfile*, which may be used to describe related images.
 To determine the number of images in a TIFF file, use the
 `TIFFDirectory.getNumDirectories()` method.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.TIFFDire |
-|                                   | ctory`                            |
+**API:** `org.eclipse.imagen.media.codec.TIFFDirectory`
 
-    static int getNumDirectories(SeekableStream stream)
-
-:   returns the number of image directories (subimages) stored in a
-    given TIFF file, represented by a `SeekableStream`.
-
-
+* `static int getNumDirectories(SeekableStream stream)`
 
 #### 4.4.2.3 Image File Directory (IFD)
 
@@ -1836,38 +1258,25 @@ entries identified by a tag that identifies the field. A field is
 identified as a sequence of values of identical data type. The TIFF
 6.0 specification defines 12 data types, which are mapped internally
 into the Java data types, as described in [Table
-4-7](../acquisition).
+4-7](#table-4-7).
 
-  -------------------------------------------------------------------------------------------------------
-  [TIFF Field Type]{#76564}    [Java Data Type]{#76566}   [Description]{#76619}
-  ---------------------------- -------------------------- -----------------------------------------------
-  TIFF\_BYTE        byte            8-bit unsigned integer
+***Table 4-7* TIFF Data Types**
+  
 
-  TIFF\_ASCII       String          Null-terminated ASCII strings.
-
-  TIFF\_SHORT       char            16-bit unsigned integers.
-
-  TIFF\_LONG        long            32-bit unsigned integers.
-
-  TIFF\_RATIONAL    [long\[2\]]{#76586}\       Pairs of 32-bit unsigned integers.
-
-  TIFF\_SBYTE       byte            8-bit signed integers.
-
-  TIFF\_UNDEFINED   byte            16-bit signed integers.
-
-  TIFF\_SSHORT      short           1-bit signed integers.
-
-  TIFF\_SLONG       int             32-bit signed integers.
-
-  TIFF\_SRATIONAL   [int\[2\]]{#76606}\        Pairs of 32-bit signed integers.
-
-  TIFF\_FLOAT       float           32-bit IEEE floats.
-
-  TIFF\_DOUBLE      double          64-bit IEEE doubles.
-  -------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 4-7*  TIFF Data
-  Types]{#76720}**
+| TIFF Field Type | Java Data Type | Description |
+|-----------------|----------------|-------------|
+| TIFF\_BYTE | byte | 8-bit unsigned integer |
+| TIFF\_ASCII | String | Null-terminated ASCII strings. |
+| TIFF\_SHORT | char | 16-bit unsigned integers. |
+| TIFF\_LONG | long | 32-bit unsigned integers. |
+| TIFF\_RATIONAL | [long\[2\] | Pairs of 32-bit unsigned integers. |
+| TIFF\_SBYTE | byte | 8-bit signed integers. |
+| TIFF\_UNDEFINED | byte | 16-bit signed integers. |
+| TIFF\_SSHORT | short | 1-bit signed integers. |
+| TIFF\_SLONG | int | 32-bit signed integers. |
+| TIFF\_SRATIONAL | [int\[2\] | Pairs of 32-bit signed integers. |
+| TIFF\_FLOAT | float | 32-bit IEEE floats. |
+| TIFF\_DOUBLE | double | 64-bit IEEE doubles. |
 
 The `TIFFField` class contains several methods to query the set of
 tags and to obtain the raw field array. In addition, convenience
@@ -1883,23 +1292,11 @@ TIFF 6.0 file, the value will be one of those defined in [Table
 number of elements in the IFD. The count (also known as *length* in
 earlier TIFF specifications) is the number of values.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.TIFFFiel |
-|                                   | d`                                |
+**API:** `org.eclipse.imagen.media.codec.TIFFField`
 
-    int getTag()
-
-:   returns the tag number, between 0 and 65535.
-
-    int getType()
-
-:   returns the type of the data stored in the IFD.
-
-    int getCount()
-
-:   returns the number of elements in the IFD.
-
-
+* `int getTag()`
+* `int getType()`
+* `int getCount()`
 
 #### 4.4.2.4 Public and Private IFDs
 
@@ -1913,89 +1310,37 @@ The `TIFFDecodeParam` class allows the index of the TIFF directory
 first image, index 1 to the second, and so on. The index defaults to
 0.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.TIFFDire |
-|                                   | ctory`                            |
+**API:** `org.eclipse.imagen.media.codec.TIFFDirectory`
 
-    TIFFDirectory(SeekableStream stream, int directory)
+* `TIFFDirectory(SeekableStream stream, int directory)`
 
-:   constructs a `TIFFDirectory` from a `SeekableStream`. The
-    directory parameter specifies which directory to read from the
-    linked list present in the stream; directory 0 is normally read
-    but it is possible to store multiple images in a single TIFF file
-    by maintaining multiple directories.
-    *Parameters*:
-    `stream`
-    A `SeekableStream`.
-    `directory`
-    The index of the directory to read.
+* `TIFFDirectory(SeekableStream stream, long ifd_offset)`
 
-    TIFFDirectory(SeekableStream stream, long ifd_offset)
+* `int getNumEntries()`
 
-:   constructs a TIFFDirectory by reading a `SeekableStream`. The
-    `ifd_offset` parameter specifies the stream offset from which to
-    begin reading; this mechanism is sometimes used to store private
-    IFDs within a TIFF file that are not part of the normal sequence
-    of IFDs.
+* `TIFFField getField(int tag)`
 
-    int getNumEntries()
+* `boolean isTagPresent(int tag)`
 
-:   returns the number of directory entries.
+* `int[] getTags()`
 
-    TIFFField getField(int tag)
+* `TIFFField[] getFields()`
 
-:   returns the value of a given tag as a TIFFField, or null if the
-    tag is not present.
+* `byte getFieldAsByte(int tag, int index)`
 
-    boolean isTagPresent(int tag)
+* `byte getFieldAsByte(int tag)`
 
-:   returns true if a tag appears in the directory.
+* `long getFieldAsLong(int tag, int index)`
 
-    int[] getTags()
+* `long getFieldAsLong(int tag)`
 
-:   returns an ordered array of ints indicating the tag values.
+* `float getFieldAsFloat(int tag, int index)`
 
-    TIFFField[] getFields()
+* `float getFieldAsFloat(int tag)`
 
-:   returns an array of TIFFFields containing all the fields in this
-    directory.
+* `double getFieldAsDouble(int tag, int index)`
 
-    byte getFieldAsByte(int tag, int index)
-
-:   returns the value of a particular index of a given tag as a byte.
-    The caller is responsible for ensuring that the tag is present and
-    has type `TIFFField.TIFF_SBYTE`, `TIFF_BYTE`, or `TIFF_UNDEFINED`.
-
-    byte getFieldAsByte(int tag)
-
-:   returns the value of index 0 of a given tag as a byte.
-
-    long getFieldAsLong(int tag, int index)
-
-:   returns the value of a particular index of a given tag as a long.
-
-    long getFieldAsLong(int tag)
-
-:   returns the value of index 0 of a given tag as a long.
-
-    float getFieldAsFloat(int tag, int index)
-
-:   returns the value of a particular index of a given tag as a float.
-
-    float getFieldAsFloat(int tag)
-
-:   returns the value of a index 0 of a given tag as a float.
-
-    double getFieldAsDouble(int tag, int index)
-
-:   returns the value of a particular index of a given tag as a
-    double.
-
-    double getFieldAsDouble(int tag)
-
-:   returns the value of index 0 of a given tag as a double.
-
-
+* `double getFieldAsDouble(int tag)`
 
 ### 4.4.3 Reading FlashPix Images
 
@@ -2008,45 +1353,32 @@ compressed, or single-color compressed.
 The `FPX` operation reads an image from a FlashPix stream. The `FPX`
 operation takes one parameter:
 
-  -----------------------------------------------------------------------------------------------
-  [Parameter]{#75869}   [Type]{#75871}              [Description]{#75873}
-  --------------------- --------------------------- ---------------------------------------------
-  stream     SeekableStream   The SeekableStream to read from.
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| stream    | SeekableStream  | The SeekableStream to read from. |
 
-  -----------------------------------------------------------------------------------------------
+[Listing 4-7](#listing-4-7) shows a code sample for a `FPX` operation.
 
-  : 
+***Listing 4-7* Example of Reading a FlashPix Image** <a name="listing-4-7"></a>
 
-[Listing 4-7](../acquisition) shows a code sample for a
-`FPX` operation.
+```java
+// Specify the filename.
+File file = new File(filename);
 
-****
+// Specify the resolution of the file.
+ImageDecodeParam param = new FPXDecodeParam(resolution);
 
-***Listing 4-7*  Example of Reading a FlashPix
-Image**
+// Create the FPX operation to read the file.
+ImageDecoder decoder = ImageCodec.createImageDecoder("fpx",
+                                                      file,
+                                                      param);
 
-------------------------------------------------------------------------
-
-         // Specify the filename.
-         File file = new File(filename);
-
-         // Specify the resolution of the file.
-         ImageDecodeParam param = new FPXDecodeParam(resolution);
-
-         // Create the FPX operation to read the file.
-         ImageDecoder decoder = ImageCodec.createImageDecoder("fpx",
-                                                               file,
-                                                               param);
-
-         RenderedImage im = decoder.decodeAsRenderedImage();
-         ScrollingImagePanel p =
-             new ScrollingImagePanel(im,
-                                     Math.min(im.getWidth(), 800) + 20,
-                                     Math.min(im.getHeight(), 800) + 20);
-
-------------------------------------------------------------------------
-
-
+RenderedImage im = decoder.decodeAsRenderedImage();
+ScrollingImagePanel p =
+    new ScrollingImagePanel(im,
+                            Math.min(im.getWidth(), 800) + 20,
+                            Math.min(im.getHeight(), 800) + 20);
+```
 
 ### 4.4.4 Reading JPEG Images
 
@@ -2057,16 +1389,9 @@ size.
 
 The `JPEG` operation takes a single parameter:
 
-  -----------------------------------------------------------------------------------------------
-  [Parameter]{#61971}   [Type]{#61973}              [Description]{#61975}
-  --------------------- --------------------------- ---------------------------------------------
-  file       SeekableStream   The SeekableStream to read from.
-
-  -----------------------------------------------------------------------------------------------
-
-  : 
-
-
+| Parameter | Type | Description |
+|-----------|------|-------------|
+|  file     | SeekableStream  | The SeekableStream to read from. |
 
 ### 4.4.5 Reading GIF Images
 
@@ -2077,16 +1402,9 @@ graphics.
 The `GIF` operation reads an image from a GIF stream. The `GIF`
 operation takes a single parameter:
 
-  -----------------------------------------------------------------------------------------------
-  [Parameter]{#64943}   [Type]{#64945}              [Description]{#64947}
-  --------------------- --------------------------- ---------------------------------------------
-  stream     SeekableStream   The SeekableStream to read from.
-
-  -----------------------------------------------------------------------------------------------
-
-  : 
-
-
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| stream   | SeekableStream | The SeekableStream to read from. |
 
 ### 4.4.6 Reading BMP Images
 
@@ -2108,49 +1426,29 @@ available from the BMP image file.
 
 The `BMP` operation takes a single parameter:
 
-  -----------------------------------------------------------------------------------------------
-  [Parameter]{#64041}   [Type]{#64043}              [Description]{#64045}
-  --------------------- --------------------------- ---------------------------------------------
-  stream     SeekableStream   The SeekableStream to read from.
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| stream   |  SeekableStream  | The SeekableStream to read from. |
 
-  -----------------------------------------------------------------------------------------------
+[Listing 4-8](#listing-4-8) shows a code sample for a `GIF` operation.
 
-  : 
+***Listing 4-8*  Example of Reading a BMP Image** <a name="listing-4-8"></a>
 
-[Listing 4-8](../acquisition) shows a code sample for a
-`GIF` operation.
+```java
+// Wrap the InputStream in a SeekableStream.
+InputStream is = new FileInputStream(filename);
+SeekableStream s = SeekableStream.wrapInputStream(is, false);
 
-****
+// Create the ParameterBlock and add the SeekableStream to it.
+ParameterBlock pb = new ParameterBlock();
+pb.add(s);
 
-***Listing 4-8*  Example of Reading a BMP
-Image**
+// Perform the BMP operation
+op = JAI.create("BMP", pb);
+```
+**API:**  `org.eclipse.imagen.media.codec.SeekableStream`
 
-------------------------------------------------------------------------
-
-         // Wrap the InputStream in a SeekableStream.
-         InputStream is = new FileInputStream(filename);
-         SeekableStream s = SeekableStream.wrapInputStream(is, false);
-
-         // Create the ParameterBlock and add the SeekableStream to it.
-         ParameterBlock pb = new ParameterBlock();
-         pb.add(s);
-
-         // Perform the BMP operation
-         op = JAI.create("BMP", pb);
-
-------------------------------------------------------------------------
-
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.Seekable |
-|                                   | Stream`                           |
-
-    static SeekableStream wrapInputStream(java.io.InputStream is, 
-    boolean canSeekBackwards)
-
-:   returns a SeekableStream that will read from a given InputStream,
-    optionally including support for seeking backwards.
-
-
+* `static SeekableStream wrapInputStream(java.io.InputStream is, boolean canSeekBackwards)`
 
 ### 4.4.7 Reading PNG Images
 
@@ -2184,34 +1482,23 @@ Hints](../acquisition).\"
 
 The `PNG` operation takes a single parameter:
 
-  -----------------------------------------------------------------------------------------------
-  [Parameter]{#62925}   [Type]{#62927}              [Description]{#62917}
-  --------------------- --------------------------- ---------------------------------------------
-  stream     SeekableStream   The SeekableStream to read from.
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| stream   |  SeekableStream  | The SeekableStream to read from. |
 
-  -----------------------------------------------------------------------------------------------
+[Listing 4-9](#listing-4-9) shows a code sample for a `PNG` operation.
 
-  : 
+***Listing 4-9*  Example of Reading a PNG Image** <a name="listing-4-9"></a>
 
-[Listing 4-9](../acquisition) shows a code sample for a
-`PNG` operation.
+```java
+// Create the ParameterBlock.
+InputStream image = new FileInputStream(filename);
+ParameterBlock pb = new ParameterBlock();
+pb.add(image);
 
-****
-
-***Listing 4-9*  Example of Reading a PNG
-Image**
-
-------------------------------------------------------------------------
-
-         // Create the ParameterBlock.
-         InputStream image = new FileInputStream(filename);
-         ParameterBlock pb = new ParameterBlock();
-         pb.add(image);
-
-         // Create the PNG operation.
-         op = JAI.create("PNG", pb);
-
-------------------------------------------------------------------------
+// Create the PNG operation.
+op = JAI.create("PNG", pb);
+```
 
 Several aspects of the PNG image decoding may be controlled. By
 default, decoding produces output images with the following
@@ -2255,58 +1542,13 @@ of the decode process:
     (GA) images to be output as full-color (GGGA) images, which may
     simplify further processing and display.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGDecod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGDecodeParam
 
-    public void setSuppressAlpha(boolean suppressAlpha)
-
-:   when set, suppresses the alpha (transparency) channel in the
-    output image.
-
-    public void setExpandPalette(boolean expandPalette)
-
-:   when set, causes palette color images (PNG color type 3) to be
-    decoded into full-color (RGB) output images. The output image may
-    have three or four bands, depending on the presence of
-    transparency information. The default is to output palette images
-    using a single band. The palette information is used to construct
-    the output image\'s `ColorModel`.``
-
-    public void setOutput8BitGray(boolean output8BitGray)
-
-:   when set, causes grayscale images with a bit depth of less than
-    eight (one, two, or four) to be output in eight-bit form. The
-    output values will occupy the full eight-bit range. For example,
-    gray values zero, one, two, and three of a two-bit image will be
-    output as 0, 85, 170, and 255. The decoding of non-grayscale
-    images and grayscale images with a bit depth of 8 or 16 are
-    unaffected by this setting. The default is not to perform
-    expansion. Grayscale images with a depth of one, two, or four bits
-    will be represented using a `MultiPixelPackedSampleModel` and an
-    `IndexColorModel`.
-
-    public void setOutputGamma(float outputGamma)
-
-:   sets the desired output gamma to a given value. In terms of the
-    definitions in the PNG specification, the output gamma is equal to
-    the viewing gamma divided by the display gamma. The output gamma
-    must be positive. If the output gamma is set, the output image
-    will be gamma-corrected using an overall exponent of output
-    gamma/file gamma. Input files that do not contain gamma
-    information are assumed to have a file gamma of 1.0. This
-    parameter affects the decoding of all image types.
-
-    public void setExpandGrayAlpha(boolean expandGrayAlpha)
-
-:   when set, causes images containing one band of gray and one band
-    of alpha (GA) to be output in a four-banded format (GGGA). This
-    produces output that may be simpler to process and display. This
-    setting affects both images of color type 4 (explicit alpha) and
-    images of color type 0 (grayscale) that contain transparency
-    information.
-
-
+* `public void setSuppressAlpha(boolean suppressAlpha)`
+* `public void setExpandPalette(boolean expandPalette)`
+* `public void setOutput8BitGray(boolean output8BitGray)`
+* `public void setOutputGamma(float outputGamma)`
+* `public void setExpandGrayAlpha(boolean expandGrayAlpha)`
 
 #### 4.4.7.1 Gamma Correction and Exponents
 
@@ -2326,19 +1568,19 @@ stored within the file (or the default value of 1/2.2 is used if no
 value is found) to produce a single exponent using the following
 equation:
 
-:   ![](Acquisition.doc.ancA5.gif)
+![](Acquisition.doc.ancA5.gif)
 
 The `setUserExponent` method is used to set the `user_exponent` value.
 If the `user_exponent` value is set, the output image pixels are
 placed through the following transformation:
 
-:   ![](Acquisition.doc.anc6.gif)
+![](Acquisition.doc.anc6.gif)
     
 
-:   where `gamma_from_file` is the gamma of the file data, as
-    determined by the gAMA, sRGB, and iCCP chunks. `display_exponent`
-    is the exponent of the intrinsic transfer curve of the display,
-    generally 2.2.
+where `gamma_from_file` is the gamma of the file data, as
+determined by the gAMA, sRGB, and iCCP chunks. `display_exponent`
+is the exponent of the intrinsic transfer curve of the display,
+generally 2.2.
 
 Input files that do not specify any gamma value are assumed to have a
 gamma of 1/2.2. Such images may be displayed on a CRT with an exponent
@@ -2349,40 +1591,14 @@ If a file has a stored gamma of *X*, but the decoder believes that the
 true file gamma is *Y*, setting a user exponent of *Y*/*X* will
 produce the same result as changing the file gamma.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGDecod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGDecodeParam`
 
-    boolean getPerformGammaCorrection()
-
-:   returns `true` if gamma correction is to be performed on the image
-    data. The default is `true`.
-
-    void setPerformGammaCorrection(boolean performGammaCorrection)
-
-:   turns gamma correction of the image data on or off.
-
-    float getUserExponent()
-
-:   returns the current value of the user exponent parameter. By
-    default, the user exponent is equal to 1.0F.
-
-    void setUserExponent(float userExponent)
-
-:   sets the user exponent to a given value. The exponent must be
-    positive.
-
-    float getDisplayExponent()
-
-:   returns the current value of the display exponent parameter. By
-    default, the display exponent is 2.2F.
-
-    void setDisplayExponent(float displayExponent)
-
-:   Sets the display exponent to a given value. The exponent must be
-    positive.
-
-
+* `boolean getPerformGammaCorrection()`
+* `void setPerformGammaCorrection(boolean performGammaCorrection)`
+* `float getUserExponent()`
+* `void setUserExponent(float userExponent)`
+* `float getDisplayExponent()`
+* `void setDisplayExponent(float displayExponent)`
 
 #### 4.4.7.2 Expanding Grayscale Images to GGGA Format
 
@@ -2393,44 +1609,29 @@ format. If this type of expansion is desired, use the
 type 4 (explicit alpha) and images of color type 0 (grayscale) that
 contain transparency information.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGDecod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGDecodeParam`
 
-    void setExpandGrayAlpha(boolean expandGrayAlpha)
-
-:   sets or unsets the expansion of two-channel (gray and alpha) PNG
-    images to four-channel (GGGA) images.
-
-
+* `void setExpandGrayAlpha(boolean expandGrayAlpha)`
 
 #### 4.4.7.3 Rendering Hints
 
 The PNG rendering hints are:
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Hints]{#75796}                     [Description]{#75798}
-  ----------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  KEY\_PNG\_EMIT\_ALPHA    The alpha channel is set. The alpha channel, representing transparency information on a per-pixel basis, can be included in grayscale and truecolor PNG images.
+------------------------------------------------------------------------------------------
 
-  KEY\_PNG\_EMIT\_16BITS   Defines a bit depth of 16 bits.
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+KEY\_PNG\_EMIT\_ALPHA
+: The alpha channel is set. The alpha channel, representing transparency information on a per-pixel basis, can be included in grayscale and truecolor PNG images.
 
-  : 
+KEY\_PNG\_EMIT\_16BITS
+: Defines a bit depth of 16 bits.
+  
+------------------------------------------------------------------------------------------
 
 To read the hints, use the `OperationDescriptorImpl.getHint` method.
 
-**API:** `org.eclipse.imagen.OperationDescrip |
-|                                   | torImpl`
+**API:** `org.eclipse.imagen.OperationDescriptorImpl`
 
-    Object getHint(RenderingHints.Key key, 
-           RenderingHints  renderHints)
-
-:   queries the rendering hints for a particular hint key and copies
-    it into the hints observed Hashtable if found. If the hint is not
-    found, null is returned and the hints observed are left unchanged.
-
-
+* `Object getHint(RenderingHints.Key key,  RenderingHints  renderHints)`
 
 ### 4.4.8 Reading PNM Images
 
@@ -2445,58 +1646,36 @@ format is a color image file format (three-banded).
 PNM image files are identified by a *magic number* in the file header
 that identifies the file type variant, as follows:
 
-  ----------------------------------------------------------------------------------------
-  [Magic Number]{#70741}   [File Type]{#70743}    [SampleModel Type]{#77433}
-  ------------------------ ---------------------- ----------------------------------------
-  P1            PBM ASCII   MultiPixelPackedSampleModel
-
-  P2            PGM ASCII   PixelInterleavedSampleModel
-
-  P3            PPM ASCII   PixelInterleavedSampleModel
-
-  P4            PBM raw     MultiPixelPackedSampleModel
-
-  P5            PGM raw     PixelInterleavedSampleModel
-
-  P6            PPM raw     PixelInterleavedSampleModel
-  ----------------------------------------------------------------------------------------
-
-  : 
+| Magic Number | File Type | SampleModel Type |
+|--------------|-----------|------------------|
+| P1           | PBM ASCII | MultiPixelPackedSampleModel
+| P2           | PGM ASCII | PixelInterleavedSampleModel
+| P3           | PPM ASCII | PixelInterleavedSampleModel
+| P4           | PBM raw   | MultiPixelPackedSampleModel
+| P5           | PGM raw   | PixelInterleavedSampleModel
+| P6           | PPM raw   | PixelInterleavedSampleModel
 
 The `PNM` operation reads the file header to determine the file type,
 then stores the image data into an appropriate `SampleModel`. The
 `PNM` operation takes a single parameter:
 
-  -----------------------------------------------------------------------------------------------
-  [Parameter]{#65015}   [Type]{#65017}              [Description]{#65019}
-  --------------------- --------------------------- ---------------------------------------------
-  stream     SeekableStream   The SeekableStream to read from.
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| stream     | SeekableStream   | The SeekableStream to read from. |
 
-  -----------------------------------------------------------------------------------------------
+[Listing 4-10](#listing-4-10) shows a code sample for a `PNM` operation.
 
-  : 
+***Listing 4-10*  Example of Reading a PNM Image** <a name="listing-4-10"></a>
 
-[Listing 4-10](../acquisition) shows a code sample for a
-`PNM` operation.
+```java
+// Create the ParameterBlock.
+InputStream image = new FileInputStream(filename);
+ParameterBlock pb = new ParameterBlock();
+pb.add(image);
 
-****
-
-***Listing 4-10*  Example of Reading a PNM
-Image**
-
-------------------------------------------------------------------------
-
-         // Create the ParameterBlock.
-         InputStream image = new FileInputStream(filename);
-         ParameterBlock pb = new ParameterBlock();
-         pb.add(image);
-
-         // Create the PNM operation.
-         op = JAI.create("PNM", pb);
-
-------------------------------------------------------------------------
-
-
+// Create the PNM operation.
+op = JAI.create("PNM", pb);
+```
 
 ### 4.4.9 Reading Standard AWT Images
 
@@ -2509,49 +1688,25 @@ The layout of the `PlanarImage` may be specified using the
 
 The `AWTImage` operation takes one parameter.
 
-  --------------------------------------------------------------------------------------------------
-  [Parameter]{#69105}   [Type]{#69107}     [Description]{#69109}
-  --------------------- ------------------ ---------------------------------------------------------
-  awtImage   Image   The standard Java AWT image to be converted.
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| awtImage  | Image | The standard Java AWT image to be converted. |
 
-  --------------------------------------------------------------------------------------------------
+[Listing 4-11](#listing-4-11) shows a code sample for an `AWTImage` operation.
 
-  : 
+***Listing 4-11*  Example of Reading an AWT Image** <a name="listing-4-11"></a>
 
-[Listing 4-11](../acquisition) shows a code sample for an
-`AWTImage` operation.
+```java
+// Create the ParameterBlock.
+ParameterBlock pb = new ParameterBlock();
+pb.add(image);
 
-****
-
-***Listing 4-11*  Example of Reading an AWT
-Image**
-
-------------------------------------------------------------------------
-
-         // Create the ParameterBlock.
-         ParameterBlock pb = new ParameterBlock();
-         pb.add(image);
-
-         // Create the AWTImage operation.
-         PlanarImage im = (PlanarImage)JAI.create("awtImage", pb);
-
-------------------------------------------------------------------------
-
+// Create the AWTImage operation.
+PlanarImage im = (PlanarImage)JAI.create("awtImage", pb);
+```
 **API:** `org.eclipse.imagen.PlanarImage`
 
-    void setImageParameters(ImageLayout layout, RenderedImage im)
-
-:   sets the image bounds, tile grid layout, `SampleModel`, and
-    `ColorModel` to match those of another image.
-    *Parameters*:
-    `layout`
-    An `ImageLayout` used to selectively override the image\'s layout,
-    `SampleModel`, and `ColorModel`. If null, all parameters will be
-    taken from the second argument.
-    `im`
-    A `RenderedImage` used as the basis for the layout.
-
-
+* `void setImageParameters(ImageLayout layout, RenderedImage im)`
 
 ### 4.4.10 Reading URL Images
 
@@ -2559,35 +1714,21 @@ The `URL` operation creates an image whose source is specified by a
 Uniform Resource Locator (URL). The `URL` operation takes one
 parameter.
 
-  ---------------------------------------------------------------------------------------
-  [Parameter]{#71567}   [Type]{#71569}    [Description]{#71571}
-  --------------------- ----------------- -----------------------------------------------
-  URL        java.net.URL.\   [The path of the file to read from.
-                        class]{#71575}\   
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| URL       | java.net.URL |  The path of the file to read from. |
 
-  ---------------------------------------------------------------------------------------
+[Listing 4-12](#listing-412) shows a code sample for a `URL` operation.
 
-  : 
+***Listing 4-12*  Example of Reading a URL Image** <a name="listing-4-11"></a>
 
-[Listing 4-12](../acquisition) shows a code sample for a
-`URL` operation.
+```java
+// Define the URL to the image.
+url = new URL("http://webstuff/images/duke.gif");
 
-****
-
-***Listing 4-12*  Example of Reading a URL
-Image**
-
-------------------------------------------------------------------------
-
-         // Define the URL to the image.
-         url = new URL("http://webstuff/images/duke.gif");
-
-         // Read the image from the designated URL.
-         RenderedOp src = JAI.create("url", url);
-
-------------------------------------------------------------------------
-
-
+// Read the image from the designated URL.
+RenderedOp src = JAI.create("url", url);
+```
 
 4.5 Reformatting an Image
 ----------------------------------------------
@@ -2600,10 +1741,11 @@ layout.
 The pixel values of the destination image are defined by the following
 pseudocode:
 
+```
          dst[x][y][b] = cast(src[x][y][b], dataType)
+```
 
-
-     where dataType is one of the constants DataBuffer.TYPE_BYTE, DataBuffer.TYPE_SHORT, DataBuffer.TYPE_USHORT, DataBuffer.TYPE_INT, DataBuffer.TYPE_FLOAT, or TDataBuffer.YPE_DOUBLE.
+where dataType is one of the constants DataBuffer.TYPE_BYTE, DataBuffer.TYPE_SHORT, DataBuffer.TYPE_USHORT, DataBuffer.TYPE_INT, DataBuffer.TYPE_FLOAT, or TDataBuffer.YPE_DOUBLE.
 
 The output `SampleModel`, `ColorModel`, and tile grid layout are
 specified by passing an `ImageLayout` object as a `RenderingHint`
@@ -2617,7 +1759,7 @@ The `ImageLayout` may also specify a tile grid origin and size which
 will be respected.
 
 The typecasting performed by the `Format` operation is defined by the
-set of expressions listed in [Table 4-8](../acquisition),
+set of expressions listed in [Table 4-8](#table-4-8),
 depending on the data types of the source and destination. Casting an
 image to its current data type is a no-op. See *The Java Language
 Specification* for the definition of type conversions between
@@ -2627,168 +1769,54 @@ In most cases, it is not necessary to explicitly perform widening
 typecasts since they will be performed automatically by image
 operators when handed source images having different datatypes.
 
-**[*Table 4-8*  Format Actions]{#64379}**
-
-[Source Type]{#64385}
-
-[Destination Type]{#64387}
-
-[Action]{#64389}
-
-BYTE
-
-SHORT
-
-(short)(x & 0xff)
-
-USHORT
-
-(short)(x & 0xff)
-
-INT
-
-(int)(x & 0xff)
-
-FLOAT
-
-(float)(x & 0xff)
-
-DOUBLE
-
-(double)(x & 0xff)
-
-SHORT
-
-BYTE
-
-(byte)clamp((int)x, 0, 255)
-
-USHORT
-
-(short)clamp((int)x, 0, 32767)
-
-INT
-
-(int)x
-
-FLOAT
-
-(float)x
-
-DOUBLE
-
-(double)x
-
-USHORT
-
-BYTE
-
-(byte)clamp((int)x & 0xffff, 0, 255)
-
-SHORT
-
-(short)clamp((int)x & 0xffff, 0, 32767)
-
-INT
-
-(int)(x & 0xffff)
-
-FLOAT
-
-(float)(x & 0xffff)
-
-DOUBLE
-
-(double)(x & 0xffff)
-
-INT
-
-BYTE
-
-(byte)clamp(x, 0, 255)
-
-SHORT
-
-(short)x
-
-USHORT
-
-(short)clamp(x, 0, 65535)
-
-FLOAT
-
-(float)x
-
-DOUBLE
-
-(double)x
-
-FLOAT
-
-BYTE
-
-(byte)clamp((int)x, 0, 255)
-
-SHORT
-
-(short)x
-
-USHORT
-
-(short)clamp((int)x, 0, 65535)
-
-INT
-
-(int)x
-
-DOUBLE
-
-(double)x
-
-DOUBLE
-
-BYTE
-
-(byte)clamp((int)x, 0, 255)
-
-SHORT
-
-(short)x
-
-USHORT
-
-(short)clamp((int)x, 0, 65535)
-
-INT
-
-(int)x
-
-FLOAT
-
-(float)x
+***Table 4-8*  Format Actions** <a name="table-4-8"></a>
+
+| Source Type| Destination Type | Action |
+|------------|------------------|--------|
+| BYTE | SHORT  | (short)(x & 0xff) |
+|      | USHORT | (short)(x & 0xff)
+|      | INT    | (int)(x & 0xff) |
+|      | FLOAT  | (float)(x & 0xff) |
+|      | DOUBLE | (double)(x & 0xff) |
+| SHORT | BYTE   | (byte)clamp((int)x, 0, 255) |
+|       | USHORT | (short)clamp((int)x, 0, 32767) |
+|       | INT    | (int)x |
+|       | FLOAT  | (float)x |
+|       | DOUBLE | (double)x |
+| USHORT | BYTE  | (byte)clamp((int)x & 0xffff, 0, 255) |
+|        | SHORT | (short)clamp((int)x & 0xffff, 0, 32767) |
+|        | INT   | (int)(x & 0xffff) |
+|        | FLOAT | (float)(x & 0xffff) |
+|        | DOUBLE | (double)(x & 0xffff) |
+| INT | BYTE   | (byte)clamp(x, 0, 255) |
+|     | SHORT  | (short)x |
+|     | USHORT | (short)clamp(x, 0, 65535) |
+|     | FLOAT  | (float)x |
+|     | DOUBLE | (double)x |
+| FLOAT | BYTE   | (byte)clamp((int)x, 0, 255) |
+|       | SHORT  | (short)x |
+|       | USHORT | (short)clamp((int)x, 0, 65535) |
+|       | INT    | (int)x |
+|       | DOUBLE | (double)x |
+| DOUBLE | BYTE   | (byte)clamp((int)x, 0, 255) |
+|        | SHORT  | (short)x |
+|        | USHORT | (short)clamp((int)x, 0, 65535) |
+|        | INT    | (int)x |
+|        | FLOAT  | (float)x |
 
 The `clamp` function may be defined as:
 
-------------------------------------------------------------------------
-
-         int clamp(int x, int low, int high) {
-             return (x < low) ? low : ((x high) ? high : x);
-         }
-
-------------------------------------------------------------------------
+```java
+int clamp(int x, int low, int high) {
+    return (x < low) ? low : ((x high) ? high : x);
+}
+```
 
 The `Format` operation takes a single parameter:
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#64778}   [Type]{#64780}       [Description]{#64782}
-  --------------------- -------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
-  dataType   Integer   The output data type (from java.awt.image.DataBuffer). One of TYPE\_BYTE, TYPE\_SHORT, TYPE\_USHORT, TYPE\_INT, TYPE\_FLOAT, or TYPE\_DOUBLE.
-
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
-
-
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| dataType  | Integer | The output data type (from java.awt.image.DataBuffer). One of TYPE\_BYTE, TYPE\_SHORT, TYPE\_USHORT, TYPE\_INT, TYPE\_FLOAT, or TYPE\_DOUBLE. |
 
 4.6 Converting a Rendered Image to Renderable
 ------------------------------------------------------------------
@@ -2818,10 +1846,13 @@ Gaussian kernel derived from the one-dimensional kernel:
          [0.05 0.25 0.40 0.25 0.05]
 
 followed by subsampling by 2. This filter is known as a Laplacian
-pyramid[^1^](../#82022) and makes a perfectly good `downSampler` for most
+pyramid<sup>1</sup> and makes a perfectly good `downSampler` for most
 applications. If this downSampler doesn\'t work for your specific
 application, you can create your own and call it with the
 `downSampler` parameter.
+
+<sup>1</sup> Burt, P.J. and Adelson, E.H., \"The Laplacian pyramid as a compact image code,\" *IEEE Transactions on Communications*, pp. 532-540, 1983.
+
 
 The number of levels in the pyramid will be such that the larger
 dimension (width or height) of the lowest-resolution pyramid level is
@@ -2840,21 +1871,13 @@ source `RenderedImage`.
 
 The `Renderable` operation takes five parameters, as follows:
 
-  -----------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#81678}       [Type]{#81680}          [Description]{#81682}
-  ------------------------- ----------------------- ---------------------------------------------------------------------------------
-  downSamples    RenderedOp   The operation chain used to derive the lower resolution images.
-
-  maxLowResDim   Integer      The maximum dimension of the lowest resolution pyramid level.
-
-  minX           Float        The minimum rendering-independent *x* coordinate of the destination.
-
-  minY           Float        The minimum rendering-independent *y* coordinate of the destination.
-
-  height         Float        The rendering-independent height.
-  -----------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| downSamples   | RenderedOp  | The operation chain used to derive the lower resolution images. |
+| maxLowResDim  | Integer     | The maximum dimension of the lowest resolution pyramid level. |
+| minX          | Float       | The minimum rendering-independent *x* coordinate of the destination. |
+| minY          | Float       | The minimum rendering-independent *y* coordinate of the destination. |
+| height        | Float       | The rendering-independent height. |
 
 The default values for these parameters are:
 
@@ -2869,29 +1892,22 @@ The default values for these parameters are:
 
 -   `height` - 1.0F``
 
-[Listing 4-13](../acquisition) shows a code sample for a
+[Listing 4-13](#listing-4013) shows a code sample for a
 `Renderable` operation. The default parameters are used for all five
 parameters. The output of the `Renderable` operation (`ren`) can be
 passed to the next renderable operation in the graph.
 
-****
+***Listing 4-13*  Example of Converting a Rendered Image to Renderable** <a name="listing-4-13"></a>
 
-***Listing 4-13*  Example of Converting a
-Rendered Image to Renderable**
+```java
+// Derive the RenderableImage from the source RenderedImage.
+ParameterBlock pb = new ParameterBlock();
+pb.addSource(src);
+pb.add(null).add(null).add(null).add(null).add(null);
 
-------------------------------------------------------------------------
-
-         // Derive the RenderableImage from the source RenderedImage.
-         ParameterBlock pb = new ParameterBlock();
-         pb.addSource(src);
-         pb.add(null).add(null).add(null).add(null).add(null);
-
-         // Create the Renderable operation.
-         RenderableImage ren = JAI.createRenderable("renderable", pb);
-
-------------------------------------------------------------------------
-
-
+// Create the Renderable operation.
+RenderableImage ren = JAI.createRenderable("renderable", pb);
+```
 
 4.7 Creating a Constant Image
 --------------------------------------------------
@@ -2903,32 +1919,22 @@ greater than 0.
 
 The `constant` operation takes three parameters, as follows:
 
-  -------------------------------------------------------------------------------------------
-  [Parameter]{#81110}     [Type]{#81112}      [Description]{#81114}
-  ----------------------- ------------------- -----------------------------------------------
-  width        Float    The width of the image in pixels.
-
-  height       Float    The height of the image in pixels.
-
-  bandValues   Number   The constant pixel band values.
-  -------------------------------------------------------------------------------------------
-
-  : 
+| Parameter  | Type | Description |
+|------------|------|-------------|
+| width      | Float  | The width of the image in pixels. |
+| height     | Float  | The height of the image in pixels. |
+| bandValues | Number | The constant pixel band values. |
 
 At least one constant must be supplied. The number of bands of the
 image is determined by the number of constant pixel values supplied in
 the `bandValues` parameter. The data type is determined by the type of
 the constant from the first entry.
 
-[Listing 4-14](../acquisition) shows a code sample for a
-`Constant` operation.
+[Listing 4-14](#listing-4-14) shows a code sample for a `Constant` operation.
 
-****
+***Listing 4-14*  Example Constant Operation** <a name="listing-4-14"></a>
 
-***Listing 4-14*  Example Constant Operation**
-
-------------------------------------------------------------------------
-
+```java
          // Create the ParameterBlock.
          Byte[] bandValues = new Byte[1];
          bandValues[0] = alpha1;
@@ -2939,10 +1945,7 @@ the constant from the first entry.
 
          // Create the constant operation.
          PlanarImage afa1 = (PlanarImage)JAI.create("constant", pb);
-
-------------------------------------------------------------------------
-
-
+```
 
 4.8 Image Display
 --------------------------------------
@@ -2979,105 +1982,77 @@ smaller than the image.
 
 Once the `ScrollingImagePanel` is created, it can be placed anywhere
 in a `Frame`, just like any other AWT panel. [Listing
-4-15](../acquisition) shows a code sample demonstrating
+4-15](#listing-4-15) shows a code sample demonstrating
 the use of a scrolling image panel.
 
-****
+***Listing 4-15*  Example Scrolling Image Panel** <a name="listing-4-15"></a>
 
-***Listing 4-15*  Example Scrolling Image
-Panel**
+```java
+// Get the image width and height.
+int width = image.getWidth();
+int height = image.getHeight();
 
-------------------------------------------------------------------------
+// Attach the image to a scrolling panel to be displayed.
+ScrollingImagePanel panel = new ScrollingImagePanel(
+                                image, width, height);
 
-         // Get the image width and height.
-         int width = image.getWidth();
-         int height = image.getHeight();
-
-         // Attach the image to a scrolling panel to be displayed.
-         ScrollingImagePanel panel = new ScrollingImagePanel(
-                                         image, width, height);
-
-         // Create a Frame to contain the panel.
-         Frame window = new Frame("Scrolling Image Panel Example");
-         window.add(panel);
-         window.pack();
-         window.show();
-
-------------------------------------------------------------------------
+// Create a Frame to contain the panel.
+Frame window = new Frame("Scrolling Image Panel Example");
+window.add(panel);
+window.pack();
+window.show();
+```
 
 For a little more interesting example, consider the display of four
 images in a grid layout. The code sample in [Listing
-4-16](../acquisition) arranges four images into a 2 x 2
+4-16](#listing-4-16) arranges four images into a 2 x 2
 grid. This example uses the `java.awt.Panel` and the
 `java.awt.GridLayout` objects. These objects are not described in this
 document. See the Java Platform documentation for more information.
 
-****
+***Listing 4-16*  Example Grid Layout of Four Images** <a name="listing-4-16"></a>
 
-***Listing 4-16*  Example Grid Layout of Four
-Images**
+```java
+// Display the four images in row order in a 2 x 2 grid.
+setLayout(new GridLayout(2, 2));
 
-------------------------------------------------------------------------
+// Add the components, starting with the first entry in the
+// first row, the second, etc.
+add(new ScrollingImagePanel(im1, width, height));
+add(new ScrollingImagePanel(im2, width, height));
+add(new ScrollingImagePanel(im3, width, height));
+add(new ScrollingImagePanel(im4, width, height));
 
-         // Display the four images in row order in a 2 x 2 grid.
-         setLayout(new GridLayout(2, 2));
-
-         // Add the components, starting with the first entry in the
-         // first row, the second, etc.
-         add(new ScrollingImagePanel(im1, width, height));
-         add(new ScrollingImagePanel(im2, width, height));
-         add(new ScrollingImagePanel(im3, width, height));
-         add(new ScrollingImagePanel(im4, width, height));
-
-         pack();
-         show();
-
-------------------------------------------------------------------------
+pack();
+show();
+```
 
 The constructor for the `GridLayout` object specifies the number of
 rows and columns in the display (2 x 2 in this example). The four
 images (`im1`, `im2`, `im3`, and `im4`) are then added to the panel in
 separate `ScrollingImagePanel`s. The resulting image is arranged as
-shown in [Figure 4-5](../acquisition).
+shown in [Figure 4-5](#figure-4-5).
 
 
-
-------------------------------------------------------------------------
-
-![](../Acquisition.doc.ancA4.gif)
+<a name="figure-4-5"></a>
 
 ------------------------------------------------------------------------
 
+![](Acquisition.doc.ancA4.gif)
 
+------------------------------------------------------------------------
 
 ***Figure 4-5*  Grid Layout of Four Images**
 
 **API:** `org.eclipse.imagen.RenderedOp`
 
-    int getWidth()
+* `int getWidth()`
 
-:   returns the width of the rendered image.
+* `int getHeight()`
 
-    int getHeight()
+**API:** `org.eclipse.imagen.widget.ScrollingImagePanel`
 
-:   returns the height of the rendered image.
-
-**API:** `org.eclipse.imagen.widget.Scrolling |
-|                                   | ImagePanel`
-
-    ScrollingImagePanel(RenderedImage im, int width, int height)
-
-:   constructs a `ScrollingImagePanel` of a given size for a given
-    `RenderedImage`.
-    *Parameters*:
-    `im`
-    The `RenderedImage` displayed by the `ImageCanvas`.
-    `width`
-    The panel width.
-    `height`
-    The panel height.
-
-
+* `ScrollingImagePanel(RenderedImage im, int width, int height)`
 
 ### 4.8.1 Positioning the Image in the Panel
 
@@ -3088,30 +2063,10 @@ origin of the image to a given (*x*, *y*) position within the
 `ScrollingImagePanel`. The `setCenter` method sets the image center to
 a given (*x*, *y*) position within the `ScrollingImagePanel`.
 
-**API:** `org.eclipse.imagen.widget.Scrolling |
-|                                   | ImagePanel`
+**API:** `org.eclipse.imagen.widget.ScrollingImagePanel`
 
-    void setOrigin(int x, int y)
-
-:   sets the image origin to a given (x, y) position. The scrollbars
-    are updated appropriately.
-    *Parameters*:
-    `x`
-    The image *x* origin.
-    `y`
-    The image *y* origin.
-
-    void setCenter(int x, int y)
-
-:   sets the image center to a given (x, y) position. The scrollbars
-    are updated appropriately.
-    *Parameters*:
-    `x`
-    The image *x* center.
-    `y`
-    The image *y* center.
-
-
+* `void setOrigin(int x, int y)`
+* `void setCenter(int x, int y)`
 
 ### 4.8.2 The ImageCanvas Class
 
@@ -3132,43 +2087,12 @@ Use the constructor or the `set` method to include a `RenderedImage`
 in the canvas, then use the `setOrigin` method to set the position of
 the image within the canvas.
 
-**API:** `org.eclipse.imagen.widget.ImageCanv |
-|                                   | as`
+**API:** `org.eclipse.imagen.widget.ImageCanvas`
 
-    ImageCanvas(RenderedImage im, boolean drawBorder)
-
-:   constructs an `ImageCanvas` to display a `RenderedImage`.
-    *Parameters*:
-    `im`
-    A `RenderedImage` to be displayed.
-    `drawBorder`
-    True if a raised border is desired.
-
-    ImageCanvas(java.awt.image.RenderedImage im)
-
-:   constructs an `ImageCanvas` to display a `RenderedImage`.
-      --------------- ------ ------------------------------------
-      *Parameters*:   `im`   A `RenderedImage` to be displayed.
-      --------------- ------ ------------------------------------
-
-      : 
-
-    void set(RenderedImage im)
-
-:   changes the source image to a new RenderedImage.
-      --------------- ------ ------------------------------------------
-      *Parameters*:   `im`   The new `RenderedImage` to be displayed.
-      --------------- ------ ------------------------------------------
-
-      : 
-
-    void paint(java.awt.Graphics g)
-
-:   paint the image onto a `Graphics` object. The painting is
-    performed tile-by-tile, and includes a gray region covering the
-    unused portion of image tiles as well as the general background.
-
-
+* `ImageCanvas(RenderedImage im, boolean drawBorder)`
+* `ImageCanvas(java.awt.image.RenderedImage im)`
+* `void set(RenderedImage im)`
+* `void paint(java.awt.Graphics g)`
 
 ### 4.8.3 Image Origin
 
@@ -3180,29 +2104,8 @@ Geometric operators are treated differently with respect to image
 origin control. See [Chapter 8, \"Geometric Image
 Manipulation](geom-image-manip).\"
 
-**API:** `org.eclipse.imagen.widget.ImageCanv |
-|                                   | as`
+**API:** `org.eclipse.imagen.widget.ImageCanvas`
 
-    void setOrigin(int x, int y)
-
-:   sets the origin of the image at `x,y`.
-
-    int getXOrigin()
-
-:   returns the *x* coordinate of the image origin.
-
-    int getYOrigin()
-
-:   returns the *y* coordinate of the image origin.
-
-------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-^1^ [Burt, P.J. and Adelson, E.H., \"The Laplacian pyramid as a
-compact image code,\" *IEEE Transactions on Communications*, pp.
-532-540, 1983.]{#82022}
+* `void setOrigin(int x, int y)`
+* `int getXOrigin()`
+* `int getYOrigin()`
