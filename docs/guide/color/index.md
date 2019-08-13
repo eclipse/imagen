@@ -8,8 +8,8 @@ nav_order: 6
 # Color Space
 {:.no_toc}
 
-This chapter describes the JAI color space, transparency, and the
-color conversion operators. JAI follows the Java AWT color model.
+This chapter describes the ImageN color space, transparency, and the
+color conversion operators. ImageN follows the Java AWT color model.
 
 * Contents
 {:toc}
@@ -57,7 +57,7 @@ signals. The luminance signal conveys color brightness levels. The two
 chrominance signals convey the color hue and saturation. This color
 system is called YCC (or, more specifically, YC~b~C~r~).
 
-Another significant color space standard for JAI is CIEXYZ. This is a
+Another significant color space standard for ImageN is CIEXYZ. This is a
 widely-used, device-independent color standard developed by the
 Commission Internationale de l\'Éclairage (CIE). The CIEXYZ standard
 is based on color-matching experiments on human observers.
@@ -66,7 +66,7 @@ is based on color-matching experiments on human observers.
 5.2 Color Management
 -----------------------------------------
 
-JAI uses three primary classes for the management of color:
+ImageN uses three primary classes for the management of color:
 
 -   `ColorModel` - describes a particular way that pixel values are
     mapped to colors. A `ColorModel` is typically associated with an
@@ -110,7 +110,7 @@ need to know how the color information is encoded in each pixel. The
 methods necessary for translating a pixel value to and from its
 constituent color components.
 
-JAI supports five color models:
+ImageN supports five color models:
 
 -   `DirectColorModel` - works with pixel values that represent RGB
     color and alpha information as separate samples and that pack all
@@ -385,7 +385,7 @@ bands. The color space of the source image is specified by the
 `ColorSpace` object of the source image `ColorModel` which must not be
 null.
 
-JAI does not attempt to verify that the `ColorModel` of the
+ImageN does not attempt to verify that the `ColorModel` of the
 destination image is consistent with the `ColorSpace` parameter. To
 ensure that this is the case, a compatible `ColorModel` must be
 provided via an `ImageLayout` in the `RenderingHints` (see [Section
