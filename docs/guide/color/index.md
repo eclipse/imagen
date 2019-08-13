@@ -350,7 +350,7 @@ Just as images can have color, they can also have transparency.
 Transparency defines the specular transmission of light through
 transparent materials, such as glass, or the lack of transparency for
 completely opaque objects. The amount of transparency is specified by
-an alpha (![](shared/chars/alpha.gif)) value. An alpha value of 0.0
+an alpha ɑ value. An alpha value of 0.0
 specifies complete translucency; an alpha value of 1.0 specifies
 complete opacity.
 

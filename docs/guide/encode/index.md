@@ -5,16 +5,16 @@ parent: Programming Guide
 nav_order: 15
 ---
 
-
-  -----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)13
-  -----------------------------------------
-
-
 # Writing Image Files                                                   
+
+{:.no_toc}
 
 **T**HIS chapter describes JAI\'s codec system for writing image data
 files.
+
+* Contents
+{:toc}
+
 
 
 13.1 Introduction

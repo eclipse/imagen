@@ -802,7 +802,7 @@ source data types (not necessarily the range of their sums).
 As a special case, if one of the source images has *N* bands (where
 *N* is greater than one), the other source has one band, and an
 `ImageLayout` hint is provided containing a destination `SampleModel`
-with *K* bands (1 \< *K* ![](shared/chars/lt_equal.gif) *N*), then the
+with *K* bands (1 \< *K* ≤ *N*), then the
 single band of the one1-banded source is added to each of the first
 *K* bands of the *N*-band source.
 
@@ -987,7 +987,7 @@ both source data types (not necessarily the range of their sums).
 As a special case, if one of the source images has *N* bands (where
 *N* is greater than one), the other source has one band, and an
 `ImageLayout` hint is provided containing a destination `SampleModel`
-with *K* bands (1 \< *K* ![](shared/chars/lt_equal.gif) *N*), then the
+with *K* bands (1 \< *K* ≤ *N*), then the
 single band of the one-banded source is subtracted from or into each
 of the first *K* bands of the *N*-band source.
 
@@ -1098,7 +1098,7 @@ of the sources.
 As a special case, if one of the source images has *N* bands (where
 *N* is greater than one), the other source has one band, and an
 `ImageLayout` hint is provided containing a destination `SampleModel`
-with *K* bands (1 \< *K* ![](shared/chars/lt_equal.gif) *N*), then the
+with *K* bands (1 \< *K* ≤ *N*), then the
 single band of the one-banded source will be divided by or into to
 each of the first *K* bands of the *N*-band source.
 
@@ -1215,7 +1215,7 @@ occurs when one of the source images has two bands, the other source
 image has *N* = 2*K* bands where *K* is greater than one, and an
 `ImageLayout` hint is provided containing a destination `SampleModel`
 that specifies *M* = 2*L* bands for the destination image where *L* is
-greater than one and L ![](shared/chars/lt_equal.gif) *K*. In this
+greater than one and L ≤ *K*. In this
 special case if the first source has two bands, its single complex
 component will be divided by each of the first *L* complex components
 of the second source. If the second source has two bands, its single
@@ -1248,7 +1248,7 @@ if one of the source images has *N* bands where *N* is greater than
 one, the other source has one band, and an `ImageLayout` hint is
 provided containing a destination `SampleModel`. If the `SampleModel`
 hint specifies *K* bands for the destination image where *K* is
-greater than one and *K* ![](shared/chars/lt_equal.gif) *N*, each of
+greater than one and *K* ≤ *N*, each of
 the first *K* bands of the *N*-band source is multiplied by the single
 band of the one-band source.
 
@@ -1334,7 +1334,7 @@ other source image has *N* = 2*K* bands where *K* is greater than one,
 and an `ImageLayout` hint is provided containing a destination
 `SampleModel` that specifies *M* = 2*L* bands for the destination
 image where *L* is greater than one and *L*
-![](shared/chars/lt_equal.gif) *K*. In this special case each of the
+≤ *K*. In this special case each of the
 first *L* complex components in the *N*-band source will be multiplied
 by the single complex component in the one-band source.
 

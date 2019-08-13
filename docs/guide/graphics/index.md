@@ -5,18 +5,14 @@ parent: Programming Guide
 nav_order: 12
 ---
 
-
-
-  -----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)10
-  -----------------------------------------
-
-
 # Graphics Rendering                                                    
+{:.no_toc}
 
-**T**HIS chapter describes the JAI presentation of rendering shapes,
+Chapter describes the JAI presentation of rendering shapes,
 text, and images.
 
+* Contents
+{:toc}
 
 10.1 Introduction
 --------------------------------------

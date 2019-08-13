@@ -5,25 +5,13 @@ parent: Programming Guide
 nav_order: 11
 ---
 
+# Image Analysis
+{:.no_toc}
 
-  ----------------------------------------
-    C H A P T E R![](shared/sm-space.gif)9
-  ----------------------------------------
+Chapter describes the ImageN API image analysis operators.
 
-
-+----------------------------------------------------------------------:+
-| -------------------------------------------------------------------   |
-|                                                                       |
-| Image Analysis                                                        |
-+-----------------------------------------------------------------------+
-
- \
- \
- \
-
- **T**HIS chapter describes the JAI API image analysis operators.
-
-
+* Contents
+{:toc}
 
  9.1 Introduction
  -------------------------------------
@@ -92,7 +80,7 @@ nav_order: 11
 
  **[]{#56522}**
 
- ***Listing 9-1* ![](shared/sm-blank.gif) Finding the Mean Value of an
+ ***Listing 9-1*  Finding the Mean Value of an
  Image Region**
 
  ------------------------------------------------------------------------
@@ -171,7 +159,7 @@ nav_order: 11
 
  **[]{#56559}**
 
- ***Listing 9-2* ![](shared/sm-blank.gif) Finding the Extrema of an
+ ***Listing 9-2*  Finding the Extrema of an
  Image**
 
  ------------------------------------------------------------------------
@@ -220,7 +208,7 @@ nav_order: 11
 
 
 
- ***Figure 9-1* ![](shared/sm-blank.gif) Example Histograms**
+ ***Figure 9-1*  Example Histograms**
 
  The primary tasks needed to perform a histogram operation are as
  follows:
@@ -476,7 +464,7 @@ nav_order: 11
 
  **[]{#56595}**
 
- ***Listing 9-3* ![](shared/sm-blank.gif) Example Histogram Operation**
+ ***Listing 9-3*  Example Histogram Operation**
 
  ------------------------------------------------------------------------
 
@@ -589,7 +577,7 @@ nav_order: 11
 
 
 
- ***Figure 9-2* ![](shared/sm-blank.gif) Sobel Edge Enhancement Masks**
+ ***Figure 9-2*  Sobel Edge Enhancement Masks**
 
  The Roberts\' cross edge enhancement operation uses the two masks
  shown in [Figure 9-3](analysis/index.html). This operation
@@ -626,7 +614,7 @@ nav_order: 11
 
 
 
- ***Figure 9-3* ![](shared/sm-blank.gif) Roberts\' Cross Edge
+ ***Figure 9-3*  Roberts\' Cross Edge
  Enhancement Masks**
 
  The Prewitt gradient edge enhancement operation uses the two masks
@@ -664,7 +652,7 @@ nav_order: 11
 
 
 
- ***Figure 9-4* ![](shared/sm-blank.gif) Prewitt Edge Enhancement
+ ***Figure 9-4*  Prewitt Edge Enhancement
  Masks**
 
  The Frei and Chen edge enhancement operation uses the two masks shown
@@ -700,7 +688,7 @@ nav_order: 11
 
 
 
- ***Figure 9-5* ![](shared/sm-blank.gif) Frei and Chen Edge Enhancement
+ ***Figure 9-5*  Frei and Chen Edge Enhancement
  Masks**
 
  To use a different mask, see [Section 6.9, \"Constructing a
@@ -712,7 +700,7 @@ nav_order: 11
 
  **[]{#56654}**
 
- ***Listing 9-4* ![](shared/sm-blank.gif) Example GradientMagnitude
+ ***Listing 9-4*  Example GradientMagnitude
  Operation**
 
  ------------------------------------------------------------------------

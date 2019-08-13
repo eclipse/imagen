@@ -198,7 +198,7 @@ clamped to the range and precision of the data type of the `Raster`
 being filled. The number of constants used is given by the number of
 bands of the `Raster`. If the `Raster` has *b* bands, and there are
 *c* constants, constants 0 through *b* - 1 are used when *b*
-![](shared/chars/lt_equal.gif) *c*. If *b* \*c*, zeros are used to
+≤ *c*. If *b* \*c*, zeros are used to
 fill out the constants array.
 
 <a name="figure-7-3"></a>
@@ -1657,8 +1657,7 @@ pseudocode:
     the number of bands in the destination image.
 
 For integral image data types, the result is rounded and scaled so the
-\"natural\" arctangent range from \[-![](shared/chars/pi.gif),
-![](shared/chars/pi.gif)) is remapped into the range \[0, MAXVALUE).
+\"natural\" arctangent range from \[-𝜋,𝜋) is remapped into the range \[0, MAXVALUE).
 The result for floating point image data types is the value returned
 by the `atan2()` method.
 
@@ -1697,38 +1696,32 @@ shifted by a specified amount along each axis and clipped to the
 bounds of the source image. Thus for each band *b* the destination
 image sample at location (*x*,*y*) is defined by:
 
-         if(x < width - shiftX) {
-             if(y < height - shiftY) {
-                 dst[x][y][b] = src[x + shiftX][y + shiftY][b];
-             } else {
-                 dst[x][y][b] = src[x + shiftX][y - height + shiftY][b];
-             }
-         } else {
-             if(y < height - shiftY) {
-                 dst[x][y][b] = src[x - width + shiftX][y + shiftY][b];
-             } else {
-                 dst[x][y][b] = src[x - width + shiftX][y - height +
-                                                        shiftY][b];
-             }
-         }
-
-:   where `shiftX` and `shiftY` denote the translation factors along
-    the *x* and *y* axes, respectively.
+```java
+if(x < width - shiftX) {
+    if(y < height - shiftY) {
+        dst[x][y][b] = src[x + shiftX][y + shiftY][b];
+    } else {
+        dst[x][y][b] = src[x + shiftX][y - height + shiftY][b];
+    }
+} else {
+    if(y < height - shiftY) {
+        dst[x][y][b] = src[x - width + shiftX][y + shiftY][b];
+    } else {
+        dst[x][y][b] = src[x - width + shiftX][y - height +
+                                               shiftY][b];
+    }
+}
+```
+Where `shiftX` and `shiftY` denote the translation factors along the *x* and *y* axes, respectively.
 
 The `PeriodicShift` operation takes one rendered or renderable source
 image and two parameters.
 
-  ----------------------------------------------------------------------------------------------
-  Parameter   Type       Description
-  --------------------- -------------------- ---------------------------------------------------
-  shiftX     Integer   The displacement in the *x* direction.
-
-  shiftY     Integer   The displacement in the *y* direction.
-  ----------------------------------------------------------------------------------------------
-
-  : 
-
-
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| shiftX    | Integer | The displacement in the *x* direction. |
+| shiftY    | Integer | The displacement in the *y* direction. |
+ 
 ### 7.9.8 Polar to Complex
 
 The `PolarToComplex` operation computes a complex image from a
@@ -1800,7 +1793,7 @@ or, equivalently
 
          real[k] = exp(-|x + (k % width)]| - |y + (k / width)|)
 
-:   where 0 ![](shared/chars/lt_equal.gif) k \< width\*height.
+:   where 0 ≤ k \< width\*height.
 
 The (*x*,*y*) coordinates passed to the `ImageFunction.getElements()`
 methods are derived by applying an optional translation and scaling to
