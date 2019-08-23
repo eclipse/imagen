@@ -6,11 +6,14 @@ nav_order: 13
 ---
 
 # Image Properties
+{:.no_toc}
 
 Chapter describes image properties.
 
-11.1  Introduction
---------------------------------------
+* Contents
+{:toc}
+
+# 11.1  Introduction
 
 In addition to the pixel data, images occasionally have many other
 kinds of data associated with them. These data, known as *properties*,
@@ -18,43 +21,31 @@ is a simple database of arbitrary data attached to the images. Each
 property is simply an Object with a unique, case-insensitive name.
 
 The properties are arbitrary and depend on the intended application.
-JAI provides methods that enable effective use of properties in the
+ImageN provides methods that enable effective use of properties in the
 context of an image processing application but, in most cases, leaves
 the specification of the property objects themselves to the developer.
 
 Some examples of properties are:
 
--   Descriptions of exotic shapes, such as hexagonal grids
-
-
--   Mapping from digital pixel values to photometric values
-
-
--   A defined region of interest (ROI) in the source image
+- Descriptions of exotic shapes, such as hexagonal grids
+- Mapping from digital pixel values to photometric values
+- A defined region of interest (ROI) in the source image
 
 Every node in an image chain may be queried for its properties. The
 value of a property at a particular node may be derived by one of the
 following mechanisms:
 
--   It may be *copied* from the node\'s sources. This is the default
-    behavior if no other behavior is specified.
-
-
--   It may be *produced* by the node from non-property information
-    available in the node.
-
-
--   It may be *synthesized* by the node from a rendering.
-
-
--   It may be *inherited* or produced computationally from the
-    properties of the node\'s sources.
-
-
--   It may be *set explicitly* by the `setProperty` method in one of
-    the appropriate classes: `Planarimage`, `RenderedOp`, or
-    `RenderableOp`. Properties of a node may not be set once the node
-    has been rendered.
+- It may be *copied* from the node\'s sources. This is the default
+  behavior if no other behavior is specified.
+- It may be *produced* by the node from non-property information
+  available in the node.
+- It may be *synthesized* by the node from a rendering.
+- It may be *inherited* or produced computationally from the
+  properties of the node\'s sources.
+- It may be *set explicitly* by the `setProperty` method in one of
+  the appropriate classes: `Planarimage`, `RenderedOp`, or
+  `RenderableOp`. Properties of a node may not be set once the node
+  has been rendered.
 
 When the value of a property is requested from a node in a rendered
 chain, i.e., a `RenderedOp` node, it will be derived from the first of
@@ -88,35 +79,15 @@ methods familiar from the `RenderedImage` and `RenderableImage`
 interfaces.
 
 `PropertySource` is implemented by `ImageJAI`. Since all
-RenderedImages used within JAI are descendents of `PlanarImage` which
+RenderedImages used within ImageN are descendents of `PlanarImage` which
 implements `ImageJAI`, all images may be assumed to implement
 `PropertySource`.
 
-**API:** 
-|                                   | `org.eclipse.imagen.PropertySource`  |
+**API:** `org.eclipse.imagen.PropertySource`
 
-    String[] getPropertyNames()
-
-:   returns an array of `Strings` recognized as names by this property
-    source.
-
-
-    String[] getPropertyNames(String prefix)
-
-:   returns an array of `Strings` recognized as names by this property
-    source that begin with the supplied `prefix`. If the method cannot
-    find any property names that match, null is returned.
-
-
-    Object getProperty(String name)
-
-:   returns the value of a property.
-      ------------- -------- ------------------------------------------
-      Parameters:   `name`   The name of the property, as a `String`.
-      ------------- -------- ------------------------------------------
-
-      : 
-
+* `String[] getPropertyNames()`
+* `String[] getPropertyNames(String prefix)`
+* `Object getProperty(String name)`
 
 ### 11.1.2  The PropertyGenerator Interface
 
@@ -124,50 +95,26 @@ The `PropertyGenerator` interface allows you to affect the property
 inheritance computation of an operation. A `PropertyGenerator` simply
 implements two methods:
 
--   The `getPropertyNames` method returns a list of the names of all
-    available properties.
+- The `getPropertyNames` method returns a list of the names of all
+  available properties.
 
-
--   The `getProperty` method returns the value of the property, given
-    the property name and a `RenderedOp`.
+- The `getProperty` method returns the value of the property, given
+  the property name and a `RenderedOp`.
 
 New `PropertyGenerators` may be added to the `OperationRegistry` to be
 applied at a particular operation node. The `OperationRegistry` also
 allows an existing property on a node to be suppressed if it is no
 longer useful. See [Chapter 14, \"Extending the
-API](Extension.doc.html#47285),\" for more information on the
+API](../extension),\" for more information on the
 `OperationRegistry`.
 
-**API:** 
-|                                   | `org.eclipse.imagen.PropertyGenerato |
-|                                   | r`                                |
+**API:** `org.eclipse.imagen.PropertyGenerator`
 
-    String[] getPropertyNames()
+* `String[] getPropertyNames()`
 
-:   returns an array of `Strings` naming properties emitted by this
-    property generator.
+* `Object getProperty(String name, RenderedOp op)`
 
-
-    Object getProperty(String name, RenderedOp op)
-
-:   computes the value of a property relative to an environment of
-    pre-existing properties emitted by the sources of a `RenderedOp`,
-    and the parameters of that operation.
-    *Parameters*:
-    `name`
-    The name of the property, as a `String`.
-    `op`
-    The `RenderedOp` representing the operation.
-    
-:   The operation name, sources, and `ParameterBlock` of the
-    `RenderedOp` being processed may be obtained by means of the
-    `op.getOperationName`, `op.getSources()`, and
-    `op.getParameterBlock()` methods. It is legal to call
-    `getProperty()` on the operation\'s sources.
-
-
-11.2  Synthetic Properties
-----------------------------------------------
+# 11.2  Synthetic Properties
 
 Certain properties are *synthesized* when a node is rendered. These
 synthetic properties are image width (`image_width`), image height
@@ -176,9 +123,7 @@ minimum *y* coordinate (`image_min_y_coord`). All of these properties
 have a value of class `java.lang.Integer`. These properties are fixed
 and any attempt to set them will result in an error.
 
-
-11.3  Regions of Interest
----------------------------------------------
+# 11.3  Regions of Interest
 
 The specification of a region of interest (ROI) is a common property
 that is supported by all of the standard operators. The ROI is simply
@@ -189,20 +134,17 @@ operators. For all other types of operations it is simply copied. The
 ROI has no bearing on the processing of image pixels, although in its
 rendered form it can be used as input to histogram operations. For
 more information, see [Section 6.2, \"Region of Interest
-Control](Image-manipulation.doc.html#51458).\"
+Control](../image-manipulation/#62-region-of-interest-control).\"
 
 The ROI may be used as an argument to the `TiledImage.set` and
 `TiledImage.setData` methods so as to copy a selected area of a source
 or `Raster` into an existing `TiledImage` (see [Section 4.2.2, \"Tiled
-Image](Acquisition.doc.html#52363)\"`)`. The ROI may also be used as
+Image](../acquisition/#422-tiled-image)\" ). The ROI may also be used as
 an argument to many compositing (see [Section 7.11.2, \"Image
-Compositing](Image-enhance.doc.html#61005)\") and statistical
-operators (see [Chapter 9, \"Image
-Analysis](Analysis.doc.html#55366)\").
+Compositing](../image-enhance/#7112-image-compositing)\") and statistical
+operators (see [Chapter 9, \"Image Analysis](../analysis)\").
 
-
-11.4  Complex Data
---------------------------------------
+# 11.4  Complex Data
 
 The COMPLEX property has value of class `java.lang.Boolean` and
 indicates whether the pixel values of an image represent complex-value
@@ -212,15 +154,4 @@ the *i*th complex element being stored in bands 2i and 2i + 1,
 respectively.) This property may be *produced* by a given node either
 with a fixed value or with a value dependent on the parameters of the
 node. See [Section 7.9, \"Frequency Domain
-Processing](Image-enhance.doc.html#59829).\"
-
-------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-
-##### [Copyright](copyright.html) © 1999, Sun Microsystems, Inc. All rights reserved.
+Processing](../image-enhance/#79-frequency-domain-processing).\"
