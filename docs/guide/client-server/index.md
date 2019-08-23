@@ -6,11 +6,16 @@ nav_order: 14
 ---
 
 # Client-Server Imaging                                                 
+{:.no_toc}
 
-This chapter describes JAI\'s client-server imaging system.
+This chapter describes ImageN\'s client-server imaging system.
 
-12.1 Introduction
---------------------------------------
+* Contents
+{:toc}
+
+This functionality is deprecated and provided for applications migrating from JAI.
+
+# 12.1 Introduction
 
 Client-server imaging provides the ability to distribute computation
 between a set of processing nodes. For example, it is possible to set
@@ -39,8 +44,7 @@ server serializes its return values and returns them in the same
 manner.
 
 
-12.2 Server Name and Port Number
------------------------------------------------------
+# 12.2 Server Name and Port Number
 
 The `RemoteImage` constructor requires a `serverName` parameter that
 consists of a host name and port number, in the following format:
@@ -58,35 +62,11 @@ search for the RMIImage service on the local host at the default
 
 **API:** `org.eclipse.imagen.RemoteImage`
 
-    RemoteImage(String serverName, RenderedImage source)
+* `RemoteImage(String serverName, RenderedImage source)`
+* `RemoteImage(String serverName, RenderedOp source)`
+* `RemoteImage(String serverName, RenderableOp source, RenderContext renderContext)`
 
-:   constructs a `RemoteImage` from a `RenderedImage`.
-    *Parameters*:
-    `serverName`
-    The name of the server in the appropriate format.
-    `source`
-    A `RenderedImage` source.
-
-
-    RemoteImage(String serverName, RenderedOp source)
-
-:   constructs a `RemoteImage` from a `RenderedOp`, i.e., an imaging
-    DAG (directed acyclic graph). Note that the properties of the
-    `RemoteImage` will be those of the `RenderedOp` node and not of
-    its rendering.
-
-
-    RemoteImage(String serverName, RenderableOp source, 
-    RenderContext renderContext)
-
-:   constructs a `RemoteImage` from a `RenderableOp` and
-    `RenderContext`. The entire `RenderableOp` DAG will be copied over
-    to the server. Note that the properties of the `RemoteImage` will
-    be those of the `RenderableOp` node and not of its rendering.
-
-
-12.3 Setting the Timeout Period and Number of Retries
---------------------------------------------------------------------------
+# 12.3 Setting the Timeout Period and Number of Retries
 
 A network error or a delay caused by the server failing to respond to
 the request for an image is dealt with through retries. If, on the
@@ -105,372 +85,65 @@ method is used to set the maximum number of retries.
 
 **API:** `org.eclipse.imagen.RemoteImage`
 
-    void setTimeout(int timeout)
+* `void setTimeout(int timeout)`
+* `int getTimeout()`
+* `void setNumRetries(int numRetries)`
 
-:   sets the amount of time between retries.
-      -------------- ----------- ----------------------------------------------------
-      *Parameter*:   `timeout`   The time interval between retries in milliseconds.
-      -------------- ----------- ----------------------------------------------------
-
-      : 
-
-
-    int getTimeout()
-
-:   returns the amount of time between retries.
-
-
-    void setNumRetries(int numRetries)
-
-:   sets the number of retries.
-      -------------- -------------- -------------------------------------------------------------------------------------------------
-      *Parameter*:   `numRetries`   The maximum number of retries. If this is a negative value, the number of retries is unchanged.
-      -------------- -------------- -------------------------------------------------------------------------------------------------
-
-      : 
-
-
-12.4 Remote Imaging Test Example
------------------------------------------------------
+# 12.4 Remote Imaging Test Example
 
 This section contains two examples of remote imaging programs.
 
-
 ### 12.4.1 Simple Remote Imaging Example
 
-[Listing 12-1](../client-server) shows a complete code
+[Listing 12-1](#listing-12-1) shows a complete code
 example of a `RemoteImaging` test. This example displays a 2 x 2 grid
 of `ScrollingImagePanel`s, with each window displaying the sum of two
 byte images that were rescaled to the range \[0,127\] prior to
 addition. The panels display the following specific results:
 
 -   upper left: local rendering
-
-
 -   upper right: result of remote rendering of a RenderedOp graph
-
-
 -   lower left: result of remote loading of a RenderedImage
-
-
 -   lower right: result of remote rendering of a RenderableOp graph
 
 The lower right image is a dithered version of the sum image passed
 through a color cube lookup table and may appear slightly different
 from the other three images, which should be identical.
 
-**[]{#54012}**
 
-***Listing 12-1*  Remote Imaging Example
-Program (Sheet 1 of 4)**
+***Listing 12-1*  Remote Imaging Example Program (Sheet 1 of 4)** <a name="listing-12-1"></a>
 
-------------------------------------------------------------------------
-
-         import java.awt.*;
-         import java.awt.event.WindowEvent;
-         import java.awt.geom.*;
-         import java.awt.image.*;
-         import java.awt.image.renderable.*;
-         import java.util.*;
-         import org.eclipse.imagen.*;
-         import org.eclipse.imagen.operator.*;
-         import org.eclipse.imagen.widget.*;
-         public class RemoteImagingTest extends WindowContainer {
-
-         /** Default remote server. */
-         private static final String DEFAULT_SERVER =
-                                  "camus.eng.sun.com:1099";
-
-         /** Tile dimensions. */
-         private static final int TILE_WIDTH = 256;
-         private static final int TILE_HEIGHT = 256;
-
-         public static void main(String args[]) {
-         String fileName1 = null;
-         String fileName2 = null;
-
-         // Check args.
-             if(!(args.length >= 0 && args.length <= 3)) {
-                System.out.println("\nUsage: java RemoteImagingTest "+
-                               "[[[serverName] | [fileName1 fileName2]] | "+
-                               "[serverName fileName1 fileName2]]"+"\n");
-                System.exit(1);
-             }
-
-         // Set the server name.
-         String serverName = null;
-            if(args.length == 0 || args.length == 2) {
-                serverName = DEFAULT_SERVER;
-                System.out.println("\nUsing default server '"+
-                                   DEFAULT_SERVER+"'\n");
-            } else {
-                serverName = args[0];
-            }
-
-         // Set the file names.
-            if(args.length == 2) {
-                fileName1 = args[0];
-                fileName2 = args[1];
-            } else if(args.length == 3) {
-                fileName1 = args[1];
-                fileName2 = args[2];
-            } else {
-          fileName1 = "/import/jai/JAI_RP/test/images/Boat_At_Dock.tif";
-          fileName2 = "/import/jai/JAI_RP/test/images/FarmHouse.tif";
-                System.out.println("\nUsing default images '"+
-                                   fileName1 + "' and '" + fileName2 + "'\n");
-              }
-
-         RemoteImagingTest riTest =
-                new RemoteImagingTest(serverName, fileName1, fileName2);
-             }
-
-         /**
-         * Run a remote imaging test.
-         *
-         * @param serverName The name of the remote server to use.
-         * @param fileName1 The first addend image file to use.
-         * @param fileName2 The second addend image file to use.
-         */
-         RemoteImagingTest(String serverName, String fileName1, String
-                           fileName2) {
-         // Create the operations to load the images from files.
-         RenderedOp src1 = JAI.create("fileload", fileName1);
-         RenderedOp src2 = JAI.create("fileload", fileName2);
-
-         // Render the sources without freezing the nodes.
-         PlanarImage ren1 = src1.createInstance();
-         PlanarImage ren2 = src2.createInstance();
-
-         // Create TiledImages with the file images as their sources
-         // thereby ensuring that the serialized images are truly tiled.
-            SampleModel sampleModel1 =
-         ren1.getSampleModel().createCompatibleSampleModel(TILE_WIDTH,
-                                                           TILE_HEIGHT);
-         TiledImage ti1 = new TiledImage(ren1.getMinX(), ren1.getMinY(),
-                                         ren1.getWidth(), ren1.getHeight(),
-                                         ren1.getTileGridXOffset(),
-                                         ren1.getTileGridYOffset(),
-                                         sampleModel1, ren1.getColorModel());
-         ti1.set(src1);
-         SampleModel sampleModel2 =
-           ren2.getSampleModel().createCompatibleSampleModel(TILE_WIDTH,
-                                                             TILE_HEIGHT);
-          TiledImage ti2 = new TiledImage(ren2.getMinX(), ren2.getMinY(),
-                                          ren2.getWidth(), ren2.getHeight(),
-                                          ren2.getTileGridXOffset(),
-                                          ren2.getTileGridYOffset(),
-                                        sampleModel2, ren2.getColorModel());
-           ti2.set(src2);
-
-         // Create a hint to specify the tile dimensions.
-         ImageLayout layout = new ImageLayout();
-         layout.setTileWidth(TILE_WIDTH).setTileHeight(TILE_HEIGHT);
-              RenderingHints rh = new
-                  RenderingHints(JAI.KEY_IMAGE_LAYOUT, layout);
-
-         // Rescale the images to the range [0, 127].
-         ParameterBlock pb = (new ParameterBlock());
-         pb.addSource(ti1);
-         pb.add(new double[] {0.5}).add(new double[] {0.0});
-         RenderedOp addend1 = JAI.create("rescale", pb, rh);
-         pb = (new ParameterBlock());
-         pb.addSource(ti2);
-         pb.add(new double[] {0.5}).add(new double[] {0.0});
-         RenderedOp addend2 = JAI.create("rescale", pb, rh);
-
-         // Add the rescaled images.
-         pb = (new
-            ParameterBlock()).addSource(addend1).addSource(addend2);
-                 RenderedOp sum = JAI.create("add", pb, rh);
-
-                 // Dither the sum of the rescaled images.
-                 pb = (new ParameterBlock()).addSource(sum);
-                 
-    pb.add(ColorCube.BYTE_496).add(KernelJAI.DITHER_MASK_443);
-                 RenderedOp dithered = JAI.create("ordereddither", pb, rh);
-
-         // Construct a RemoteImage from the RenderedOp chain.
-         RemoteImage remoteImage = new RemoteImage(serverName, sum);
-
-         // Set the display title and window layout.
-         setTitle(getClass().getName());
-         setLayout(new GridLayout(2, 2));
-
-         // Local rendering.
-         add(new ScrollingImagePanel(sum,
-                                     sum.getWidth(),
-                                     sum.getHeight()));
-
-         // RenderedOp remote rendering.
-         add(new ScrollingImagePanel(remoteImage,
-                                     remoteImage.getWidth(),
-                                     remoteImage.getHeight()));
-
-         // RenderedImage remote rendering
-         PlanarImage sumImage = sum.getRendering();
-         remoteImage = new RemoteImage(serverName, sumImage);
-         add(new ScrollingImagePanel(remoteImage,
-                                     remoteImage.getWidth(),
-                                     remoteImage.getHeight()));
-
-         // RenderableOp remote rendering.
-         pb = new ParameterBlock();
-         pb.addSource(dithered);
-         RenderableOp absImage = JAI.createRenderable("absolute", pb);
-         pb = new ParameterBlock();
-         pb.addSource(absImage).add(ColorCube.BYTE_496);
-         RenderableOp lutImage = JAI.createRenderable("lookup", pb);
-         AffineTransform tf =
-                AffineTransform.getScaleInstance(384/dithered.getWidth(),
-                                                 256/dithered.getHeight());
-         Rectangle aoi = new Rectangle(128, 128, 384, 256);
-         RenderContext rc = new RenderContext(tf, aoi, rh);
-         remoteImage = new RemoteImage(serverName, lutImage, rc);
-         add(new ScrollingImagePanel(remoteImage,
-                                     remoteImage.getWidth(),
-                                     remoteImage.getHeight()));
-
-         // Finally display everything
-                 pack();
-                 show();
-             }
-         }
-
-------------------------------------------------------------------------
-
+```java
+{% include_relative RemoteImagingTest.java %}
+```
 
 ### 12.4.2 RemoteImaging Example Across Two Nodes
 
-[Listing 12-2](../client-server) shows an example of a
+[Listing 12-2](#listing-12-2) shows an example of a
 RemoteImaging chain spread across two remote nodes, and displays the
 results locally.
 
-**[]{#52766}**
+***Listing 12-2*  RemoteImaging Example Program Using Two Nodes (Sheet 1 of 2)** <a name="listing-12-2"></a>
 
-***Listing 12-2*  RemoteImaging Example
-Program Using Two Nodes (Sheet 1 of 2)**
-
-------------------------------------------------------------------------
-
-         import java.awt.image.*;
-         import java.awt.image.renderable.ParameterBlock;
-         import org.eclipse.imagen.*;
-         import org.eclipse.imagen.widget.*;
-
-         /**
-          * This test creates an imaging chain spread across two remote 
-          * nodes and displays the result locally.
-          */
-
-         public class MultiNodeTest extends WindowContainer {
-             public static void main(String[] args) {
-                 if(args.length != 3) {
-                   throw new RuntimeException("Usage: java MultiNodeTest "+
-                                                "file node1 node2");
-                 }
-
-                 new MultiNodeTest(args[0], args[1], args[2]);
-             }
-         public MultiNodeTest(String fileName, String node1, String
-                              node2) {
-
-         // Create a chain on node 1.
-         System.out.println("Creating dst1 = log(invert(fileload("+
-                                    fileName+"))) on "+node1);
-                 RenderedOp src = JAI.create("fileload", fileName);
-                 RenderedOp op1 = JAI.create("invert", src);
-                 RenderedOp op2 = JAI.create("log", op1);
-                 RemoteImage rmt1 = new RemoteImage(node1, op2);
-
-         // Create a chain on node 2.
-         System.out.println("Creating dst2 = not(exp(dst1)) on "+node2);
-                 RenderedOp op3 = JAI.create("exp", rmt1);
-                 RenderedOp op4 = JAI.create("not", op3);
-                 RemoteImage rmt2 = new RemoteImage(node2, op4);
-
-         // Display the result of node 2.
-         System.out.println("Displaying results");
-         setTitle(getClass().getName()+" "+fileName);
-         add(new ScrollingImagePanel(rmt2, rmt2.getWidth(),
-                                     rmt2.getHeight()));
-                 pack();
-                 show();
-             }
-         }
-
-------------------------------------------------------------------------
+```java
+{% include_relative MultiNodeTest.java %}
+```
 
 **API:** `org.eclipse.imagen.RemoteImage`
 
-    int getWidth()
+* int getWidth()
+* int getHeight()
+* Raster getData()
+* Raster getData(Rectangle rect)
+* WritableRaster copyData(WritableRaster raster)
+* Raster getTile(int x, int y)
 
-:   returns the width of the `RemoteImage`.
+# 12.5 Running Remote Imaging
 
-
-    int getHeight()
-
-:   returns the height of the `RemoteImage`.
-
-
-    Raster getData()
-
-:   returns the entire image as one large tile.
-
-
-    Raster getData(Rectangle rect)
-
-:   returns an arbitrary rectangular region of the `RemoteImage`.
-      ------------- -------- -------------------------------------------------
-      Parameters:   `rect`   The region of the `RemoteImage` to be returned.
-      ------------- -------- -------------------------------------------------
-
-      : 
-
-
-    WritableRaster copyData(WritableRaster raster)
-
-:   returns an arbitrary rectangular region of the `RemoteImage` in a
-    user-supplied `WritableRaster`. The rectangular region is the
-    entire image if the argument is null or the intersection of the
-    argument bounds with the image bounds if the region is non-null.
-    If the argument is non-null but has bounds that have an empty
-    intersection with the image bounds, the return value will be null.
-    The return value may also be null if the argument is non-null but
-    is incompatible with the `Raster` returned from the remote image.
-      --------------- ---------- ---------------------------------------------------------------
-      *Parameters*:   `raster`   A `WritableRaster` to hold the returned portion of the image.
-      --------------- ---------- ---------------------------------------------------------------
-
-      : 
-
-    
-:   If the `raster` argument is null, the entire image will be copied
-    into a newly-created WritableRaster with a SampleModel that is
-    compatible with that of the image.
-
-
-    Raster getTile(int x, int y)
-
-:   returns a tile (*x*, *y*). Note that *x* and *y* are indices into
-    the tile array, not pixel locations. Unlike in the true
-    `RenderedImage` interface, the `Raster` that is returned should be
-    considered a copy.
-    *Parameters*:
-    `x`
-    The *x* index of the requested tile in the tile array
-    y
-    The *y* index of the requested tile in the tile array
-
-
-12.5 Running Remote Imaging
-------------------------------------------------
-
-To run remote imaging in JAI, you have to do the following:
+To run remote imaging in ImageN, you have to do the following:
 
 These four steps are explained in more detail in the following
 sections.
-
 
 ### 12.5.1 Step 1: Create a Security Policy File
 
@@ -496,7 +169,6 @@ text file named `$JAI/policy` containing the following:
          };
 
 Note that this policy file is for testing purposes only.
-
 
 ### 12.5.2 Step 2: Start the RMI Registry
 
@@ -574,16 +246,13 @@ if the machine with IP address 123.456.78.90 above is named
 `myserver`, the `serverName` parameter of any `RemoteImage()`
 constructors should be `"myserver"`.
 
-
-12.6 Internet Imaging Protocol (IIP)
----------------------------------------------------------
+# 12.6 Internet Imaging Protocol (IIP)
 
 There are two JAI operations that support Internet Imaging Protocol
 (IIP) operations. Two separate operations provide client-side support
 of the Internet Imaging Protocol. These operations, `IIP` and
 `IIPResolution`, request an image from an IIP server then create
 either a RenderedImage or a RenderableImage.
-
 
 ### 12.6.1 IIP Operation
 
@@ -635,39 +304,22 @@ processing.
 
 The `IIP` operation takes 14 parameters.
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#55324}      [Type]{#55326}                  [Description]{#55328}
-  ------------------------ ------------------------------- ----------------------------------------------------------------------------------------
-  URL           String               The URL of the IIP image
-
-  subImages     [int\[\]]{#55338}\              The sub-images to be used by the server for images at each resolution level
-
-  filter        Float                The filtering value
-
-  colorTwist    [float\[\]]{#55426}\            The color twist matrix
-
-  contrast      Float                The contrast value
-
-  sourceROI     Rectangle2D.Float    The source rectangle of interest in rendering-independent coordinates
-
-  transform     AffineTransform      The rendering-independent spatial orientation transform
-
-  aspectRatio   Float                The aspect ratio of the destination image
-
-  destROI       Rectangle2D.Float    The destination rectangle of interest in rendering-independent coordinates
-
-  rotation      Integer              The counterclockwise rotation angle to be applied to the destination
-
-  mirrorAxis    String               The mirror axis
-
-  ICCProfile    color.ICC\_Profile   The ICC profile used to represent the color space of the source image
-
-  JPEGQuality   Integer              The JPEG quality factor
-
-  JPEGTable     Integer              The JPEG compression group index number
-  -------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| URL | String | The URL of the IIP image |
+| subImages | int\[\] | The sub-images to be used by the server for images at each resolution level |
+| filter | Float | The filtering value |
+| colorTwist | float\[\] | The color twist matrix |
+| contrast | Float | The contrast value
+| sourceROI | Rectangle2D.Float | The source rectangle of interest in rendering-independent coordinates |
+| transform | AffineTransform | The rendering-independent spatial orientation transform |
+| aspectRatio | Float | The aspect ratio of the destination image |
+| destROI | Rectangle2D.Float | The destination rectangle of interest in rendering-independent coordinates |
+| rotation | Integer Z| The counterclockwise rotation angle to be applied to the destination |
+| mirrorAxis | String | The mirror axis |
+| ICCProfile | color.ICC\_Profile | The ICC profile used to represent the color space of the source image |
+| JPEGQuality | Integer | The JPEG quality factor |
+| JPEGTable | Integer | The JPEG compression group index number |
 
 The `URL` parameter specifies the URL of the IIP image as a
 `java.lang.String`. It must represent a valid URL and include any
@@ -748,92 +400,86 @@ range \[0,100\] and `JPEGTable` in \[1,255\].
 
 There is no source image associated with this operation.
 
-[Listing 12-3](../client-server) shows a code sample for
-an `IIP` operation.
+[Listing 12-3](#listing-12-3) shows a code sample for an `IIP` operation.
 
-**[]{#56227}**
+***Listing 12-3*  IIP Operation Example** <a name="listing-12-3"></a>
 
-***Listing 12-3*  IIP Operation Example**
+```java
+public static final String SERVER = "http://istserver:8087/";
+public static final String DEFAULT_IMAGE = "cat.fpx";
+public static final int DEFAULT_HEIGHT = 512;
 
-------------------------------------------------------------------------
+public static void main(String[] args) {
+    String imagePath = DEFAULT_IMAGE;
 
-         public static final String SERVER = "http://istserver:8087/";
-         public static final String DEFAULT_IMAGE = "cat.fpx";
-         public static final int DEFAULT_HEIGHT = 512;
+   for(int i = 0; i < args.length; i++) {
+       if(args[i].equalsIgnoreCase("-image")) {
+           imagePath = args[++i];
+           if(!(imagePath.toLowerCase().endsWith(".fpx"))) {
+                imagePath += ".fpx";
+           }
+       }
+   }
 
-         public static void main(String[] args) {
-             String imagePath = DEFAULT_IMAGE;
+   String url = SERVER + "FIF=" + imagePath;
 
-            for(int i = 0; i < args.length; i++) {
-                if(args[i].equalsIgnoreCase("-image")) {
-                    imagePath = args[++i];
-                    if(!(imagePath.toLowerCase().endsWith(".fpx"))) {
-                         imagePath += ".fpx";
-                    }
-                }
-            }
+   new IIPTest(url);
+}
 
-            String url = SERVER + "FIF=" + imagePath;
+// Define the parameter block.
+ParameterBlock pb = (new ParameterBlock()).add(url);
 
-            new IIPTest(url);
-         }
+// Default sub-image array
+pb.set(-10.0F, 2); // filter
+float[] colorTwist = new float[]
+    {1.0F, 0.0F, 0.0F, 0.0F,
+     0.0F, 0.0F, 1.0F, 0.0F,
+     0.0F, 1.0F, 0.0F, 0.0F,
+     0.0F, 0.0F, 0.0F, 1.0F};
+pb.set(colorTwist, 3); //color-twist
+pb.set(2.0F, 4); // contrast
+pb.set(new Rectangle2D.Float(0.10F, 0.10F,
+                             0.80F*aspectRatioSource, 0.80F),
+       5); // srcROI
 
-         // Define the parameter block.
-         ParameterBlock pb = (new ParameterBlock()).add(url);
+AffineTransform afn = AffineTransform.getShearInstance(0.2,
 
-         // Default sub-image array
-         pb.set(-10.0F, 2); // filter
-         float[] colorTwist = new float[]
-             {1.0F, 0.0F, 0.0F, 0.0F,
-              0.0F, 0.0F, 1.0F, 0.0F,
-              0.0F, 1.0F, 0.0F, 0.0F,
-              0.0F, 0.0F, 0.0F, 1.0F};
-         pb.set(colorTwist, 3); //color-twist
-         pb.set(2.0F, 4); // contrast
-         pb.set(new Rectangle2D.Float(0.10F, 0.10F,
-                                      0.80F*aspectRatioSource, 0.80F),
-                5); // srcROI
+                   0.1);
+pb.set(afn, 6); // transform
+Rectangle2D destBounds = null;
 
-         AffineTransform afn = AffineTransform.getShearInstance(0.2,
+try {
+     Rectangle2D sourceRect =
+           new Rectangle2D.Float(0.0F, 0.0F, aspectRatioSource,
 
-                            0.1);
-         pb.set(afn, 6); // transform
-         Rectangle2D destBounds = null;
+                              1.0F);
+     Shape shape =
+         afn.createInverse().createTransformedShape(sourceRect);
+     destBounds = shape.getBounds2D();
+} catch(Exception e) {
+}
 
-         try {
-              Rectangle2D sourceRect =
-                    new Rectangle2D.Float(0.0F, 0.0F, aspectRatioSource,
+float aspectRatio = (float)destBounds.getHeight();
+pb.set(aspectRatio, 7); // destination aspect ratio
+pb.set(new Rectangle2D.Float(0.0F, 0.0F,
+                         0.75F*aspectRatio, 0.75F), 8); // dstROI
+pb.set(90, 9); // rotation angle
+pb.set("x", 10); // mirror axis
 
-                                       1.0F);
-              Shape shape =
-                  afn.createInverse().createTransformedShape(sourceRect);
-              destBounds = shape.getBounds2D();
-         } catch(Exception e) {
-         }
+// Default ICC profile
+// Default JPEG quality
+// Default JPEG table index
 
-         float aspectRatio = (float)destBounds.getHeight();
-         pb.set(aspectRatio, 7); // destination aspect ratio
-         pb.set(new Rectangle2D.Float(0.0F, 0.0F,
-                                  0.75F*aspectRatio, 0.75F), 8); // dstROI
-         pb.set(90, 9); // rotation angle
-         pb.set("x", 10); // mirror axis
+int height = DEFAULT_HEIGHT;
+AffineTransform at =
+    AffineTransform.getScaleInstance(height*aspectRatioSource,
 
-         // Default ICC profile
-         // Default JPEG quality
-         // Default JPEG table index
+                 height);
+RenderContext rc = new RenderContext(at);
 
-         int height = DEFAULT_HEIGHT;
-         AffineTransform at =
-             AffineTransform.getScaleInstance(height*aspectRatioSource,
-
-                          height);
-         RenderContext rc = new RenderContext(at);
-
-         // Create a RenderableImage.
-         RenderableImage renderable = JAI.createRenderable("iip", pb);
-
-------------------------------------------------------------------------
-
+// Create a RenderableImage.
+RenderableImage renderable = JAI.createRenderable("iip", pb);
+```
 
 ### 12.6.2 IIPResolution Operation
 
@@ -867,17 +513,11 @@ The layout of the created RenderedImage is set as follows:
 
 The `IIPResolution` operation takes three parameters.
 
-  ------------------------------------------------------------------------------------------------
-  [Parameter]{#55886}     [Type]{#55888}       [Description]{#55890}
-  ----------------------- -------------------- ---------------------------------------------------
-  URL          String    The URL of the IIP image
-
-  resolution   Integer   The resolution level to request
-
-  subImage     Integer   The sub-image to be used by the server
-  ------------------------------------------------------------------------------------------------
-
-  : 
+| Parameter  | Type    | Description |
+| ---------- | ------- | ----------- |
+| URL        | String  | The URL of the IIP image |
+| resolution | Integer | The resolution level to request |
+| subImage   | Integer | The sub-image to be used by the server |
 
 The `URL` parameter specifies the URL of the IIP image as a
 `java.lang.String`. It must represent a valid URL, and include any
@@ -903,100 +543,64 @@ RenderedImage. The names of properties and the class types of their
 associated values are listed in the following table. See the IIP
 specification for information on each of these properties.
 
-  ---------------------------------------------------------------------------
-  [Property]{#56055}             [Type]{#56057}
-  ------------------------------ --------------------------------------------
-  affine-transform    java.awt.geom.AffineTransform
+| Property | Type |
+| -------- | ---- |
+| affine-transform   | java.awt.geom.AffineTransform |
+| app-name           | java.lang.String |
+| aspect-ratio       | java.lang.Float |
+| author             | java.lang.String |
+| colorspace         | int\[\] |
+| color-twist        | float\[16\] |
+| comment            | java.lang.String |
+| contrast-adjust    | java.lang.Float |
+| copyright          | java.lang.String |
+| create-dtm         | java.lang.String |
+| edit-time          | java.lang.String |
+| filtering-value    | java.lang.Float |
+| iip                | java.lang.String |
+| iip-server         | java.lang.String |
+| keywords           | java.lang.String |
+| last-author        | java.lang.String |
+| last-printed       | java.lang.String |
+| last-save-dtm      | java.lang.String |
+| max-size           | int\[2\] |
+| resolution-number  | java.lang.Integer |
+| rev-number         | java.lang.String |
+| roi-iip            | java.awt.geom.Rectangle2D.Float |
+| subject            | java.lang.String |
+| title              | java.lang.String |
 
-  app-name            java.lang.String
-
-  aspect-ratio        java.lang.Float
-
-  author              java.lang.String
-
-  colorspace          [int\[\]]{#56073}\
-
-  color-twist         [float\[16\]]{#56077}\
-
-  comment             java.lang.String
-
-  contrast-adjust     java.lang.Float
-
-  copyright           java.lang.String
-
-  create-dtm          java.lang.String
-
-  edit-time           java.lang.String
-
-  filtering-value     java.lang.Float
-
-  iip                 java.lang.String
-
-  iip-server          java.lang.String
-
-  keywords            java.lang.String
-
-  last-author         java.lang.String
-
-  last-printed        java.lang.String
-
-  last-save-dtm       java.lang.String
-
-  max-size            [int\[2\]]{#56129}\
-
-  resolution-number   java.lang.Integer
-
-  rev-number          java.lang.String
-
-  roi-iip             java.awt.geom.Rectangle2D.Float
-
-  subject             java.lang.String
-
-  title               java.lang.String
-  ---------------------------------------------------------------------------
-
-  : 
-
-[Listing 12-4](../client-server) shows a code sample for
+[Listing 12-4](#listing-12-4) shows a code sample for
 an `IIPResolution` operation.
 
-**[]{#56497}**
+***Listing 12-4*  IIPResolution Operation Example**  <a name="listing-12-4"></a>
 
-***Listing 12-4*  IIPResolution Operation
-Example**
+```java
+public static final String SERVER = "http://istserver:8087/";
+public static final String DEFAULT_IMAGE = "cat.fpx";
+public static final int DEFAULT_RESOLUTION = 3;
 
-------------------------------------------------------------------------
+public static void main(String[] args) {
+    String imagePath = DEFAULT_IMAGE;
+    int resolution = DEFAULT_RESOLUTION;
 
-         public static final String SERVER = "http://istserver:8087/";
-         public static final String DEFAULT_IMAGE = "cat.fpx";
-         public static final int DEFAULT_RESOLUTION = 3;
+    for(int i = 0; i < args.length; i++) {
+        if(args[i].equalsIgnoreCase("-image")) {
+            imagePath = args[++i];
+            if(!(imagePath.toLowerCase().endsWith(".fpx"))) {
+                imagePath += ".fpx";
+            }
+        } else if(args[i].equalsIgnoreCase("-res")) {
+            resolution = Integer.valueOf(args[++i]).intValue();
+        }
+    }
 
-         public static void main(String[] args) {
-             String imagePath = DEFAULT_IMAGE;
-             int resolution = DEFAULT_RESOLUTION;
+    String url = SERVER + "FIF=" + imagePath;
 
-             for(int i = 0; i < args.length; i++) {
-                 if(args[i].equalsIgnoreCase("-image")) {
-                     imagePath = args[++i];
-                     if(!(imagePath.toLowerCase().endsWith(".fpx"))) {
-                         imagePath += ".fpx";
-                     }
-                 } else if(args[i].equalsIgnoreCase("-res")) {
-                     resolution = Integer.valueOf(args[++i]).intValue();
-                 }
-             }
+    new IIPResolutionTest(url, resolution);
+}
 
-             String url = SERVER + "FIF=" + imagePath;
-
-             new IIPResolutionTest(url, resolution);
-         }
-
-         ParameterBlock pb = new ParameterBlock();
-         pb.add(url).add(resolution);
-         PlanarImage pi = JAI.create("iipresolution", pb);
-
-------------------------------------------------------------------------
-
-         
-
-------------------------------------------------------------------------
+ParameterBlock pb = new ParameterBlock();
+pb.add(url).add(resolution);
+PlanarImage pi = JAI.create("iipresolution", pb);
+```
