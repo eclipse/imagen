@@ -1,3 +1,9 @@
+---
+layout: default
+title: Creative Commons Attribution 4.0 International
+nav_exclude: true
+search_exclude: true
+---
 ## creative commons
 
 # Attribution 4.0 International

@@ -15,7 +15,9 @@ aux_links:
       - "https://projects.eclipse.org/projects/technology.imagen"
     "GitHub":
       - "http://github.com/eclipse/imagen"
-      
+heading_anchors: false
+footer_content: Copyright (c) 2019, Oracle and Others. All rights reserved. <br/> This work is licensed under a <a rel="license" href="/LICENSE.html">Creative Commons Attribution 4.0 International License</a>
+
 # site configuration
 
 imagen_version: "0.4-SNAPSHOT"
