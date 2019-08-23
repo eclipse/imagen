@@ -5,7 +5,7 @@ parent: Programming Guide
 nav_order: 7
 ---
 
-# Image Manipulation                                                    
+# Image Manipulation
 {:.no_toc}
 
 Chapter describes the basics of manipulating images to
