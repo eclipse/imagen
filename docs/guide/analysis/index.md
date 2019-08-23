@@ -217,186 +217,74 @@ The `Histogram` object takes three parameters:
 
 For an example histogram, see [Listing 9-3](#lsiting-9-3).
 
- +-----------------------------------+-----------------------------------+
- | ![](shared/cistine.gif)           | -------------------------------   |
- |                                   |                                   |
- |                                   | **API:**                          |
- |                                   | `org.eclipse.imagen.Histogram`       |
- |                                   |                                   |
- |                                   | -------------------------------   |
- +-----------------------------------+-----------------------------------+
+**API:** `org.eclipse.imagen.Histogram`
 
-     Histogram(int[] numBins, float[] lowValue, float[] highValue)
+* `Histogram(int[] numBins, float[] lowValue, float[] highValue)`
 
- :   constructs a `Histogram` that may be used to accumulate data
-     within a given range for each band of an image. The legal pixel
-     range and the number of bins may be controlled separately.
-     *Parameters*:
-     `numBins`
-     The number of bins for each band of the image; `numBins.length`
-     must be equal to the number of bands of the image which the
-     histogram is taken.
-     `lowValue`
-     The lowest pixel value checked for each band.
-     `highValue`
-     The highest pixel value checked for each band. Note when counting
-     the pixel values, this `highValue` is not included based on the
-     formula below.
-    
+### 9.4.2 Performing the Histogram Operation
 
- :   If `binWidth` is defined as (`highValue` - `lowValue`)/`numBins`,
-     bin i will count pixel values in the range from
-    
+Once you have created the `Histogram` object to accumulate the
+histogram information, you generate the histogram for an image with
+the `histogram` operation. The `histogram` operation scans a specified
+region of an image and generates a histogram based on the pixel values
+within that region of the image. The region of interest does not have
+to be a rectangle. If no region is specified (null), the entire image
+is scanned to generate the histogram. The image data passes through
+the operation unchanged.
 
- :   ![](Analysis.doc.anc3.gif)
-
-
-
- ### 9.4.2 Performing the Histogram Operation
-
- Once you have created the `Histogram` object to accumulate the
- histogram information, you generate the histogram for an image with
- the `histogram` operation. The `histogram` operation scans a specified
- region of an image and generates a histogram based on the pixel values
- within that region of the image. The region of interest does not have
- to be a rectangle. If no region is specified (null), the entire image
- is scanned to generate the histogram. The image data passes through
- the operation unchanged.
-
- The `histogram` operation takes one rendered source image and four
- parameters:
+The `histogram` operation takes one rendered source image and four
+parameters:
 
 | Parameter | Type | Description |
 | --------- | ---- | ----------- |
-   specification   Histogram   [The specification for the type of histogram to be generated. See]{#52635} [Section 9.4.1, \"Specifying the Histogram](analysis/index.html).\"\
+| specification | Histogram | The specification for the type of histogram to be generated. See [Section 9.4.1](#941-specifying-the-histogram) |
+| roi | ROI | The region of the image to scan. See [Section 6.2](../image-manipulation/#62-region-of-interest-control). |
+| xPeriod | Integer | The horizontal sampling rate. May not be less than 1. |
+| yPeriod | Integer | The vertical sampling rate. May not be less than 1. |
 
-   roi             ROI         [The region of the image to scan. See]{#52641} [Section 6.2, \"Region of Interest Control](image-manipulation/index.html).\"\
+The set of pixels scanned may be further reduced by specifying the
+`xPeriod` and `yPeriod` parameters that represent the sampling rate
+along each axis. These variables may not be less than 1. However, they
+may be null, in which case the sampling rate is set to 1; that is,
+every pixel in the ROI is processed.
 
-   xPeriod         Integer     The horizontal sampling rate. May not be less than 1.
+### 9.4.3 Reading the Histogram Data
 
-   yPeriod         Integer     The vertical sampling rate. May not be less than 1.
-   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+The histogram data is stored in the user supplied `Histogram` object,
+and may be retrieved by calling the `getProperty` method on this
+operation with `"histogram"` as the property name. The return value
+will be of type `Histogram`.
 
-   : 
+Several get methods allow you to check on the four histogram
+parameters:
 
- The set of pixels scanned may be further reduced by specifying the
- `xPeriod` and `yPeriod` parameters that represent the sampling rate
- along each axis. These variables may not be less than 1. However, they
- may be null, in which case the sampling rate is set to 1; that is,
- every pixel in the ROI is processed.
+-   The bin data for all bands (`getBins`)``
 
+-   The bin data for a specified band (`getBins`)
 
+-   The number of pixel values found in a given bin for a given band
+    (`getBinSize`)
 
- ### 9.4.3 Reading the Histogram Data
+-   The lowest pixel value found in a given bin for a given band
+    (`getBinLowValue`)
 
- The histogram data is stored in the user supplied `Histogram` object,
- and may be retrieved by calling the `getProperty` method on this
- operation with `"histogram"` as the property name. The return value
- will be of type `Histogram`.
+The set of pixels counted in the histogram may be limited by the use
+of a region of interest (ROI), and by horizontal and vertical
+subsampling factors. These factors allow the accuracy of the histogram
+to be traded for speed of computation.
 
- Several get methods allow you to check on the four histogram
- parameters:
+**API:** `org.eclipse.imagen.Histogram`
 
- -   The bin data for all bands (`getBins`)``
+* `int[][] getBins()`
+* `int[] getBins(int band)`
+* `int getBinSize(int band, int bin)`
+* `float getBinLowValue(int band, int bin)`
+* `void clearHistogram()`
 
+* `void countPixels(java.awt.image.Raster pixels, ROI roi,
+           int xStart, int yStart, int xPeriod, int yPeriod)`
 
- -   The bin data for a specified band (`getBins`)
-
-
- -   The number of pixel values found in a given bin for a given band
-     (`getBinSize`)
-
-
- -   The lowest pixel value found in a given bin for a given band
-     (`getBinLowValue`)
-
- The set of pixels counted in the histogram may be limited by the use
- of a region of interest (ROI), and by horizontal and vertical
- subsampling factors. These factors allow the accuracy of the histogram
- to be traded for speed of computation.
-
- +-----------------------------------+-----------------------------------+
- | ![](shared/cistine.gif)           | -------------------------------   |
- |                                   |                                   |
- |                                   | **API:**                          |
- |                                   | `org.eclipse.imagen.Histogram`       |
- |                                   |                                   |
- |                                   | -------------------------------   |
- +-----------------------------------+-----------------------------------+
-
-     int[][] getBins()
-
- :   returns the bins of the histogram for all bands.
-
-
-     int[] getBins(int band)
-
- :   returns the bins of the histogram for a specified band.
-       --------------- -------- ------------------------
-       *Parameters*:   `band`   The band to be checked
-       --------------- -------- ------------------------
-
-       : 
-
-
-     int getBinSize(int band, int bin)
-
- :   returns the number of pixel values found in a given bin for a
-     given band.
-     *Parameters*:
-     `band`
-     The band to be checked
-     `bin`
-     The bin to be checked
-
-
-     float getBinLowValue(int band, int bin)
-
- :   returns the lowest pixel value found in a given bin for a given
-     band.
-     *Parameters*:
-     `band`
-     The band to be checked
-     `bin`
-     The bin to be checked
-
-
-     void clearHistogram()
-
- :   resets the counts of all bins to zero.
-
-
-     void countPixels(java.awt.image.Raster pixels, ROI roi,
-            int xStart, int yStart, int xPeriod, int yPeriod)
-
- :   adds the pixels of a `Raster` that lie within a given region of
-     interest (ROI) to the histogram. The set of pixels is further
-     reduced by subsampling factors in the horizontal and vertical
-     directions. The set of pixels to be accumulated may be obtained by
-     intersecting the grid
-    
-
- :   ![](Analysis.doc.anc4.gif)
-    
-
- :   with the region of interest and the bounding rectangle of the
-     `Raster`.
-     *Parameters*:
-     `pixels`
-     A Raster containing pixels to be histogrammed.
-     `roi`
-     The region of interest, as a ROI.
-     `xStart`
-     The initial *x* sample coordinate.
-     `yStart`
-     The initial *y* sample coordinate.
-     `xPeriod`
-     The *x* sampling rate.
-     `yPeriod`
-     The *y* sampling rate.
-
-
- ### 9.4.4 Histogram Operation Example
+### 9.4.4 Histogram Operation Example
 
 [Listing 9-3](#listing-9-3) shows a sample listing for a histogram operation on a three-banded source image.
 
@@ -463,13 +351,12 @@ magnitude for the brightness gradient.
 
 The result of the `GradientMagnitude` operation may be defined as:
 
-:   ![](Analysis.doc.ancA3.gif)
-   
+![](Analysis.doc.ancA3.gif)
 
-:   where `SH(x,y,b)` and `SV(x,y,b)` are the horizontal and vertical
-    gradient images generated from band *b* of the source image by
-    correlating it with the supplied orthogonal (horizontal and
-    vertical) gradient masks.
+where `SH(x,y,b)` and `SV(x,y,b)` are the horizontal and vertical
+gradient images generated from band *b* of the source image by
+correlating it with the supplied orthogonal (horizontal and
+vertical) gradient masks.
 
 The `GradientMagnitude` operation uses two gradient masks; one for
 passing over the image in each direction. The `GradientMagnitude`
@@ -483,7 +370,7 @@ operation takes one rendered source image and two parameters.
 The default masks for the `GradientMagnitude` operation are:
 
 - `KernelJAI.GRADIENT_MASK_SOBEL_HORIZONTAL`
-- KernelJAI.GRADIENT_MASK_SOBEL_VERTICAL`
+- `KernelJAI.GRADIENT_MASK_SOBEL_VERTICAL`
 
 These masks, shown in [Figure 9-2](#figure-9-2) perform
 the Sobel edge enhancement operation. The Sobel operation extracts all
@@ -608,31 +495,31 @@ kernel.
 ***Listing 9-4*  Example GradientMagnitude Operation** <a name="listing-9-4"></a>
 
 ```java
-          // Load the image.
-          PlanarImage im0 = (PlanarImage)JAI.create("fileload",
-                                                    filename);
+// Load the image.
+PlanarImage im0 = (PlanarImage)JAI.create("fileload",
+                                          filename);
 
-          // Create the two kernels.
-          float data_h[] = new float[] { 1.0F,   0.0F,   -1.0F,
-                                         1.414F, 0.0F,   -1.414F,
-                                         1.0F,   0.0F,   -1.0F};
-          float data_v[] = new float[] {-1.0F,  -1.414F, -1.0F,
-                                         0.0F,   0.0F,    0.0F,
-                                         1.0F,   1.414F,  1.0F};
+// Create the two kernels.
+float data_h[] = new float[] { 1.0F,   0.0F,   -1.0F,
+                               1.414F, 0.0F,   -1.414F,
+                               1.0F,   0.0F,   -1.0F};
+float data_v[] = new float[] {-1.0F,  -1.414F, -1.0F,
+                               0.0F,   0.0F,    0.0F,
+                               1.0F,   1.414F,  1.0F};
 
-          KernelJAI kern_h = new KernelJAI(3,3,data_h);
-          KernelJAI kern_v = new KernelJAI(3,3,data_v);
+KernelJAI kern_h = new KernelJAI(3,3,data_h);
+KernelJAI kern_v = new KernelJAI(3,3,data_v);
 
-          // Create the Gradient operation.
-          PlanarImage im1 =
-                  (PlanarImage)JAI.create("gradientmagnitude", im0,
-                                           kern_h, kern_v);
+// Create the Gradient operation.
+PlanarImage im1 =
+        (PlanarImage)JAI.create("gradientmagnitude", im0,
+                                 kern_h, kern_v);
 
-          // Display the image.
-          imagePanel = new ScrollingImagePanel(im1, 512, 512);
-                  add(imagePanel);
-                  pack();
-                  show();
+// Display the image.
+imagePanel = new ScrollingImagePanel(im1, 512, 512);
+        add(imagePanel);
+        pack();
+        show();
 ```
 
 # 9.6 Statistical Operations
@@ -643,7 +530,7 @@ sampling rate. A subclass of `StatisticsOpImage` simply passes pixels
 through unchanged from its parent image. However, the desired
 statistics are available as a property or set of properties on the
 image (see [Chapter 11, \"Image
-Properties](properties/index.html)\").
+Properties](../properties)\").
 
 All instances of `StatisticsOpImage` make use of a region of interest,
 specified as an `ROI` object. Additionally, they may perform spatial
