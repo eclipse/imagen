@@ -9,16 +9,13 @@ nav_order: 15
 
 {:.no_toc}
 
-**T**HIS chapter describes JAI\'s codec system for writing image data
-files.
+Dscribes ImageN\'s codec system for writing image data files.
 
 * Contents
 {:toc}
 
 
-
-13.1 Introduction
---------------------------------------
+## 13.1 Introduction
 
 The JAI codec system supports a variety of image formats for writing
 an image to a file or to an `OutputStream` for further manipulation.
@@ -31,9 +28,7 @@ image to a given `OutputStream` in a specified format using the
 encoding parameters supplied via the `ImageEncodeParam` operation
 parameter.
 
-
-13.2 Writing to a File
--------------------------------------------
+## 13.2 Writing to a File
 
 The `FileStore` operation writes an image to a given file in a
 specified format using the specified encoding parameters. This
@@ -43,51 +38,37 @@ of this chapter.
 The `FileStore` operation takes one rendered source image and three
 parameters:
 
-  --------------------------------------------------------------------------------------------------
-  [Parameter]{#56518}   [Type]{#56520}                [Description]{#56522}
-  --------------------- ----------------------------- ----------------------------------------------
-  filename   String             The path of the file to write to.
-
-  format     String             The format of the file.
-
-  param      ImageEncodeParam   The encoding parameters.
-  --------------------------------------------------------------------------------------------------
-
-  : 
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| filename  | String            | The path of the file to write to. |
+| format    | String            | The format of the file. |
+| param     | ImageEncodeParam  | The encoding parameters. |
 
 The `filename` parameter must be supplied or the operation will not be
 performed. Also, the specified file path must be writable.
 
 The `format` parameter defaults to `tiff` if no value is provided.
-[Table 13-1](../encode) lists the recognized JAI file
+[Table 13-1](#table-13-1) lists the recognized JAI file
 formats.
 
-  ----------------------------------------------------------------------------------------------------
-  [File Format]{#56614}   [Description]{#56616}
-  ----------------------- ----------------------------------------------------------------------------
-  BMP          Microsoft Windows bitmap image file
+***Table 13-1* ImageN Writable File Formats** <a name="table-13-1"></a>
 
-  JPEG         A file format developed by the Joint Photographic Experts Group
-
-  PNG          Portable Network Graphics
-
-  PNM          Portable aNy Map file format. Includes PBM, PGM, and PPM
-
-  TIFF         Tag Image File Format
-  ----------------------------------------------------------------------------------------------------
-
-  :  **[*Table 13-1*  JAI Writable File
-  Formats]{#56610}**
+| File Format | Description |
+| ----------- | ----------- |
+| BMP         | Microsoft Windows bitmap image file |
+| JPEG        | A file format developed by the Joint Photographic Experts Group |
+| PNG         | Portable Network Graphics |
+| PNM         | Portable aNy Map file format. Includes PBM, PGM, and PPM |
+| TIFF        | Tag Image File Format |
 
 The `param` parameter must either be null or an instance of an
 `ImageEncodeParam` subclass appropriate to the format.
 
-[Listing 13-1](../encode) shows a code sample
+[Listing 13-1](#listing-13-1) shows a code sample
 demonstrating the use of both the `Encode` and `FileStore` operations.
 
 
-13.3 Writing to an Output Stream
------------------------------------------------------
+## 13.3 Writing to an Output Stream
 
 The `Encode` operation writes an image to a given `OutputStream` in a
 specified format using the encoding parameters supplied via the
@@ -96,17 +77,11 @@ specified format using the encoding parameters supplied via the
 The `Encode` operation takes one rendered source image and three
 parameters:
 
-  ------------------------------------------------------------------------------------------------
-  [Parameter]{#51210}   [Type]{#51212}                [Description]{#51214}
-  --------------------- ----------------------------- --------------------------------------------
-  stream     OutputStream       The OutputStream to write to.
-
-  format     String             The format of the created file.
-
-  param      ImageEncodeParam   The encoding parameters.
-  ------------------------------------------------------------------------------------------------
-
-  : 
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| stream    | OutputStream     | The OutputStream to write to. |
+| format    | String           | The format of the created file. |
+| param     | ImageEncodeParam | The encoding parameters. |
 
 The `param` parameter must either be null or an instance of an
 `ImageEncodeParam` subclass appropriate to the specified image format.
@@ -119,39 +94,32 @@ format requires two parameter values, as described in the
 -   Version number - One of three values: `VERSION_2`, `VERSION_3`, or
     `VERSION_4`.
 
-
 -   Data layout - One of two values: `TOP_DOWN` or `BOTTOM_UP`.
 
 These parameters are described in detail in [Section 13.4, \"Writing
-BMP Image Files](../encode).\"
+BMP Image Files](#132-writing-bmp-image-files).\"
 
-[Listing 13-1](../encode) shows a code sample
+[Listing 13-1](#listing-13-1) shows a code sample
 demonstrating the use of both the `Encode` and `FileStore` operations.
 
-**[]{#58219}**
+***Listing 13-1*  Writing an OutputStream and a File** <a name="listing-13-1"></a>
 
-***Listing 13-1*  Writing an OutputStream and
-a File**
+``java
+// Define the source and destination file names.
+String inputFile = /images/FarmHouse.tif
+String outputFile = /images/FarmHouse.bmp
 
-------------------------------------------------------------------------
+// Load the input image.
+RenderedOp src = JAI.create("fileload", inputFile);
 
-         // Define the source and destination file names.
-         String inputFile = /images/FarmHouse.tif
-         String outputFile = /images/FarmHouse.bmp
+// Encode the file as a BMP image.
+FileOutputStream stream =
+    new FileOutputStream(outputFile);
+JAI.create("encode", src, stream, BMP, null);
 
-         // Load the input image.
-         RenderedOp src = JAI.create("fileload", inputFile);
-
-         // Encode the file as a BMP image.
-         FileOutputStream stream =
-             new FileOutputStream(outputFile);
-         JAI.create("encode", src, stream, BMP, null);
-
-         // Store the image in the BMP format.
-         JAI.create("filestore", src, outputFile, BMP, null);
-
-------------------------------------------------------------------------
-
+// Store the image in the BMP format.
+JAI.create("filestore", src, outputFile, BMP, null);
+``
 
 13.4 Writing BMP Image Files
 -------------------------------------------------
@@ -175,33 +143,18 @@ Version 4 images. The BMP version number is read and specified with
 `getVersion` and `setVersion` methods in the `BMPEncodeParam` class.
 The BMP version parameters are as follows:
 
-  ------------------------------------------------------------
-  [Parameter]{#51265}     [Description]{#51267}
-  ----------------------- ------------------------------------
-  VERSION\_2   Specifies BMP Version 2
-
-  VERSION\_3   Specifies BMP Version 3
-
-  VERSION\_4   Specifies BMP Version 4
-  ------------------------------------------------------------
-
-  : 
+| Parameter | Description |
+| --------- | ----------- |
+| VERSION\_2 | Specifies BMP Version 2 |
+| VERSION\_3 | Specifies BMP Version 3 |
+| VERSION\_4 | Specifies BMP Version 4 |
 
 If not specifically set, `VERSION_3` is the default version.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.BMPEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.BMPEncodeParam`
 
-    void setVersion(int versionNumber)
-
-:   sets the BMP version to be used.
-
-
-    int getVersion()
-
-:   returns the BMP version to be used.
-
+* `void setVersion(int versionNumber)`
+* `int getVersion()`
 
 ### 13.4.2 BMP Data Layout
 
@@ -214,38 +167,28 @@ The in-memory layout of the image data to be encoded is specified with
 `getDataLayout` and `setDataLayout` methods in the `BMPEncodeParam`
 class.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.BMPEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.BMPEncodeParam`
 
-    void setTopDown(boolean topDown)
-
-:   sets the data layout to be top down.
-
+* `void setTopDown(boolean topDown)`
+* `sets the data layout to be top down.`
 
 ### 13.4.3 Example Code
 
-[Listing 13-2](../encode) shows a code sample for encoding
+[Listing 13-2](#listing-13-2) shows a code sample for encoding
 a BMP image.
 
-**[]{#56298}**
+***Listing 13-2*  Encoding a BMP Image** <a name="listing-13-2"></a>
 
-***Listing 13-2*  Encoding a BMP Image**
+```java
+OutputStream os = new FileOutputStream(fileToWriteTo);
+BMPEncodeParam param = new BMPEncodeParam();
+ImageEncoder enc = ImageCodec.createImageEncoder("BMP", os,
+                                                 param);
+enc.encode(op);
+os.close();
+```
 
-------------------------------------------------------------------------
-
-         OutputStream os = new FileOutputStream(fileToWriteTo);
-         BMPEncodeParam param = new BMPEncodeParam();
-         ImageEncoder enc = ImageCodec.createImageEncoder("BMP", os,
-                                                          param);
-         enc.encode(op);
-         os.close();
-
-------------------------------------------------------------------------
-
-
-13.5 Writing JPEG Image Files
---------------------------------------------------
+## 13.5 Writing JPEG Image Files
 
 The JPEG standard was developed by a working group, known as the Joint
 Photographic Experts Group (JPEG). The JPEG image data compression
@@ -264,35 +207,26 @@ when compressing the image. The lower the quality, the smaller the
 image file size, but the more different it will appear than the
 original.
 
-[Table 13-2](../encode) lists the JPEG encode parameters
+[Table 13-2](#table-13-2) lists the JPEG encode parameters
 that may be set and the default values. The remaining sections
 describe these settings and how to change them.
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#57428}                    [Description]{#57430}                                                                                                                                             [Default Value]{#57432}
-  -------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------
-  writeJFIFHeader             [Controls whether the encoder writes a JFIF header using the APP0 marker. See]{#58087} [Section 13.5.1, \"JFIF Header](../encode).\"\                 True
 
-  [qTabSlot\[0\],\[1\],\[2\]]{#58098}\   [Quantization tables. See]{#58102} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                              0 for Y channel, 1 for Cb and Cr channels
+***Table 13-2*  JPEG Encode Parameters** <a name="table-13-2"></a>
 
-  [qTab\[0\],\[1\],\[2\]]{#58107}\       [Quantization table contents. See]{#58111} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                      Null for all three channels
 
-  [qTabSet\[0\],\[1\],\[2\]]{#58116}\    [Quantization table usage. See]{#58120} [Section 13.5.3, \"Quantization Table](../encode).\"\                                                         False for all three channels
 
-  [hSamp\[0\],\[1\],\[2\]]{#57434}\      [Horizontal subsampling. See]{#57436} [Section 13.5.4, \"Horizontal and Vertical Subsampling](../encode).\"\                                          1 for Y channel, 2 for Cb and Cr channels
-
-  [vSamp\[0\],\[1\],\[2\]]{#57440}\      [Vertical subsampling. See]{#57574} [Section 13.5.4, \"Horizontal and Vertical Subsampling](../encode).\"\                                            1 for Y channel, 2 for Cb and Cr channels
-
-  qual                        [Quality setting. See]{#57466} [Section 13.5.5, \"Compression Quality](../encode).\"\                                                                 0.75F
-
-  rstInterval                 [Restart interval.]{#57472} [Section 13.5.6, \"Restart Interval](../encode).\"\                                                                       0
-
-  writeImageOnly              [Controls whether encoder writes only the compressed image data. See]{#57478} [Section 13.5.7, \"Writing an Abbreviated JPEG Stream](../encode).\"\   False
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 13-2*  JPEG Encode
-  Parameters]{#57422}**
-
+| Parameter | Description | Default Value |
+| --------- | ----------- | ------------- |
+| writeJFIFHeader | Controls whether the encoder writes a JFIF header using the APP0 marker. See [Section 13.5.1, \"JFIF Header]#1351=jfif-header).\" | True |
+| qTabSlot\[0\],\[1\],\[2\] | Quantization tables. See [Section 13.5.3, \"Quantization Table](#1352-quantization-table).\" | 0 for Y channel, 1 for Cb and Cr channels |
+| qTab\[0\],\[1\],\[2\] | Quantization table contents. See [Section 13.5.3, \"Quantization Table](#1353-quantization-table).\" | Null for all three channels |
+| qTabSet\[0\],\[1\],\[2\] | Quantization table usage. See [Section 13.5.3, \"Quantization Table](#1353-quantization-table).\"\ | False for all three channels |
+| hSamp\[0\],\[1\],\[2\] | Horizontal subsampling. See [Section 13.5.4, \"Horizontal and Vertical Subsampling](#1354-horizontal-and-vertical-subsampling).\" | 1 for Y channel, 2 for Cb and Cr channels |
+| vSamp\[0\],\[1\],\[2\] | Vertical subsampling. See [Section 13.5.4, \"Horizontal and Vertical Subsampling](#1354-horizontal-and-vertical-subsampling).\" | 1 for Y channel, 2 for Cb and Cr channels |
+| qual | Quality setting. See [Section 13.5.5, \"Compression Quality](#1355-compression-quality).\" | 0.75F |
+| rstInterval | Restart interval. See [Section 13.5.6, \"RestartlInterval](#1356-restart-interva;).\" | 0 |
+| writeImageOnly | Controls whether encoder writes only the compressed image data. See  [Section 13.5.7, \"Writing an Abbreviated JPEG Stream](#1357-writing-an-abbreviated-jpeg-stream).\" | False |
 
 ### 13.5.1 JFIF Header
 
@@ -307,12 +241,9 @@ The JFIF features are:
 
 -   Uses the JPEG baseline image compression algorithm
 
-
 -   Uses JPEG interchange format compressed image representation
 
-
 -   Compatible with most platforms (PC, Mac, or Unix)
-
 
 -   Standard color space: one or three components. For three
     components, YC~b~C~r~ (CCIR 601-256 levels)
@@ -324,34 +255,22 @@ pixel aspect ratio (derived from *x* and *y* pixel density), and
 thumbnail. The `setWriteJFIFHeader` method controls whether the
 encoder writes a JFIF header using the APP0 marker.``
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
-|                                   | deParam`                          |
+**API:** `org.eclipse.imagen.media.codec.JPEGEncodeParam`
 
-    void setWriteJFIFHeader(boolean writeJFIF)
-
-:   controls whether the encoder writes a JFIF header using the APP0
-    marker. By default an APP0 marker is written to create a JFIF
-    file.
-      -------------- ------------- --------------------------------
-      *Parameter*:   `writeJFIF`   If true, writes a JFIF header.
-      -------------- ------------- --------------------------------
-
-      : 
-
+* `void setWriteJFIFHeader(boolean writeJFIF)`
 
 ### 13.5.2 JPEG DCT Compression Parameters
 
 JAI uses the JPEG baseline DCT coding process, shown in [Figure
-13-1](../encode).
+13-1](#figure-13-1).
 
+<a name="figure-13-1"></a>
 
 ------------------------------------------------------------------------
 
 ![](Encode.doc.anc.gif)
 
 ------------------------------------------------------------------------
-
 
 ***Figure 13-1*  JPEG Baseline DCT Coding**
 
@@ -398,15 +317,10 @@ retrieve the quantization table that will be used in encoding a
 particular band of the image. There are, by default, two quantizer
 tables:
 
-  ----------------------------------------------
-  [Table]{#51439}   [Band]{#51441}
-  ----------------- ----------------------------
-  0      Band 0
-
-  1      All other bands
-  ----------------------------------------------
-
-  : 
+| Table | Band |
+| ----- | ---- |
+| 0     | Band 0 |
+| 1     | All other bands |
 
 The parameter `tableNum` is usually a value between 0 and 3. This
 value indicates which of four quantization tables you are specifying.
@@ -416,54 +330,17 @@ of eight-bit YCC images. The two tables can also be set individually
 using the `setLumaQTable` (table 0) and `setChromaQTable` (table 1)
 methods. Tables 2 and 3 are not normally used.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
-|                                   | deParam`                          |
+**API:** `org.eclipse.imagen.media.codec.JPEGEncodeParam`
 
-    void setQTable(int component, int tableNum, int[] qTable)
+* `void setQTable(int component, int tableNum, int[] qTable)`
 
-:   sets a quantization table to be used for a component. This method
-    allows up to four independent tables to be specified. This
-    disables any quality setting.
-    *Parameters*:
-    `component`
-    The band to which this table applies.
-    `tableNum`
-    The table number that this table is assigned to (0 to 3).
-    `qTable`
-    Quantization table values in \"zig-zag\" order.
+* `int[] getQTable(int component)`
 
+* `void setLumaQTable(int[] qTable)`
 
-    int[] getQTable(int component)
+* `void setChromaQTable(int[] qTable)`
 
-:   returns the contents of the quantization table used for a
-    component. If this method is called before the quantization table
-    is set, an error is thrown.
-
-
-    void setLumaQTable(int[] qTable)
-
-:   sets the quantization table to be used for luminance data. This is
-    a convenience method that explicitly sets the contents of
-    quantization table 0. The length of the table must be 64. This
-    disables any quality setting.
-
-
-    void setChromaQTable(int[] qTable)
-
-:   sets the quantization table to be used for luminance data. This is
-    a convenience method that explicitly sets the contents of
-    quantization table 0. The length of the table must be 64. This
-    method assumes that all chroma components will use the same table.
-    This disables any quality setting.
-
-
-    int getQTableSlot(int component)
-
-:   returns the quantization table slot used for a component. If this
-    method is called before the quantization table data is set, an
-    error is thrown.
-
+* `int getQTableSlot(int component)`
 
 ### 13.5.4 Horizontal and Vertical Subsampling
 
@@ -475,36 +352,12 @@ system\'s low sensitivity to color images relative to luminance (Y)
 errors By default, the sampling factors for YCC input images are set
 to {1, 2, 2} for both horizontal and vertical axes.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
-|                                   | deParam`                          |
+**API:** `org.eclipse.imagen.media.codec.JPEGEncodeParam`
 
-    void setHorizontalSubsampling(int component, int subsample)
-
-:   sets the horizontal subsampling to be applied to an image band.
-    Defaults to 1 for grayscale and (1,2,2) for RGB.
-    *Parameter*:
-    `component`
-    The band for which to set horizontal subsampling.
-    `subsample`
-    The horizontal subsampling factor.
-
-
-    void setVerticalSubsampling(int component, int subsample)
-
-:   sets the vertical subsampling to be applied to an image band.
-    Defaults to 1 for grayscale and (1,2,2) for RGB.
-
-
-    int getHorizontalSubsampling(int component)
-
-:   returns the horizontal subsampling factor for a band.
-
-
-    int getVerticalSubsampling(int component)
-
-:   returns the vertical subsampling factor for a band.
-
+* `void setHorizontalSubsampling(int component, int subsample)`
+* `void setVerticalSubsampling(int component, int subsample)`
+* `int getHorizontalSubsampling(int component)`
+* `int getVerticalSubsampling(int component)`
 
 ### 13.5.5 Compression Quality
 
@@ -520,54 +373,23 @@ The compression quality value controls image quality and compression
 ratio by determining a scale factor the encoder will use in creating
 scaled versions of the quantization tables. Some guidelines:
 
-  -------------------------------------------------------------------------------
-  [Quality Value]{#56086}   [Meaning]{#56088}
-  ------------------------- -----------------------------------------------------
-  1.0            Highest quality, no compression
+| Quality Value | Meaning |
+| ------------- | ------- |
+| 1.0           | Highest quality, no compression |
+| 0.75          | High quality, good compression ratio |
+| 0.5           | Medium quality, medium compression ratio |
+| 0.25          | Low quality, high compression ratio |
 
-  0.75           High quality, good compression ratio
-
-  0.5            Medium quality, medium compression ratio
-
-  0.25           Low quality, high compression ratio
-  -------------------------------------------------------------------------------
-
-  : 
-
-------------------------------------------------------------------------
 
 **Note:** The values stored in the quantization table also affect
 image quality and compression ratio. See also [Section 13.5.3,
-\"Quantization Table](../encode).\"
+\"Quantization Table](#1353-quantization-table).\"
 
-------------------------------------------------------------------------
+**API:** `org.eclipse.imagen.media.codec.JPEGEncodeParam`
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
-|                                   | deParam`                          |
-
-    void setQuality(float quality)
-
-:   sets the compression quality factor. Creates new quantization
-    tables that replace the currently-installed quantization tables.
-      -------------- ----------- ------------------------------------------------------------------------------
-      *Parameter*:   `quality`   The desired quality level; a value of 0.0 to 1.0. The default value is 0.75.
-      -------------- ----------- ------------------------------------------------------------------------------
-
-      : 
-
-
-    float getQuality()
-
-:   returns the quality setting for this encoding. This is a number
-    between 0.0 and 1.0.
-
-
-    boolean isQualitySet()
-
-:   tests if the quality parameter has been set in this
-    `JPEGEncodeParam`.
-
+* `void setQuality(float quality)`
+* `float getQuality()`
+* `boolean isQualitySet()`
 
 ### 13.5.6 Restart Interval
 
@@ -578,24 +400,10 @@ effect of bitstream errors to a single restart interval, JAI provides
 methods to set the restart interval in JPEG Minimum Coded Units
 (MCUs). The default is zero (no restart interval markers).
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
-|                                   | deParam`                          |
+**API:** `org.eclipse.imagen.media.codec.JPEGEncodeParam`
 
-    void setRestartInterval(int restartInterval)
-
-:   sets the restart interval in Minimum Coded Units (MCUs).
-      -------------- ------------------- -----------------------------------------
-      *Parameter*:   `restartInterval`   Number of MCUs between restart markers.
-      -------------- ------------------- -----------------------------------------
-
-      : 
-
-
-    int getRestartInterval()
-
-:   returns the restart interval.
-
+* `void setRestartInterval(int restartInterval)`
+* `int getRestartInterval()`
 
 ### 13.5.7 Writing an Abbreviated JPEG Stream
 
@@ -607,232 +415,21 @@ table data to the output stream. The `setWriteImageOnly` method
 instructs the encoder to write only the compressed image data to the
 output stream.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.JPEGEnco |
-|                                   | deParam`                          |
+**API:** `org.eclipse.imagen.media.codec.JPEGEncodeParam`
 
-    void setWriteTablesOnly(boolean tablesOnly)
-
-:   instructs the encoder to write only the table data to the output
-    stream.
-      -------------- -------------- -------------------------------------------
-      *Parameter*:   `tablesOnly`   If true, only the tables will be written.
-      -------------- -------------- -------------------------------------------
-
-      : 
-
-
-    void setWriteImageOnly(boolean imageOnly)
-
-:   instructs the encoder to write only the image data to the output
-    stream.
-      -------------- ------------- -----------------------------------------------------
-      *Parameter*:   `imageOnly`   If true, only the compressed image will be written.
-      -------------- ------------- -----------------------------------------------------
-
-      : 
-
+* `void setWriteTablesOnly(boolean tablesOnly)`
+* `void setWriteImageOnly(boolean imageOnly)`
 
 ### 13.5.8 Example Code
 
-[Listing 13-3](../encode) shows a code sample for encoding
+[Listing 13-3](#listing-13-3) shows a code sample for encoding
 a JPEG image.
 
-**[]{#55335}**
+***Listing 13-3*  Encoding a JPEG Image** <a name="listing-13-3"></a>
 
-***Listing 13-3*  Encoding a JPEG Image**
-
-------------------------------------------------------------------------
-
-         import java.awt.*;
-         import java.awt.event.*;
-         import java.awt.image.*;
-         import java.awt.image.renderable.*;
-         import java.io.*;
-         import org.eclipse.imagen.*;
-         import org.eclipse.imagen.widget.*;
-         import org.eclipse.imagen.media.codec.*;
-
-         public class JPEGWriterTest extends WindowContainer {
-
-         private ImageEncoder encoder = null;
-         private JPEGEncodeParam encodeParam = null;
-
-         // Create some Quantization tables.
-             private static int[] qtable1 = {
-                 1,1,1,1,1,1,1,1,
-                 1,1,1,1,1,1,1,1,
-                 1,1,1,1,1,1,1,1,
-                 1,1,1,1,1,1,1,1,
-                 1,1,1,1,1,1,1,1,
-                 1,1,1,1,1,1,1,1,
-                 1,1,1,1,1,1,1,1,
-                 1,1,1,1,1,1,1,1
-             };
-
-             private static int[] qtable2 = {
-                 2,2,2,2,2,2,2,2,
-                 2,2,2,2,2,2,2,2,
-                 2,2,2,2,2,2,2,2,
-                 2,2,2,2,2,2,2,2,
-                 2,2,2,2,2,2,2,2,
-                 2,2,2,2,2,2,2,2,
-                 2,2,2,2,2,2,2,2,
-                 2,2,2,2,2,2,2,2
-             };
-
-             private static int[] qtable3 = {
-                 3,3,3,3,3,3,3,3,
-                 3,3,3,3,3,3,3,3,
-                 3,3,3,3,3,3,3,3,
-                 3,3,3,3,3,3,3,3,
-                 3,3,3,3,3,3,3,3,
-                 3,3,3,3,3,3,3,3,
-                 3,3,3,3,3,3,3,3,
-                 3,3,3,3,3,3,3,3
-             };
-
-             // Really rotten quality Q Table
-             private static int[] qtable4 = {
-                 200,200,200,200,200,200,200,200,
-                 200,200,200,200,200,200,200,200,
-                 200,200,200,200,200,200,200,200,
-                 200,200,200,200,200,200,200,200,
-                 200,200,200,200,200,200,200,200,
-                 200,200,200,200,200,200,200,200,
-                 200,200,200,200,200,200,200,200,
-                 200,200,200,200,200,200,200,200
-             };
-
-         public static void main(String args[]) {
-             JPEGWriterTest jtest = new JPEGWriterTest(args);
-             }
-
-         // Load the source image.
-         private PlanarImage loadImage(String imageName) {
-         ParameterBlock pb = (new
-                 ParameterBlock()).add(imageName);
-         PlanarImage src = JAI.create("fileload", pb);
-                 if (src == null) {
-                 System.out.println("Error in loading image " + imageName);
-                     System.exit(1);
-                 }
-                 return src;
-             }
-
-         // Create the image encoder.
-         private void encodeImage(PlanarImage img, FileOutputStream out)
-             {
-         encoder = ImageCodec.createImageEncoder("JPEG", out,
-                                                 encodeParam);
-                 try {
-                     encoder.encode(img);
-                     out.close();
-                 } catch (IOException e) {
-                     System.out.println("IOException at encoding..");
-                     System.exit(1);
-                 }
-             }
-
-         private FileOutputStream createOutputStream(String outFile) {
-                 FileOutputStream out = null;
-                 try {
-                     out = new FileOutputStream(outFile);
-                 } catch(IOException e) {
-                     System.out.println("IOException.");
-                     System.exit(1);
-                 }
-
-                 return out;
-             }
-
-         public JPEGWriterTest(String args[]) {
-         // Set parameters from command line arguments.
-         String inFile = "images/Parrots.tif";
-
-         FileOutputStream out1 = createOutputStream("out1.jpg");
-         FileOutputStream out2 = createOutputStream("out2.jpg");
-         FileOutputStream out3 = createOutputStream("out3.jpg");
-
-         // Create the source op image.
-         PlanarImage src = loadImage(inFile);
-
-            double[] constants = new double[3];
-            constants[0] = 0.0;
-            constants[1] = 0.0;
-            constants[2] = 0.0;
-            ParameterBlock pb = new ParameterBlock();
-            pb.addSource(src);
-            pb.add(constants);
-
-         // Create a new src image with weird tile sizes
-         ImageLayout layout = new ImageLayout();
-         layout.setTileWidth(57);
-         layout.setTileHeight(57);
-         RenderingHints hints = new RenderingHints(JAI.KEY_IMAGE_LAYOUT,
-                                                           layout);
-         PlanarImage src1 = JAI.create("addconst", pb, hints);
-
-         // ----- End src loading ------
-
-         // Set the encoding parameters if necessary.
-         encodeParam = new JPEGEncodeParam();
-
-         encodeParam.setQuality(0.1F);
-
-         encodeParam.setHorizontalSubsampling(0, 1);
-         encodeParam.setHorizontalSubsampling(1, 2);
-         encodeParam.setHorizontalSubsampling(2, 2);
-
-         encodeParam.setVerticalSubsampling(0, 1);
-         encodeParam.setVerticalSubsampling(1, 1);
-         encodeParam.setVerticalSubsampling(2, 1);
-
-         encodeParam.setRestartInterval(64);
-         //encodeParam.setWriteImageOnly(false);
-         //encodeParam.setWriteTablesOnly(true);
-         //encodeParam.setWriteJFIFHeader(true);
-
-         // Create the encoder.
-         encodeImage(src, out1);
-         PlanarImage dst1 = loadImage("out1.jpg");
-
-         //   ----- End first encode ---------
-
-         encodeParam.setLumaQTable(qtable1);
-         encodeParam.setChromaQTable(qtable2);
-
-         encodeImage(src, out2);
-         PlanarImage dst2 = loadImage("out2.jpg");
-
-         //   ----- End second encode ---------
-
-         encodeParam = new JPEGEncodeParam();
-         encodeImage(loadImage("images/BlackCat.tif"), out3);
-         PlanarImage dst3 = loadImage("out3.jpg");
-
-         //   ----- End third encode ---------
-
-         setTitle ("JPEGWriter Test");
-         setLayout(new GridLayout(2, 2));
-         ScrollingImagePanel panel1 = new ScrollingImagePanel(src, 512,
-                                                              400);
-         ScrollingImagePanel panel2 = new ScrollingImagePanel(dst1, 512,
-                                                              400);
-         ScrollingImagePanel panel3 = new ScrollingImagePanel(dst2, 512,
-                                                              400);
-         ScrollingImagePanel panel4 = new ScrollingImagePanel(dst3, 512,
-                                                              400);
-            add(panel1);
-            add(panel2);
-            add(panel3);
-            add(panel4);
-            pack();
-            show();    }
-         }
-
-------------------------------------------------------------------------
-
+```java
+{% include_relative JPEGWriterTest.java %}
+```
 
 13.6 Writing PNG Image Files
 -------------------------------------------------
@@ -851,46 +448,29 @@ this section.
 PNG images can be encoded in one of three pixel types, as defined by
 the subclass of `PNGEncodeParam`, as follows:
 
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Pixel Type]{#51717}                [Description]{#51719}
-  ----------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  PNGEncodeParam.Palette   Also known as *indexed-color*, where each pixel is represented by a single sample that is an index into a supplied color palette. The org.eclipse.imagen.media.codec.PNGEncodeParam.Palette class supports the encoding of palette pixel images.
-
-  PNGEncodeParam.Gray      Each pixel is represented by a single sample that is a grayscale level. The org.eclipse.imagen.media.codec.PNGEncodeParam.Gray class supports the encoding of grayscale pixel images.
-
-  PNGEncodeParam.RGB       Also known as *truecolor*, where each pixel is represented by three samples: red, green, and blue. The org.eclipse.imagen.media.codec.PNGEncodeParam.RGB class supports the encoding of RGB pixel images.
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| Pixel Type | Description |
+| ---------- | ----------- |
+| PNGEncodeParam.Palette | Also known as *indexed-color*, where each pixel is represented by a single sample that is an index into a supplied color palette. The org.eclipse.imagen.media.codec.PNGEncodeParam.Palette class supports the encoding of palette pixel images. |
+| PNGEncodeParam.Gray | Each pixel is represented by a single sample that is a grayscale level. The org.eclipse.imagen.media.codec.PNGEncodeParam.Gray class supports the encoding of grayscale pixel images. |
+| PNGEncodeParam.RGB | Also known as *truecolor*, where each pixel is represented by three samples: red, green, and blue. The org.eclipse.imagen.media.codec.PNGEncodeParam.RGB class supports the encoding of RGB pixel images. |
 
 Optionally, grayscale and RGB pixels can also include an alpha sample
 (see [Section 13.6.6.12, \"Transparency (tRNS
-Chunk)](../encode)\").
+Chunk)](#136612-transparency)\").
 
 A call to the `getDefaultEncodeParam` method returns an instance of:
 
--   `PNGEncodeParam.Palette` for an image with an `IndexColorModel`.
-
-
--   `PNGEncodeParam.Gray` for an image with only one or two bands.
-
-
--   `PNGEncodeParam.RGB` for all other images.
+- `PNGEncodeParam.Palette` for an image with an `IndexColorModel`.
+- `PNGEncodeParam.Gray` for an image with only one or two bands.
+- `PNGEncodeParam.RGB` for all other images.
 
 This method provides no guarantee that the image can be successfully
 encoded by the PNG encoder, since the encoder only performs a
 superficial analysis of the image structure.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-    static PNGEncodeParam getDefaultEncodeParam(RenderedImage im)
-
-:   returns an instance of `PNGEncodeParam.Palette`,
-    `PNGEncodeParam.Gray`, or `PNGEncodeParam.RGB` appropriate for
-    encoding the given image.
-
+* `static PNGEncodeParam getDefaultEncodeParam(RenderedImage im)`
 
 ### 13.6.2 PNG Filtering
 
@@ -899,22 +479,15 @@ is compressed, which can improve the compressibility of the data. PNG
 encoding supports five filtering algorithms, including \"none,\" which
 indicates no filtering. The filtering algorithms are described below.
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#53168}               [Description]{#53170}
-  --------------------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  PNG\_FILTER\_NONE      No filtering - the scanline is transmitted unaltered.
+**[*Table 13-3* PNG Filtering Algorithms** <a name="table-13-3"></a>
 
-  PNG\_FILTER\_SUB       The filter transmits the difference between each byte and the value of the corresponding byte of the prior pixel.
-
-  PNG\_FILTER\_UP        Similar to the Sub filter, except that the pixel immediately above the current pixel, rather than just to its left, is used as the predictor.
-
-  PNG\_FILTER\_AVERAGE   The filter uses the average of the two neighboring pixels (left and above) to predict the value of a pixel.
-
-  PNG\_FILTER\_PAETH     The filter computes a simple linear function of the three neighboring pixels (left, above, upper left), then chooses as predictor the neighboring pixel closest to the computed value.
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 13-3*  PNG Filtering
-  Algorithms]{#53164}**
+| Parameter | Description |
+| --------- | ----------- |
+| PNG\_FILTER\_NONE | No filtering - the scanline is transmitted unaltered. |
+| PNG\_FILTER\_SUB  | The filter transmits the difference between each byte and the value of the corresponding byte of the prior pixel. |
+| PNG\_FILTER\_UP | Similar to the Sub filter, except that the pixel immediately above the current pixel, rather than just to its left, is used as the predictor. |
+| PNG\_FILTER\_AVERAGE | The filter uses the average of the two neighboring pixels (left and above) to predict the value of a pixel. |
+| PNG\_FILTER\_PAETH | The filter computes a simple linear function of the three neighboring pixels (left, above, upper left), then chooses as predictor the neighboring pixel closest to the computed value. |
 
 The filtering can be different for each row of an image by using the
 `filterRow` method. The method can be overridden to provide a custom
@@ -940,101 +513,50 @@ result is returned.
 As an example, to perform only \"sub\" filtering, this method could be
 implemented (non-optimally) as follows:
 
-------------------------------------------------------------------------
+```java
+for (int i = bytesPerPixel; i < bytesPerRow + bytesPerPixel; i++)
+{
+     int curr = currRow[i] & 0xff;
+     int left = currRow[i - bytesPerPixel] & 0xff;
+     scratchRow[PNG_FILTER_SUB][i] = (byte)(curr - left);
+}
+return PNG_FILTER_SUB;
+```
 
-         for (int i = bytesPerPixel; i < bytesPerRow + bytesPerPixel; i++)
-         {
-              int curr = currRow[i] & 0xff;
-              int left = currRow[i - bytesPerPixel] & 0xff;
-              scratchRow[PNG_FILTER_SUB][i] = (byte)(curr - left);
-         }
-         return PNG_FILTER_SUB;
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-------------------------------------------------------------------------
-
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
-
-    int filterRow(byte[] currRow, byte[] prevRow, 
-           byte[][]  scratchRows, int bytesPerRow, int bytesPerPixel)
-
-:   returns the type of filtering to be used on a row of an image.
-    *Parameters*:
-    `currRow`
-    The current row as an array of `byte`s of length at least
-    `bytesPerRow` + `bytesPerPixel`. The pixel data starts at index
-    `bytesPerPixel`; the initial `bytesPerPixel` bytes are zero.
-    `prevRow`
-    The current row as an array of `byte`s. The pixel data starts at
-    index `bytesPerPixel`; the initial `bytesPerPixel` bytes are zero.
-    `scratchRows`
-    An array of 5 `byte` arrays of length at least `bytesPerRow` +
-    `bytesPerPixel`, usable to hold temporary results. The filtered
-    row will be returned as one of the entries of this array. The
-    returned filtered data should start at index `bytesPerPixel`; The
-    initial `bytesPerPixel` bytes are not used.
-    `bytesPerRow`
-    The number of bytes in the image row. This value will always be
-    greater than 0.
-    `bytesPerPixel`
-    The number of bytes representing a single pixel, rounded up to an
-    integer. This is the `bpp` parameter described in the PNG
-    specification.
-
+* `int filterRow(byte[] currRow, byte[] prevRow, 
+           byte[][]  scratchRows, int bytesPerRow, int bytesPerPixel)`
 
 ### 13.6.3 Bit Depth
 
 The PNG specification identifies the following bit depth restrictions
 for each of the color types:
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Color Type]{#53683}   [Allowed Bit Depths]{#53685}   [Description]{#53687}
-  ---------------------- ------------------------------ -------------------------------------------------------------------------------------------------
-  0           1, 2, 4, 8, 16      Grayscale. Each pixel is a grayscale sample.
+***Table 13-4* PNG Bit Depth Restrictions** <a name="table-13-4"></a>
 
-  2           8, 16               Truecolor (RGB) without alpha. Each pixel is an RGB triple.
-
-  3           1, 2, 4, 8          Indexed color (Palette). Each pixel is a palette index.
-
-  4           8, 16               Grayscale with alpha. Each pixel is a grayscale sample followed by an alpha sample.
-
-  6           8, 16               Truecolor (RGB) with alpha. Each pixel is an RGB triple followed by an alpha sample.
-  -------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 13-4*  PNG Bit Depth
-  Restrictions]{#53677}**
+| Color Type | Allowed Bit Depths | Description |
+| ---------- | ------------------ | ----------- |
+| 0          | 1, 2, 4, 8, 16     | Grayscale. Each pixel is a grayscale sample.
+| 2          | 8, 16              | Truecolor (RGB) without alpha. Each pixel is an RGB triple. |
+| 3          | 1, 2, 4, 8         | Indexed color (Palette). Each pixel is a palette index. |
+| 4          | 8, 16              | Grayscale with alpha. Each pixel is a grayscale sample followed by an alpha sample. |
+| 6          | 8, 16              | Truecolor (RGB) with alpha. Each pixel is an RGB triple followed by an alpha sample. |
 
 The bit depth is specified by the `setBithDepth` method in the class
 type.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.Palette`                   |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.Palette`
 
-    void setBitDepth(int bitDepth)
+* `void setBitDepth(int bitDepth)`
 
-:   sets the desired bit depth for a palette image. The bit depth must
-    be 1, 2, 4, or 8.
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.Gray`
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.Gray`                      |
+* `public void setBitDepth(int bitDepth)`
 
-    public void setBitDepth(int bitDepth)
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.RGB`
 
-:   sets the desired bit depth for a grayscale image. The bit depth
-    must be 1, 2, 4, 8, or 16.
-
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.RGB`                       |
-
-    void setBitDepth(int bitDepth)
-
-:   sets the desired bit depth for an RGB image. The bit depth must be
-    8 or 16.
-
+* `void setBitDepth(int bitDepth)`
 
 ### 13.6.4 Interlaced Data Order
 
@@ -1046,18 +568,10 @@ Adam7 interlacing (named after its author, Adam M. Costello), consists
 of seven distinct passes over the image; each pass transmits a subset
 of the pixels in the image.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-    void setInterlacing(boolean useInterlacing)
-
-:   turns Adam7 interlacing on or off.
-
-
-    boolean getInterlacing()
-
-:   returns `true` if Adam7 interlacing will be used.
+* `void setInterlacing(boolean useInterlacing)`
+* `boolean getInterlacing()`
 
 
 ### 13.6.5 PLTE Chunk for Palette Images
@@ -1072,11 +586,7 @@ three-byte series of the alternating red, green, and blue values, as
 follows:
 
 -   Red: one byte (0 = black, 255 = red)
-
-
 -   Green: one byte (0 = black, 255 = green)
-
-
 -   Blue: one byte (0 = black, 255 = blue)
 
 The number of elements in the palette must be a multiple of 3, between
@@ -1088,34 +598,12 @@ provides a suggested set of from 1 to 256 colors to which the RGB
 image can be quantized in case the viewing system cannot display RGB
 directly.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-    void setPalette(int[] rgb)
-
-:   sets the RGB palette of the image to be encoded.
-      --------------- ------- ---------------------
-      *Parameters*:   `rgb`   An array of `int`s.
-      --------------- ------- ---------------------
-
-      : 
-
-
-    int[] getPalette()
-
-:   returns the current RGB palette.
-
-
-    void unsetPalette()
-
-:   suppresses the PLTE chunk from being output.
-
-
-    boolean isPaletteSet()
-
-:   returns true if a PLTE chunk will be output.
-
+* `void setPalette(int[] rgb)`
+* `int[] getPalette()`
+* `void unsetPalette()`
+* `boolean isPaletteSet()`
 
 ### 13.6.6 Ancillary Chunk Specifications
 
@@ -1143,46 +631,21 @@ For RGB (truecolor) images, the bKGD chunk contains three values, one
 each for red, green, and blue. Each value has the range of 0 to
 2^bitdepth^ - 1.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.Palette`                   |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.Palette`
 
-    void setBackgroundPaletteIndex(int index)
+* `void setBackgroundPaletteIndex(int index)`
+* `int getBackgroundPaletteIndex()`
 
-:   sets the palette index of the suggested background color.
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.Gray`
 
+* `void setBackgroundGray(int gray)`
+* `int getBackgroundGray()`
 
-    int getBackgroundPaletteIndex()
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.RGB`
 
-:   returns the palette index of the suggested background color.
+* `void setBackgroundRGB(int[] rgb)`
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.Gray`                      |
-
-    void setBackgroundGray(int gray)
-
-:   sets the suggested gray level of the background.
-
-
-    int getBackgroundGray()
-
-:   returns the suggested gray level of the background.
-
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.RGB`                       |
-
-    void setBackgroundRGB(int[] rgb)
-
-:   sets the RGB value of the suggested background color. The `rgb`
-    parameter should have three entries.
-
-
-    int[] getBackgroundRGB()
-
-:   returns the RGB value of the suggested background color.
-
+* `int[] getBackgroundRGB()`
 
 #### 13.6.6.2 Chromaticity (cHRM Chunk)
 
@@ -1195,58 +658,32 @@ The chromaticity parameter should be a `float` array of length 8
 containing the white point *X* and *Y*, red *X* and *Y*, green *X* and
 *Y*, and blue *X* and *Y* values in order.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-    void setChromaticity(float[] chromaticity)
+* `void setChromaticity(float[] chromaticity)`
 
-:   sets the white point and primary chromaticities in CIE (*x*,*y*)
-    space.
-
-
-    void setChromaticity(float whitePointX, float whitePointY, 
+* `void setChromaticity(float whitePointX, float whitePointY, 
            float redX, float redY, float greenX, float greenY, 
-           float  blueX, float blueY)
+           float  blueX, float blueY)`
 
-:   a convenience method that calls the array version.
-
-
-    float[] getChromaticity()
-
-:   returns the white point and primary chromaticities in CIE
-    (*x*,*y*) space.
-
+* `float[] getChromaticity()`
 
 #### 13.6.6.3 Gamma Correction (gAMA Chunk)
 
 The gamma value specifies the relationship between the image samples
 and the desired display output intensity as a power function:
 
-:   sample = light\_out^gamma^
+   sample = light\_out ^gamma^
 
 If the image\'s gamma value is unknown, the gAMA chunk should be
 suppressed. The absence of the gAMA chunk indicates that the gamma is
 unknown.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-    void setGamma(float gamma)
-
-:   sets the gamma value for the image.
-
-
-    float getGamma()
-
-:   returns the gamma value for the image.
-
-
-    void unsetGamma()
-
-:   suppresses the gAMA chunk from being output.
-
+* `void setGamma(float gamma)`
+* `float getGamma()`
+* `void unsetGamma()`
 
 #### 13.6.6.4 Palette Histogram (hIST Chunk)
 
@@ -1256,24 +693,13 @@ to provide all the colors listed in the palette, the histogram may
 help decide how to choose a subset of colors for display. The hIST
 chunk is only valid with Palette images.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.Palette`                   |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.Palette`
 
-    void setPaletteHistogram(int[] paletteHistogram)
+* `void setPaletteHistogram(int[] paletteHistogram)`
 
-:   sets the palette histogram for the image.
+* `int[] getPaletteHistogram()`
 
-
-    int[] getPaletteHistogram()
-
-:   returns the palette histogram for the image.
-
-
-    void unsetPaletteHistogram()
-
-:   suppresses the hIST chunk from being output.
-
+* `void unsetPaletteHistogram()`
 
 #### 13.6.6.5 Embedded ICC Profile Data (iCCP Chunk)
 
@@ -1281,24 +707,13 @@ You can specify that RGB image samples conform to the color space
 presented by the embedded International Color Consortium profile. The
 color space of the ICC profile must be an RGB color space.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-    void setICCProfileData(byte[] ICCProfileData)
+* void setICCProfileData(byte[] ICCProfileData)
 
-:   sets the ICC profile data.
+* `byte[] getICCProfileData()`
 
-
-    byte[] getICCProfileData()
-
-:   returns the ICC profile data.
-
-
-    void unsetICCProfileData()
-
-:   suppresses the iCCP chunk from being output.
-
+* `void unsetICCProfileData()`
 
 #### 13.6.6.6 Physical Pixel Dimensions (pHYS Chunk)
 
@@ -1308,9 +723,7 @@ information is presented as three integer values:
 
 -   Pixels per unit, *x* axis
 
-
 -   Pixels per unit, *y* axis
-
 
 -   Unit specifier
 
@@ -1322,25 +735,14 @@ The unit specifier may have one of two values:
 When the unit specifier is 0, the pHYS chunk defines pixel aspect
 ratio only; the actual size of the pixels remains unspecified.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-    void setPhysicalDimension(int[] physicalDimension)
+* `void setPhysicalDimension(int[] physicalDimension)`
 
-:   sets the physical pixel dimension.
+* `void setPhysicalDimension(int xPixelsPerUnit, 
+           int  yPixelsPerUnit, int unitSpecifier)`
 
-
-    void setPhysicalDimension(int xPixelsPerUnit, 
-           int  yPixelsPerUnit, int unitSpecifier)
-
-:   a convenience method that calls the array version.
-
-
-    int[] getPhysicalDimension()
-
-:   returns the physical pixel dimension.
-
+* `int[] getPhysicalDimension()`
 
 #### 13.6.6.7 Significant Bits (sBIT Chunk)
 
@@ -1364,24 +766,11 @@ the number of output bands in the image:
 
 -   4 - for RGB images with alpha
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.RGB`                       |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.RGB`
 
-    void setSignificantBits(int[] significantBits)
-
-:   sets the significant bits.
-
-
-    int[] getSignificantBits()
-
-:   returns the significant bits.
-
-
-    void unsetSignificantBits()
-
-:   suppresses the sBIT chunk from being output.
-
+* `void setSignificantBits(int[] significantBits)`
+* `int[] getSignificantBits()`
+* `void unsetSignificantBits()`
 
 #### 13.6.6.8 Suggested Palette (sPLT Chunk)
 
@@ -1397,44 +786,27 @@ class, consists of the following:
 -   A palette name - a String that provides a convenient name for
     referring to the palette
 
-
 -   A `sampleDepth` parameter - must be either 8 or 16
-
 
 -   Red sample
 
-
 -   Green sample
-
 
 -   Blue sample
 
-
 -   Alpha sample
-
 
 -   Frequency - the value is proportional to the fraction of pixels in
     the image that are closest to that palette entry in RGBA space,
     before the image has been composited against any background
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.Palette`                   |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.Palette`
 
-    void setSuggestedPalette(PNGSuggestedPaletteEntry[] palette)
+* `void setSuggestedPalette(PNGSuggestedPaletteEntry[] palette)`
 
-:   sets the suggested palette.
+* `PNGSuggestedPaletteEntry[] getSuggestedPalette()`
 
-
-    PNGSuggestedPaletteEntry[] getSuggestedPalette()
-
-:   returns the suggested palette.
-
-
-    void unsetSuggestedPalette()
-
-:   suppresses the sPLT chunk from being output.
-
+* `void unsetSuggestedPalette()`
 
 #### 13.6.6.9 PNG Rendering Intent (sRGB Chunk)
 
@@ -1443,44 +815,22 @@ the sRGB color space and should be displayed using the specified
 rendering \"intent.\" The rendering intent specifies tradeoffs in
 colorimetric accuracy. There are four rendering intents:
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Parameter]{#53906}             [Description]{#53908}
-  ------------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  INTENT\_PERCEPTUAL   The \"perceptual\" intent is for images that prefer good adaptation to the output device gamut at the expense of colorimetric accuracy, such as photographs.
+***Table 13-5* PNG Rendering Intent** <a name="table-13-5"></a>
 
-  INTENT\_RELATIVE     The \"relative colorimetric\" intent is for images that require color appearance matching.
+| Parameter | Description |
+| --------- | ----------- |
+| INTENT\_PERCEPTUAL | The \"perceptual\" intent is for images that prefer good adaptation to the output device gamut at the expense of colorimetric accuracy, such as photographs. |
+| INTENT\_RELATIVE | The \"relative colorimetric\" intent is for images that require color appearance matching. |
+| INTENT\_SATURATION | The \"saturation\" intent is for images that prefer preservation of saturation at the expense of hue and lightness. |
+| INTENT\_ABSOLUTE | The \"absolute colorimetric\" intent is for images that require absolute colorimetry. |
 
-  INTENT\_SATURATION   The \"saturation\" intent is for images that prefer preservation of saturation at the expense of hue and lightness.
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.RGB`
 
-  INTENT\_ABSOLUTE     The \"absolute colorimetric\" intent is for images that require absolute colorimetry.
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* `void setSRGBIntent(int SRGBIntent)`
 
-  :  **[*Table 13-5*  PNG Rendering
-  Intent]{#53902}**
+* `int getSRGBIntent()`
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.RGB`                       |
-
-    void setSRGBIntent(int SRGBIntent)
-
-:   sets the PNG rendering intent.
-      -------------- -------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-      *Parameter*:   `SRGBIntent`   The sRGB rendering intent to be stored with the image. The legal values are 0 = Perceptual, 1 = Relative colorimetric, 2 = Saturation, and 3 = Absolute colorimetric.
-      -------------- -------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-      : 
-
-
-    int getSRGBIntent()
-
-:   returns the rendering intent.
-
-
-    void unsetSRGBIntent()
-
-:   suppresses the sRGB chunk from being output.
-
+* `void unsetSRGBIntent()`
 
 #### 13.6.6.10 Textual Data (tEXt Chunk)
 
@@ -1489,39 +839,44 @@ The information stored in this chunk can be an image description or
 copyright notice. A keyword indicates what the text string contains.
 The following keywords are defined:
 
-  ----------------- ----------------------------------------------
-  `Title`           A title or caption for the image
-  `Author`          The name of the image\'s creator
-  `Description`     A description of the image
-  `Copyright`       A copyright notice
-  `Creation Time`   The time the original image was created
-  `Software`        The software used to create the image
-  `Disclaimer`      A legal disclaimer
-  `Warning`         A warning of the nature of the image content
-  `Source`          The hardware device used to create the image
-  `Comment`         Miscellaneous information
-  ----------------- ----------------------------------------------
 
-  : 
+`Title`
+: A title or caption for the image
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+`Author`
+: The name of the image\'s creator
 
-    void setText(String[] text)
+`Description`
+: A description of the image
 
-:   sets the text string to be encoded with the image.
+`Copyright`
+: A copyright notice
 
+`Creation Time`
+: The time the original image was created
 
-    String[] getText()
+`Software`
+: The software used to create the image
 
-:   returns the text string to be encoded with the image.
+`Disclaimer`
+: A legal disclaimer
 
+`Warning`
+: A warning of the nature of the image content
 
-    void unsetText()
+`Source`
+: The hardware device used to create the image
 
-:   suppresses the tEXt chunk from being output.
+`Comment`
+: Miscellaneous information
 
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
+
+* `void setText(String[] text)`
+
+* `String[] getText()`
+
+* `void unsetText()`
 
 #### 13.6.6.11 Image Modification Timestamp (tIME Chunk)
 
@@ -1530,26 +885,11 @@ modified. The tIME information is a `Date` and the internal storage
 format uses UTC regardless of how the `modificationTime` parameter was
 created.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-    void setModificationTime(Date modificationTime)
-
-:   sets the image modification time as a `Date` that will be sent in
-    the tIME chunk.
-
-
-    Date getModificationTime()
-
-:   returns the image modification time data that will be sent in the
-    tIME chunk.
-
-
-    void unsetModificationTime()
-
-:   suppresses the tIME chunk from being output.
-
+* `void setModificationTime(Date modificationTime)`
+* `Date getModificationTime()`
+* `void unsetModificationTime()`
 
 #### 13.6.6.12 Transparency (tRNS Chunk)
 
@@ -1574,51 +914,25 @@ int. Pixels of the specified gray value are treated as transparent. If
 the RGB image has an alpha value, setting the gray level causes the
 image\'s alpha channel to be ignored.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.Palette`                   |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.Palette`
 
-    void setPaletteTransparency(byte[] alpha)
+* `void setPaletteTransparency(byte[] alpha)`
 
-:   sets the alpha values associated with each palette entry. The
-    alpha parameter should have as many entries as there are RGB
-    triples in the palette.
+* `byte[] getPaletteTransparency()`
 
+* `returns the alpha values associated with each palette entry.`
 
-    byte[] getPaletteTransparency()
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.Gray`
 
-:   returns the alpha values associated with each palette entry.
+* `void setTransparentGray(int transparentGray)`
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.Gray`                      |
+* `int getTransparentGray()`
 
-    void setTransparentGray(int transparentGray)
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam.RGB`
 
-:   sets the gray value to be used to denote transparency. Setting
-    this attribute will cause the alpha channel of the input image to
-    be ignored.
+* `void setTransparentRGB(int[] transparentRGB)`
 
-
-    int getTransparentGray()
-
-:   returns the gray value to be used to denote transparency.
-
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam.RGB`                       |
-
-    void setTransparentRGB(int[] transparentRGB)
-
-:   sets the RGB value to be used to denote transparency. Setting this
-    attribute will cause the alpha channel of the input image to be
-    ignored.
-
-
-    int[] getTransparentRGB()
-
-:   returns the RGB value to be used to denote transparency.
-
+* `int[] getTransparentRGB()`
 
 #### 13.6.6.13 Compressed Text Data (zTXt Chunk)
 
@@ -1626,24 +940,13 @@ Text data may be stored in the zTXt chunk, in addition to the text in
 the tEXt chunk. The zTXt chunk is intended for storing large blocks of
 text, since the text is compressed.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-    void setCompressedText(String[] text)
+* `void setCompressedText(String[] text)`
 
-:   sets the compressed text to be sent in the zTXt chunk.
+* `String[] getCompressedText()`
 
-
-    String[] getCompressedText()
-
-:   returns the compressed text to be sent in the zTXt chunk.
-
-
-    void unsetCompressedText()
-
-:   suppresses the zTXt chunk from being output.
-
+* `void unsetCompressedText()`
 
 #### 13.6.6.14 Private Chunks
 
@@ -1654,39 +957,17 @@ ensure that they do not conflict with any future public chunk
 information. See the PNG specification for more information on chunk
 naming conventions.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNGEncod |
-|                                   | eParam`                           |
+**API:** `org.eclipse.imagen.media.codec.PNGEncodeParam`
 
-    synchronized void addPrivateChunk(String type, byte[] data)
+* `synchronized void addPrivateChunk(String type, byte[] data)`
 
-:   adds a private chunk to the output file.
+* `synchronized int getNumPrivateChunks()`
 
+* `synchronized String getPrivateChunkType(int index)`
 
-    synchronized int getNumPrivateChunks()
+* `synchronized void removeUnsafeToCopyPrivateChunks()`
 
-:   returns the number of private chunks to be written to the output
-    file.
-
-
-    synchronized String getPrivateChunkType(int index)
-
-:   returns the type of the private chunk at a given index, as a
-    four-character `String`. The index must be smaller than the return
-    value of `getNumPrivateChunks`.
-
-
-    synchronized void removeUnsafeToCopyPrivateChunks()
-
-:   removes all private chunks associated with this parameter instance
-    whose \"safe-to-copy\" bit is not set. This may be advisable when
-    transcoding PNG images.
-
-
-    synchronized void removeAllPrivateChunks()
-
-:   remove all private chunks associated with this parameter instance.
-
+* `synchronized void removeAllPrivateChunks()`
 
 13.7 Writing PNM Image Files
 -------------------------------------------------
@@ -1702,62 +983,45 @@ The PNM format comes in six variants:
 
 -   PBM ASCII - three-banded images
 
-
 -   PBM raw - three-banded images
-
 
 -   PGM ASCII - single-banded images
 
-
 -   PGM raw - single-banded images
 
-
 -   PPM ASCII - single-banded images
-
 
 -   PPM raw - single-banded images
 
 The parameter values, then are `RAW` and `ASCII`.
 
-[Listing 13-4](../encode) shows a code sample for encoding
+[Listing 13-4](#listing-13-4) shows a code sample for encoding
 a PNM image.
 
-**[]{#54619}**
+***Listing 13-4*  Encoding a PNM Image** <a name="listing-13-4"><a/>
 
-***Listing 13-4*  Encoding a PNM Image**
+```java
+// Create the OutputStream.
+OutputStream out = new FileOutputStream(fileToWriteTo);
 
-------------------------------------------------------------------------
+// Create the ParameterBlock.
+PNMEncodeParam param = new PNMEncodeParam();
+param.setRaw(true.equals("raw"));
 
-         // Create the OutputStream.
-         OutputStream out = new FileOutputStream(fileToWriteTo);
+//Create the PNM image encoder.
+ImageEncoder encoder = ImageCodec.createImageEncoder("PNM",
+                                                      out,
+                                                      param);
+```
 
-         // Create the ParameterBlock.
-         PNMEncodeParam param = new PNMEncodeParam();
-         param.setRaw(true.equals("raw"));
+**API:** `org.eclipse.imagen.media.codec.PNMEncodeParam`
 
-         //Create the PNM image encoder.
-         ImageEncoder encoder = ImageCodec.createImageEncoder("PNM",
-                                                               out,
-                                                               param);
+* `void setRaw(boolean raw)`
 
-------------------------------------------------------------------------
-
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.PNMEncod |
-|                                   | eParam`                           |
-
-    void setRaw(boolean raw)
-
-:   sets the RAWBITS option flag.
+* `boolean getRaw()`
 
 
-    boolean getRaw()
-
-:   retrieves the RAWBITS option flag.
-
-
-13.8 Writing TIFF Image Files
---------------------------------------------------
+## 13.8 Writing TIFF Image Files
 
 The TIFF file format is a tag-based file format for storing and
 interchanging raster images. TIFF files typically come from scanners,
@@ -1767,11 +1031,9 @@ By default, TIFF images in JAI are encoded without any compression and
 are written out in strips rather than tiles. However, JAI does support
 image compression, and the writing of tiled TIFF images.
 
-
 ### 13.8.1 TIFF Compression
 
 JAI currently does not support compression of TIFF images.
-
 
 ### 13.8.2 TIFF Tiled Images
 
@@ -1784,31 +1046,8 @@ of strips.
 Writing of tiled TIFF images can be enabled by calling the
 `setWriteTiled` method.
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.TIFFEnco |
-|                                   | deParam`                          |
+**API:** `org.eclipse.imagen.media.codec.TIFFEncodeParam`
 
-    void setWriteTiled(boolean writeTiled)
+* `void setWriteTiled(boolean writeTiled)`
 
-:   enables writing of TIFF images in tiles rather than in strips.
-      -------------- -------------- -------------------------------------------------------------------------
-      *Parameter*:   `writeTiled`   Specifies whether the image data should be written out in tiled format.
-      -------------- -------------- -------------------------------------------------------------------------
-
-      : 
-
-
-    boolean getWriteTiled()
-
-:   returns the value of the `writeTiled` parameter.
-
-------------------------------------------------------------------------
-
-\
-
-
-
-
-\
-
-
+* `boolean getWriteTiled()`
