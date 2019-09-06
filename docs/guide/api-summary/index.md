@@ -6,29 +6,26 @@ nav_order: 18
 ---
 
 # Eclipse ImageN API Summary
+{: .no_toc }
 
 This appendix summarizes the imaging interfaces and classes for Java AWT, Java 2D,
 and Eclipse ImageN.
 
-B.1 Java AWT Imaging
------------------------------------------
+* Contents
+{:toc}
 
-[Table B-1](api-summary/index.html) lists and describes the
-`java.awt` imaging classes.
+## B.1 Java AWT Imaging
 
-  ----------------------------------------------------------------------------------------------
-  [Class]{#75403}    [Description]{#75405}
-  ------------------ ---------------------------------------------------------------------------
-  Image   Extends: Object
-                     The superclass of all classes that represent graphical images.
+[Table B-1](#table-B-1) lists and describes the `java.awt` imaging classes.
 
-  ----------------------------------------------------------------------------------------------
+**Table B-1 `java.awt` Imaging Classes** <name="table-B-1"></a>
 
-  :  **[Table B-1 **java.awt** Imaging Classes]{#75399}**
+| Class | Description |
+| ----- | ----------- |
+| Image | The superclass of all classes that represent graphical images. |
 
 
-B.2 Java 2D Imaging
-----------------------------------------
+## B.2 Java 2D Imaging
 
 The Java 2D API is a set of classes for advanced 2D graphics and
 imaging. It encompasses line art, text, and images in a single
@@ -40,208 +37,90 @@ display-oriented imaging operators.
 The Java 2D classes are provided as additions to the `java.awt` and
 `java.awt.image` packages (rather than as a separate package).
 
-
 ### B.2.1 Java 2D Imaging Interfaces
 
-[Table B-2](api-summary/index.html) lists and briefly describes
+[Table B-2](#table-B-2) lists and briefly describes
 the imaging interfaces defined in the `java.awt.image `(Java 2D) API.
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Interface]{#73755}                 [Description]{#73757}
-  ----------------------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  BufferedImageOp          Describes single-input/single-output operations performed on BufferedImage objects. This is implemented by such classes as AffineTransformOp, ConvolveOp, BandCombineOp,
-                                      and LookupOp.
+**Table B-2 `java.awt.image` Interfaces** <a name="table-B-2"></a>
 
-  ImageConsumer            Used for objects expressing interest in image data through the ImageProducer interfaces.
-
-  ImageObserver            Receives notifications about Image information as the Image is constructed.
-
-  ImageProducer            Used for objects that can produce the image data for Images. Each image contains an ImageProducer that is used to reconstruct the image whenever it is needed, for example, when a new size of the Image is scaled, or when the width or height of the Image is being requested.
-
-  ImagingLib               Provides a hook to access platform-specific imaging code.
-
-  RasterImageConsumer      Extends: ImageConsumer
-                                      The interface for objects expressing interest in image data through the ImageProducer interfaces. When a consumer is added to an image producer, the producer delivers all of the data about the image using the method calls defined in this interface.
-
-  RasterOp                 Describes single-input/single-output operations performed on Raster objects. This is implemented by such classes as AffineTransformOp, ConvolveOp, and LookupOp.
-
-  RenderedImage            A common interface for objects that contain or can produce image data in the form of Rasters.
-
-  TileChangeListener       An interface for objects that wish to be informed when tiles of a WritableRenderedImage become modifiable by some writer via a call to getWritableTile, and when they become unmodifiable via the last call to releaseWritableTile.
-
-  WriteableRenderedImage   Extends: RenderedImage
-                                      A common interface for objects that contain or can produce image data that can be modified and/or written over.
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[Table B-2 **java.awt.image** Interfaces]{#73751}**
-
+| Interface | Description |
+| --------- | ------------|
+| BufferedImageOp | Describes single-input/single-output operations performed on BufferedImage objects. This is implemented by such classes as `AffineTransformOp`, `ConvolveOp`, `BandCombineOp`, and `LookupOp`. |
+| ImageConsumer | Used for objects expressing interest in image data through the ImageProducer interfaces. |
+| ImageObserver | Receives notifications about Image information as the Image is constructed. |
+| ImageProducer | Used for objects that can produce the image data for Images. Each image contains an ImageProducer that is used to reconstruct the image whenever it is needed, for example, when a new size of the Image is scaled, or when the width or height of the Image is being requested. |
+| ImagingLib | Provides a hook to access platform-specific imaging code. |
+| RasterImageConsumer | Extends: ImageConsumer <br/> The interface for objects expressing interest in image data through the `ImageProducer` interfaces. When a consumer is added to an image producer, the producer delivers all of the data about the image using the method calls defined in this interface. |
+| RasterOp | Describes single-input/single-output operations performed on `Raster` objects. This is implemented by such classes as `AffineTransformOp`, `ConvolveOp`, and `LookupOp`. |
+| RenderedImage | A common interface for objects that contain or can produce image data in the form of Rasters. |
+| TileChangeListener | An interface for objects that wish to be informed when tiles of a `WritableRenderedImage` become modifiable by some writer via a call to getWritableTile, and when they become unmodifiable via the last call to releaseWritableTile. |
+| WriteableRenderedImage | Extends: RenderedImage </br> A common interface for objects that contain or can produce image data that can be modified and/or written over. |
 
 ### B.2.2 Java 2D Imaging Classes
 
-[Table B-3](api-summary/index.html) lists and briefly describes
+[Table B-3](#table-8-3) lists and briefly describes
 the imaging classes defined in the `java.awt.image `(Java 2D) API.
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Class]{#74414}                                [Description]{#74416}
-  ---------------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  AffineTransformOp                   Extends: Object
-                                                 Implements: BufferedImageOp, RasterOp
-                                                 An abstract class that uses an affine transform to perform a linear mapping from 2D coordinates in the source image or Raster to 2D coordinates in the destination image or Raster.
+**Table B-3 `java.awt.image`` Classes** <a name="table-8-3"></a>
 
-  AreaAveragingScaleFilter            Extends: ReplicateScaleFilter
-                                                 An ImageFilter class for scaling images using a simple area averaging algorithm that produces smoother results than the nearest-neighbor algorithm.
-
-  BandCombineOp                       Extends: Object
-                                                 Implements: RasterOp
-                                                 Performs an arbitrary linear combination of bands in a Raster, using a specified matrix.
-
-  BandedSampleModel                   Extends: SampleModel
-                                                 Provides more efficent implementations for accessing
-                                                 image data than are provided in SampleModel. Used when working with images that store sample data for each band in a different bank of the DataBuffer.
-
-  BilinearAffineTransformOp           Extends: AffineTransformOp
-                                                 Uses an affine transformation with bilinear interpolation to transform an image or Raster.
-
-  BufferedImage                       Extends: Image
-                                                 Implements: WritableRenderedImage
-                                                 Describes an Image with an accessible buffer of image data.
-
-  BufferedImageFilter                 Extends: ImageFilter
-                                                 Implements: RasterImageConsumer, Cloneable
-                                                 Provides a simple means of using a single-source/single-destination image operator (BufferedImageOp) to filter a BufferedImage or Raster in the Image Producer/Consumer/Observer paradigm.
-
-  ByteLookupTable                     Extends: LookupTable
-                                                 Defines a lookup table object. The lookup table contains byte data for one or more tile channels or image components (for example, separate arrays for R, G, and B), and it contains an offset that will be subtracted from the input value before indexing the array.
-
-  ColorConvertOp                      Extends: Object
-                                                 Implements: BufferedImageOp, RasterOp
-                                                 Performs a pixel-by-pixel color conversion of the data in the source image. The resulting color values are scaled to the precision of the destination image data type.
-
-  ColorModel                          Extends: Object
-                                                 Implements: Transparency
-                                                 An abstract class that encapsulates the methods for translating from pixel values to color components (e.g., red, green, blue) for an image.
-
-  ComponentColorModel                 Extends: ColorModel
-                                                 A ColorModel class that can handle an arbitrary ColorSpace and an array of color components to match the ColorSpace.
-
-  ComponentSampleModel                Extends: SampleModel
-                                                 Stores the N samples that make up a pixel in N separate data array elements all of which are in the same bank of a dataBuffer.
-
-  ConvolveOp                          Extends: Object
-                                                 Implements: BufferedImageOp, RasterOp
-                                                 Implements a convolution from the source to the destination. Convolution using a convolution kernel is a spatial operation that computes the output pixel from an input pixel by multiplying the kernel with the surround of the input pixel.
-
-  CropImageFilter                     Extends: ImageFilter
-                                                 An ImageFilter class for cropping images.
-
-  DataBuffer                          Extends: Object
-                                                 Wraps one or more data arrays. Each data array in the DataBuffer is referred to as a bank. Accessor methods for getting and setting elements of the DataBuffer\'s banks exist with and without a bank specifier.
-
-  DataBufferByte                      Extends: DataBuffer
-                                                 Stores data internally as bytes.
-
-  DataBufferInt                       Extends: DataBuffer
-                                                 Stores data internally as ints.
-
-  DataBufferShort                     Extends: DataBuffer
-                                                 Stores data internally as shorts.
-
-  DirectColorModel                    Extends: PackedColorModel
-                                                 Represents pixel values that have RGB color components embedded directly in the bits of the pixel itself.
-
-  FilteredImageSource                 Extends: Object
-                                                 Implements: ImageProducer
-                                                 An implementation of the ImageProducer interface which takes an existing image and a filter object and uses them to produce image data for a new filtered version of the original image.
-
-  ImageFilter                         Extends: Object
-                                                 Implements: ImageConsumer, Cloneable
-                                                 Implements a filter for the set of interface methods that are used to deliver data from an ImageProducer to an ImageConsumer.
-
-  IndexColorModel                     Extends: ColorModel
-                                                 Represents pixel values that are indices into a fixed colormap in the ColorModel\'s color space.
-
-  Kernel                              Extends: Object
-                                                 Defines a Kernel object - a matrix describing how a given pixel and its surrounding pixels affect the value of the given pixel in a filtering operation.
-
-  LookupOp                            Extends: Object
-                                                 Implements: BufferedImageOp, RasterOp
-                                                 Implements a lookup operation from the source to the destination.
-
-  LookupTable                         Extends: Object
-                                                 Defines a lookup table object. The subclasses are ByteLookupTable and ShortLookupTable, which contain byte and short data, respectively.
-
-  MemoryImageSource                   Extends: Object
-                                                 Implements: ImageProducer
-                                                 An implementation of the ImageProducer interface, which uses an array to produce pixel values for an Image.
-
-  MultiPixelPackedSampleModel         Extends: SampleModel
-                                                 Stores one-banded images, but can pack multiple one-sample pixels into one data element.
-
-  NearestNeighborAffine-TransformOp   Extends: AffineTransformOp
-                                                 Uses an affine transformation with nearest neighbor interpolation to transform an image or Raster.
-
-  PackedColorModel                    Extends: ColorModel
-                                                 An abstract ColorModel class that represents pixel values that have the color components embedded directly in the bits of an integer pixel.
-
-  PixelGrabber                        Extends: Object
-                                                 Implements: ImageConsumer
-                                                 Implements an ImageConsumer which can be attached to an Image or ImageProducer object to retrieve a subset of the pixels in that image.
-
-  RGBImageFilter                      Extends: ImageFilter
-                                                 Provides an easy way to create an ImageFilter that modifies the pixels of an image in the default RGB ColorModel. It is meant to be used in conjunction with a FilteredImageSource object to produce filtered versions of existing images.
-
-  Raster                              Extends: Object
-                                                 Represents a rectanglular array of pixels and provides methods for retrieving image data. It contains a DataBuffer object that holds a buffer of image data in some format, a SampleModel that describes the format is capable of storing and retrieving Samples from the DataBuffer, and a Rect that defines the coordinate space of the raster (upper left corner, width and height).
-
-  ReplicateScaleFilter                Extends: ImageFilter
-                                                 Scales images using the simplest algorithm.
-
-  RescaleOp                           Extends: Object
-                                                 Implements: BufferedImageOp, RasterOp
-                                                 Performs a pixel-by-pixel rescaling of the data in the source image by multiplying each pixel value by a scale factor and then adding an offset.
-
-  SampleModel                         Extends: Object
-                                                 Defines an interface for extracting samples of an image without knowing how the underlying data is stored in a DataBuffer.
-
-  ShortLookupTable                    Extends: LookupTable
-                                                 Defines a lookup table object. The lookup table contains short data for one or more tile channels or image components (for example, separate arrays for R, G, and B), and it contains an offset that will be subtracted from the input value before indexing the array.
-
-  SinglePixelPackedSample-Model       Extends: SampleModel
-                                                 Stores (packs) the N samples that make up a single pixel in one data array element. All data array elements reside in the first bank of a DataBuffer.
-
-  ThresholdOp                         Extends: Object
-                                                 Implements: BufferedImageOp, RasterOp
-                                                 Performs thresholding on the source image by mapping the value of each image component (for BufferedImages) or channel element (for Rasters) that falls between a low and a high value, to a constant.
-
-  TileChangeMulticaster               Extends: Object
-                                                 A convenience class that takes care of the details of implementing the TileChangeListener interface.
-
-  WritableRaster                      Extends: Raster
-                                                 Provides methods for storing image data and inherits methods for retrieving image data from it\'s parent class Raster.
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[Table B-3 **java.awt.image** Classes]{#74246}**
+| Class | Description |
+| ----- | ------------|
+| AffineTransformOp | Implements: `BufferedImageOp`, `RasterOp` <br/> An abstract class that uses an affine transform to perform a linear mapping from 2D coordinates in the source image or Raster to 2D coordinates in the destination image or Raster. |
+| AreaAveragingScaleFilter | Extends: `ReplicateScaleFilter` <br/>  An ImageFilter class for scaling images using a simple area averaging algorithm that produces smoother results than the nearest-neighbor algorithm. |
+| BandCombineOp | Implements: `RasterOp` <br/> Performs an arbitrary linear combination of bands in a Raster, using a specified matrix. |
+| BandedSampleModel | Extends: `SampleModel` <br/>  Provides more efficent implementations for accessing image data than are provided in SampleModel. Used when working with images that store sample data for each band in a different bank of the DataBuffer. |
+| BilinearAffineTransformOp | Extends: `AffineTransformOp`  <br/> Uses an affine transformation with bilinear interpolation to transform an image or Raster. |
+| BufferedImage | Extends: `Image` | Implements: `WritableRenderedImage` <br/>  Describes an Image with an accessible buffer of image data. |
+| BufferedImageFilter | Extends: `ImageFilter` <br/> Implements: RasterImageConsumer, Cloneable Provides a simple means of using a single-source/single-destination image operator (BufferedImageOp) to filter a BufferedImage or Raster in the Image Producer/Consumer/Observer paradigm. |
+| ByteLookupTable | Extends: `LookupTable` <br/> Defines a lookup table object. The lookup table contains byte data for one or more tile channels or image components (for example, separate arrays for R, G, and B), and it contains an offset that will be subtracted from the input value before indexing the array. |
+| ColorConvertOp | Implements: `BufferedImageOp`, `RasterOp` <br/> Performs a pixel-by-pixel color conversion of the data in the source image. The resulting color values are scaled to the precision of the destination image data type. |
+| ColorModel | Implements: `Transparency` <br/> An abstract class that encapsulates the methods for translating from pixel values to color components (e.g., red, green, blue) for an image. |
+| ComponentColorModel | Extends: `ColorModel` A ColorModel class that can handle an arbitrary ColorSpace and an array of color components to match the ColorSpace. |
+| ComponentSampleModel | Extends: `SampleModel` <br/> Stores the N samples that make up a pixel in N separate data array elements all of which are in the same bank of a dataBuffer. |
+| ConvolveOp | Implements: `BufferedImageOp`, `RasterOp` <br/> Implements a convolution from the source to the destination. Convolution using a convolution kernel is a spatial operation that computes the output pixel from an input pixel by multiplying the kernel with the surround of the input pixel. |
+| CropImageFilter | Extends: `ImageFilter` <br/>An ImageFilter class for cropping images. |
+| DataBuffer | Wraps one or more data arrays. Each data array in the DataBuffer is referred to as a bank. Accessor methods for getting and setting elements of the DataBuffer\'s banks exist with and without a bank specifier. |
+| DataBufferByte | Extends: `DataBuffer` <br/> Stores data internally as bytes. |
+| DataBufferInt | Extends: `DataBuffer` <br/> Stores data internally as ints. |
+| DataBufferShort | Extends: `DataBuffer` <br/> Stores data internally as shorts. |
+| DirectColorModel | Extends: `PackedColorModel` | Represents pixel values that have RGB color components embedded directly in the bits of the pixel itself. |
+| FilteredImageSource | Implements: `ImageProducer` <br/> An implementation of the ImageProducer interface which takes an existing image and a filter object and uses them to produce image data for a new filtered version of the original image. |
+| ImageFilter | Implements: `ImageConsumer`, `Cloneable` | Implements a filter for the set of interface methods that are used to deliver data from an ImageProducer to an ImageConsumer. |
+| IndexColorModel | Extends: `ColorModel` | Represents pixel values that are indices into a fixed colormap in the ColorModel\'s color space. |
+| Kernel | Defines a Kernel object - a matrix describing how a given pixel and its surrounding pixels affect the value of the given pixel in a filtering operation. |
+| LookupOp | Implements: `BufferedImageOp`, `RasterOp` <br/> Implements a lookup operation from the source to the destination. |
+| LookupTable | Defines a lookup table object. The subclasses are ByteLookupTable and ShortLookupTable, which contain byte and short data, respectively. |
+| MemoryImageSource | Implements: `ImageProducer` <br/> An implementation of the ImageProducer interface, which uses an array to produce pixel values for an Image. |
+| MultiPixelPackedSampleModel | Extends: `SampleModel` <br/> Stores one-banded images, but can pack multiple one-sample pixels into one data element. |
+| NearestNeighborAffine-TransformOp | Extends: `AffineTransformOp` <br/> Uses an affine transformation with nearest neighbor interpolation to transform an image or Raster. |
+| PackedColorModel | Extends: `ColorModel` <br/> An abstract ColorModel class that represents pixel values that have the color components embedded directly in the bits of an integer pixel. |
+| PixelGrabber | Implements: `ImageConsumer` | Implements an ImageConsumer which can be attached to an Image or ImageProducer object to retrieve a subset of the pixels in that image. |
+| RGBImageFilter | Extends: `ImageFilter` <br/> Provides an easy way to create an ImageFilter that modifies the pixels of an image in the default RGB ColorModel. It is meant to be used in conjunction with a FilteredImageSource object to produce filtered versions of existing images. |
+| Raster | Represents a rectanglular array of pixels and provides methods for retrieving image data. It contains a DataBuffer object that holds a buffer of image data in some format, a SampleModel that describes the format is capable of storing and retrieving Samples from the DataBuffer, and a Rect that defines the coordinate space of the raster (upper left corner, width and height). |
+| ReplicateScaleFilter | Extends: `ImageFilter` <br/> Scales images using the simplest algorithm. |
+| RescaleOp | Implements: `BufferedImageOp`, `RasterOp` <br/> Performs a pixel-by-pixel rescaling of the data in the source image by multiplying each pixel value by a scale factor and then adding an offset. | 
+| SampleModel | Defines an interface for extracting samples of an image without knowing how the underlying data is stored in a DataBuffer. |
+| ShortLookupTable | Extends: `LookupTable` <br/>  Defines a lookup table object. The lookup table contains short data for one or more tile channels or image components (for example, separate arrays for R, G, and B), and it contains an offset that will be subtracted from the input value before indexing the array. |
+| SinglePixelPackedSample-Model | Extends: `SampleModel` <br/> Stores (packs) the N samples that make up a single pixel in one data array element. All data array elements reside in the first bank of a DataBuffer. |
+| ThresholdOp | Implements: `BufferedImageOp`, `RasterOp` <br/> Performs thresholding on the source image by mapping the value of each image component (for BufferedImages) or channel element (for Rasters) that falls between a low and a high value, to a constant. |
+| TileChangeMulticaster | A convenience class that takes care of the details of implementing the TileChangeListener interface. |
+| WritableRaster | Extends: `Raster` <br/> Provides methods for storing image data and inherits methods for retrieving image data from it\'s parent class Raster. |
 
 
-B.3 Java Advanced Imaging
-----------------------------------------------
+B.3 Eclipse ImageN
+------------------
 
-The Java Advanced Imaging API consists of the following packages:
+The Eclipse ImagenN API consists of the following packages:
 
--   `org.eclipse.imagen` - contains the \"core\" JAI interfaces and
+-   `org.eclipse.imagen` - contains the \"core\" ImageN interfaces and
     classes
-
-<!-- --
 
 -   `org.eclipse.imagen.iterator` - contains special iterator interfaces
     and classes, which are useful for writing extension operations
 
-<!-- --
-
 -   `org.eclipse.imagen.operator` - contains classes that describe all of
     the image operators
-
-<!-- --
 
 -   `org.eclipse.imagen.widget` - contains interfaces and classes for
     creating simple image canvases and scrolling windows for image
@@ -250,14 +129,13 @@ The Java Advanced Imaging API consists of the following packages:
 
 ### B.3.1 JAI Interfaces
 
-[Table B-4](api-summary/index.html) lists and briefly describes
+[Table B-4](#table-B-4) lists and briefly describes
 the interfaces defined in the Java Advanced Imaging API
 (`org.eclipse.imagen`).
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Interface]{#72535}                 [Description]{#72537}
-  ----------------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  CollectionImageFactory   Abbreviated CIF, this interface is intended to be implemented
+| Interface | Description |
+| --------- | ------------|
+| CollectionImageFactory   Abbreviated CIF, this interface is intended to be implemented
                                       by classes that wish to act as factories to produce different collection image operators.
 
   ImageFunction            A common interface for vector-valued functions that are to be evaluated at positions in the X-Y coordinate system.
@@ -278,61 +156,45 @@ the interfaces defined in the Java Advanced Imaging API
   :  **[Table B-4 **Summary of jai Interfaces**]{#72483}**
 
 
-### B.3.2 JAI Classes
+### B.3.2 ImageN Classes
 
-[Table B-5](api-summary/index.html) lists and briefly describes
-the classes defined in the Java Advanced Imaging API
+[Table B-5](#table-8-5) lists and briefly describes
+the classes defined in the Eclipse ImageN API
 (`org.eclipse.imagen`).
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Class]{#72627}                              [Description]{#72629}
-  -------------------------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  AreaOpImage                       Extends: OpImage
-                                               An abstract base class for image operators that require only a fixed rectangular source region around a source pixel in order to compute each each destination pixel.
-
-  BorderExtender                    An abstract superclass for classes that extend a WritableRaster with additional pixel data taken from a PlanarImage.
-
-  BorderExtenderConstant            Extends: BorderExtender
-                                               Implements border extension by filling all pixels outside of the image bounds with constant values.
-
-  BorderExtenderCopy                Extends: BorderExtender
-                                               Implements border extension by filling all pixels outside of the image bounds with copies of the edge pixels.
-
-  BorderExtenderReflect             Extends: BorderExtender
-                                               Implements border extension by filling all pixels outside of the image bounds with copies of the whole image.
-
-  BorderExtenderWrap                Extends: BorderExtender
-                                               Implements border extension by filling all pixels outside of the image bounds with copies of the whole image.
-
-  BorderExtenderZero                Extends: BorderExtender
-                                               Implements border extension by filling all pixels outside of the image bounds with zeros.
-
-  CanvasJAI                         Extends: java.awt.Canvas
-                                               Automatically returns an instance of GraphicsJAI from its getGraphics method.
-
-  CollectionImage                   Extends: ImageJAI
+| Class | Description |
+| ----- | ------------|
+| AreaOpImage | Extends: `OpImage` <br/> An abstract base class for image operators that require only a fixed rectangular source region around a source pixel in order to compute each each destination pixel. |
+| BorderExtender | An abstract superclass for classes that extend a WritableRaster with additional pixel data taken from a PlanarImage. |
+| BorderExtenderConstant | Extends: BorderExtender <br/>  Implements border extension by filling all pixels outside of the image bounds with constant values. |
+| BorderExtenderCopy | Extends: `BorderExtender` <br/> Implements border extension by filling all pixels outside of the image bounds with copies of the edge pixels. |
+| BorderExtenderReflect | Extends: `BorderExtender` | Implements border extension by filling all pixels outside of the image bounds with copies of the whole image. |
+| BorderExtenderWrap | Extends: `BorderExtender` <br/> Implements border extension by filling all pixels outside of the image bounds with copies of the whole image. |
+| BorderExtenderZero | Extends: `BorderExtender` <br/> Implements border extension by filling all pixels outside of the image bounds with zeros. |
+| CanvasJAI | Extends: `java.awt.Canvas <br/> Automatically returns an instance of GraphicsJAI from its getGraphics method.
+| CollectionImage                   Extends: ImageJAI
                                                Implements: java.util.Collection
                                                An abstract superclass for classes representing a collection of objects.
 
-  CollectionOp                      Extends: CollectionImage
+| CollectionOp                      Extends: CollectionImage
                                                A node in a rendered imaging chain representing a CollectionImage.
 
-  ColorCube                         Extends: LookupTableJAI
+| ColorCube                         Extends: LookupTableJAI
                                                Represents a color cube lookup table that provides a fixed, invertible mapping between tables indices and sample values.
 
-  ComponentSampleModelJAI           Extends: ComponentSampleModel
+| ComponentSampleModelJAI           Extends: ComponentSampleModel
                                                Represents image data that is stored such that each sample of a pixel occupies one data element of the DataBuffer.
 
-  CoordinateImage                   Extends: java.lang.Object
+| CoordinateImage                   Extends: java.lang.Object
                                                Represents an image that is associated with a coordinate. This class is used with ImageStack.
 
-  DataBufferDouble                  Extends: java.awt.image.DataBuffer
+| DataBufferDouble                  Extends: java.awt.image.DataBuffer
                                                Stores DataBuffer data internally in double form.
 
-  DataBufferFloat                   Extends: java.awt.image.DataBuffer
+| DataBufferFloat                   Extends: java.awt.image.DataBuffer
                                                Stores DataBuffer data internally in float form.
 
-  DisplayOpImage                    Extends: OpImage
+| DisplayOpImage                    Extends: OpImage
                                                A placeholder for display functionality.
 
   FloatDoubleColorModel             Extends: ComponentColorModel
@@ -523,22 +385,18 @@ the classes defined in the Java Advanced Imaging API
 [Table B-6](api-summary/index.html) lists the JAI iterator classes
 (`org.eclipse.imagen.iterator`).
 
-  ------------------------------------------------------------------------------------------------------------------------------------------
-  [Interface]{#77310}             [Description]{#77312}
-  ------------------------------- ----------------------------------------------------------------------------------------------------------
-  RandomIter           An iterator that allows random read-only access to any sample within its bounding rectangle.
 
-  RectIter             An iterator for traversing a read-only image in top-to-bottom, left-to-right order.
+| Interface | Description |
+| --------- | ------------|
+| RandomIter | An iterator that allows random read-only access to any sample within its bounding rectangle. |
+| RectIter | An iterator for traversing a read-only image in top-to-bottom, left-to-right order. |
+| RookIter | An iterator for traversing a read-only image using arbitrary up-down and left-right moves. |
+| WritableRandomIter | Extends: `RandomIter` <br/> An iterator that allows random read/write access to any sample within its bounding rectangle.
 
-  RookIter             An iterator for traversing a read-only image using arbitrary up-down and left-right moves.
-
-  WritableRandomIter   Extends: RandomIter
-                                  An iterator that allows random read/write access to any sample within its bounding rectangle.
-
-  WritableRectIter     Extends: RectIter
+  WritableRectIter     Extends: `RectIter` <br/> 
                                   An iterator for traversing a read/write image in top-to-bottom, left-to-right order.
 
-  WritableRookIter     Extends: RookIter, WritableRectIter
+  WritableRookIter     Extends: `RookIter`, `WritableRectIter <br/> `
                                   An iterator for traversing a read/write image using arbitrary up-down and left-right moves.
   ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -858,21 +716,20 @@ interfaces (`org.eclipse.imagen.widget`).
 
 ### B.3.7 JAI Widget Classes
 
-[Table B-10](api-summary/index.html) lists the JAI widget classes
+[Table B-10](#table-B-10) lists the JAI widget classes
 (`org.eclipse.imagen.widget`).
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Class]{#73689}                  [Description]{#73691}
-  -------------------------------- ----------------------------------------------------------------------------------------------------------------------------
-  ImageCanvas           Extends: java.awt.Canvas
-                                   A simple output widget for a RenderedImage. This class can be used in any context that calls for a Canvas.
+**Table B-10 ImageN Widget Classes** <a name="table-B-10"></a>
 
-  ScrollingImagePanel   Extends: java.awt.Panel
-                                   Implements: java.awt.event.AdjustmentListener, java.awt.event.MouseListener, java.awt.event.MouseMotionListener
-                                   An extension of java.awt.Panel that contains an ImageCanvas and vertical and horizontal scrollbars.
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------
 
-  :  **[Table B-10 JAI Widget Classes]{#73685}**
+ImageCanvas
+: Extends: `java.awt.Canvas`
+: A simple output widget for a RenderedImage. This class can be used in any context that calls for a Canvas.
 
-------------------------------------------------------------------------
+ScrollingImagePanel
+: Extends: java.awt.Panel
+: Implements: java.awt.event.AdjustmentListener, java.awt.event.MouseListener, java.awt.event.MouseMotionListener
+: An extension of java.awt.Panel that contains an ImageCanvas and vertical and horizontal scrollbars.
 
+------------------------------

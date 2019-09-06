@@ -6,17 +6,20 @@ nav_order: 16
 ---
 
 # Extending the API                                                     
+{:.no_toc}
 
-This chapter describes how the JAI API may be extended.
+Describes how the ImageN API may be extended.
 
-14.1 Introduction
---------------------------------------
+* Contents
+{:toc}
+
+## 14.1 Introduction
 
 No image processing API can hope to capture the enormous variety of
-operations that can be performed on a digital image. Although the JAI
+operations that can be performed on a digital image. Although the ImageN
 API supports a large number of imaging operations, it was designed
 from the beginning to encourage programmers to write extensions rather
-than manipulating image data directly. JAI allows virtually *any*
+than manipulating image data directly. ImageN allows virtually *any*
 image processing algorithm to be added to the API and used as if it
 were a native part of the API.
 
@@ -30,10 +33,9 @@ mode and a deferred mode of execution for different types of imaging
 applications.
 
 
-14.2 Package Naming Convention
----------------------------------------------------
+## 14.2 Package Naming Convention
 
-All extensions to JAI require the addition of new classes. All new
+All extensions to ImageN require the addition of new classes. All new
 classes are grouped into packages as a convenient means of organizing
 the new classes and separating the new classes from code libraries
 provided by others.
@@ -43,39 +45,33 @@ accepted Java method of using your company\'s reversed Internet
 address to name new packages. This product naming convention helps to
 guarantee the uniqueness of package names. Supposing that your
 company\'s Internet address is `WebStuff.COM` and you wish to create a
-new package named `Prewitt`. A good choice of package name would be
+new package named `prewitt`. A good choice of package name would be
 
-         com.webstuff.Prewitt
+`com.webstuff.prewitt`
 
-Or, even
+Or, to uniquely identify the package as part of ImageN.
 
-         com.webstuff.media.jai.Prewitt
+`com.webstuff.imagen.prewitt`
 
-To uniquely identify the package as part of JAI.
-
-The above new `prewitt` class file must now be placed into a
+The above new `prewitt` class files must now be placed into a
 subdirectory that matches the product name, such as:
 
-:   `com/webstuff/media/jai` *for Solaris-based systems*
+`com/webstuff/imagen/prewitt` *for Linux-based systems*
 
-    :   or
+ or
 
-    
-:   `com\webstuff\media\jai` *for Windows systems*
+`com\webstuff\imagen\prewithh` *for Windows systems*
 
 The Java convention for class naming is to use initial caps for the
-name, as in the `Prewitt` example above. So called multi-word class
-names use initial caps for each word. For example `AddOpImage`.
+name, for multi-word class names use initial caps for each word. For example `AddOpImage`.
 
 Vendors are encouraged to use unique product names (by means of the
 Java programming language convention of reversed internet addresses)
 to maximize the likelihood of a clean installation.
 
+## 14.3 Writing New Operators
 
-14.3 Writing New Operators
------------------------------------------------
-
-To extend the JAI API by creating new operations, you will need to
+To extend the ImageN API by creating new operations, you will need to
 write a new `OpImage` subclass. This may be done by subclassing one or
 more existing utility classes to automate some of the details of the
 operator you wish to implement. For most operators, you need only
@@ -83,7 +79,7 @@ supply a routine that is capable of producing an arbitrary rectangle
 of output, given contiguous source data.
 
 Once created, new operators may be made available to users
-transparently and without user source code changes using the JAI
+transparently and without user source code changes using the ImageN
 registry mechanism. Existing applications may be tuned for new
 hardware platforms by strategic insertion of new implementations of
 existing operators.
@@ -91,73 +87,53 @@ existing operators.
 To create a new operator, you need to create the following new
 classes:
 
--   A class that extends the `OpImage` class or any of its subclasses.
-    This new class does the actual processing. See [Section 14.3.1,
-    \"Extending the OpImage Class](../extension).\"
+- A class that extends the `OpImage` class or any of its subclasses.
+  This new class does the actual processing. See [Section 14.3.1,
+  \"Extending the OpImage Class](#opimage).\"
 
 
 -   A class that extends the `OperationDescriptor` class. This new
     class describes the operation such as name, parameter list, and so
     on. See [Section 14.3.2, \"Extending the OperationDescriptor
-    Interface](../extension).\"
-
+    Interface](#operationdescriptor).\"
 
 -   If the operator will function in the Rendered mode only, a class
     that implements `java.awt.image.renderable.RenderedImageFactory`.
 
-
-### 14.3.1 Extending the OpImage Class
+### 14.3.1 Extending the OpImage Class <a name="opimage"></a>
 
 Every new operator being written must be a subclass of `OpImage` or
 one of its subclasses. The `OpImage` class currently has the following
 subclasses:
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Class]{#51674}                [Description]{#51676}
-  ------------------------------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  AreaOpImage         An abstract base class for image operators that require only a fixed rectangular source region around a source pixel in order to compute each destination pixel.
+***Table 14-1* OpImage Subclasses** <a name="table-14-1"></a>
 
-  NullOpImage         Extends: PointOpImage
-                                 A trivial OpImage subclass that simply transmits its source unchanged. Potentially useful when an interface requires an OpImage but another sort of RenderedImage (such as a TiledImage) is to be used.
-
-  PointOpImage        An abstract base class for image operators that require only a single source pixel in order to compute each destination pixel.
-
-  ScaleOpImage        Extends: WarpOpImage
-                                 An abstract base class for scale-like operations that require rectilinear backwards mapping and padding by the resampling filter dimensions.
-
-  SourcelessOpImage   An abstract base class for image operators that have no image sources.
-
-  StatisticsOpImage   An abstract base class for image operators that compute statistics on a given region of an image, and with a given sampling rate.
-
-  UntiledOpImage      A general class for single-source operations in which the values of all pixels in the source image contribute to the value of each pixel in the destination image.
-
-  WarpOpImage         A general implementation of image warping, and a superclass for other geometric image operations.
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 14-1*  OpImage
-  Subclasses]{#51670}**
+| Class | Description |
+| ----- | ----------- |
+| AreaOpImage | An abstract base class for image operators that require only a fixed rectangular source region around a source pixel in order to compute each destination pixel. |
+| NullOpImage | Extends: PointOpImage <br/>A trivial OpImage subclass that simply transmits its source unchanged. Potentially useful when an interface requires an OpImage but another sort of RenderedImage (such as a TiledImage) is to be used. |
+| PointOpImage | An abstract base class for image operators that require only a single source pixel in order to compute each destination pixel. |
+| ScaleOpImage | Extends: WarpOpImage <br/> An abstract base class for scale-like operations that require rectilinear backwards mapping and padding by the resampling filter dimensions. |
+| SourcelessOpImage | An abstract base class for image operators that have no image sources. |
+| StatisticsOpImage | An abstract base class for image operators that compute statistics on a given region of an image, and with a given sampling rate. |
+| UntiledOpImage | A general class for single-source operations in which the values of all pixels in the source image contribute to the value of each pixel in the destination image. |
+| WarpOpImage | A general implementation of image warping, and a superclass for other geometric image operations. |
 
 All abstract methods defined in `OpImage` must be implemented by any
 new `OpImage` subclass. Specifically, there are two fundamental
 methods that must be implemented:
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Method]{#51916}         [Description]{#51918}
-  ------------------------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  getTile       Gets a tile for reading. This method is called by the object that has the new operator name as its source with a rectangle as its parameter. The operation is responsible for returning a rectangle filled in with the correct values.
-
-  computeRect   Computes a rectangle of output, given Raster sources. The method is called by getTile to do the actual computation. The extension must override this method.
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
+| Method | Description |
+| ------ | ----------- |
+| getTile | Gets a tile for reading. This method is called by the object that has the new operator name as its source with a rectangle as its parameter. The operation is responsible for returning a rectangle filled in with the correct values. |
+| computeRect | Computes a rectangle of output, given Raster sources. The method is called by getTile to do the actual computation. The extension must override this method. |
 
 First, you have to decide which of the `OpImage` subclasses to extend.
 To write a new statistics operation, you would most likely extend the
 `StatisticsOpImage` class. Each subclass has a specific purpose, as
 described in [Table 14-1](../extension).
 
-
-### 14.3.2 Extending the OperationDescriptor Interface
+### 14.3.2 Extending the OperationDescriptor Interface <a name="operationdescriptor"></a>
 
 Operations that are to be created using one of the `JAI.create`
 methods must be defined in the `registryFile`, which is included in
@@ -167,35 +143,31 @@ description of the operation and specifies the number and type of its
 sources and parameters. The OperationDescriptor also specifies whether
 the operation supports rendered mode, renderable mode, or both.
 
-[Listing 14-1](../extension) shows a sample of the
+[Listing 14-1](#listing-14-1) shows a sample of the
 `registryFile` contents. Note that this is not the entire
 `registryFile`, only a small sample showing two operators (absolute
 and addconst).
 
-**[]{#59124}**
+***Listing 14-1* registryFile Example** <a name="listing-14-1"></a>
 
-***Listing 14-1*  registryFile Example**
+```
+odesc   org.eclipse.imagen.operator.AbsoluteDescriptor     absolute
+odesc   org.eclipse.imagen.operator.AddConstDescriptor     addconst
 
-------------------------------------------------------------------------
+rif org.eclipse.imagen.media.opimage.AbsoluteCRIF
+               org.eclipse.imagen.media   absolute   sunabsoluterif
+rif org.eclipse.imagen.media.mlib.MlibAbsoluteRIF
+               org.eclipse.imagen.media   absolute   mlibabsoluterif
+rif org.eclipse.imagen.media.opimage.AddConstCRIF
+               org.eclipse.imagen.media   addconst   sunaddconstrif
+rif org.eclipse.imagen.media.mlib.MlibAddConstRIF
+               org.eclipse.imagen.media   addconst   mlibaddconstrif
 
-         odesc   org.eclipse.imagen.operator.AbsoluteDescriptor     absolute
-         odesc   org.eclipse.imagen.operator.AddConstDescriptor     addconst
+crif    org.eclipse.imagen.media.opimage.AbsoluteCRIF      absolute
+crif    org.eclipse.imagen.media.opimage.AddConstCRIF      addconst
+```
 
-         rif org.eclipse.imagen.media.opimage.AbsoluteCRIF
-                        org.eclipse.imagen.media   absolute   sunabsoluterif
-         rif org.eclipse.imagen.media.mlib.MlibAbsoluteRIF
-                        org.eclipse.imagen.media   absolute   mlibabsoluterif
-         rif org.eclipse.imagen.media.opimage.AddConstCRIF
-                        org.eclipse.imagen.media   addconst   sunaddconstrif
-         rif org.eclipse.imagen.media.mlib.MlibAddConstRIF
-                        org.eclipse.imagen.media   addconst   mlibaddconstrif
-
-         crif    org.eclipse.imagen.media.opimage.AbsoluteCRIF      absolute
-         crif    org.eclipse.imagen.media.opimage.AddConstCRIF      addconst
-
-------------------------------------------------------------------------
-
-All high-level operation names in JAI (such as `Rotate`, `Convolve`,
+All high-level operation names in ImageN (such as `Rotate`, `Convolve`,
 and `AddConst`) are mapped to instances of `RenderedImageFactory`
 (RIF) and/or `ContextualRenderedImageFactory` (CRIF) that are capable
 of instantiating `OpImage` chains to perform the named operation. The
@@ -214,22 +186,22 @@ operation will always have to be invoked beforehand.``
 
 To temporarily register a new operation:
 
-1\. **Register the operation name**.
+1. **Register the operation name**.
 
-:   The high-level operation name, called an *operation descriptor*,
-    is registered by calling the `registerOperationByName()` method or
-    the `registerOperationDescriptor()` method. The operation
-    descriptor name must be unique.
+   The high-level operation name, called an *operation descriptor*,
+   is registered by calling the `registerOperationByName()` method or
+   the `registerOperationDescriptor()` method. The operation
+   descriptor name must be unique.
     
-:   Once an operation descriptor is registered, it may be obtained by
-    name by calling the `getOperationDescriptor()` method.
+   Once an operation descriptor is registered, it may be obtained by
+  name by calling the `getOperationDescriptor()` method.
 
-2\. **Register the set of rendered image factory objects.**
+2. **Register the set of rendered image factory objects.**
 
-:   The rendered image factory (RIF) is registered using the
-    `registerRIF` method. Each RIF is registered with a specific
-    operation name and is given a product name. Similar methods exist
-    for registering a contextual image factory (CRIF).
+   The rendered image factory (RIF) is registered using the
+   `registerRIF` method. Each RIF is registered with a specific
+   operation name and is given a product name. Similar methods exist
+   for registering a contextual image factory (CRIF).
 
 The `OperationDescriptor` interface provides a comprehensive
 description of a specific image operation. All of the information
@@ -240,35 +212,28 @@ also be included, and the methods to enforce these conditions should
 be implemented. A set of `PropertyGenerator`s may be specified to be
 used as a basis for the operation\'s property management.
 
-Each family of the image operation in JAI must have a descriptor that
+Each family of the image operation in ImageN must have a descriptor that
 implements this interface. The following basic resource data must be
 provided:
 
 -   GlobalName - a global operation name that is visible to all and is
     the same in all `Locale`s
 
-
 -   LocalName - a localized operation name that may be used as a
     synonym for the global operation name
-
 
 -   Vendor - the name of the vendor (company name) defining this
     operation
 
-
 -   Description - a brief description of this operation
-
 
 -   DocURL - a URL where additional documentation on this operation
     may be found (the javadoc for the operation)
 
-
 -   Version - the version of the operation
-
 
 -   arg0Desc, arg1Desc, etc. - descriptions of the arguments. There
     must be a property for each argument.
-
 
 -   hint0Desc, hint1Desc, etc. - descriptions of the rendering hints.
     There must be a property for each hint.
@@ -279,37 +244,30 @@ the operation\'s functionality in the class comment. When all of the
 above data is provided, the operation can be added to an
 `OperationRegistry`.
 
-[Listing 14-2](../extension) shows an example of an
+[Listing 14-2](#listing-14-2) shows an example of an
 operation descriptor for the Clamp operation. Note that the descriptor
 also contains descriptions of the two required operation parameters,
 but no hints as these aren\'t required for the operation.
 
-**[]{#58545}**
+***Listing 14-2* Operation Descriptor for Clamp Operation** <a name="listing-14-2"></a>
 
-***Listing 14-2*  Operation Descriptor for
-Clamp Operation**
-
-------------------------------------------------------------------------
-
-         public class ClampDescriptor extends OperationDescriptorImpl {
-         /**
-         * The resource strings that provide the general documentation
-         * and specify the parameter list for this operation.
-         */
-         private static final String[][] resources = {
-             {"GlobalName",  "Clamp"},
-             {"LocalName",   "Clamp"},
-             {"Vendor",      "com.sun.org.eclipse.imagen"},
-             {"Description", "Clamps the pixel values of a rendered image"},
-             {"DocURL",      "http://java.sun.com/products/java-media/jai/
-    forDevelopers/jaiapi/
-    org.eclipse.imagen.operator.ClampDescriptor.html"},
-             {"Version",     "Beta")},
-             {"arg0Desc",    "The lower boundary for each band."},
-             {"arg1Desc",    "The upper boundary for each band."}
-         };
-
-------------------------------------------------------------------------
+```java
+public class ClampDescriptor extends OperationDescriptorImpl {
+/**
+* The resource strings that provide the general documentation
+* and specify the parameter list for this operation.
+*/
+private static final String[][] resources = {
+    {"GlobalName",  "Clamp"},
+    {"LocalName",   "Clamp"},
+    {"Vendor",      "com.sun.org.eclipse.imagen"},
+    {"Description", "Clamps the pixel values of a rendered image"},
+    {"DocURL",      "ImageN Project](https://projects.eclipse.org/projects/technology.imagen/jaiapi/org.eclipse.imagen.operator.ClampDescriptor.html"},
+    {"Version",     "Beta")},
+    {"arg0Desc",    "The lower boundary for each band."},
+    {"arg1Desc",    "The upper boundary for each band."}
+};
+```
 
 As described in [Section 3.3, \"Processing
 Graphs](../programming-environ),\" JAI has two image
@@ -328,130 +286,52 @@ that support the renderable mode must specify this feature using the
 `isRenderableSupported` method and implement those methods that supply
 the additional information for the Renderable mode.
 
-[Table 14-2](../extension) lists the Rendered mode
-methods. [Table 14-3](../extension) lists the Renderable
+[Table 14-2](#table-14-2) lists the Rendered mode
+methods. [Table 14-3](#table-14-3) lists the Renderable
 mode methods. [Table 14-4](../extension) lists the methods
 relative to operation parameters.
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Method]{#58689}                 [Description]{#58691}
-  -------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------
-  isRenderedSupported   Returns true if the operation supports the Rendered image mode. This must be true for all operations.
+***Table 14-2* Rendered Mode Methods** <a name="table-14-2"></a>
 
-  isImmediate           Returns true if the operation should be rendered immediately during the call to JAI.create; that is, the operation is placed in immediate mode.
-
-  getSourceClasses      Returns an array of Classes that describe the types of sources required by this operation in the Rendered image mode.
-
-  getDestClass          Returns a Class that describes the type of destination this operation produces in the Rendered image mode.
-
-  validateArguments     Returns true if this operation is capable of handling the input rendered source(s) and/or parameter(s) specified in the ParameterBlock.
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 14-2*  Rendered Mode
-  Methods]{#58685}**
-
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [Method]{#58722}                         [Description]{#58724}
-  ---------------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------
-  isRenderableSupported         Returns true if the operation supports the Renderable image mode.
-
-  getRenderableSourceClasses    Returns an array of Classes that describe the types of sources required by this operation in the Renderable image mode.
-
-  getRenderableDestClass        Returns a Class that describes the type of destination this operation produces in the Renderable image mode.
-
-  validateRenderableArguments   Returns true if this operation is capable of handling the input Renderable source(s) and/or parameter(s) specified in the ParameterBlock.
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 14-3*  Renderable Mode
-  Methods]{#58718}**
-
-  -----------------------------------------------------------------------------------------------------------------------------------------------
-  [Method]{#58880}                  [Description]{#58882}
-  --------------------------------- -------------------------------------------------------------------------------------------------------------
-  getNumParameters       Returns the number of parameters (not including the sources) required by this operation.
-
-  getParamClasses        Returns an array of Classes that describe the types of parameters required by this operation.
-
-  getParamNames          Returns an array of Strings that are the localized parameter names of this operation.
-
-  getParamDefaults       Returns an array of Objects that define the default values of the parameters for this operation.
-
-  getParamDefaultValue   Returns the default value of a specified parameter.
-
-  getParamMinValue       Returns the minimum legal value of a specified numeric parameter for this operation.
-
-  getParamMaxValue       Returns the maximum legal value of a specified numeric parameter for this operation.
-  -----------------------------------------------------------------------------------------------------------------------------------------------
-
-  :  **[*Table 14-4*  Parameter
-  Methods]{#58876}**
-
-**API:** `org.eclipse.imagen.OperationRegistr |
-|                                   | y`
-
-    void registerOperationDescriptor(OperationDescriptor odesc, 
-           String operationName)
-
-:   registers an `OperationDescriptor` with the registry. Each
-    operation must have an `OperationDescriptor` before
-    `registerRIF()` may be called to add RIFs to the operation.
-    *Parameter*:
-    `odesc`
-    An `OperationDescriptor` containing information about the
-    operation.
-    `operationName`
-    The operation name as a `String`.
-    
-:   A `OperationDescriptor` cannot be registered under an operation
-    name under which another `OperationDescriptor` was registered
-    previously. If such an attempt is made, an Error will be thrown.
+| Method | Description |
+| ------ | ----------- |
+| isRenderedSupported | Returns true if the operation supports the Rendered image mode. This must be true for all operations. |
+| isImmediate | Returns true if the operation should be rendered immediately during the call to JAI.create; that is, the operation is placed in immediate mode. |
+| getSourceClasses | Returns an array of Classes that describe the types of sources required by this operation in the Rendered image mode. |
+| getDestClass | Returns a Class that describes the type of destination this operation produces in the Rendered image mode. |
+| validateArguments | Returns true if this operation is capable of handling the input rendered source(s) and/or parameter(s) specified in the ParameterBlock. |
 
 
-    void registerOperationByName(String odescClassName, 
-           String  operationName)
+***Table 14-3*  Renderable Mode Methods** <a name="table-14-3"></a>
 
-:   registers an `OperationDescriptor` by its class name.
-    *Parameter*:
-    `odescClassName`
-    The fully-qualified class name of the `OperationDescriptor`.
-    `operationName`
-    The operation name as a `String`.
+| Method | Description |
+| ------ | ----------- |
+| isRenderableSupported | Returns true if the operation supports the Renderable image mode.
+| getRenderableSourceClasses | Returns an array of Classes that describe the types of sources required by this operation in the Renderable image mode. |
+| getRenderableDestClass | Returns a Class that describes the type of destination this operation produces in the Renderable image mode. |
+| validateRenderableArguments | Returns true if this operation is capable of handling the input Renderable source(s) and/or parameter(s) specified in the ParameterBlock. |
 
+***Table 14-4* Parameter Methods** <a name="table-14-4"></a>
 
-    void unregisterOperationDescriptor(String operationName)
+| Method | Description |
+| ------ | ----------- |
+| getNumParameters | Returns the number of parameters (not including the sources) required by this operation. |
+| getParamClasses | Returns an array of Classes that describe the types of parameters required by this operation. |
+| getParamNames | Returns an array of Strings that are the localized parameter names of this operation. |
+| getParamDefaults | Returns an array of Objects that define the default values of the parameters for this operation. |
+| getParamDefaultValue | Returns the default value of a specified parameter. |
+| getParamMinValue | Returns the minimum legal value of a specified numeric parameter for this operation. |
+| getParamMaxValue | Returns the maximum legal value of a specified numeric parameter for this operation. |
 
-:   unregisters an `OperationDescriptor` from the registry.
+**API:** `org.eclipse.imagen.OperationRegistry`
 
+* `void registerOperationDescriptor(OperationDescriptor odesc,  String operationName)`
+* `void registerOperationByName(String odescClassName, String  operationName)`
+* `void unregisterOperationDescriptor(String operationName)`
+* `void registerRIF(String operationName, String productName,  RenderedImageFactory RIF)`
+* `void registerRIFByClassName(String operationName,  String  productName, String RIFClassName)`
 
-    void registerRIF(String operationName, String productName, 
-           RenderedImageFactory RIF)
-
-:   registers a `RIF` with a particular product and operation.
-    *Parameter*:
-    `operationName`
-    The operation name as a `String`.
-    `productName`
-    The product name, as a `String`.
-    `RIF`
-    The `RenderedImageFactory` to be registered.
-
-
-    void registerRIFByClassName(String operationName, 
-           String  productName, String RIFClassName)
-
-:   registers a `RIF` with a particular product and operation,
-    constructing an instance using its class name.
-    *Parameter*:
-    `operationName`
-    The operation name as a `String`.
-    `productName`
-    The product name, as a `String`.
-    `RIFClassName`
-    The fully-qualified class name of a `RenderedImageFactory`.
-
-
-14.4 Iterators
------------------------------------
+## 14.4 Iterators
 
 Iterators are provided to help the programmer who writes extensions to
 the JAI API and does not want to use any of the existing API methods
@@ -468,7 +348,7 @@ values in `int`, `float`, or `double` format, automatically promoting
 integral values smaller than 32 bits to `int` when reading, and
 performing the corresponding packing when writing.
 
-JAI offers three different types of iterator, which should cover
+ImageN offers three different types of iterator, which should cover
 nearly all of a programmer\'s needs. However, extenders may wish to
 build others for more specialized needs.
 
@@ -488,15 +368,14 @@ specifying their *x* and *y* coordinates and band offset. The
 `RookIter`, but remains useful for its ability to hide pixel formats
 and tile boundaries.
 
-[Figure 14-1](../extension) shows the Iterator package
+[Figure 14-1](#figure-14-1) shows the Iterator package
 hierarchy. The classes are described in the following paragraphs.
-
 
 ### 14.4.1 RectIter
 
 The `RectIter` interface represents an iterator for traversing a
 read-only image in top-to-bottom, left-to-right order ([Figure
-14-2](../extension)). The RectIter traversal will
+14-2](#figure-14-2)). The RectIter traversal will
 generally be the fastest style of iterator, since it does not need to
 perform bounds checks against the top or left edges of tiles. The
 `WritableRectIter` interface traverses a read/write image in the same
@@ -511,6 +390,7 @@ state by means of the `startLines()`, `startPixels()`, and
 `nextLine()`, `jumpLines()`, `nextPixel()`, `jumpPixels()`, and
 `nextBand()` methods.
 
+<a name="figure-14-1"></a>
 
 ------------------------------------------------------------------------
 
@@ -518,16 +398,15 @@ state by means of the `startLines()`, `startPixels()`, and
 
 ------------------------------------------------------------------------
 
+***Figure 14-1* Iterator Hierarchy**
 
-***Figure 14-1*  Iterator Hierarchy**
-
+<a name="figure-14-2"></a>
 
 ------------------------------------------------------------------------
 
 ![](Extension.doc.anc.gif)
 
 ------------------------------------------------------------------------
-
 
 ***Figure 14-2*  RectIter Traversal Pattern**
 
@@ -538,115 +417,23 @@ An instance of `RectIter` may be obtained by means of the
 `RectIterFactory.create()` method, which returns an opaque object
 implementing this interface.
 
-**API:** `org.eclipse.imagen.iterator.RectIte |
-|                                   | rFactory`
+**API:** `org.eclipse.imagen.iterator.RectIterFactory`
 
-    static RectIter create(RenderedImage im, Rectangle bounds)
+* `static RectIter create(RenderedImage im, Rectangle bounds)`
+* `static RectIter create(Raster ras, Rectangle bounds)`
+* `static WritableRectIter createWritable(WritableRenderedImage im, Rectangle bounds)`
+* `static WritableRectIter createWritable(WritableRaster ras, Rectangle bounds)`
 
-:   constructs and returns an instance of `RectIter` suitable for
-    iterating over the given bounding rectangle within the given
-    `RenderedImage` source. If the `bounds` parameter is null, the
-    entire image will be used.
-    *Parameters*:
-    `im`
-    A read-only `RenderedImage` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
+**API:** `org.eclipse.imagen.iterator.RectIter`
 
-
-    static RectIter create(Raster ras, Rectangle bounds)
-
-:   constructs and returns an instance of `RectIter` suitable for
-    iterating over the given bounding rectangle within the given
-    `Raster` source. If the `bounds` parameter is null, the entire
-    Raster will be used.
-    *Parameters*:
-    `ras`
-    A read-only `Raster` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
-
-    static WritableRectIter createWritable(WritableRenderedImage 
-           im, Rectangle bounds)
-
-:   constructs and returns an instance of `WritableRectIter` suitable
-    for iterating over the given bounding rectangle within the given
-    `WritableRenderedImage` source. If the `bounds` parameter is null,
-    the entire image will be used.
-    *Parameters*:
-    `im`
-    A `WritableRenderedImage` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
-
-    static WritableRectIter createWritable(WritableRaster ras, 
-           Rectangle bounds)
-
-:   constructs and returns an instance of `WritableRectIter` suitable
-    for iterating over the given bounding rectangle within the given
-    `WritableRaster` source. If the `bounds` parameter is null, the
-    entire `Raster` will be used.
-    *Parameters*:
-    `ras`
-    A `WritableRaster` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
-**API:** `org.eclipse.imagen.iterator.RectIte |
-|                                   | r`
-
-    void startLines()
-
-:   sets the iterator to the first line of its bounding rectangle. The
-    pixel and band offsets are unchanged.
-
-
-    void startPixels()
-
-:   sets the iterator to the leftmost pixel of its bounding rectangle.
-    The line and band offsets are unchanged.
-
-
-    void startBands()
-
-:   sets the iterator to the first band of the image. The pixel column
-    and line are unchanged.
-
-
-    void nextLine()
-
-:   sets the iterator to the next line of the image. The pixel and
-    band offsets are unchanged. If the iterator passes the bottom line
-    of the rectangles, calls to `get()` methods are not valid.
-
-
-    void jumpLines(int num)
-
-:   jumps downward `num` lines from the current position. The `num`
-    parameter may be negative. The pixel and band offsets are
-    unchanged.
-
-
-    void nextPixel()
-
-:   sets the iterator to the next pixel in the image (that is, move
-    rightward). The line and band offsets are unchanged.
-
-
-    void jumpPixels(int num)
-
-:   jumps rightward `num` pixels from the current position. The `num`
-    parameter may be negative. The line and band offsets are
-    unchanged.
-
-
-    void nextBand()
-
-:   sets the iterator to the next band in the image. The pixel column
-    and line are unchanged.
-
+* `void startLines()`
+* `void startPixels()`
+* `void startBands()`
+* `void nextLine()`
+* `void jumpLines(int num)`
+* `void nextPixel()`
+* `void jumpPixels(int num)`
+* `void nextBand()`
 
 ### 14.4.2 RookIter
 
@@ -674,6 +461,7 @@ methods. As with `RectIter`, its position may be advanced using the
 `nextLine()`, `jumpLines()`, `nextPixel()`, `jumpPixels()`, and
 `nextBand()` methods.
 
+<a name="figure-14-3"></a>
 
 ------------------------------------------------------------------------
 
@@ -681,66 +469,14 @@ methods. As with `RectIter`, its position may be advanced using the
 
 ------------------------------------------------------------------------
 
-
 ***Figure 14-3*  RookIter Traversal Patterns**
 
-**API:** 
-|                                   | `avax.media.jai.iterator.RookIter |
-|                                   | Factory`                          |
+**API:** `org.eclipse.imagen.media.iterator.RookIterFactory`
 
-    static RookIter create(RenderedImage im, Rectangle bounds)
-
-:   constructs and returns an instance of `RookIter` suitable for
-    iterating over the given bounding rectangle within the given
-    `RenderedImage` source. If the `bounds` parameter is null, the
-    entire image will be used.
-    *Parameters*:
-    `im`
-    A read-only `RenderedImage` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
-
-    static RookIter create(Raster ras, Rectangle bounds)
-
-:   constructs and returns an instance of `RookIter` suitable for
-    iterating over the given bounding rectangle within the given
-    `Raster` source. If the bounds parameter is null, the entire
-    `Raster` will be used.
-    *Parameters*:
-    `ras`
-    A read-only `Raster` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
-
-    static WritableRookIter createWritable(WritableRenderedImage 
-           im, Rectangle bounds)
-
-:   constructs and returns an instance of `WritableRookIter` suitable
-    for iterating over the given bounding rectangle within the given
-    `WritableRenderedImage` source. If the `bounds` parameter is null,
-    the entire image will be used.
-    *Parameters*:
-    `im`
-    A `WritableRenderedImage` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
-
-    static WritableRookIter createWritable(WritableRaster ras, 
-           Rectangle bounds)
-
-:   constructs and returns an instance of `WritableRookIter` suitable
-    for iterating over the given bounding rectangle within the given
-    `WritableRaster` source. If the `bounds` parameter is null, the
-    entire `Raster` will be used.
-    *Parameters*:
-    `ras`
-    A `WritableRaster` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
+* `static RookIter create(RenderedImage im, Rectangle bounds)`
+* `static RookIter create(Raster ras, Rectangle bounds)`
+* `static WritableRookIter createWritable(WritableRenderedImage im, Rectangle bounds)`
+* `static WritableRookIter createWritable(WritableRaster ras, Rectangle bounds)`
 
 ### 14.4.3 RandomIter
 
@@ -760,195 +496,23 @@ The `getSample()`, `getSampleFloat()`, and `getSampleDouble()` methods
 are provided to allow read-only access to the source data. The
 `getPixel()` methods allow retrieval of all bands simultaneously.
 
-**API:** `org.eclipse.imagen.iterator.RandomI |
-|                                   | terFactory`
+**API:** `org.eclipse.imagen.iterator.RandomIterFactory`
 
-    static RandomIter create(RenderedImage im, Rectangle bounds)
-
-:   constructs and returns an instance of `RandomIter` suitable for
-    iterating over the given bounding rectangle within the given
-    `RenderedImage` source. If the `bounds` parameter is null, the
-    entire image will be used.
-    *Parameters*:
-    `im`
-    A read-only `RenderedImage` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
-
-    static RandomIter create(Raster ras, Rectangle bounds)
-
-:   constructs and returns an instance of `RandomIter` suitable for
-    iterating over the given bounding rectangle within the given
-    `Raster` source. If the `bounds` parameter is null, the entire
-    `Raster` will be used.
-    *Parameters*:
-    `ras`
-    A read-only `Raster` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
-
-    static WritableRandomIter createWritable(WritableRenderedImage 
-           im, Rectangle bounds)
-
-:   constructs and returns an instance of `WritableRandomIter`
-    suitable for iterating over the given bounding rectangle within
-    the given `WritableRenderedImage` source. If the `bounds`
-    parameter is null, the entire image will be used.
-    *Parameters*:
-    `im`
-    A `WritableRenderedImage` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
-
-    static WritableRandomIter createWritable(WritableRaster ras, 
-           Rectangle bounds)
-
-:   constructs and returns an instance of `WritableRandomIter`
-    suitable for iterating over the given bounding rectangle within
-    the given `WritableRaster` source. If the `bounds` parameter is
-    null, the entire Raster will be used.
-    *Parameters*:
-    `ras`
-    A read-only `Raster` source.
-    `bounds`
-    The bounding `Rectangle` for the iterator, or null.
-
+* `static RandomIter create(RenderedImage im, Rectangle bounds)`
+* `static RandomIter create(Raster ras, Rectangle bounds)`
+* `static WritableRandomIter createWritable(WritableRenderedImage im, Rectangle bounds)`
+* `static WritableRandomIter createWritable(WritableRaster ras, Rectangle bounds)`
 
 ### 14.4.4 Example RectIter
 
-[Listing 14-3](../extension) shows an example of the
+[Listing 14-3](#listing-14-3) shows an example of the
 construction of a new `RectIter`.
 
-**[]{#57929}**
+***Listing 14-3*  Example RectIter** <a name="listing-14-3"></a>
 
-***Listing 14-3*  Example RectIter**
-
-------------------------------------------------------------------------
-
-         import java.awt.Rectangle;
-         import java.awt.image.ColorModel;
-         import java.awt.image.DataBuffer;
-         import java.awt.image.PixelInterleavedSampleModel;
-         import java.awt.image.SampleModel;
-         import java.util.Random;
-         import org.eclipse.imagen.*;
-         import org.eclipse.imagen.iterator.*;
-
-         class RectIterTest {
-
-             int width = 10;
-             int height = 10;
-             int tileWidth = 4;
-             int tileHeight = 4;
-
-             public static void main(String[] args) {
-                 new RectIterTest();
-             }
-
-             public RectIterTest() {
-
-                 Random rand = new Random(1L);
-                 Rectangle rect = new Rectangle();
-
-                 int[] bandOffsets = { 2, 1, 0 };
-                 SampleModel sampleModel =
-                     new PixelInterleavedSampleModel(DataBuffer.TYPE_BYTE,
-                                                     tileWidth, tileHeight,
-                                                     3, 3*tileWidth,
-                                                     bandOffsets);
-                 ColorModel colorModel = null;
-
-                 TiledImage im = new TiledImage(0, 0, width, height, 0, 0,
-                                                sampleModel,
-                                                colorModel);
-
-                 int[][][] check = new int[width][height][3];
-                 int x, y, b;
-
-                 for (int i = 0; i < 10; i++) {
-                     rect.x = rand.nextInt(width);
-                     rect.width = rand.nextInt(width - rect.x) + 1;
-
-                     rect.y = rand.nextInt(height);
-                     rect.height = rand.nextInt(height - rect.y) + 1;
-
-         System.out.println("Filling rect " + rect + " with " + i);
-
-         WritableRectIter witer = RectIterFactory.createWritable(im,
-                                                                 rect);
-
-                     b = 0;
-                     witer.startBands();
-                     while (!witer.finishedBands()) {
-                         y = rect.y;
-                         witer.startLines();
-                         while (!witer.finishedLines()) {
-                             x = rect.x;
-                             witer.startPixels();
-                             while (!witer.finishedPixels()) {
-                                 witer.setSample(i);
-                                 check[x][y][b] = i;
-
-                                 ++x;
-                                 witer.nextPixel();
-                             }
-
-                             ++y;
-                             witer.nextLine();
-                         }
-
-                         ++b;
-                         witer.nextBand();
-                     }
-                 }
-
-                 rect.x = 0;
-                 rect.y = 0;
-                 rect.width = width;
-                 rect.height = height;
-                 RectIter iter = RectIterFactory.createWritable(im, rect);
-
-                 b = 0;
-                 iter.startBands();
-                 while (!iter.finishedBands()) {
-                     System.out.println();
-
-                     y = 0;
-                     iter.startLines();
-                     while (!iter.finishedLines()) {
-
-                         x = 0;
-                         iter.startPixels();
-                         while (!iter.finishedPixels()) {
-                             int val = iter.getSample();
-                             System.out.print(val);
-
-                             if (val != check[x][y][b]) {
-                             System.out.print("(" + check[x][y][b] + ")  ");
-                             } else {
-                                 System.out.print("     ");
-                             }
-
-                             ++x;
-                             iter.nextPixel();
-                         }
-
-                         ++y;
-                         iter.nextLine();
-                         System.out.println();
-                     }
-
-                     ++b;
-                     iter.nextBand();
-                 }
-             }
-         }
-
-------------------------------------------------------------------------
-
+```java`
+% relative-include RectIterTest.java %}
+```
 
 14.5 Writing New Image Decoders and Encoders
 -----------------------------------------------------------------
@@ -957,30 +521,19 @@ The `sample` directory contains an example of how to create a new
 image codec. The example is of a PNM codec, but can be used as a basis
 for creating any codec. The PNM codec consists of three files:
 
-  ------------------------------------------------------------------------------------------------------------------------------------------------
-  [File Name]{#58309}                     [Description]{#58311}
-  --------------------------------------- --------------------------------------------------------------------------------------------------------
-  SamplePNMCodec.java          Defines a subclass of ImageCodec for handling the PNM family of image files.
-
-  SamplePNMImageDecoder.java   Defines an ImageDecoder for the PNM family of image files. Necessary for reading PNM files.
-
-  SamplePNMImageEncoder.java   Defines an ImageEncoder for the PNM family of image files. Necessary for writing PNM files.
-  ------------------------------------------------------------------------------------------------------------------------------------------------
-
-  : 
-
+| File Name | Description |
+| --------- | ----------- |
+| SamplePNMCodec.java | Defines a subclass of ImageCodec for handling the PNM family of image files. |
+| SamplePNMImageDecoder.java |  Defines an ImageDecoder for the PNM family of image files. Necessary for reading PNM files. |
+| SamplePNMImageEncoder.java | Defines an ImageEncoder for the PNM family of image files. Necessary for writing PNM files. |
 
 ### 14.5.1 Image Codecs
-
-------------------------------------------------------------------------
 
 **Note:** The codec classes are provided for the developer as a
 convenience for file IO. These classes are not part of the official
 Java Advanced Imaging API and are subject to change as a result of the
 near future File IO extension API. Until the File IO extension API is
-defined, these classes and functions will be supported for JAI use.
-
-------------------------------------------------------------------------
+defined, these classes and functions will be supported for ImageN use.
 
 The `ImageCodec` class allows the creation of image decoders and
 encoders. Instances of `ImageCodec` may be registered by name. The
@@ -1002,84 +555,13 @@ The `getCodec` method returns the `ImageCodec` associated with a given
 name. If no codec is registered with the given name, `null` is
 returned.``
 
-**API:** 
-|                                   | `org.eclipse.imagen.media.codec.ImageCod |
-|                                   | ec`                               |
+**API:** `org.eclipse.imagen.media.codec.ImageCodec`
 
-    static ImageEncoder createImageEncoder(String name, 
-           OutputStream dst, ImageEncodeParam param)
-
-:   returns an `ImageEncoder` object suitable for encoding to the
-    supplied `OutputStream`, using the supplied `ImageEncodeParam`
-    object.
-    *Parameter*:
-    `name`
-    The name associated with the codec.
-    `dst`
-    An `OutputStream` to write to.
-    `param`
-    An instance of ImageEncodeParam suitable for use with the named
-    codec, or null.
-
-
-    static ImageEncoder createImageEncoder(String name, 
-           OutputStream dst)
-
-:   returns an `ImageEncoder` object suitable for encoding to the
-    supplied `OutputStream` object. A null `ImageEncodeParam` is used.
-
-
-    static ImageDecoder createImageDecoder(String name, 
-           InputStream  src, ImageDecodeParam param)
-
-:   returns an `ImageDecoder` object suitable for decoding from the
-    supplied `InputStream`, using the supplied `ImageDecodeParam`
-    object.
-    *Parameter*:
-    `name`
-    The name associated with the codec.
-    `src`
-    An `InputStream` to read from.
-    `param`
-    An instance of ImageEncodeParam suitable for use with the named
-    codec, or null.
-
-
-    static ImageDecoder createImageDecoder(String name, 
-           InputStream  src)
-
-:   returns an `ImageDecoder` object suitable for decoding from the
-    supplied `InputStream`. A null `ImageDecodeParam` is used.
-
-
-    static void registerCodec(String name, ImageCodec codec)
-
-:   associates an `ImageCodec` with the given name. Case is not
-    significant. Any codec previously associated with the name is
-    discarded.
-    *Parameter*:
-    `name`
-    The name associated with the codec.
-    `codec`
-    The `ImageCodec` object to be associated with the given name.
-
-
-    static void unregisterCodec(String name)
-
-:   removes the association between a given `name` and an `ImageCodec`
-    object. Case is not significant.
-
-
-    static ImageCodec getCodec(String name)
-
-:   returns the `ImageCodec` associated with the given name. If no
-    codec is registered with the given name, null is returned. Case is
-    not significant.
-      -------------- -------- -------------------------------------
-      *Parameter*:   `name`   The name associated with the codec.
-      -------------- -------- -------------------------------------
-
-      : 
-
-------------------------------------------------------------------------
+* `static ImageEncoder createImageEncoder(String name, OutputStream dst, ImageEncodeParam param)`
+* `static ImageEncoder createImageEncoder(String name, OutputStream dst)`
+* `static ImageDecoder createImageDecoder(String name, InputStream  src, ImageDecodeParam param)`
+* `static ImageDecoder createImageDecoder(String name, InputStream  src)`
+* `static void registerCodec(String name, ImageCodec codec)`
+* `static void unregisterCodec(String name)`
+* `static ImageCodec getCodec(String name)`
 

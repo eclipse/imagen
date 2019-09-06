@@ -92,8 +92,7 @@ one at a time, cycles are easily avoided. However, when reconfiguring
 a graph, you must be careful not to introduce cycles into the graph.
 
 
-3.3 Processing Graphs
-------------------------------------------
+## 3.3 Processing Graphs
 
 ImageN extends rendering independence, which was introduced in the Java
 2D API. With rendering independence, you have the ability to describe
@@ -123,15 +122,12 @@ size; ImageN takes care of the details of the operations.
 
 ImageN introduces two different types of graphs: rendered and renderable.
 
-------------------------------------------------------------------------
-
-**Note:** The following two sections, \"[Rendered
+> **Note:** The following two sections, \"[Rendered
 Graphs](#331-rendered-graphs)\" and \"[Renderable
 Graphs](#332=renderable-graphs),\" are for advanced ImageN
 users. Most programmers will use ImageN\'s Rendered mode and don\'t
 really need to know about the Renderable mode.
 
-------------------------------------------------------------------------
 
 <a name="rendered"></a>
 
