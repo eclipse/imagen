@@ -22,3 +22,5 @@ OperationBuilder may also be used directly:
 RenderedImage image = new OperationBuilder("Affine").source(source).parameter("affine", affine)
         .hint(Interpolation.BILINEAR).build();
 ```
+
+For more details and an example see [ImageN Builder API Design](design.md).
