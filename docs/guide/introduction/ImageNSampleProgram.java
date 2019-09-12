@@ -62,7 +62,7 @@ public class ImageNSampleProgram {
         ScrollingImagePanel panel = new ScrollingImagePanel(
                                         image2, width, height);
         /* Create a frame to contain the panel. */
-        Frame window = new Frame("JAI Sample Program");
+        Frame window = new Frame("ImageN Sample Program");
         window.add(panel);
         window.pack();
         window.show();
