@@ -13,3 +13,4 @@ build
 *.zip
 hs_err_pid*
 workspace
+.DS_Store
